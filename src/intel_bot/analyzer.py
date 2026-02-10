@@ -173,7 +173,7 @@ def analyze_competitor(
                     {"role": "user", "content": user_prompt},
                 ],
                 temperature=0.2,
-                max_tokens=4096,
+                max_tokens=16384,
             )
             raw = response.choices[0].message.content or ""
             return _parse_response(raw)
