@@ -3,9 +3,9 @@ layout: default
 title: W&B Weave 경쟁사 인텔리전스 보고서
 ---
 
-# Competitor Intel Bot
+# 경쟁사 인텔리전스 봇 (Competitor Intel Bot)
 
-[상세 비교](./comparison) · [제품 세부 정보](./competitor-detail) · [경쟁 인텔리전스 (내부)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)
+[상세 비교](./comparison) · [제품 상세](./competitor-detail) · [경쟁 인텔리전스 (내부)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)
 
 ## 최신 보고서
 
@@ -14,60 +14,60 @@ title: W&B Weave 경쟁사 인텔리전스 보고서
 [📋 최신 보고서 (2026-02-11)](./reports/2026-02-11.md)
 
 
-- LangSmith와 Langfuse는 '에이전트 시각화' 분야에서 우위를 점하고 있으며, 전용 그래프 뷰와 상태 디버거(예: LangGraph Studio)를 제공하여 Weave의 선형 트레이스 트리보다 복잡한 루핑 에이전트에 대해 더 나은 이해도를 제공합니다.
-- Braintrust와 Helicone은 '게이트웨이' 기능(캐싱, 속도 제한, 프록시)으로 성공적인 차별화를 꾀하며 관측성을 인프라 계층으로 확장하고 있습니다. 이는 현재 Weave에 부족한 기능입니다.
-- Weave와 W&B Training의 통합은 여전히 가장 강력한 경쟁 우위로 남아 있으며, Arize Phoenix나 LangSmith와 같은 독립형 경쟁사가 기본적으로 복제할 수 없는 고유한 '프로덕션-투-파인튜닝(Production-to-Fine-tuning)' 워크플로우를 제공합니다.
-- Logfire는 '매직' 자동 계측(auto-instrumentation)을 통해 Python/Pydantic 개발자 세그먼트를 빠르게 점유하고 있으며, 벤더 SDK보다 표준 라이브러리 통합을 선호하는 코드 우선 엔지니어링 팀들 사이에서 Weave의 채택을 위협하고 있습니다.
-- LangSmith와 Braintrust는 '휴먼 인 더 루프(Human-in-the-Loop)' 워크플로우(주석 큐, 칸반 리뷰)를 크게 성숙시켰으며, 이는 수동 평가 및 데이터 큐레이션 사용 사례에서 Weave와의 격차를 만들고 있습니다.
-- 시장은 '인프라/게이트웨이' 제공업체(Helicone, Braintrust)와 '워크플로우/에이전트' 플랫폼(LangSmith, Langfuse)으로 양분되고 있습니다. Weave는 샌드위치 압박을 피하기 위해 '모델 개선(Model Improvement)' 플랫폼으로서의 입지를 명확히 해야 합니다.
+- Weave는 2026년 2월 오디오 모니터(Audio Monitors) 출시를 통해 멀티모달 기능을 차별화하고 있으며, 이는 LangSmith 및 Arize Phoenix와 같은 경쟁사들의 텍스트 중심 평가 포커스를 넘어서는 행보입니다.
+- Weave Playground에 커스텀 LoRA를 통합함으로써 W&B만의 고유한 '훈련에서 추론까지(Training-to-Inference)'의 해자를 강화했습니다. 이는 Langfuse, Logfire와 같은 순수 관측성(Observability) 도구들이 따라올 수 없는 미세 조정(Fine-tuned) 모델 평가 워크플로우를 제공합니다.
+- LangSmith와 Langfuse는 복잡한 워크플로우를 위한 전용 그래프 뷰를 통해 '에이전트 시각화(Agent Visualization)' 분야에서 우위를 점하고 있습니다. Weave의 선형 트레이스(Trace) 뷰는 정교한 에이전트 루프를 디버깅하기에는 다소 뒤처진 느낌을 줄 위험이 있습니다.
+- Braintrust와 Langfuse는 전용 '어노테이션 큐(Annotation Queues)'와 칸반(Kanban) 뷰를 통해 인간 참여형(Human-in-the-Loop, HITL) 워크플로우를 전문화했으며, 이는 대규모 수동 라벨링 작업에서 Weave와의 격차를 만들고 있습니다.
+- Arize Phoenix는 로컬 우선 기능(CLI, 노트북 지원)과 특화된 '도구 선택(Tool Selection)' 메트릭을 통해 'AI 엔지니어' 페르소나를 공격적으로 공략하며, 실험 단계에서의 Weave의 지배력에 도전하고 있습니다.
+- Helicone과 Braintrust는 비용에 민감한 엔지니어링 팀을 공략하기 위해 'AI 프록시' 아키텍처(캐싱, 속도 제한)를 계속 활용하고 있으며, 이는 Weave의 SDK 기반 접근 방식으로는 해결하지 못하는 기능입니다.
 
-> Weave는 W&B 에코시스템을 통한 **파인튜닝 피드백 루프**에서 앞서 나가고 있지만, **에이전트 워크플로우 시각화** 측면에서는 **LangSmith**, **엔터프라이즈 게이트웨이 인프라** 측면에서는 **Braintrust**로부터 거센 압박을 받고 있습니다.
+> Weave는 독보적인 LoRA 및 멀티모달 기능을 통해 '훈련에서 추론까지' 이어지는 플라이휠에서 앞서 나가고 있으나, 에이전트 시각화 및 인간 참여형 어노테이션 워크플로우 측면에서는 LangSmith와 Langfuse로부터 거센 압박을 받고 있습니다.
 
 
 <!-- LATEST_REPORT_END -->
 
 ## 신규 기능 (최근 30일)
 
-### Weave
+### [Weave](https://app.getbeamer.com/weave/en)
 
-- **Stats Clickhouse 쿼리 레이어**: 통계 데이터 처리를 위한 백엔드 쿼리 레이어 개선으로 대시보드 성능이 향상될 것으로 보입니다. (2026-01-20)
-- **OTel 내보내기 개선**: 안정성 및 표준 준수를 위해 OpenTelemetry 내보내기를 비동기 삽입(async inserts) 방식에서 변경했습니다. (2026-01-08)
+- **오디오 모니터 (Audio monitors)**: LLM 심사위원을 사용하여 오디오 출력(MP3/WAV)을 평가하는 기능을 지원하여 보이스 에이전트에 대한 관측성을 확보했습니다. (2026-02-01) [[문서]](https://wandb.ai/onlineinference/genai-research/reports/A-guide-to-LLM-debugging-tracing-and-monitoring--VmlldzoxMzk1MjAyOQ)
+- **동적 리더보드 (Dynamic Leaderboards)**: 지속적인 필터링 및 커스터마이징 옵션을 갖춘 평가 기반 자동 생성 리더보드입니다. (2026-01-29) [[문서]](https://wandb.ai/onlineinference/genai-research/reports/A-guide-to-LLM-debugging-tracing-and-monitoring--VmlldzoxMzk1MjAyOQ)
+- **Playground 내 커스텀 LoRA**: Weave Playground에서 직접 미세 조정된 커스텀 LoRA 가중치를 로드하고 테스트할 수 있는 기능입니다. (2026-01-16) [[문서]](https://wandb.ai/onlineinference/genai-research/reports/A-guide-to-LLM-debugging-tracing-and-monitoring--VmlldzoxMzk1MjAyOQ)
 
-### LangSmith
+### [LangSmith](https://changelog.langchain.com/feed.rss)
 
-- **트레이스 미리보기 커스텀**: 사용자가 트레이스 테이블에 직접 표시될 입력 및 출력의 일부를 구성할 수 있게 되어, 커스텀 데이터 구조의 사용성이 개선되었습니다. (2026-02-06)
-- **LangSmith 셀프 호스팅 v0.13**: 클라우드 버전과의 기능 동등성, 성능 및 운영 제어 능력을 향상시킨 셀프 호스팅 고객용 주요 릴리스입니다. (2026-01-16)
+- **트레이스 미리보기 커스터마이징**: UI에서 트레이스가 미리 보이는 방식을 사용자 정의할 수 있는 기능입니다. (2026-02-06)
+- **LangSmith 셀프 호스팅 v0.13**: 셀프 호스팅 엔터프라이즈 버전 업데이트입니다. (2026-01-16)
+- **클라이언트 라이브러리 v0.7.1**: 안정성 향상 및 OIDC 지원을 위한 JS/Python SDK 업데이트입니다. (2026-02-10)
 
-### Arize Phoenix
+### [Arize Phoenix](https://arize.com/docs/phoenix/release-notes)
 
-- **Claude Opus 4.6 지원**: Playground에서 Claude Opus 4.6 모델 지원을 추가했습니다. (2026-02-09)
-- **도구 선택 평가기(Tool Selection Evaluator)**: 도구 선택 로직을 평가하기 위한 전용 평가기가 새로 추가되었습니다. (2026-02-06)
-- **충실도 평가기(Faithfulness Evaluator)**: 더 나은 RAG 평가를 위해 FaithfulnessEvaluator를 추가하고 HallucinationEvaluator를 지원 중단했습니다. (2026-02-02)
-- **도구 호출 정확도 지표**: 트레이스 내 도구 호출의 정확도를 추적하는 새로운 지표가 추가되었습니다. (2026-02-02)
-- **커스텀 메트릭 커서 규칙**: 커서 규칙을 통해 새로운 내장 지표(LLM 분류)를 생성할 수 있는 UI 업데이트가 진행되었습니다. (2026-01-21)
+- **Claude Opus 4.6 지원**: Playground에서 Anthropic의 Claude Opus 4.6 모델 지원 및 자동 비용 추적 기능을 추가했습니다. (2026-02-09) [[문서]](https://arize.com/docs/phoenix/release-notes)
+- **도구 선택 및 호출 평가기 (Tool Selection & Invocation Evaluators)**: 에이전트가 올바른 도구를 선택했는지, 유효한 파라미터로 호출했는지 판단하는 새로운 특화 평가기입니다. (2026-01-31) [[문서]](https://arize.com/docs/phoenix/release-notes)
+- **구성 가능한 이메일 추출 (OAuth2)**: Azure AD/Entra ID 통합을 위한 커스텀 이메일 추출 경로(예: preferred_username) 지원입니다. (2026-01-28) [[문서]](https://arize.com/docs/phoenix/release-notes)
+- **프롬프트/데이터셋용 CLI 명령어**: 프롬프트와 데이터셋을 나열, 조회 및 파이핑할 수 있는 새로운 CLI 명령어를 통해 터미널 기반 워크플로우를 지원합니다. (2026-01-22) [[문서]](https://arize.com/docs/phoenix/release-notes)
+- **스팬 연관 데이터셋 생성**: 원본 소스 스팬(Span)과의 양방향 링크를 유지하면서 트레이스로부터 데이터셋을 생성하는 기능입니다. (2026-01-21) [[문서]](https://arize.com/docs/phoenix/release-notes)
 
-### Braintrust
+### [Braintrust](https://braintrust.dev/docs/changelog)
 
-- **트레이스 레벨 스코어러**: 커스텀 코드 스코어러가 이제 전체 실행 트레이스에 접근하여 다단계 워크플로우와 에이전트 동작을 평가할 수 있습니다. (2026-02)
-- **LangSmith 통합**: LangSmith 트레이스를 Braintrust로 라우팅하는 래퍼를 제공하여 병행 사용 또는 마이그레이션을 지원합니다. (2026-02)
-- **Cursor 및 MCP 통합**: Cursor 에디터 및 Model Context Protocol과의 통합을 통해 IDE에서 로그를 쿼리하고 평가(evals)를 실행할 수 있습니다. (2026-02)
-- **자동 계측 (Python/Ruby/Go)**: Python, Ruby, Go SDK에서 주요 제공업체에 대한 코드 없는 트레이싱을 지원합니다. (2026-01)
-- **Temporal 통합**: 분산 에이전트 관측성을 위해 Temporal 워크플로우 및 액티비티의 자동 트레이싱을 지원합니다. (2026-01)
+- **트레이스 레벨 스코어러 (Trace-level scorers)**: 커스텀 코드 스코어러가 전체 실행 트레이스에 접근하여 다단계 워크플로우와 에이전트 동작을 평가할 수 있습니다. (2026-02) [[문서]](https://braintrust.dev/docs/changelog)
+- **LangSmith 통합**: LangSmith 트레이스를 Braintrust로 라우팅하여 병행 사용이나 마이그레이션을 지원하는 실험적 래퍼입니다. (2026-02) [[문서]](https://braintrust.dev/docs/changelog)
+- **자동 인스트루멘테이션 (Python/Ruby/Go)**: Python, Ruby, Go SDK에서 대부분의 제공자에 대해 코드 수정 없는 트레이싱을 지원합니다. (2026-01) [[문서]](https://braintrust.dev/docs/changelog)
+- **Temporal 통합**: Temporal 워크플로우 및 액티비티 자동 트레이싱을 통해 워커 간 분산 트레이스를 캡처합니다. (2026-01) [[문서]](https://braintrust.dev/docs/changelog)
+- **리뷰용 칸반 레이아웃**: 드래그 앤 드롭 카드를 통해 플래그가 지정된 스팬의 상태를 관리하는 새로운 UI입니다. (2026-01) [[문서]](https://braintrust.dev/docs/changelog)
 
-### Langfuse
+### [Langfuse](https://langfuse.com/changelog)
 
-- **트레이스 출력 수정**: 파인튜닝 데이터셋 구축을 위해 트레이스 뷰에서 직접 개선된 버전의 LLM 출력을 캡처합니다. (2026-01-14)
-- **단일 관찰 평가**: 트레이스 내 개별 관찰(observation)에 대해 평가를 실행하는 기능을 지원합니다. (2026-02-09)
-- **생각 / 추론 렌더링**: 트레이스 상세 정보에서 모델 출력의 '생각(thinking)' 또는 추론 부분을 시각적으로 렌더링합니다. (2026-02-09)
-- **조직 감사 로그 뷰어**: 보안 및 액세스 이벤트를 추적하기 위한 조직 수준의 감사 로그 뷰어가 새로 추가되었습니다. (2026-02-09)
+- **트레이스용 수정된 출력 (Corrected Outputs)**: 트레이스 뷰에서 직접 개선된 버전의 LLM 출력을 캡처하여 미세 조정 데이터셋을 구축합니다. (2026-01-14) [[문서]](https://langfuse.com/changelog)
+- **추론/생각 트레이스 지원**: 트레이스 상세 정보에서 생각/추론 프로세스를 렌더링하며(v3.148.0), DeepSeek과 같은 모델을 지원합니다. (2026-01-27) [[문서]](https://github.com/langfuse/langfuse/pull/11615)
+- **단일 관측 평가 (Single Observation Evals)**: 단일 관측 단위에 대해 평가를 실행하는 기능을 지원합니다(v3.150.0). (2026-02-09) [[문서]](https://github.com/langfuse/langfuse/pull/11547)
 
-### Logfire
+### [Logfire](https://logfire.pydantic.dev/docs/release-notes)
 
-- **프로젝트 마이그레이션을 위한 멀티 토큰 지원**: 프로젝트 마이그레이션 워크플로우 중 여러 토큰을 처리하는 기능을 추가했습니다. (2026-02-04)
-- **OTel Gen AI 시맨틱 컨벤션**: OpenTelemetry Gen AI 시맨틱 컨벤션 스칼라 속성에 대한 지원을 추가했습니다. (2026-01-28)
-- **pytest 통합**: 테스트 실행 트레이스 캡처를 위한 pytest 기본 통합을 지원합니다. (2026-01-26)
-- **DSPy 통합**: DSPy 프레임워크에 대한 계측 지원을 추가했습니다. (2026-01-16)
-- **Claude SDK 계측**: Anthropic Claude SDK를 위한 전용 계측 기능을 추가했습니다. (2026-01-12)
+- **프로젝트 마이그레이션을 위한 멀티 토큰 지원**: 프로젝트 마이그레이션 워크플로우를 용이하게 하기 위해 여러 토큰 사용 기능을 추가했습니다. (2026-02-04) [[문서]](https://logfire.pydantic.dev/docs/release-notes)
+- **OTel Gen AI 시맨틱 컨벤션**: OpenTelemetry Gen AI 시맨틱 컨벤션 스칼라 속성에 대한 지원을 추가했습니다. (2026-01-28) [[문서]](https://logfire.pydantic.dev/docs/release-notes)
+- **Pytest 통합**: 테스트 실행 트레이싱을 위한 pytest 네이티브 통합입니다. (2026-01-26) [[문서]](https://logfire.pydantic.dev/docs/release-notes)
+- **DSPy 통합**: DSPy 프레임워크에 대한 인스트루멘테이션 지원을 추가했습니다. (2026-01-16) [[문서]](https://logfire.pydantic.dev/docs/release-notes)
 
 
 ## 보고서 아카이브
