@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Home
+title: Competitor intelligence reports for W&B Weave
 ---
 
 # Competitor Intel Bot

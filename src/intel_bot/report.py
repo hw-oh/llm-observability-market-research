@@ -524,7 +524,7 @@ def _write_full_index(index_file: Path, latest_content: str, archive_content: st
     content = (
         "---\n"
         "layout: default\n"
-        "title: Home\n"
+        "title: Competitor intelligence reports for W&B Weave\n"
         "---\n"
         "\n"
         "# Competitor Intel Bot\n"

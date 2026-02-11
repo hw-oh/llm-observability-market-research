@@ -5,7 +5,7 @@
   border-radius: 6px; padding: 4px 10px; font-size: 14px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-.home-btn { left: 16px; font-weight: 600; }
+.home-btn { left: 16px; }
 .home-btn a { text-decoration: none; color: #1e6bb8; }
 .home-btn a:hover { text-decoration: underline; }
 .lang-switcher { right: 16px; }
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var homeUrl = lang === 'en' ? baseUrl + '/' : baseUrl + '/' + lang + '/';
   var homeEl = document.createElement('div');
   homeEl.className = 'top-nav home-btn';
-  homeEl.innerHTML = '<a href="' + homeUrl + '">Competitor intelligence reports for W&B Weave</a>';
+  homeEl.innerHTML = '<a href="' + homeUrl + '">\uD83C\uDFE0 Home</a>';
   document.body.insertBefore(homeEl, document.body.firstChild);
 
   // Language switcher (top-right)
