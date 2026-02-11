@@ -529,8 +529,6 @@ def _write_full_index(index_file: Path, latest_content: str, archive_content: st
         "\n"
         "# Competitor Intel Bot\n"
         "\n"
-        "Competitor intelligence reports for W&B Weave\n"
-        "\n"
         "[Detailed Comparison](./comparison) · [Product Detail](./competitor-detail)\n"
         "\n"
         "## Latest Report\n"

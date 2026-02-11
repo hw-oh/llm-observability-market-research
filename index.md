@@ -5,8 +5,6 @@ title: Competitor intelligence reports for W&B Weave
 
 # Competitor Intel Bot
 
-Competitor intelligence reports for W&B Weave
-
 [Detailed Comparison](./comparison) · [Product Detail](./competitor-detail)
 
 ## Latest Report
