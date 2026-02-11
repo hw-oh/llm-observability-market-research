@@ -113,7 +113,7 @@ Rules:
 - Each category's "features" must include all sub-items for that category
 - "item_name" must use the exact names specified in the schema
 - Ratings must be one of "strong", "medium", "weak", "none"
-- "new_features": 0-5 items (recent product updates only, empty array if none)
+- "new_features": 0-5 items (product updates released within the last 30 days ONLY based on today's date {today}. Exclude anything older. Empty array if none.)
 - "strengths_vs_weave": 3-5 items
 - "weaknesses_vs_weave": 3-5 items
 - All text must be written in English
@@ -205,7 +205,7 @@ Rules:
 - "weave_strengths": 3-5 items (Weave's differentiating strengths derived from competitor analysis)
 - "weave_weaknesses": 3-5 items (areas where competitors lead, honest assessment)
 - "weave_positioning": Weave's own market positioning shift
-- "weave_new_features": 0-5 items (recent Weave updates mentioned in competitor data; empty array if none)
+- "weave_new_features": 0-5 items (Weave updates from the last 30 days ONLY based on today's date {today}. Empty array if none.)
 - "vendor_ratings" must include Weave and all analyzed vendors
 - "enterprise_signals": 3-5 items
 - "watchlist": 3-5 items
@@ -273,6 +273,7 @@ def _build_prompt(name: str, context: str) -> str:
         competitor_name=name,
         context=context,
         categories_schema=categories_schema,
+        today=date.today().isoformat(),
     )
 
 
@@ -354,6 +355,7 @@ def synthesize(
 
     user_prompt = _SYNTHESIS_USER_PROMPT_TEMPLATE.format(
         all_analyses_json=all_analyses_json,
+        today=date.today().isoformat(),
     )
 
     last_error: Exception | None = None
