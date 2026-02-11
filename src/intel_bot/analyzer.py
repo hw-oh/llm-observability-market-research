@@ -45,6 +45,13 @@ Rating scale:
 - "none": Not supported or not applicable (-)
 
 Analyze based on facts and cite specific feature names and capabilities.
+
+Tone guidelines:
+- Be balanced: acknowledge Weave's strengths honestly, then state competitive threats directly
+- Always name specific competitors when discussing threats (e.g., "facing pressure from LangSmith on X")
+- Use a "maintains lead in X, but faces pressure from Y on Z" structure for verdicts
+- Write as a strategist briefing the executive team — candid, not defensive or promotional
+
 Respond in English.\
 """
 
@@ -116,6 +123,12 @@ Rules:
 _SYNTHESIS_SYSTEM_PROMPT = """\
 You are a senior competitive intelligence analyst for the W&B Weave team.
 You synthesize multiple competitor analyses to derive cross-cutting insights.
+
+Tone guidelines:
+- Be balanced: acknowledge Weave's strengths honestly, then state competitive threats directly
+- Always name specific competitors when discussing threats (e.g., "facing pressure from LangSmith on X")
+- Write as a strategist briefing the executive team — candid, not defensive or promotional
+
 Respond in English.\
 """
 
@@ -135,7 +148,7 @@ Synthesize the above data and return a JSON object matching the schema below (no
     "Key insight 6 (optional)",
     "Key insight 7 (optional)"
   ],
-  "one_line_verdict": "One-line verdict on Weave's competitive position this week",
+  "one_line_verdict": "One-line verdict using 'Weave maintains/leads in [strength area], but faces [specific pressure] from [named competitors] on [specific area]' structure",
   "weave_summary": "2-3 sentence comprehensive summary of Weave. Explain Weave's positioning and core value vs competitors.",
   "weave_strengths": [
     "Strength a sales engineer could highlight about Weave 1",
@@ -187,7 +200,7 @@ Synthesize the above data and return a JSON object matching the schema below (no
 }}
 
 Rules:
-- "executive_summary": 5-7 bullets (include rich key insights)
+- "executive_summary": 5-7 bullets. Each bullet should name specific competitors and specific capability areas. Use a balanced analyst tone — acknowledge market shifts honestly and identify both opportunities and threats for Weave.
 - "weave_summary": Summarize product positioning from a Weave sales engineer's perspective
 - "weave_strengths": 3-5 items (Weave's differentiating strengths derived from competitor analysis)
 - "weave_weaknesses": 3-5 items (areas where competitors lead, honest assessment)
