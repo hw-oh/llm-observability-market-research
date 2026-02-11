@@ -14,13 +14,13 @@ title: W&B Weave — Detailed Feature Comparison
 
 | Feature | **Weave** | LangSmith | Arize Phoenix | Braintrust | Langfuse | Humanloop | Logfire | Helicone |
 |---|---|---|---|---|---|---|---|---|
-| Trace Depth | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●○ |
-| Hierarchical Spans | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● | ●○○ |
+| Trace Depth | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| Hierarchical Spans | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ |
 | Prompt Logging | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Response Logging | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Token Tracking | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Latency Analysis | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●● |
-| Replay | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ○○○ | ●●○ |
+| Replay | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● | ○○○ | ●●○ |
 
 ## Agent / RAG Observability
 
@@ -28,10 +28,10 @@ title: W&B Weave — Detailed Feature Comparison
 |---|---|---|---|---|---|---|---|---|
 | Tool Call Tracing | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●○ |
 | Retrieval Tracing | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●○ | ●●○ | ●○○ |
-| Memory Tracing | ●●○ | ●●● | ●●○ | ●●○ | ●●○ | ●○○ | ●●○ | ●●○ |
+| Memory Tracing | ●●○ | ●●● | ●●○ | ●●○ | ●●● | ●○○ | ●●○ | ●●○ |
 | Multi-step Reasoning | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●○ |
-| Workflow Graph | ●●○ | ●●● | ●●○ | ●●● | ●●● | ●○○ | ●●○ | ○○○ |
-| Failure Visualization | ●●● | ●●● | ●●● | ●●○ | ●●○ | ●●○ | ●●● | ●●○ |
+| Workflow Graph | ●●○ | ●●● | ●●● | ●●● | ●●● | ●○○ | ●●○ | ●○○ |
+| Failure Visualization | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●○ | ●●● | ●●○ |
 
 ## Evaluation Integration
 
@@ -40,9 +40,9 @@ title: W&B Weave — Detailed Feature Comparison
 | Trace→Dataset | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ | ●●○ |
 | LLM-as-Judge | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ | ●●○ |
 | Custom Eval Metrics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●○ |
-| Regression Detection | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ○○○ | ●○○ |
-| Model Comparison | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ○○○ | ●●○ |
-| Human Feedback UI | ●●○ | ●●● | ●●○ | ●●● | ●●● | ●●● | ●●○ | ●●● |
+| Regression Detection | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● | ○○○ | ●○○ |
+| Model Comparison | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ | ●●○ |
+| Human Feedback UI | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●○ |
 
 ## Monitoring & Metrics
 
@@ -50,21 +50,21 @@ title: W&B Weave — Detailed Feature Comparison
 |---|---|---|---|---|---|---|---|---|
 | Cost Dashboard | ●●○ | ●●● | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Token Analytics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Latency Monitoring | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●● |
+| Latency Monitoring | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Error Tracking | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●● |
-| Tool Success Rate | ●●○ | ●●● | ●●● | ●●○ | ●●● | ●○○ | ●●○ | ●●○ |
-| Custom Metrics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●● |
+| Tool Success Rate | ●●○ | ●●○ | ●●● | ●●○ | ●●○ | ●○○ | ●●○ | ●○○ |
+| Custom Metrics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●○ |
 
 ## Experiment / Improvement Loop
 
 | Feature | **Weave** | LangSmith | Arize Phoenix | Braintrust | Langfuse | Humanloop | Logfire | Helicone |
 |---|---|---|---|---|---|---|---|---|
-| Prompt Versioning | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● | ○○○ | ●●● |
-| Model Versioning | ●●● | ●●○ | ●●○ | ●●○ | ●●○ | ●●● | ○○○ | ●●○ |
+| Prompt Versioning | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ | ●●● |
+| Model Versioning | ●●● | ●●○ | ●●○ | ●●○ | ●●○ | ●●● | ●○○ | ●●○ |
 | Experiment Tracking | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ | ●●○ |
-| Dataset Versioning | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ○○○ | ●●○ |
-| Continuous Eval | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●○ | ○○○ | ●●○ |
-| RL/Fine-tuning Link | ●●● | ●●○ | ●○○ | ●○○ | ●●○ | ●●○ | ○○○ | ●○○ |
+| Dataset Versioning | ●●● | ●●● | ●●○ | ●●● | ●●● | ●●● | ○○○ | ●●○ |
+| Continuous Eval | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ | ●○○ |
+| RL/Fine-tuning Link | ●●● | ●○○ | ●○○ | ●○○ | ●●○ | ●●● | ○○○ | ○○○ |
 
 ## DevEx / Integration
 
@@ -81,10 +81,10 @@ title: W&B Weave — Detailed Feature Comparison
 
 | Feature | **Weave** | LangSmith | Arize Phoenix | Braintrust | Langfuse | Humanloop | Logfire | Helicone |
 |---|---|---|---|---|---|---|---|---|
-| On-prem/VPC | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● |
-| RBAC | ●●● | ●●● | ●●○ | ●●● | ●●● | ●●● | ●●○ | ●●○ |
-| PII Masking | ●●○ | ●●● | ●●○ | ●●○ | ●●● | ●●○ | ●●● | ●●● |
+| On-prem/VPC | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ | ●●● | ●●● |
+| RBAC | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●○ |
+| PII Masking | ●●○ | ●●○ | ●●○ | ●●● | ●●○ | ●●○ | ●●● | ●●○ |
 | Audit Logs | ●●● | ●●● | ●●○ | ●●● | ●●● | ●●○ | ●●○ | ●●○ |
-| Data Retention | ●●● | ●●● | ●●○ | ●●● | ●●● | ●●○ | ●●○ | ●●○ |
-| Region Support | ●●● | ●●○ | ●●○ | ●●○ | ●●● | ●●○ | ●●● | ●●● |
+| Data Retention | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●○ | ●●○ |
+| Region Support | ●●○ | ●●○ | ●●○ | ●●● | ●●● | ●●○ | ●●● | ●●● |
 
