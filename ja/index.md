@@ -3,9 +3,9 @@ layout: default
 title: W&B Weave 競合インテリジェンス・レポート
 ---
 
-# Competitor Intel Bot
+# 競合インテリジェンス・ボット
 
-[詳細な比較](./comparison) · [製品詳細](./competitor-detail) · [競合インテリジェンス (内部用)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)
+[詳細比較](./comparison) · [製品詳細](./competitor-detail) · [競合インテリジェンス (社内用)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)
 
 ## 最新レポート
 
@@ -14,61 +14,60 @@ title: W&B Weave 競合インテリジェンス・レポート
 [📋 最新レポート (2026-02-11)](./reports/2026-02-11.md)
 
 
-- Weave はマルチモーダル対応（Audio Monitors）で差別化を図っています。競合がテキストやツール中心に留まる中、ボイスエージェントのオブザーバビリティにおいてリードを広げています。
-- LangSmith と Langfuse は「エージェンティック・オブザーバビリティ」を積極的に深掘りしており、推論ステップや循環グラフの専用ビジュアライゼーションを導入し、Weave のトレースビューに圧力をかけています。
-- Braintrust と LangSmith は、専用のアノテーション・キューによって「Human-in-the-Loop」のナラティブを支配しています。これは Weave が現在、直接的にはあまり対応できていないワークフロー機能です。
-- Weave の「Dynamic Leaderboards」リリースは、モデル比較を自動化することで Braintrust の評価機能の成熟度に対抗しており、企業のモデル選定における重要なニーズに応えています。
-- 「オープンスタンダード」の脅威が増大しており、Arize Phoenix と Logfire は OpenTelemetry (OTLP) を活用して、ベンダー固有の計装を避けたいチームにアピールしています。
-- Weave は W&B Training/Artifacts との深い統合により、独自の防御壁を維持しています。これにより、競合がエクスポート経由でしかサポートできない「ファインチューニングによる修正（Fix-by-Fine-tuning）」ループをネイティブに提供しています。
-- LangSmith が LangGraph Platform を「Deployment」へとリブランドしたことは、ランタイムレイヤーの所有へのシフトを意味しており、純粋なオブザーバビリティ・プレイヤーをコモディティ化する恐れがあります。
+- Weave がオーディオ・モニターを導入（2026年2月）したことで、明確なマルチモーダルな優位性が生まれました。LangSmith や Langfuse といった競合は、依然として主にテキストやツールに焦点を当てています。
+- MLflow が「継続的オンライン・モニタリング」と「ジャッジ・ビルダー」をリリース（2026年1月）し、本番環境から評価へのループを積極的にターゲットにしています。これは Databricks ユーザーにとっての「デフォルト」ソリューションとして、Weave の自動化機能に挑戦するものです。
+- LangSmith は、ネイティブな LangGraph 統合により、エージェントの可視化において支配を続けています。Weave の線形トレース・ビューは、LangSmith の循環グラフ・ビューや Arize Phoenix の新しいツール特化型エバリュエーターからの圧力に直面しています。
+- Braintrust は、「ユニバーサル」なエンタープライズ・サポート（Java、Go、C# SDK）と深い IDE 統合（Cursor）を通じて差別化に成功しており、大規模で多言語を使用するエンジニアリング組織における Weave のシェアを脅かしています。
+- Langfuse の「Prompt CMS」と（ClickHouse を基盤とした）詳細なコスト分析は、非技術的なステークホルダーやコスト意識の高いチームへの対応において、引き続き Weave を上回っています。
+- Weave が Playground にカスタム LoRA を統合（2026年1月）したことは、独自の「トレーニングから推論まで」の堀（モート）を強化するものであり、これは純粋なオブザーバビリティ・ベンダー（LangSmith、Arize Phoenix）には真似できない機能です。
 
-> Weave はマルチモーダル・オブザーバビリティとトレーニング統合においてリードしていますが、エージェントの可視化については LangSmith から、エンタープライズ評価ワークフローについては Braintrust から、それぞれ特有の圧力を受けています。
+> Weave はマルチモーダル評価とトレーニングから推論までのワークフローでリードしていますが、エージェントの可視化では LangSmith から、自動化された本番モニタリングでは MLflow からの激しい圧力にさらされています。
 
 
 <!-- LATEST_REPORT_END -->
 
 ## 新機能 (直近30日間)
 
-### [Weave](https://app.getbeamer.com/weave/en)
+### [Weave](https://app.getbeamer.com/wandb/en)
 
-- **Audio Monitors**: テキストと並行して音声出力を監視・判定するモニターの作成をサポートし、ボイスエージェントの評価を可能にしました。(2026-02-01)
-- **Dynamic Leaderboards**: 評価からリーダーボードを自動生成し、永続的なカスタマイズとCSVエクスポートに対応しました。(2026-01-29)
-- **Playground でのカスタム LoRA**: W&B Artifacts からカスタムのファインチューニング済み LoRA 重みを Weave Playground で直接使用できるようになりました。(2026-01-16)
+- **オーディオ・モニター**: オーディオ対応 LLM を使用して、テキストと並行してオーディオ出力を監視・判定するモニターを作成する機能をサポート。(2026-02-01)
+- **ダイナミック・リーダーボード**: 評価から自動生成されるリーダーボード。永続的なカスタマイズと CSV エクスポートが可能。(2026-01-29)
+- **Playground でのカスタム LoRA**: W&B Artifacts からファインチューニング済みのカスタム LoRA 重みを直接 Weave Playground にロードして推論する機能。(2026-01-16)
 
 ### [LangSmith](https://changelog.langchain.com)
 
-- **トレースプレビューのカスタマイズ**: UI でのトレースのプレビュー方法をカスタマイズできるようになり、トリアージの速度が向上しました。(2026-02-06) [[docs]](https://docs.smith.langchain.com/observability)
-- **LangSmith セルフホスト版 v0.13**: 安定性の向上と新機能を含むセルフホスト版のアップデート。(2026-01-16) [[docs]](https://docs.smith.langchain.com/self_hosting)
-
-### [Arize Phoenix](https://arize.com/docs/phoenix/release-notes)
-
-- **Claude Opus 4.6 サポート**: Playground で Anthropic の Claude Opus 4.6 モデルをサポートし、自動コスト追跡に対応しました。(2026-02-09) [[docs]](https://docs.arize.com/phoenix/release-notes)
-- **ツール選択・呼び出しエバリュエーター**: エージェントが正しいツールを選択し、有効なパラメータで呼び出したかを評価する新しい専用エバリュエーター。(2026-01-31) [[docs]](https://docs.arize.com/phoenix/release-notes)
-- **プロンプト・データセット用 CLI**: プロンプトやデータセットのリスト表示、閲覧、パイプ処理を行う CLI コマンド。AI コーディングアシスタントとの統合を可能にします。(2026-01-22) [[docs]](https://docs.arize.com/phoenix/release-notes)
-- **トレースからのデータセット作成**: ソーススパンへの双方向リンクを保持したまま、トレースから直接データセットを作成する機能。(2026-01-21) [[docs]](https://docs.arize.com/phoenix/release-notes)
-- **トレースと共のアノテーション・エクスポート**: オフライン分析のために、人間によるフィードバックやアノテーションをトレースと共にエクスポートする CLI サポート。(2026-01-19) [[docs]](https://docs.arize.com/phoenix/release-notes)
-
-### [Braintrust](https://braintrust.dev/docs/changelog)
-
-- **トレースレベル・スコアラー**: カスタムコード・スコアラーが実行トレース全体にアクセスできるようになり、マルチステップのワークフローやエージェントの挙動を評価可能になりました。(2026-02) [[docs]](https://braintrust.dev/docs/changelog)
-- **LangSmith 統合 (実験的)**: LangSmith のトレースおよび評価コールを Braintrust にルーティングするラッパー。二重ログ記録や移行を可能にします。(2026-02) [[docs]](https://braintrust.dev/docs/changelog)
-- **自動計装 (Python, Ruby, Go)**: Python、Ruby、Go SDK において、ほとんどのプロバイダーでコード変更なしのトレースが可能になりました。(2026-01) [[docs]](https://braintrust.dev/docs/changelog)
-- **Temporal 統合**: Temporal のワークフローとアクティビティを自動トレースし、実行スパンと分散トレースをキャプチャします。(2026-01) [[docs]](https://braintrust.dev/docs/changelog)
-- **トレースの起点へのナビゲート**: ログ内のトレースから、起点のプロンプトやデータセットの行へリンクし、迅速なイテレーションを可能にします。(2026-02) [[docs]](https://braintrust.dev/docs/changelog)
+- **トレース・プレビューのカスタマイズ**: ダッシュボードでのトレース・プレビューの表示方法をユーザーがカスタマイズできる UI アップデート。(2026-02-06)
+- **LangSmith セルフホスト v0.13**: セルフホスト型エンタープライズ・インフラストラクチャ・コンポーネントのアップデート。(2026-01-16)
 
 ### [Langfuse](https://langfuse.com/changelog)
 
-- **思考 / 推論のレンダリング**: トレース詳細において、思考の連鎖（Chain-of-thought）や推論部分を明示的にレンダリングします (v3.148.0)。(2026-02-01)
-- **単一オブザベーションの評価**: フル・トレースではなく、単一のオブザベーションに対して評価を実行できるようになりました (v3.150.0)。(2026-02-05)
-- **トレースの修正済み出力**: LLM 出力の改善版をトレースビューで直接キャプチャし、ファインチューニング用データセットを構築できます。(2026-01-14) [[docs]](https://langfuse.com/docs/observability/features/corrections)
+- **トレースの修正済み出力 (Corrected Outputs)**: ファインチューニング用データセットを構築するために、トレース・ビューで LLM 出力の改善版を直接キャプチャ。(2026-01-14)
+- **推論/思考プロセスのレンダリング**: トレース詳細において、モデル出力の「思考」または「推論」部分をレンダリングするための新しい UI サポート (v3.148)。(2026-01-20)
+- **組織監査ログ・ビューアー**: セキュリティとコンプライアンスの可視性を高めるため、組織レベルの監査ログ・ビューアーを追加。(2026-01-20)
 
-### [Logfire](https://logfire.pydantic.dev/docs/release-notes)
+### [Braintrust](https://braintrust.dev/docs/changelog)
 
-- **プロジェクト移行用のマルチトークン対応**: プロジェクトの移行を容易にするため、複数のトークンの使用をサポートしました。(2026-02-04) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
-- **OTel Gen AI セマンティック・コンベンション**: OpenTelemetry Gen AI セマンティック・コンベンションのスカラー属性のサポートを追加しました。(2026-01-28) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
-- **pytest 統合**: pytest 実行時のオブザーバビリティをサポートする新しい統合。(2026-01-26) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
-- **DSPy 統合**: DSPy フレームワークのネイティブな計装サポートを追加しました。(2026-01-16) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
-- **Claude SDK 計装**: Anthropic Claude SDK 専用の計装を追加しました。(2026-01-12) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
+- **トレース・レベル・スコアラー**: カスタム・コード・スコアラーが実行トレース全体にアクセスし、マルチステップのワークフローやエージェントの動作を評価できるようになりました。(2026-02)
+- **LangSmith 統合**: トレースおよび評価の呼び出しを LangSmith と Braintrust の両方に並行して送信、または Braintrust のみにルーティングするラッパー。(2026-02)
+- **Cursor 統合**: MCP を介した Cursor エディタとの統合により、自然言語を使用してログの照会や実験結果の取得が可能に。(2026-02)
+- **自動インスツルメンテーション (Py/Ruby/Go)**: Python、Ruby、Go アプリケーション向けのゼロコード・トレース・サポートを追加。(2026-01)
+- **Temporal 統合**: 親子関係のマッピングを含む、Temporal ワークフローとアクティビティの自動トレース。(2026-01)
+
+### [MLflow](https://mlflow.org/releases)
+
+- **継続的オンライン・モニタリング**: 本番環境のトレースに対して LLM ジャッジを自動実行し、品質の問題をリアルタイムで検出。(2026-01-29)
+- **エージェント・パフォーマンス用ダッシュボード**: エージェントのレイテンシ、リクエスト数、ツール使用状況のサマリーを監視するための構築済み視覚化タブ。(2026-01-29)
+- **ジャッジ・ビルダー UI**: デプロイ前にカスタム LLM ジャッジを作成、テスト、検証するためのノーコード・インターフェース。(2026-01-29)
+- **MemAlign ジャッジ・オプティマイザー**: 過去の人間によるフィードバックから評価ガイドラインを学習し、ジャッジの精度を向上させるアルゴリズム。(2026-01-29)
+- **MLflow アシスタント**: トレースのデバッグや修正案の提示を支援する、Claude Code 搭載の製品内 AI チャットボット。(2026-01-29)
+
+### [Arize Phoenix](https://arize.com/docs/phoenix/release-notes)
+
+- **Claude Opus 4.6 サポート**: 拡張された思考パラメータのサポートとコスト追跡を備えた Anthropic の最新モデルのサポートを追加。(2026-02-09)
+- **ツール選択・呼び出しエバリュエーター**: エージェントが正しいツールを選択し、有効なパラメータで呼び出したかどうかを判定する専用エバリュエーター。(2026-01-31)
+- **プロンプト・データセット用 CLI**: プロンプト、データセット、実験をターミナルから直接管理するための新しい CLI コマンド。AI コーディング・アシスタント向けに最適化。(2026-01-22)
+- **スパン・リンク付きトレース・データセット化**: 元のソース・スパンへの双方向リンクを維持したまま、本番トレースからデータセットを作成する機能。(2026-01-21)
+- **トレースと共のアノテーション・エクスポート**: オフライン分析のために、トレースと共に人間および LLM によるアノテーションをエクスポートする CLI サポート。(2026-01-19)
 
 
 ## レポート・アーカイブ
