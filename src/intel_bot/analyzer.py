@@ -143,16 +143,6 @@ Below are the individual analysis results for all competitors analyzed this week
 
 Synthesize the above data and return a JSON object matching the schema below (no markdown fences, pure JSON only):
 {{
-  "executive_summary": [
-    "Key insight 1",
-    "Key insight 2",
-    "Key insight 3",
-    "Key insight 4",
-    "Key insight 5",
-    "Key insight 6 (optional)",
-    "Key insight 7 (optional)"
-  ],
-  "one_line_verdict": "One-line verdict using 'Weave maintains/leads in [strength area], but faces [specific pressure] from [named competitors] on [specific area]' structure",
   "weave_summary": "2-3 sentence comprehensive summary of Weave. Explain Weave's positioning and core value vs competitors.",
   "weave_strengths": [
     "Strength a sales engineer could highlight about Weave 1",
@@ -196,15 +186,10 @@ Synthesize the above data and return a JSON object matching the schema below (no
   "enterprise_signals": [
     "Enterprise-related signal 1",
     ...3-5 items...
-  ],
-  "watchlist": [
-    "Item to watch next week 1",
-    ...3-5 items...
   ]
 }}
 
 Rules:
-- "executive_summary": 5-7 bullets. Each bullet should name specific competitors and specific capability areas. Use a balanced analyst tone — acknowledge market shifts honestly and identify both opportunities and threats for Weave.
 - "weave_summary": Summarize product positioning from a Weave sales engineer's perspective
 - "weave_strengths": 3-5 items (Weave's differentiating strengths derived from competitor analysis)
 - "weave_weaknesses": 3-5 items (areas where competitors lead, honest assessment)
@@ -212,10 +197,56 @@ Rules:
 - "weave_new_features": 0-5 items (Weave updates from the last 30 days ONLY based on today's date {today}. Empty array if none.)
 - "vendor_ratings" must include Weave and all analyzed vendors
 - "enterprise_signals": 3-5 items
-- "watchlist": 3-5 items
 - Ratings must be one of "strong", "medium", "weak", "none"
 - All text must be written in English
 - Pure JSON output only, no markdown code fences\
+"""
+
+_EXEC_SUMMARY_SYSTEM_PROMPT = """\
+You are a senior competitive intelligence strategist writing a weekly briefing \
+for the W&B Weave executive team.
+
+Your audience: VP of Product and Engineering leadership who need to make \
+strategic decisions this week. They have 2 minutes to read this summary.
+
+Tone:
+- Direct and confident, not hedging
+- Name names, not "some competitors"
+- Honest about gaps — leadership respects candor over cheerleading
+- NEVER call any competitor an "industry standard" or "de facto standard" (W&B/Weave is OK)
+
+Respond in English.\
+"""
+
+_EXEC_SUMMARY_USER_PROMPT_TEMPLATE = """\
+Below is the full synthesis data from this week's competitive analysis:
+
+=== Synthesis Data ===
+{synthesis_json}
+=== End of Synthesis Data ===
+
+{weave_context_section}\
+Write an executive summary as a JSON object (no markdown fences, pure JSON only):
+{{
+  "executive_summary": ["bullet 1", "bullet 2", ...],
+  "one_line_verdict": "single sentence verdict"
+}}
+
+Rules for executive_summary (5-7 bullets):
+- Lead with the MOST IMPORTANT competitive shift this week — what changed?
+- Each bullet must name at least one specific competitor and one specific capability
+- Prioritize NEW information: recent releases, positioning shifts, emerging threats
+- Include at least 1 bullet on Weave's advantage and 1 on Weave's biggest gap
+- Be specific: "Braintrust shipped Java SDK support" not "competitors are expanding"
+- Quantify when possible: version numbers, dates, counts
+- End with a forward-looking bullet: what should the team watch or act on next?
+
+Rules for one_line_verdict:
+- Structure: "Weave [leads/maintains edge/is competitive] in [specific area], \
+but faces [specific threat] from [named competitor] on [specific area]"
+- Must be actionable — the reader should know what matters most
+
+Pure JSON output only, no markdown code fences.\
 """
 
 
@@ -406,6 +437,69 @@ def synthesize(
     )
 
 
+@weave.op()
+def generate_executive_summary(
+    client: OpenAI,
+    model: str,
+    synthesis: SynthesisResult,
+    weave_context: str = "",
+) -> tuple[list[str], str]:
+    """Generate executive summary in a dedicated LLM call for higher quality."""
+    synthesis_json = json.dumps(synthesis.model_dump(), ensure_ascii=False, indent=2)
+
+    weave_context_section = ""
+    if weave_context:
+        weave_context_section = (
+            "=== Weave Recent Changes ===\n"
+            f"{weave_context}\n"
+            "=== End of Weave Changes ===\n\n"
+        )
+
+    user_prompt = _EXEC_SUMMARY_USER_PROMPT_TEMPLATE.format(
+        synthesis_json=synthesis_json,
+        weave_context_section=weave_context_section,
+    )
+
+    last_error: Exception | None = None
+
+    for attempt in range(1, _MAX_ATTEMPTS + 1):
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": _EXEC_SUMMARY_SYSTEM_PROMPT},
+                    {"role": "user", "content": user_prompt},
+                ],
+                temperature=0.3,
+                max_tokens=4096,
+            )
+            raw = response.choices[0].message.content or ""
+            text = raw.strip()
+            if text.startswith("```"):
+                text = text[text.index("\n") + 1 :]
+            if text.endswith("```"):
+                text = text[: text.rfind("```")]
+            text = text.strip()
+
+            data = json.loads(text)
+            return data["executive_summary"], data["one_line_verdict"]
+
+        except Exception as e:
+            last_error = e
+            logger.warning(
+                "Executive summary attempt %d/%d failed: %s",
+                attempt,
+                _MAX_ATTEMPTS,
+                e,
+            )
+            if attempt < _MAX_ATTEMPTS:
+                time.sleep(_BACKOFF_BASE_SECONDS * attempt)
+
+    raise RuntimeError(
+        f"Failed to generate executive summary after {_MAX_ATTEMPTS} attempts: {last_error}"
+    )
+
+
 def analyze_all(
     collection: CollectionRun,
     settings: Settings,
@@ -442,5 +536,19 @@ def analyze_all(
 
     if on_progress:
         on_progress("종합 분석", "done")
+
+    # Step 3: Executive Summary (dedicated LLM call)
+    if run.synthesis:
+        if on_progress:
+            on_progress("Executive Summary", "analyzing")
+
+        exec_summary, verdict = generate_executive_summary(
+            client, model, run.synthesis, weave_context=weave_context,
+        )
+        run.synthesis.executive_summary = exec_summary
+        run.synthesis.one_line_verdict = verdict
+
+        if on_progress:
+            on_progress("Executive Summary", "done")
 
     return run
