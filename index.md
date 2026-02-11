@@ -14,14 +14,14 @@ title: Competitor intelligence reports for W&B Weave
 [📋 Latest Report (2026-02-11)](./reports/2026-02-11.md)
 
 
-- Weave is differentiating through multimodal capabilities with the release of Audio Monitors (Feb 2026), moving beyond the text-centric evaluation focus of competitors like LangSmith and Arize Phoenix.
-- The integration of Custom LoRAs into the Weave Playground reinforces W&B's unique 'Training-to-Inference' moat, offering a workflow for fine-tuned model evaluation that pure-play observability tools (Langfuse, Logfire) cannot match.
-- LangSmith and Langfuse are establishing a lead in 'Agent Visualization' with dedicated graph views for complex workflows; Weave's linear trace views risk feeling outdated for debugging sophisticated agentic loops.
-- Braintrust and Langfuse have professionalized Human-in-the-Loop (HITL) workflows with dedicated 'Annotation Queues' and Kanban views, creating a gap for Weave in large-scale manual labeling operations.
-- Arize Phoenix is aggressively targeting the 'AI Engineer' persona with local-first features (CLI, Notebook support) and specialized 'Tool Selection' metrics, challenging Weave's dominance in the experimentation phase.
-- Helicone and Braintrust continue to leverage 'AI Proxy' architectures (caching, rate limiting) as a wedge for cost-conscious engineering teams, a capability Weave's SDK-based approach does not address.
+- Weave secures a critical differentiator in the Voice Agent market with the release of Audio Monitors (Feb 2026), distancing itself from text-centric competitors like Langfuse and LangSmith.
+- LangSmith's strategic pivot to 'Deployment' (infrastructure) and Braintrust's 'AI Proxy' threaten to relegate Weave to a passive observer role, as competitors move to control the traffic path.
+- Arize Phoenix and Braintrust are raising the bar for Agent Evaluation with specialized 'Tool Selection' metrics and 'Trace-level scorers', challenging Weave's generic scorer framework.
+- Weave's 'Dynamic Leaderboards' provide a strong counter-narrative to the static dashboards of Langfuse, offering superior flexibility for model comparison.
+- Logfire's deep Pydantic integration and SQL-based analytics continue to erode Weave's share among Python-native engineering teams who prefer code-first debugging over UI-first workflows.
+- Braintrust's new Cursor IDE integration signals a shift toward 'In-Editor Observability', potentially bypassing Weave's notebook-centric developer loop.
 
-> Weave leads in the 'Training-to-Inference' flywheel with unique LoRA and multimodal capabilities, but faces increasing pressure from LangSmith and Langfuse on agent visualization and human-in-the-loop annotation workflows.
+> Weave leads in multimodal (audio) observability and model training integration, but faces increasing pressure from LangSmith on agent infrastructure and Braintrust on enterprise proxy capabilities.
 
 
 <!-- LATEST_REPORT_END -->
@@ -30,44 +30,43 @@ title: Competitor intelligence reports for W&B Weave
 
 ### [Weave](https://app.getbeamer.com/weave/en)
 
-- **Audio monitors**: Support for evaluating audio outputs (MP3/WAV) using LLM judges, enabling observability for voice agents. (2026-02-01) [[docs]](https://wandb.ai/onlineinference/genai-research/reports/A-guide-to-LLM-debugging-tracing-and-monitoring--VmlldzoxMzk1MjAyOQ)
-- **Dynamic Leaderboards**: Auto-generated leaderboards from evaluations with persistent filtering and customization options. (2026-01-29) [[docs]](https://wandb.ai/onlineinference/genai-research/reports/A-guide-to-LLM-debugging-tracing-and-monitoring--VmlldzoxMzk1MjAyOQ)
-- **Custom LoRAs in Playground**: Ability to load and test custom fine-tuned LoRA weights directly in the Weave Playground. (2026-01-16) [[docs]](https://wandb.ai/onlineinference/genai-research/reports/A-guide-to-LLM-debugging-tracing-and-monitoring--VmlldzoxMzk1MjAyOQ)
+- **Audio monitors**: Support for creating monitors that observe and judge audio outputs alongside text, enabling evaluation of voice agents. (2026-02-01)
+- **Dynamic Leaderboards**: Auto-generated leaderboards from evaluations with customizable filters and rich visualization options. (2026-01-29)
+- **Custom LoRAs in Playground**: Ability to use custom fine-tuned LoRA weights from W&B Artifacts directly in the Weave Playground. (2026-01-16)
 
-### [LangSmith](https://changelog.langchain.com/feed.rss)
+### [LangSmith](https://changelog.langchain.com)
 
-- **Customize trace previews**: Ability to customize how traces are previewed in the UI. (2026-02-06)
-- **LangSmith Self-Hosted v0.13**: Update to the self-hosted enterprise version. (2026-01-16)
-- **Client Library v0.7.1**: Updates to the JS/Python SDKs for better stability and OIDC support. (2026-02-10)
+- **Customize trace previews**: Ability to customize the trace preview pane to show relevant metadata or inputs/outputs at a glance. (2026-02-06)
+- **Google Gen AI Wrapper**: New SDK wrapper for tracing Google Gen AI models without manual instrumentation. (2026-01-31)
+- **LangSmith Self-Hosted v0.13**: Updated self-hosted release with stability improvements and new features from the cloud version. (2026-01-16)
 
 ### [Arize Phoenix](https://arize.com/docs/phoenix/release-notes)
 
-- **Claude Opus 4.6 Support**: Added support for Anthropic's Claude Opus 4.6 model in the playground with automatic cost tracking. (2026-02-09) [[docs]](https://arize.com/docs/phoenix/release-notes)
-- **Tool Selection & Invocation Evaluators**: New specialized evaluators to judge if an agent chose the correct tool and invoked it with valid parameters. (2026-01-31) [[docs]](https://arize.com/docs/phoenix/release-notes)
-- **Configurable Email Extraction (OAuth2)**: Support for custom email extraction paths (e.g., preferred_username) for Azure AD/Entra ID integrations. (2026-01-28) [[docs]](https://arize.com/docs/phoenix/release-notes)
-- **CLI Commands for Prompts/Datasets**: New CLI commands to list, view, and pipe prompts/datasets, enabling terminal-based workflows. (2026-01-22) [[docs]](https://arize.com/docs/phoenix/release-notes)
-- **Dataset Creation with Span Associations**: Ability to create datasets from traces while preserving bidirectional links to the original source spans. (2026-01-21) [[docs]](https://arize.com/docs/phoenix/release-notes)
+- **Claude Opus 4.6 Support**: Playground support for Anthropic's latest model with extended thinking parameters and accurate cost tracking. (2026-02-09) [[docs]](https://docs.arize.com/phoenix/release-notes)
+- **Tool Selection & Invocation Evaluators**: New specialized evaluators to assess if agents selected the correct tool and invoked it with valid parameters. (2026-01-31) [[docs]](https://docs.arize.com/phoenix/release-notes)
+- **CLI Commands for Prompts/Datasets**: Comprehensive CLI support to list, view, and pipe prompts to AI assistants, and manage datasets/experiments from the terminal. (2026-01-22) [[docs]](https://docs.arize.com/phoenix/release-notes)
+- **Trace-to-Dataset with Span Links**: Ability to create curated datasets from production traces while maintaining bidirectional links to the original source spans. (2026-01-21) [[docs]](https://docs.arize.com/phoenix/release-notes)
+- **Export Annotations with Traces**: CLI support to export traces along with their manual labels and evaluation scores for offline analysis. (2026-01-19) [[docs]](https://docs.arize.com/phoenix/release-notes)
 
 ### [Braintrust](https://braintrust.dev/docs/changelog)
 
 - **Trace-level scorers**: Custom code scorers can now access the entire execution trace to evaluate multi-step workflows and agent behavior. (2026-02) [[docs]](https://braintrust.dev/docs/changelog)
-- **LangSmith Integration**: Experimental wrapper to route LangSmith traces to Braintrust, enabling parallel usage or migration. (2026-02) [[docs]](https://braintrust.dev/docs/changelog)
-- **Auto-instrumentation (Python/Ruby/Go)**: Zero-code tracing for most providers in Python, Ruby, and Go SDKs. (2026-01) [[docs]](https://braintrust.dev/docs/changelog)
-- **Temporal Integration**: Automatic tracing of Temporal workflows and activities, capturing distributed traces across workers. (2026-01) [[docs]](https://braintrust.dev/docs/changelog)
-- **Kanban layout for reviews**: New UI for managing flagged spans with drag-and-drop cards for status updates. (2026-01) [[docs]](https://braintrust.dev/docs/changelog)
+- **LangSmith integration**: Wrapper to route traces to both LangSmith and Braintrust in parallel, or migrate solely to Braintrust. (2026-02) [[docs]](https://braintrust.dev/docs/changelog)
+- **Cursor integration**: Braintrust extension for Cursor editor to query logs and run experiments via natural language. (2026-02) [[docs]](https://braintrust.dev/docs/changelog)
+- **Auto-instrumentation (Python, Ruby, Go)**: Zero-code tracing support for Python, Ruby, and Go applications. (2026-01) [[docs]](https://braintrust.dev/docs/changelog)
+- **Temporal integration**: Automatic tracing of Temporal workflows and activities with parent-child relationship mapping. (2026-01) [[docs]](https://braintrust.dev/docs/changelog)
 
 ### [Langfuse](https://langfuse.com/changelog)
 
-- **Corrected Outputs for Traces**: Capture improved versions of LLM outputs directly in trace views to build fine-tuning datasets. (2026-01-14) [[docs]](https://langfuse.com/changelog)
-- **Reasoning/Thinking Trace Support**: Render thinking/reasoning parts in trace details (v3.148.0), supporting models like DeepSeek. (2026-01-27) [[docs]](https://github.com/langfuse/langfuse/pull/11615)
-- **Single Observation Evals**: Support for running evaluations on single observations (v3.150.0). (2026-02-09) [[docs]](https://github.com/langfuse/langfuse/pull/11547)
+- **Corrected Outputs for Traces**: Capture improved versions of LLM outputs directly in trace views to build fine-tuning datasets. (2026-01-14) [[docs]](https://langfuse.com/docs/observability/corrections)
 
 ### [Logfire](https://logfire.pydantic.dev/docs/release-notes)
 
-- **Multi-token support for project migration**: Added support for using multiple tokens to facilitate project migration workflows. (2026-02-04) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
+- **Multi-token support for project migration**: Added support for handling multiple tokens to facilitate smoother project migrations. (2026-02-04) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
 - **OTel Gen AI semantic conventions**: Added support for OpenTelemetry Gen AI semantic convention scalar attributes. (2026-01-28) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
-- **Pytest integration**: Native integration with pytest for tracing test executions. (2026-01-26) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
-- **DSPy integration**: Added instrumentation support for the DSPy framework. (2026-01-16) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
+- **Pytest integration**: New integration allowing seamless tracing and observability within pytest test runs. (2026-01-26) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
+- **DSPy integration**: Official integration to trace and monitor DSPy applications. (2026-01-16) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
+- **Claude SDK instrumentation**: Added specific instrumentation for the Anthropic Claude SDK. (2026-01-12) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
 
 
 ## Report Archive

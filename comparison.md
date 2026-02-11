@@ -26,11 +26,11 @@ title: W&B Weave — Detailed Feature Comparison
 
 | Feature | **Weave** | LangSmith | Arize Phoenix | Braintrust | Langfuse | Logfire | Helicone |
 |---|---|---|---|---|---|---|---|
-| Tool Call Tracing | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| Tool Call Tracing | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
 | Retrieval Tracing | ●●○ | ●●● | ●●● | ●●○ | ●●● | ●●○ | ●○○ |
-| Memory Tracing | ●●○ | ●●○ | ●●○ | ●●○ | ●●● | ●●○ | ●○○ |
-| Multi-step Reasoning | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
-| Workflow Graph | ●●○ | ●●● | ●●○ | ●●● | ●●● | ●●○ | ●○○ |
+| Memory Tracing | ●●○ | ●●● | ●●○ | ●●○ | ●●● | ●●○ | ●●○ |
+| Multi-step Reasoning | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ |
+| Workflow Graph | ●●○ | ●●● | ●●○ | ●●● | ●●● | ●●○ | ○○○ |
 | Failure Visualization | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●○ |
 
 ## Evaluation Integration
@@ -40,7 +40,7 @@ title: W&B Weave — Detailed Feature Comparison
 | Trace→Dataset | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ | ●●○ |
 | LLM-as-Judge | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ | ●●○ |
 | Custom Eval Metrics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●○ |
-| Regression Detection | ●●● | ●●● | ●●● | ●●● | ●●● | ○○○ | ●○○ |
+| Regression Detection | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ | ●○○ |
 | Model Comparison | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ | ●●● |
 | Human Feedback UI | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●○ |
 
@@ -48,43 +48,43 @@ title: W&B Weave — Detailed Feature Comparison
 
 | Feature | **Weave** | LangSmith | Arize Phoenix | Braintrust | Langfuse | Logfire | Helicone |
 |---|---|---|---|---|---|---|---|
-| Cost Dashboard | ●●○ | ●●● | ●●○ | ●●● | ●●● | ●●● | ●●● |
-| Token Analytics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Latency Monitoring | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Error Tracking | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Tool Success Rate | ●●○ | ●●○ | ●●● | ●●● | ●●○ | ●●○ | ●○○ |
-| Custom Metrics | ●●● | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| Cost Dashboard | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Token Analytics | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Latency Monitoring | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Error Tracking | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Tool Success Rate | ●●○ | ●●● | ●●● | ●●○ | ●●○ | ●●● | ●○○ |
+| Custom Metrics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
 
 ## Experiment / Improvement Loop
 
 | Feature | **Weave** | LangSmith | Arize Phoenix | Braintrust | Langfuse | Logfire | Helicone |
 |---|---|---|---|---|---|---|---|
-| Prompt Versioning | ●●● | ●●● | ●●● | ●●● | ●●● | ○○○ | ●●● |
-| Model Versioning | ●●● | ●○○ | ●●○ | ●●● | ●○○ | ●○○ | ●●○ |
-| Experiment Tracking | ●●● | ●●○ | ●●● | ●●● | ●●● | ●○○ | ●●○ |
+| Prompt Versioning | ●●● | ●●● | ●●● | ●●● | ●●● | ○○○ | ●●○ |
+| Model Versioning | ●●● | ●●○ | ●●○ | ●●○ | ●●○ | ○○○ | ●●○ |
+| Experiment Tracking | ●●● | ●●● | ●●● | ●●● | ●●● | ●○○ | ●●○ |
 | Dataset Versioning | ●●● | ●●● | ●●● | ●●● | ●●● | ○○○ | ●●○ |
-| Continuous Eval | ●●○ | ●●● | ●●● | ●●● | ●●● | ○○○ | ●●○ |
-| RL/Fine-tuning Link | ●●● | ●●○ | ●○○ | ●●○ | ●○○ | ○○○ | ●○○ |
+| Continuous Eval | ●●○ | ●●● | ●●● | ●●● | ●●● | ●○○ | ●○○ |
+| RL/Fine-tuning Link | ●●● | ●○○ | ●●○ | ●○○ | ●○○ | ○○○ | ○○○ |
 
 ## DevEx / Integration
 
 | Feature | **Weave** | LangSmith | Arize Phoenix | Braintrust | Langfuse | Logfire | Helicone |
 |---|---|---|---|---|---|---|---|
 | SDK Support | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Framework Integration | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
-| Custom Model Support | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●○ | ●●● |
+| Framework Integration | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| Custom Model Support | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | API Access | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Streaming Tracing | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| CLI/Infra Integration | ●●○ | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
+| CLI/Infra Integration | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 
 ## Enterprise & Security
 
 | Feature | **Weave** | LangSmith | Arize Phoenix | Braintrust | Langfuse | Logfire | Helicone |
 |---|---|---|---|---|---|---|---|
-| On-prem/VPC | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| On-prem/VPC | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● |
 | RBAC | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●○ |
-| PII Masking | ●●● | ●●○ | ●●○ | ●●○ | ●●● | ●●● | ●●○ |
+| PII Masking | ●●○ | ●●● | ●●○ | ●●○ | ●●● | ●●● | ●●○ |
 | Audit Logs | ●●● | ●●● | ●●○ | ●●● | ●●● | ●●○ | ●●○ |
 | Data Retention | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● |
-| Region Support | ●●● | ●●○ | ●●● | ●●● | ●●● | ●●○ | ●●○ |
+| Region Support | ●●● | ●●○ | ●●○ | ●●● | ●●● | ●●● | ●●● |
 
