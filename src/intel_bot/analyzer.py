@@ -131,7 +131,9 @@ _SYNTHESIS_USER_PROMPT_TEMPLATE = """\
     "핵심 인사이트 2",
     "핵심 인사이트 3",
     "핵심 인사이트 4",
-    "핵심 인사이트 5"
+    "핵심 인사이트 5",
+    "핵심 인사이트 6 (선택)",
+    "핵심 인사이트 7 (선택)"
   ],
   "one_line_verdict": "이번 주 Weave의 경쟁 포지션에 대한 한줄 총평 (한국어)",
   "weave_summary": "Weave 제품에 대한 2-3문장 종합 요약. 경쟁사 대비 Weave의 포지셔닝과 핵심 가치 설명 (한국어)",
@@ -178,13 +180,6 @@ _SYNTHESIS_USER_PROMPT_TEMPLATE = """\
     "엔터프라이즈 관련 시그널 1 (한국어)",
     ...3-5개...
   ],
-  "insights": [
-    {{
-      "title": "인사이트 제목 (한국어)",
-      "body": "2-3문장 설명 (한국어)"
-    }},
-    ...정확히 3개...
-  ],
   "watchlist": [
     "다음 주 주시 항목 1 (한국어)",
     ...3-5개...
@@ -192,7 +187,7 @@ _SYNTHESIS_USER_PROMPT_TEMPLATE = """\
 }}
 
 규칙:
-- "executive_summary"는 정확히 5개 bullet
+- "executive_summary"는 5-7개 bullet (핵심 인사이트를 풍부하게 포함)
 - "weave_summary"는 Weave 셀링 엔지니어 관점에서 제품 포지셔닝 요약
 - "weave_strengths"는 3-5개 (경쟁사 분석에서 도출한 Weave의 차별화 강점)
 - "weave_weaknesses"는 3-5개 (경쟁사가 앞서는 영역, 솔직한 평가)
@@ -200,7 +195,6 @@ _SYNTHESIS_USER_PROMPT_TEMPLATE = """\
 - "weave_new_features"는 0-5개 (경쟁사 데이터에서 언급된 Weave 최신 업데이트. 없으면 빈 배열)
 - "vendor_ratings"는 Weave를 포함하여 모든 분석 대상 벤더를 포함해야 합니다
 - "enterprise_signals"는 3-5개
-- "insights"는 정확히 3개
 - "watchlist"는 3-5개
 - 등급은 "strong", "medium", "weak", "none" 중 하나
 - 모든 텍스트는 한국어로 작성

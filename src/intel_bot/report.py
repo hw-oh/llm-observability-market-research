@@ -12,10 +12,10 @@ from intel_bot.models import AnalysisRun, CompetitorAnalysis, DiscoveryResult
 REPORTS_DIR = Path("reports")
 
 RATING_SYMBOL = {
-    "strong": "\u25cf\u25cf\u25cf",
-    "medium": "\u25cf\u25cf",
-    "weak": "\u25cf",
-    "none": "-",
+    "strong": "●●●",
+    "medium": "●●○",
+    "weak": "●○○",
+    "none": "○○○",
 }
 
 COMPARISON_LABEL = {
@@ -57,7 +57,9 @@ def generate_comparison_page(run: AnalysisRun) -> str:
         "# W&B Weave \u2014 \uc0c1\uc138 \uae30\ub2a5 \ube44\uad50\ud45c",
         f"**\ub0a0\uc9dc**: {run.date} | **\ubaa8\ub378**: {run.model}",
         "",
-        "> \u25cf\u25cf\u25cf(\uac15\ud568) / \u25cf\u25cf(\uc911\uac04) / \u25cf(\uc57d\ud568) / -(\uc5c6\uc74c)",
+        "[← Home](./) · [제품 상세분석](./competitor-detail)",
+        "",
+        "> ●●●(강함) / ●●○(중간) / ●○○(약함) / ○○○(없음)",
         "",
     ]
 
@@ -259,6 +261,8 @@ def generate_competitor_detail_page(run: AnalysisRun) -> str:
         "# W&B Weave \u2014 \uc81c\ud488 \uc0c1\uc138\ubd84\uc11d",
         f"**\ub0a0\uc9dc**: {run.date} | **\ubaa8\ub378**: {run.model}",
         "",
+        "[← Home](./) · [상세 비교표](./comparison)",
+        "",
     ]
 
     # Weave first
@@ -295,7 +299,7 @@ def generate_weekly_report(
         "# W&B Weave \u2014 \uc8fc\uac04 \uacbd\uc7c1\uc0ac \uc778\ud154\ub9ac\uc804\uc2a4 \ub9ac\ud3ec\ud2b8",
         f"**\ub0a0\uc9dc**: {run.date} | **\ubaa8\ub378**: {run.model} | **\ub370\uc774\ud130 \uc218\uc9d1\uc77c**: {run.collection_date}",
         "",
-        "> [\uc0c1\uc138 \ube44\uad50\ud45c](../comparison) \u00b7 [\uc81c\ud488 \uc0c1\uc138\ubd84\uc11d](../competitor-detail)",
+        "[← Home](../) · [상세 비교표](../comparison) · [제품 상세분석](../competitor-detail)",
         "",
     ]
 
@@ -406,21 +410,8 @@ def generate_weekly_report(
         lines.append("- *\ub370\uc774\ud130 \uc5c6\uc74c*")
     lines.append("")
 
-    # Section 6: Insights
-    lines.append("## 6. Insights")
-    lines.append("")
-    if synthesis and synthesis.insights:
-        for insight in synthesis.insights:
-            lines.append(f"### {insight.title}")
-            lines.append("")
-            lines.append(insight.body)
-            lines.append("")
-    else:
-        lines.append("*\ub370\uc774\ud130 \uc5c6\uc74c*")
-        lines.append("")
-
-    # Section 7: Watchlist
-    lines.append("## 7. Watchlist")
+    # Section 6: Watchlist
+    lines.append("## 6. Watchlist")
     lines.append("")
     if synthesis and synthesis.watchlist:
         for item in synthesis.watchlist:
@@ -495,7 +486,7 @@ def save_report(
 # Index management
 # ---------------------------------------------------------------------------
 
-def update_index(index_path: str = "index.md") -> None:
+def update_index(index_path: str = "index.md", analysis: AnalysisRun | None = None) -> None:
     index_file = Path(index_path)
 
     # Discover reports
@@ -512,12 +503,20 @@ def update_index(index_path: str = "index.md") -> None:
 
     archive_content = "\n".join(archive_lines) + "\n"
 
-    # Build latest report link
+    # Build latest report link + exec summary
     if report_files:
         latest = report_files[0]
-        latest_content = f"[\U0001f4cb Latest Report ({latest.stem})](./reports/{latest.name})\n"
+        latest_parts = [f"[\U0001f4cb Latest Report ({latest.stem})](./reports/{latest.name})\n"]
+        if analysis and analysis.synthesis:
+            latest_parts.append("")
+            for bullet in analysis.synthesis.executive_summary:
+                latest_parts.append(f"- {bullet}")
+            latest_parts.append("")
+            latest_parts.append(f"> {analysis.synthesis.one_line_verdict}")
+            latest_parts.append("")
+        latest_content = "\n".join(latest_parts) + "\n"
     else:
-        latest_content = "\uc544\uc9c1 \uc0dd\uc131\ub41c \ub9ac\ud3ec\ud2b8\uac00 \uc5c6\uc2b5\ub2c8\ub2e4.\n"
+        latest_content = "아직 생성된 리포트가 없습니다.\n"
 
     if not index_file.exists():
         _write_full_index(index_file, latest_content, archive_content)
@@ -527,20 +526,19 @@ def update_index(index_path: str = "index.md") -> None:
 
     archive_pattern = r"<!-- REPORT_ARCHIVE_START -->\n.*?<!-- REPORT_ARCHIVE_END -->"
     latest_pattern = r"<!-- LATEST_REPORT_START -->\n.*?<!-- LATEST_REPORT_END -->"
-
     has_archive = "<!-- REPORT_ARCHIVE_START -->" in content
     has_latest = "<!-- LATEST_REPORT_START -->" in content
 
     if has_archive and has_latest:
         content = re.sub(
             archive_pattern,
-            f"<!-- REPORT_ARCHIVE_START -->\n{archive_content}<!-- REPORT_ARCHIVE_END -->",
+            f"<!-- REPORT_ARCHIVE_START -->\n\n{archive_content}\n<!-- REPORT_ARCHIVE_END -->",
             content,
             flags=re.DOTALL,
         )
         content = re.sub(
             latest_pattern,
-            f"<!-- LATEST_REPORT_START -->\n{latest_content}<!-- LATEST_REPORT_END -->",
+            f"<!-- LATEST_REPORT_START -->\n\n{latest_content}\n<!-- LATEST_REPORT_END -->",
             content,
             flags=re.DOTALL,
         )
@@ -558,24 +556,28 @@ def _write_full_index(index_file: Path, latest_content: str, archive_content: st
         "\n"
         "# Competitor Intel Bot\n"
         "\n"
-        "W&B Weave \uacbd\uc7c1\uc0ac \uc81c\ud488 \ube44\uad50 \ub9ac\ud3ec\ud2b8\n"
+        "W&B Weave 경쟁사 제품 비교 리포트\n"
         "\n"
-        "[\uc0c1\uc138 \ube44\uad50\ud45c](./comparison) \u00b7 [\uc81c\ud488 \uc0c1\uc138\ubd84\uc11d](./competitor-detail)\n"
+        "[상세 비교표](./comparison) · [제품 상세분석](./competitor-detail)\n"
         "\n"
         "## Latest Report\n"
         "\n"
         "<!-- LATEST_REPORT_START -->\n"
+        "\n"
         f"{latest_content}"
+        "\n"
         "<!-- LATEST_REPORT_END -->\n"
         "\n"
         "## Report Archive\n"
         "\n"
         "<!-- REPORT_ARCHIVE_START -->\n"
+        "\n"
         f"{archive_content}"
+        "\n"
         "<!-- REPORT_ARCHIVE_END -->\n"
         "\n"
         "---\n"
         "\n"
-        "[ROADMAP](./ROADMAP.md) \u00b7 [GitHub](https://github.com/hw-oh/competitor-intel-bot)\n"
+        "[GitHub](https://github.com/hw-oh/competitor-intel-bot)\n"
     )
     index_file.write_text(content, encoding="utf-8")

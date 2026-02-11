@@ -164,7 +164,7 @@ def report() -> None:
         task = progress.add_task("리포트 생성 중...", total=None)
         weekly_path, comparison_path, detail_path = save_report(analysis, discovery=discovery_result)
         progress.update(task, description="인덱스 업데이트 중...")
-        update_index()
+        update_index(analysis=analysis)
         progress.update(task, description="[green]완료")
         progress.remove_task(task)
 
@@ -206,7 +206,7 @@ def run() -> None:
         task = progress.add_task("리포트 생성 중...", total=None)
         weekly_path, comparison_path, detail_path = save_report(analysis, discovery_result)
         progress.update(task, description="인덱스 업데이트 중...")
-        update_index()
+        update_index(analysis=analysis)
         progress.update(task, description="[green]완료")
         progress.remove_task(task)
 

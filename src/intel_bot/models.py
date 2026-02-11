@@ -90,13 +90,8 @@ class VendorSummaryRating(BaseModel):
     overall: Rating
 
 
-class WeeklyInsight(BaseModel):
-    title: str
-    body: str
-
-
 class SynthesisResult(BaseModel):
-    executive_summary: list[str]        # Exactly 5 items
+    executive_summary: list[str]        # 5-7 items (richer, replaces separate Insights)
     one_line_verdict: str
     weave_summary: str                  # Weave overall summary for detail page
     weave_strengths: list[str]          # 3-5 selling points
@@ -105,7 +100,6 @@ class SynthesisResult(BaseModel):
     weave_new_features: list[NewFeature]  # 0-5 Weave recent updates
     vendor_ratings: list[VendorSummaryRating]  # Including Weave
     enterprise_signals: list[str]       # 3-5 items
-    insights: list[WeeklyInsight]       # Exactly 3
     watchlist: list[str]                # 3-5 items
 
 
