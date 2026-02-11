@@ -112,6 +112,7 @@ async def _collect() -> None:
     )
 
 
+@weave.op()
 def collect() -> None:
     asyncio.run(_collect())
 
@@ -140,10 +141,12 @@ async def _discover_and_save() -> None:
         console.print(f"    - {ec.name}: {ec.description}")
 
 
+@weave.op()
 def discover_cmd() -> None:
     asyncio.run(_discover_and_save())
 
 
+@weave.op()
 def analyze() -> None:
     settings = Settings()
     collection = load_latest_collection()
@@ -179,6 +182,7 @@ def analyze() -> None:
     console.print(f"  종합 분석: {'완료' if run.synthesis else '없음'}")
 
 
+@weave.op()
 def report() -> None:
     analysis = load_latest_analysis()
     if analysis is None:
@@ -230,6 +234,7 @@ def report() -> None:
         console.print(f"  신규 경쟁사: {len(discovery_result.emerging_competitors)}개")
 
 
+@weave.op()
 def run() -> None:
     collect()
 
