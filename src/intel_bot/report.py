@@ -6,7 +6,6 @@ from pathlib import Path
 from intel_bot.config import (
     COMPARISON_CATEGORIES,
     SUMMARY_DIMENSIONS,
-    WEEKLY_REPORT_DEEP_CATEGORIES,
 )
 from intel_bot.models import AnalysisRun, CompetitorAnalysis, DiscoveryResult
 
@@ -20,7 +19,7 @@ RATING_SYMBOL = {
 }
 
 COMPARISON_LABEL = {
-    "strong": "\uacbd\uc7c1\uc0ac \uc6b0\uc704",
+    "stronger": "\uacbd\uc7c1\uc0ac \uc6b0\uc704",
     "comparable": "\uc720\uc0ac",
     "weaker": "Weave \uc6b0\uc704",
     "unknown": "\uc815\ubcf4 \ubd80\uc871",
@@ -52,7 +51,7 @@ def generate_comparison_page(run: AnalysisRun) -> str:
     lines = [
         "---",
         "layout: default",
-        f"title: W&B Weave \u2014 \uc0c1\uc138 \uae30\ub2a5 \ube44\uad50\ud45c",
+        "title: W&B Weave \u2014 \uc0c1\uc138 \uae30\ub2a5 \ube44\uad50\ud45c",
         "---",
         "",
         "# W&B Weave \u2014 \uc0c1\uc138 \uae30\ub2a5 \ube44\uad50\ud45c",
@@ -68,14 +67,12 @@ def generate_comparison_page(run: AnalysisRun) -> str:
         lines.append(f"## {cat_def.name_ko}")
         lines.append("")
 
-        # Header row
         header = f"| \ud56d\ubaa9 | **Weave** | {' | '.join(competitor_names)} |"
         separator = "|---|---|" + "---|" * len(competitor_names)
         lines.append(header)
         lines.append(separator)
 
         for item_name in cat_def.items:
-            # Collect ratings from all competitors
             weave_rating = "none"
             comp_ratings: dict[str, str] = {}
 
@@ -93,10 +90,8 @@ def generate_comparison_page(run: AnalysisRun) -> str:
                 if not feat:
                     continue
 
-                # Use first valid Weave rating
                 if weave_rating == "none" and feat.weave_rating != "none":
                     weave_rating = feat.weave_rating
-
                 comp_ratings[comp.competitor_name] = feat.competitor_rating
 
             weave_cell = _rating_to_symbol(weave_rating)
@@ -104,8 +99,7 @@ def generate_comparison_page(run: AnalysisRun) -> str:
             for cname in competitor_names:
                 cells.append(_rating_to_symbol(comp_ratings.get(cname, "none")))
 
-            row = f"| {item_name} | {' | '.join(cells)} |"
-            lines.append(row)
+            lines.append(f"| {item_name} | {' | '.join(cells)} |")
 
         lines.append("")
 
@@ -113,7 +107,7 @@ def generate_comparison_page(run: AnalysisRun) -> str:
 
 
 # ---------------------------------------------------------------------------
-# Output 2: competitor-detail.md (competitor deep dives)
+# Output 2: competitor-detail.md -> product detail (제품 상세분석)
 # ---------------------------------------------------------------------------
 
 def _judge_category(comp: CompetitorAnalysis, cat_name: str) -> str:
@@ -136,6 +130,72 @@ def _judge_category(comp: CompetitorAnalysis, cat_name: str) -> str:
         return "unknown"
     else:
         return "comparable"
+
+
+def _build_weave_detail(run: AnalysisRun) -> str:
+    """Build Weave product detail section from synthesis data."""
+    synthesis = run.synthesis
+    lines = [
+        "### Weave",
+        "",
+    ]
+
+    if synthesis:
+        lines.append(f"**\uac1c\uc694**: {synthesis.weave_summary}")
+        lines.append("")
+        lines.append("**\ud575\uc2ec \uac15\uc810**:")
+        for s in synthesis.weave_strengths:
+            lines.append(f"- {s}")
+        lines.append("")
+        lines.append("**\uac1c\uc120 \uc601\uc5ed**:")
+        for w in synthesis.weave_weaknesses:
+            lines.append(f"- {w}")
+        lines.append("")
+        lines.append("**\uc8fc\uc694 \uc5c5\ub370\uc774\ud2b8**:")
+        if synthesis.weave_new_features:
+            for nf in synthesis.weave_new_features:
+                lines.append(f"- {nf.feature_name}: {nf.description} ({nf.release_date})")
+        else:
+            lines.append("- *\ubcf4\uace0\ub41c \ub0b4\uc6a9 \uc5c6\uc74c*")
+    else:
+        lines.append("*Synthesis \ub370\uc774\ud130 \uc5c6\uc74c*")
+
+    # Weave category ratings aggregated from competitor analyses
+    lines.append("")
+    lines.append("| \uce74\ud14c\uace0\ub9ac | \ub4f1\uae09 | \ube44\uace0 |")
+    lines.append("|---|---|---|")
+
+    for cat_def in COMPARISON_CATEGORIES:
+        # Aggregate Weave ratings across all competitor analyses
+        rating_score = {"strong": 3, "medium": 2, "weak": 1, "none": 0}
+        scores = []
+        for comp in run.competitors:
+            cat_data = next(
+                (c for c in comp.categories if c.category_name == cat_def.name), None
+            )
+            if not cat_data:
+                continue
+            cat_scores = [rating_score.get(f.weave_rating, 0) for f in cat_data.features]
+            if cat_scores:
+                scores.append(sum(cat_scores) / len(cat_scores))
+
+        if scores:
+            avg = sum(scores) / len(scores)
+            if avg >= 2.5:
+                rating = "strong"
+            elif avg >= 1.5:
+                rating = "medium"
+            elif avg >= 0.5:
+                rating = "weak"
+            else:
+                rating = "none"
+        else:
+            rating = "none"
+
+        symbol = _rating_to_symbol(rating)
+        lines.append(f"| {cat_def.name_ko} | {symbol} | |")
+
+    return "\n".join(lines) + "\n"
 
 
 def _build_competitor_detail(comp: CompetitorAnalysis) -> str:
@@ -193,14 +253,21 @@ def generate_competitor_detail_page(run: AnalysisRun) -> str:
     lines = [
         "---",
         "layout: default",
-        f"title: W&B Weave \u2014 \uacbd\uc7c1\uc0ac \uc0c1\uc138 \ubd84\uc11d",
+        "title: W&B Weave \u2014 \uc81c\ud488 \uc0c1\uc138\ubd84\uc11d",
         "---",
         "",
-        "# W&B Weave \u2014 \uacbd\uc7c1\uc0ac \uc0c1\uc138 \ubd84\uc11d",
+        "# W&B Weave \u2014 \uc81c\ud488 \uc0c1\uc138\ubd84\uc11d",
         f"**\ub0a0\uc9dc**: {run.date} | **\ubaa8\ub378**: {run.model}",
         "",
     ]
 
+    # Weave first
+    lines.append(_build_weave_detail(run))
+    lines.append("")
+    lines.append("---")
+    lines.append("")
+
+    # Then competitors
     for comp in run.competitors:
         lines.append(_build_competitor_detail(comp))
         lines.append("")
@@ -228,7 +295,7 @@ def generate_weekly_report(
         "# W&B Weave \u2014 \uc8fc\uac04 \uacbd\uc7c1\uc0ac \uc778\ud154\ub9ac\uc804\uc2a4 \ub9ac\ud3ec\ud2b8",
         f"**\ub0a0\uc9dc**: {run.date} | **\ubaa8\ub378**: {run.model} | **\ub370\uc774\ud130 \uc218\uc9d1\uc77c**: {run.collection_date}",
         "",
-        "> [\uc0c1\uc138 \ube44\uad50\ud45c](../comparison) \u00b7 [\uacbd\uc7c1\uc0ac \uc0c1\uc138 \ubd84\uc11d](../competitor-detail)",
+        "> [\uc0c1\uc138 \ube44\uad50\ud45c](../comparison) \u00b7 [\uc81c\ud488 \uc0c1\uc138\ubd84\uc11d](../competitor-detail)",
         "",
     ]
 
@@ -240,6 +307,18 @@ def generate_weekly_report(
             lines.append(f"- {bullet}")
         lines.append("")
         lines.append(f"> **\ud55c\uc904 \ucd1d\ud3c9**: {synthesis.one_line_verdict}")
+        lines.append("")
+
+        # Weave Strengths & Weaknesses sub-section
+        lines.append("### Weave \ud575\uc2ec \uac15\uc810")
+        lines.append("")
+        for s in synthesis.weave_strengths:
+            lines.append(f"- {s}")
+        lines.append("")
+        lines.append("### Weave \uac1c\uc120 \uc601\uc5ed")
+        lines.append("")
+        for w in synthesis.weave_weaknesses:
+            lines.append(f"- {w}")
     else:
         lines.append("- *Synthesis \ub370\uc774\ud130 \uc5c6\uc74c*")
     lines.append("")
@@ -264,10 +343,22 @@ def generate_weekly_report(
         lines.append("*\ub370\uc774\ud130 \uc5c6\uc74c*")
         lines.append("")
 
-    # Section 3: New Features This Week
+    # Section 3: New Features This Week (including Weave)
     lines.append("## 3. New Features This Week")
     lines.append("")
     has_any_features = False
+
+    # Weave features first
+    if synthesis and synthesis.weave_new_features:
+        has_any_features = True
+        lines.append("### Weave")
+        for nf in synthesis.weave_new_features:
+            lines.append(
+                f"- **{nf.feature_name}**: {nf.description} ({nf.release_date}, {nf.category})"
+            )
+        lines.append("")
+
+    # Competitor features
     for comp in run.competitors:
         if comp.new_features:
             has_any_features = True
@@ -281,76 +372,32 @@ def generate_weekly_report(
         lines.append("*\uc774\ubc88 \uc8fc \uc2e0\uaddc \uae30\ub2a5 \uc5c6\uc74c*")
         lines.append("")
 
-    # Section 4: Deep Feature Tracking (5 categories)
-    lines.append("## 4. Deep Feature Tracking")
-    lines.append("")
-
-    competitor_names = [c.competitor_name for c in run.competitors]
-    section_num = 1
-
-    for cat_name in WEEKLY_REPORT_DEEP_CATEGORIES:
-        cat_def = next(
-            (c for c in COMPARISON_CATEGORIES if c.name == cat_name), None
-        )
-        if not cat_def:
-            continue
-
-        lines.append(f"### 4.{section_num} {cat_def.name_ko}")
-        lines.append("")
-
-        header = f"| \ud56d\ubaa9 | **Weave** | {' | '.join(competitor_names)} |"
-        separator = "|---|---|" + "---|" * len(competitor_names)
-        lines.append(header)
-        lines.append(separator)
-
-        for item_name in cat_def.items:
-            weave_rating = "none"
-            comp_ratings: dict[str, str] = {}
-
-            for comp in run.competitors:
-                cat_data = next(
-                    (c for c in comp.categories if c.category_name == cat_name),
-                    None,
-                )
-                if not cat_data:
-                    continue
-                feat = next(
-                    (f for f in cat_data.features if f.item_name == item_name),
-                    None,
-                )
-                if not feat:
-                    continue
-
-                if weave_rating == "none" and feat.weave_rating != "none":
-                    weave_rating = feat.weave_rating
-                comp_ratings[comp.competitor_name] = feat.competitor_rating
-
-            weave_cell = _rating_to_symbol(weave_rating)
-            cells = [weave_cell]
-            for cname in competitor_names:
-                cells.append(_rating_to_symbol(comp_ratings.get(cname, "none")))
-
-            row = f"| {item_name} | {' | '.join(cells)} |"
-            lines.append(row)
-
-        lines.append("")
-        section_num += 1
-
-    # Section 5: Positioning Shift
-    lines.append("## 5. Positioning Shift")
+    # Section 4: Positioning Shift (including Weave)
+    lines.append("## 4. Positioning Shift")
     lines.append("")
     lines.append("| Vendor | Current | Moving Toward | Signal |")
     lines.append("|---|---|---|---|")
+
+    # Weave first
+    if synthesis:
+        wp = synthesis.weave_positioning
+        lines.append(
+            f"| **Weave** | {wp.current_position.replace('|', '\\|')} "
+            f"| {wp.moving_toward.replace('|', '\\|')} "
+            f"| {wp.signal.replace('|', '\\|')} |"
+        )
+
     for comp in run.competitors:
         pos = comp.positioning
-        current = pos.current_position.replace("|", "\\|")
-        toward = pos.moving_toward.replace("|", "\\|")
-        signal = pos.signal.replace("|", "\\|")
-        lines.append(f"| {comp.competitor_name} | {current} | {toward} | {signal} |")
+        lines.append(
+            f"| {comp.competitor_name} | {pos.current_position.replace('|', '\\|')} "
+            f"| {pos.moving_toward.replace('|', '\\|')} "
+            f"| {pos.signal.replace('|', '\\|')} |"
+        )
     lines.append("")
 
-    # Section 6: Enterprise Signals
-    lines.append("## 6. Enterprise Signals")
+    # Section 5: Enterprise Signals
+    lines.append("## 5. Enterprise Signals")
     lines.append("")
     if synthesis and synthesis.enterprise_signals:
         for sig in synthesis.enterprise_signals:
@@ -359,8 +406,8 @@ def generate_weekly_report(
         lines.append("- *\ub370\uc774\ud130 \uc5c6\uc74c*")
     lines.append("")
 
-    # Section 7: Insights
-    lines.append("## 7. Insights")
+    # Section 6: Insights
+    lines.append("## 6. Insights")
     lines.append("")
     if synthesis and synthesis.insights:
         for insight in synthesis.insights:
@@ -372,8 +419,8 @@ def generate_weekly_report(
         lines.append("*\ub370\uc774\ud130 \uc5c6\uc74c*")
         lines.append("")
 
-    # Section 8: Watchlist
-    lines.append("## 8. Watchlist")
+    # Section 7: Watchlist
+    lines.append("## 7. Watchlist")
     lines.append("")
     if synthesis and synthesis.watchlist:
         for item in synthesis.watchlist:
@@ -436,7 +483,7 @@ def save_report(
     comparison_content = generate_comparison_page(run)
     comparison_path.write_text(comparison_content, encoding="utf-8")
 
-    # Competitor detail page (repo root)
+    # Product detail page (repo root)
     detail_path = Path("competitor-detail.md")
     detail_content = generate_competitor_detail_page(run)
     detail_path.write_text(detail_content, encoding="utf-8")
@@ -513,7 +560,7 @@ def _write_full_index(index_file: Path, latest_content: str, archive_content: st
         "\n"
         "W&B Weave \uacbd\uc7c1\uc0ac \uc81c\ud488 \ube44\uad50 \ub9ac\ud3ec\ud2b8\n"
         "\n"
-        "[\uc0c1\uc138 \ube44\uad50\ud45c](./comparison) \u00b7 [\uacbd\uc7c1\uc0ac \uc0c1\uc138 \ubd84\uc11d](./competitor-detail)\n"
+        "[\uc0c1\uc138 \ube44\uad50\ud45c](./comparison) \u00b7 [\uc81c\ud488 \uc0c1\uc138\ubd84\uc11d](./competitor-detail)\n"
         "\n"
         "## Latest Report\n"
         "\n"

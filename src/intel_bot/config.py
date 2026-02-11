@@ -100,14 +100,5 @@ COMPARISON_CATEGORIES: list[CategoryDef] = [
         ["온프레미스/VPC", "RBAC", "PII 마스킹", "감사 로그", "데이터 보존", "리전 지원"]),
 ]
 
-# Weekly report Section 4: 5 categories for deep tracking (other 2 in comparison table only)
-WEEKLY_REPORT_DEEP_CATEGORIES = [
-    "Core Observability",
-    "Agent / RAG Observability",
-    "Evaluation Integration",
-    "Monitoring & Metrics",
-    "Enterprise & Security",
-]
-
 # Section 2 summary table dimensions
 SUMMARY_DIMENSIONS = ["Trace Depth", "Eval", "Agent Observability", "Cost Tracking", "Enterprise Ready", "Overall"]

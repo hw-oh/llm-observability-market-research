@@ -134,6 +134,30 @@ _SYNTHESIS_USER_PROMPT_TEMPLATE = """\
     "핵심 인사이트 5"
   ],
   "one_line_verdict": "이번 주 Weave의 경쟁 포지션에 대한 한줄 총평 (한국어)",
+  "weave_summary": "Weave 제품에 대한 2-3문장 종합 요약. 경쟁사 대비 Weave의 포지셔닝과 핵심 가치 설명 (한국어)",
+  "weave_strengths": [
+    "Weave를 셀링하는 엔지니어가 강조할 수 있는 강점 1 (한국어)",
+    "강점 2",
+    ...3-5개...
+  ],
+  "weave_weaknesses": [
+    "경쟁사 대비 Weave가 개선해야 할 영역 1 (한국어)",
+    "약점 2",
+    ...3-5개...
+  ],
+  "weave_positioning": {{
+    "current_position": "Weave의 현재 시장 포지셔닝 (한국어)",
+    "moving_toward": "Weave가 나아가는 방향 (한국어)",
+    "signal": "근거가 되는 시그널 (한국어)"
+  }},
+  "weave_new_features": [
+    {{
+      "feature_name": "Weave 최근 기능/업데이트명 (한국어)",
+      "description": "설명 (한국어)",
+      "release_date": "YYYY-MM-DD 또는 YYYY-MM",
+      "category": "해당 카테고리 영문명"
+    }}
+  ],
   "vendor_ratings": [
     {{
       "vendor_name": "Weave",
@@ -169,6 +193,11 @@ _SYNTHESIS_USER_PROMPT_TEMPLATE = """\
 
 규칙:
 - "executive_summary"는 정확히 5개 bullet
+- "weave_summary"는 Weave 셀링 엔지니어 관점에서 제품 포지셔닝 요약
+- "weave_strengths"는 3-5개 (경쟁사 분석에서 도출한 Weave의 차별화 강점)
+- "weave_weaknesses"는 3-5개 (경쟁사가 앞서는 영역, 솔직한 평가)
+- "weave_positioning"은 Weave 자체의 시장 포지셔닝 변화
+- "weave_new_features"는 0-5개 (경쟁사 데이터에서 언급된 Weave 최신 업데이트. 없으면 빈 배열)
 - "vendor_ratings"는 Weave를 포함하여 모든 분석 대상 벤더를 포함해야 합니다
 - "enterprise_signals"는 3-5개
 - "insights"는 정확히 3개
