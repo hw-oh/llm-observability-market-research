@@ -133,6 +133,7 @@ Respond in English.\
 """
 
 _SYNTHESIS_USER_PROMPT_TEMPLATE = """\
+{weave_data_section}\
 Below are the individual analysis results for all competitors analyzed this week:
 
 {all_analyses_json}
@@ -349,13 +350,23 @@ def synthesize(
     client: OpenAI,
     model: str,
     competitors: list[CompetitorAnalysis],
+    weave_context: str = "",
 ) -> SynthesisResult:
     all_analyses = [c.model_dump() for c in competitors]
     all_analyses_json = json.dumps(all_analyses, ensure_ascii=False, indent=2)
 
+    weave_data_section = ""
+    if weave_context:
+        weave_data_section = (
+            "=== Weave Own Data (changelog, releases, docs) ===\n"
+            f"{weave_context}\n"
+            "=== End of Weave Data ===\n\n"
+        )
+
     user_prompt = _SYNTHESIS_USER_PROMPT_TEMPLATE.format(
         all_analyses_json=all_analyses_json,
         today=date.today().isoformat(),
+        weave_data_section=weave_data_section,
     )
 
     last_error: Exception | None = None
@@ -418,7 +429,11 @@ def analyze_all(
     if on_progress:
         on_progress("종합 분석", "analyzing")
 
-    run.synthesis = synthesize(client, model, run.competitors)
+    weave_context = ""
+    if collection.weave_data:
+        weave_context = _build_context(collection.weave_data)
+
+    run.synthesis = synthesize(client, model, run.competitors, weave_context=weave_context)
 
     if on_progress:
         on_progress("종합 분석", "done")

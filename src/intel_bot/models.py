@@ -42,6 +42,7 @@ class CollectionRun(BaseModel):
     date: str
     mode: str = "initial"  # "initial" or "update"
     competitors: list[CompetitorData] = []
+    weave_data: CompetitorData | None = None
 
 
 class FeatureRating(BaseModel):

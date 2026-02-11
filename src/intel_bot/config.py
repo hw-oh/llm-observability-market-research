@@ -80,6 +80,14 @@ COMPETITORS: list[CompetitorConfig] = [
     ),
 ]
 
+WEAVE_CONFIG = CompetitorConfig(
+    name="W&B Weave",
+    docs_url="https://weave-docs.wandb.ai",
+    changelog_url="https://app.getbeamer.com/wandb/en",
+    github_repo="wandb/weave",
+    pypi_package="weave",
+)
+
 
 @dataclass
 class CategoryDef:

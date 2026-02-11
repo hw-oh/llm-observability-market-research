@@ -12,7 +12,7 @@ from intel_bot.analyzer import analyze_all
 from intel_bot.collectors.docs_scraper import scrape_competitor_docs
 from intel_bot.collectors.feed import fetch_competitor_feeds
 from intel_bot.collectors.serper import search_competitor
-from intel_bot.config import COMPETITORS, Settings
+from intel_bot.config import COMPETITORS, WEAVE_CONFIG, Settings
 from intel_bot.discovery import discover
 from intel_bot.models import CollectionRun, CompetitorData
 from intel_bot.notify import send_slack_notification
@@ -68,7 +68,24 @@ async def _collect() -> None:
             progress.update(task, description=f"[green]  {comp.name}: 완료")
             progress.remove_task(task)
 
-    run = CollectionRun(date=today, mode="initial", competitors=all_competitors)
+        # Weave 자체 데이터 수집 (경쟁사와 동일한 파이프라인)
+        task = progress.add_task(f"{WEAVE_CONFIG.name} 수집 중...", total=None)
+        search_results = await search_competitor(WEAVE_CONFIG, settings.serper_dev_api)
+        progress.update(task, description=f"  {WEAVE_CONFIG.name}: 검색 결과 {len(search_results)}건")
+        docs_pages = await scrape_competitor_docs(WEAVE_CONFIG)
+        progress.update(task, description=f"  {WEAVE_CONFIG.name}: 문서 {len(docs_pages)}건")
+        feed_entries = fetch_competitor_feeds(WEAVE_CONFIG)
+        progress.update(task, description=f"  {WEAVE_CONFIG.name}: 피드 {len(feed_entries)}건")
+        weave_data = CompetitorData(
+            competitor_name=WEAVE_CONFIG.name,
+            search_results=search_results,
+            docs_pages=docs_pages,
+            feed_entries=feed_entries,
+        )
+        progress.update(task, description=f"[green]  {WEAVE_CONFIG.name}: 완료")
+        progress.remove_task(task)
+
+    run = CollectionRun(date=today, mode="initial", competitors=all_competitors, weave_data=weave_data)
     path = save_collection(run)
 
     console.print()
@@ -81,6 +98,12 @@ async def _collect() -> None:
             f"문서 {len(comp_data.docs_pages)}건, "
             f"피드 {len(comp_data.feed_entries)}건"
         )
+    console.print(
+        f"  {weave_data.competitor_name}: "
+        f"검색 {len(weave_data.search_results)}건, "
+        f"문서 {len(weave_data.docs_pages)}건, "
+        f"피드 {len(weave_data.feed_entries)}건"
+    )
 
 
 def collect() -> None:
