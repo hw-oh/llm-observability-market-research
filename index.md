@@ -16,14 +16,15 @@ W&B Weave 경쟁사 제품 비교 리포트
 [📋 Latest Report (2026-02-11)](./reports/2026-02-11.md)
 
 
-- Humanloop의 서비스 종료(Sunset) 발표로 인해 '프롬프트 엔지니어링' 및 '비개발자 협업' 중심의 고객군이 시장에 쏟아져 나왔으며, 이를 흡수하기 위한 경쟁사들의 UI/UX 강화가 예상됩니다.
-- LangSmith와 Langfuse가 'Agent Graph' 및 'Workflow Visualization' 기능을 동시에 강화하며, 단순 트레이싱을 넘어 복잡한 에이전트의 상태(State)와 루프를 시각화하는 것이 업계 표준이 되고 있습니다.
-- Braintrust가 Java, Go, C# 등 엔터프라이즈 백엔드 언어 SDK를 대거 출시하며, Python 중심의 AI 개발 생태계를 넘어 전통적인 엔터프라이즈 시스템 통합 시장을 선점하려 합니다.
-- 평가(Evaluation)가 단순한 사후 분석을 넘어 'Annotation Queues(LangSmith, Langfuse)'와 같은 휴먼 인 더 루프(Human-in-the-loop) 워크플로우와 결합되어 데이터셋 구축의 핵심 도구로 진화하고 있습니다.
-- Logfire와 Arize Phoenix는 OpenTelemetry(OTel) 표준을 앞세워 벤더 종속성을 탈피하려는 개발자들에게 '코드 중심(Code-first)'의 가벼운 디버깅 경험을 어필하고 있습니다.
-- Helicone과 Braintrust는 'Proxy/Gateway' 기능을 내장하여 별도의 인프라 변경 없이 캐싱, 비용 제어, 보안을 즉시 적용할 수 있는 운영(Ops) 측면의 강점을 내세우고 있습니다.
+- Major Market Shift: Humanloop is sunsetting in September 2025 following its acquisition by Anthropic. This creates an immediate, high-priority opportunity for Weave to capture displaced enterprise customers looking for a stable prompt management and evaluation alternative.
+- The 'Proxy vs. Async' Divide: Competitors like Braintrust and Helicone are doubling down on Gateway/Proxy architectures to win on cost control, caching, and rate limiting. In contrast, Weave, LangSmith, and Phoenix prioritize async logging for developer ergonomics, creating a distinct architectural split in the market.
+- Evaluation Maturity Curve: Leading competitors (LangSmith, Braintrust) are moving beyond simple 'LLM-as-a-Judge' to sophisticated Human-in-the-Loop (HITL) workflows, introducing dedicated 'Annotation Queues' and 'Pairwise Comparison' UIs to operationalize manual review.
+- Rise of SQL-based Observability: Logfire and Braintrust (BTQL) are differentiating with SQL-like query languages for traces, appealing to power users who need flexible, code-driven analytics over rigid dashboards.
+- Agent-Specific Tooling: The market is shifting from generic LLM tracing to 'Agent' observability. LangSmith, Langfuse, and Logfire have all released specialized visualizations for tool calling, multi-step reasoning loops, and sub-agent nesting.
+- OpenTelemetry Standardization: Arize Phoenix, Langfuse, and Logfire are aggressively pushing OpenTelemetry (OTel) and OpenInference as the standard, challenging proprietary SDKs by promising vendor-neutral instrumentation.
+- Language Ecosystem Expansion: Braintrust is outflanking competitors on language support, releasing native SDKs for Java, Go, Ruby, and C#, positioning itself as the go-to choice for polyglot enterprise environments.
 
-> Humanloop의 이탈로 프롬프트 관리 시장의 기회가 열린 가운데, 경쟁사들은 '에이전트 시각화'와 '엔터프라이즈 언어 확장'으로 Weave의 파이프라인 장악력을 위협하고 있습니다.
+> Weave remains the premier choice for full-lifecycle ML teams, but faces increasing pressure from proxy-based gateways on cost control and OTel-native tools on standardization.
 
 
 <!-- LATEST_REPORT_END -->
