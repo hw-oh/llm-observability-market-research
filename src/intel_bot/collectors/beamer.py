@@ -51,7 +51,7 @@ def _parse_entries(html: str, category_filter: str = "weave") -> list[FeedEntry]
         published = _parse_date(date_tag.get_text() if date_tag else "")
 
         content_tag = div.find("div", class_="featureContent")
-        summary = content_tag.get_text(strip=True)[:500] if content_tag else ""
+        summary = content_tag.get_text(strip=True)[:2000] if content_tag else ""
 
         link = ""
         if title_tag:
