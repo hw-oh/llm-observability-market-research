@@ -39,7 +39,9 @@ async def scrape_competitor_docs(
     competitor: CompetitorConfig,
 ) -> list[DocsPage]:
     urls = [competitor.docs_url]
-    if competitor.changelog_url:
+    if competitor.changelog_url and not competitor.changelog_url.endswith(
+        (".rss", ".xml", ".atom")
+    ):
         urls.append(competitor.changelog_url)
 
     pages: list[DocsPage] = []

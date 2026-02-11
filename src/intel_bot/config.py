@@ -32,14 +32,14 @@ COMPETITORS: list[CompetitorConfig] = [
     CompetitorConfig(
         name="LangSmith",
         docs_url="https://docs.smith.langchain.com",
-        changelog_url="https://changelog.langchain.com",
+        changelog_url="https://changelog.langchain.com/feed.rss",
         github_repo="langchain-ai/langsmith-sdk",
         pypi_package="langsmith",
     ),
     CompetitorConfig(
         name="Arize Phoenix",
         docs_url="https://docs.arize.com/phoenix",
-        changelog_url=None,
+        changelog_url="https://arize.com/docs/phoenix/release-notes",
         github_repo="Arize-ai/phoenix",
         pypi_package="arize-phoenix",
     ),
@@ -56,13 +56,6 @@ COMPETITORS: list[CompetitorConfig] = [
         changelog_url="https://langfuse.com/changelog",
         github_repo="langfuse/langfuse",
         pypi_package="langfuse",
-    ),
-    CompetitorConfig(
-        name="Humanloop",
-        docs_url="https://humanloop.com/docs",
-        changelog_url="https://humanloop.com/docs/changelog",
-        github_repo=None,
-        pypi_package="humanloop",
     ),
     CompetitorConfig(
         name="Logfire",

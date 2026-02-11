@@ -96,7 +96,8 @@ Return a JSON object that exactly matches the schema below (no markdown fences, 
       "feature_name": "Feature name",
       "description": "Feature description",
       "release_date": "YYYY-MM-DD or YYYY-MM",
-      "category": "Category English name"
+      "category": "Category English name",
+      "source_url": "Direct URL from changelog or release notes"
     }}
   ],
   "positioning": {{
@@ -114,6 +115,7 @@ Rules:
 - "item_name" must use the exact names specified in the schema
 - Ratings must be one of "strong", "medium", "weak", "none"
 - "new_features": 0-5 items (product updates released within the last 30 days ONLY based on today's date {today}. Exclude anything older. Empty array if none.)
+- "source_url" must be the direct URL from the changelog or release notes found in the collected data. If no URL is available, use an empty string.
 - "strengths_vs_weave": 3-5 items
 - "weaknesses_vs_weave": 3-5 items
 - All text must be written in English
@@ -171,7 +173,8 @@ Synthesize the above data and return a JSON object matching the schema below (no
       "feature_name": "Recent Weave feature/update name",
       "description": "Description",
       "release_date": "YYYY-MM-DD or YYYY-MM",
-      "category": "Category English name"
+      "category": "Category English name",
+      "source_url": "Direct URL from changelog or release notes"
     }}
   ],
   "vendor_ratings": [
@@ -207,6 +210,7 @@ Rules:
 - "weave_weaknesses": 3-5 items (areas where competitors lead, honest assessment)
 - "weave_positioning": Weave's own market positioning shift
 - "weave_new_features": 0-5 items (Weave updates from the last 30 days ONLY based on today's date {today}. Empty array if none.)
+- "source_url" must be the direct URL from the changelog or release notes found in the collected data. If no URL is available, use an empty string.
 - "vendor_ratings" must include Weave and all analyzed vendors
 - "enterprise_signals": 3-5 items
 - "watchlist": 3-5 items

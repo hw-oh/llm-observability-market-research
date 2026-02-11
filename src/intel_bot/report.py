@@ -4,7 +4,9 @@ from pathlib import Path
 
 from intel_bot.config import (
     COMPARISON_CATEGORIES,
+    COMPETITORS,
     SUMMARY_DIMENSIONS,
+    WEAVE_CONFIG,
 )
 from intel_bot.models import AnalysisRun, CompetitorAnalysis, DiscoveryResult
 
@@ -16,6 +18,14 @@ RATING_SYMBOL = {
     "weak": "●○○",
     "none": "○○○",
 }
+
+_CHANGELOG_URL_MAP: dict[str, str] = {
+    c.name: c.changelog_url for c in COMPETITORS if c.changelog_url
+}
+if WEAVE_CONFIG.changelog_url:
+    _CHANGELOG_URL_MAP[WEAVE_CONFIG.name] = WEAVE_CONFIG.changelog_url
+
+BEAMER_URL = "https://app.getbeamer.com/weave/en"
 
 COMPARISON_LABEL = {
     "stronger": "Competitor Leads",
@@ -155,7 +165,8 @@ def _build_weave_detail(run: AnalysisRun) -> str:
         lines.append("**Recent Updates**:")
         if synthesis.weave_new_features:
             for nf in synthesis.weave_new_features:
-                lines.append(f"- {nf.feature_name}: {nf.description} ({nf.release_date})")
+                suffix = f" [[docs]]({nf.source_url})" if nf.source_url else ""
+                lines.append(f"- {nf.feature_name}: {nf.description} ({nf.release_date}){suffix}")
         else:
             lines.append("- *No updates reported*")
     else:
@@ -228,7 +239,8 @@ def _build_competitor_detail(comp: CompetitorAnalysis) -> str:
 
     if comp.new_features:
         for nf in comp.new_features:
-            lines.append(f"- {nf.feature_name}: {nf.description} ({nf.release_date})")
+            suffix = f" [[docs]]({nf.source_url})" if nf.source_url else ""
+            lines.append(f"- {nf.feature_name}: {nf.description} ({nf.release_date}){suffix}")
     else:
         lines.append("- *No data reported*")
 
@@ -354,10 +366,12 @@ def generate_weekly_report(
     # Weave features first
     if synthesis and synthesis.weave_new_features:
         has_any_features = True
-        lines.append("### Weave")
+        weave_cl = _CHANGELOG_URL_MAP.get("W&B Weave", BEAMER_URL)
+        lines.append(f"### [Weave]({weave_cl})")
         for nf in synthesis.weave_new_features:
+            suffix = f" [[docs]]({nf.source_url})" if nf.source_url else ""
             lines.append(
-                f"- **{nf.feature_name}**: {nf.description} ({nf.release_date}, {nf.category})"
+                f"- **{nf.feature_name}**: {nf.description} ({nf.release_date}, {nf.category}){suffix}"
             )
         lines.append("")
 
@@ -365,10 +379,15 @@ def generate_weekly_report(
     for comp in run.competitors:
         if comp.new_features:
             has_any_features = True
-            lines.append(f"### {comp.competitor_name}")
+            cl_url = _CHANGELOG_URL_MAP.get(comp.competitor_name)
+            if cl_url:
+                lines.append(f"### [{comp.competitor_name}]({cl_url})")
+            else:
+                lines.append(f"### {comp.competitor_name}")
             for nf in comp.new_features:
+                suffix = f" [[docs]]({nf.source_url})" if nf.source_url else ""
                 lines.append(
-                    f"- **{nf.feature_name}**: {nf.description} ({nf.release_date}, {nf.category})"
+                    f"- **{nf.feature_name}**: {nf.description} ({nf.release_date}, {nf.category}){suffix}"
                 )
             lines.append("")
     if not has_any_features:
@@ -531,20 +550,27 @@ def _build_new_features_section(analysis: AnalysisRun | None) -> str:
     # Weave features first (from synthesis)
     if analysis.synthesis and analysis.synthesis.weave_new_features:
         has_any = True
-        lines.append("### Weave")
+        weave_cl = _CHANGELOG_URL_MAP.get("W&B Weave", BEAMER_URL)
+        lines.append(f"### [Weave]({weave_cl})")
         lines.append("")
         for nf in analysis.synthesis.weave_new_features:
-            lines.append(f"- **{nf.feature_name}**: {nf.description} ({nf.release_date})")
+            suffix = f" [[docs]]({nf.source_url})" if nf.source_url else ""
+            lines.append(f"- **{nf.feature_name}**: {nf.description} ({nf.release_date}){suffix}")
         lines.append("")
 
     # Competitor features
     for comp in analysis.competitors:
         if comp.new_features:
             has_any = True
-            lines.append(f"### {comp.competitor_name}")
+            cl_url = _CHANGELOG_URL_MAP.get(comp.competitor_name)
+            if cl_url:
+                lines.append(f"### [{comp.competitor_name}]({cl_url})")
+            else:
+                lines.append(f"### {comp.competitor_name}")
             lines.append("")
             for nf in comp.new_features:
-                lines.append(f"- **{nf.feature_name}**: {nf.description} ({nf.release_date})")
+                suffix = f" [[docs]]({nf.source_url})" if nf.source_url else ""
+                lines.append(f"- **{nf.feature_name}**: {nf.description} ({nf.release_date}){suffix}")
             lines.append("")
 
     if not has_any:

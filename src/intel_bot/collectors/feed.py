@@ -52,6 +52,27 @@ def fetch_pypi_releases(package: str) -> list[FeedEntry]:
     return entries
 
 
+def _is_rss_url(url: str) -> bool:
+    return url.endswith((".rss", ".xml", ".atom"))
+
+
+def fetch_changelog_rss(url: str) -> list[FeedEntry]:
+    feed = feedparser.parse(url)
+
+    entries: list[FeedEntry] = []
+    for item in feed.entries[:MAX_ENTRIES]:
+        entries.append(
+            FeedEntry(
+                source="changelog",
+                title=item.get("title", ""),
+                link=item.get("link", ""),
+                published=_format_date(item.get("published_parsed")),
+                summary=item.get("summary", "")[:500],
+            )
+        )
+    return entries
+
+
 def fetch_competitor_feeds(competitor: CompetitorConfig) -> list[FeedEntry]:
     all_entries: list[FeedEntry] = []
 
@@ -66,5 +87,11 @@ def fetch_competitor_feeds(competitor: CompetitorConfig) -> list[FeedEntry]:
             all_entries.extend(fetch_pypi_releases(competitor.pypi_package))
         except Exception as e:
             print(f"  [warn] PyPI feed failed for {competitor.pypi_package}: {e}")
+
+    if competitor.changelog_url and _is_rss_url(competitor.changelog_url):
+        try:
+            all_entries.extend(fetch_changelog_rss(competitor.changelog_url))
+        except Exception as e:
+            print(f"  [warn] Changelog RSS failed for {competitor.changelog_url}: {e}")
 
     return all_entries
