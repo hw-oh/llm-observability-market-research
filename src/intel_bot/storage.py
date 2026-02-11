@@ -68,8 +68,11 @@ def load_latest_analysis(base_dir: str = "data/analyzed") -> AnalysisRun | None:
     if not latest_file.exists():
         return None
 
-    data = json.loads(latest_file.read_text(encoding="utf-8"))
-    return AnalysisRun.model_validate(data)
+    try:
+        data = json.loads(latest_file.read_text(encoding="utf-8"))
+        return AnalysisRun.model_validate(data)
+    except Exception:
+        return None
 
 
 def load_previous_analysis(base_dir: str = "data/analyzed") -> AnalysisRun | None:
@@ -89,8 +92,11 @@ def load_previous_analysis(base_dir: str = "data/analyzed") -> AnalysisRun | Non
     if not prev_file.exists():
         return None
 
-    data = json.loads(prev_file.read_text(encoding="utf-8"))
-    return AnalysisRun.model_validate(data)
+    try:
+        data = json.loads(prev_file.read_text(encoding="utf-8"))
+        return AnalysisRun.model_validate(data)
+    except Exception:
+        return None
 
 
 def save_discovery(result: DiscoveryResult, base_dir: str = "data/raw") -> Path:

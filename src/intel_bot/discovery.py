@@ -54,26 +54,26 @@ def _build_extraction_prompt(results: list[SearchResult]) -> str:
     context = "\n".join(context_lines)
 
     return f"""\
-From the search results below, extract any NEW LLM observability, evaluation, or tracing products/platforms.
+아래 검색 결과에서 새로운 LLM 옵저버빌리티, 평가, 또는 트레이싱 제품/플랫폼을 추출하세요.
 
-IMPORTANT: Do NOT include any of these already-tracked competitors: {known_list}, W&B Weave, Weights & Biases.
-Also exclude generic tools that are NOT specifically LLM observability/evaluation platforms (e.g., general APM tools, cloud providers, basic logging).
+중요: 이미 추적 중인 경쟁사는 포함하지 마세요: {known_list}, W&B Weave, Weights & Biases.
+또한 LLM 옵저버빌리티/평가 플랫폼이 아닌 일반 도구는 제외하세요 (예: 일반 APM 도구, 클라우드 제공자, 기본 로깅).
 
-=== SEARCH RESULTS ===
+=== 검색 결과 ===
 {context}
-=== END ===
+=== 끝 ===
 
-Return a JSON array of objects with this exact schema (no markdown fences, raw JSON only):
+아래 스키마와 정확히 일치하는 JSON 배열을 반환하세요 (마크다운 펜스 없이, 순수 JSON만):
 [
   {{
-    "name": "Product Name",
-    "description": "One-sentence description of what this product does",
+    "name": "제품명",
+    "description": "이 제품이 하는 일에 대한 한 문장 설명 (한국어)",
     "source_url": "https://example.com"
   }}
 ]
 
-If no new products are found, return an empty array: []
-Output raw JSON only, no markdown code fences."""
+새로운 제품이 없으면 빈 배열을 반환하세요: []
+순수 JSON만 출력, 마크다운 코드 펜스 없음."""
 
 
 def extract_emerging_competitors(
@@ -95,9 +95,9 @@ def extract_emerging_competitors(
                     {
                         "role": "system",
                         "content": (
-                            "You are a competitive intelligence analyst. "
-                            "Extract new LLM observability/evaluation products from search results. "
-                            "Respond in English only."
+                            "당신은 경쟁사 인텔리전스 분석가입니다. "
+                            "검색 결과에서 새로운 LLM 옵저버빌리티/평가 제품을 추출하세요. "
+                            "한국어로 응답하세요."
                         ),
                     },
                     {"role": "user", "content": prompt},

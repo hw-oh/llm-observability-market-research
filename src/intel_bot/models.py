@@ -41,10 +41,20 @@ class CollectionRun(BaseModel):
     competitors: list[CompetitorData] = []
 
 
+class FeatureSupport(BaseModel):
+    feature_name: str
+    competitor_supported: bool
+    competitor_feature_name: str = ""
+    competitor_feature_url: str = ""
+    weave_supported: bool
+    weave_feature_name: str = ""
+    weave_feature_url: str = ""
+
+
 class AxisAnalysis(BaseModel):
     axis: str
     summary: str
-    key_features: list[str]
+    features: list[FeatureSupport] = []
     weave_comparison: str  # "stronger" | "comparable" | "weaker" | "unknown"
     weave_comparison_reason: str
 

@@ -1,11 +1,13 @@
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import time
 from collections.abc import Callable
 from datetime import date
 
+import httpx
 from openai import OpenAI
 
 from intel_bot.config import COMPARISON_AXES, Settings
@@ -25,57 +27,70 @@ _MAX_ATTEMPTS = 3
 _BACKOFF_BASE_SECONDS = 5
 
 SYSTEM_PROMPT = """\
-You are a competitive intelligence analyst for the W&B Weave team.
-Weave is an LLM observability and evaluation platform. Its core capabilities by axis:
+당신은 W&B Weave 팀의 경쟁사 인텔리전스 분석가입니다.
+Weave는 LLM 옵저버빌리티 및 평가 플랫폼입니다. 축별 핵심 역량:
 
-- Tracing/Observability: Auto-traces LLM calls, tool calls, agent steps; nested span UI; async support
-- Evaluation Pipeline: `weave.Evaluation` runs datasets through models with scorers; diffing across evals
-- Dataset Management: First-class `weave.Dataset` objects versioned in W&B; edit via UI or SDK
-- Prompt Management: `weave.StringPrompt` / `weave.MessagesPrompt` versioned objects; playground editing
-- Scoring: Built-in scorers (hallucination, summarization, SQL); custom Python scorers; LLM-as-judge
-- LLM/Framework Integration: OpenAI, Anthropic, LiteLLM, LangChain, LlamaIndex, CrewAI, DSPy auto-patching
-- Pricing: Free tier included with W&B; usage-based for Teams/Enterprise
-- Self-hosting: W&B Server (on-prem/private cloud) includes Weave; Docker or K8s deployment
+- 트레이싱/옵저버빌리티: LLM 호출, 도구 호출, 에이전트 스텝 자동 트레이싱; 중첩 스팬 UI; 비동기 지원
+- 평가 파이프라인: `weave.Evaluation`으로 데이터셋 기반 모델 평가 + 스코어러; 평가 간 비교
+- 데이터셋 관리: W&B에서 버전 관리되는 `weave.Dataset` 객체; UI 및 SDK로 편집
+- 프롬프트 관리: `weave.StringPrompt` / `weave.MessagesPrompt` 버전 관리 객체; 플레이그라운드 편집
+- 스코어링: 내장 스코어러(환각, 요약, SQL); 커스텀 Python 스코어러; LLM-as-judge
+- LLM/프레임워크 통합: OpenAI, Anthropic, LiteLLM, LangChain, LlamaIndex, CrewAI, DSPy 자동 패칭
+- 가격: W&B 포함 무료 티어; Teams/Enterprise 사용량 기반 과금
+- 셀프호스팅: W&B Server(온프레미스/프라이빗 클라우드)에 Weave 포함; Docker 또는 K8s 배포
 
-Analyze the competitor data provided and compare against Weave on each axis.
-Be factual and specific. Cite concrete feature names and capabilities.
-Respond in English only.\
+경쟁사 데이터를 분석하고 각 축에서 Weave와 비교하세요.
+사실에 기반하여 구체적으로 분석하세요. 구체적인 기능명과 역량을 인용하세요.
+한국어로 응답하세요.\
 """
 
 _USER_PROMPT_TEMPLATE = """\
-Analyze the following competitor: {competitor_name}
+다음 경쟁사를 분석하세요: {competitor_name}
 
-=== COLLECTED DATA ===
+=== 수집된 데이터 ===
 {context}
-=== END COLLECTED DATA ===
+=== 데이터 끝 ===
 
-Return a JSON object with this exact schema (no markdown fences, raw JSON only):
+아래 스키마와 정확히 일치하는 JSON 객체를 반환하세요 (마크다운 펜스 없이, 순수 JSON만):
 {{
   "competitor_name": "{competitor_name}",
-  "overall_summary": "2-3 sentence summary of the product",
+  "overall_summary": "제품에 대한 2-3문장 요약 (한국어)",
   "axes": [
     {{
-      "axis": "<axis name>",
-      "summary": "3-5 sentence capability summary for this axis",
-      "key_features": ["specific feature 1", "specific feature 2", ...],
+      "axis": "<축 이름>",
+      "summary": "이 축에 대한 3-5문장 역량 요약 (한국어)",
+      "features": [
+        {{
+          "feature_name": "기능 일반명 (한국어, 예: 자동 트레이싱)",
+          "competitor_supported": true,
+          "competitor_feature_name": "경쟁사 기능명 (예: LangSmith Traces)",
+          "competitor_feature_url": "해당 기능 공식 문서/페이지 URL",
+          "weave_supported": true,
+          "weave_feature_name": "Weave 기능명 (예: Weave Tracing)",
+          "weave_feature_url": "Weave 해당 기능 공식 문서/페이지 URL"
+        }}
+      ],
       "weave_comparison": "stronger|comparable|weaker|unknown",
-      "weave_comparison_reason": "1-2 sentence justification"
+      "weave_comparison_reason": "1-2문장 판정 근거 (한국어)"
     }}
   ],
-  "strengths_vs_weave": ["strength 1", "strength 2", ...],
-  "weaknesses_vs_weave": ["weakness 1", "weakness 2", ...],
-  "notable_updates": ["recent update 1", ...]
+  "strengths_vs_weave": ["강점 1", "강점 2", ...],
+  "weaknesses_vs_weave": ["약점 1", "약점 2", ...],
+  "notable_updates": ["최근 업데이트 1", ...]
 }}
 
-Rules:
-- "axes" array must contain exactly 8 items, one per axis in this order: {axes_list}
-- "weave_comparison" must be one of: "stronger", "comparable", "weaker", "unknown"
-  (from the competitor's perspective — "stronger" means the competitor is stronger than Weave)
-- "key_features" should list concrete, specific feature names
-- "strengths_vs_weave" should have 3-5 items
-- "weaknesses_vs_weave" should have 3-5 items
-- "notable_updates" should have 0-5 items (recent product updates only)
-- Output raw JSON only, no markdown code fences\
+규칙:
+- "axes" 배열은 정확히 8개 항목을 포함해야 합니다. 순서: {axes_list}
+- "weave_comparison"은 "stronger", "comparable", "weaker", "unknown" 중 하나여야 합니다
+  (경쟁사 관점 — "stronger"는 경쟁사가 Weave보다 강함을 의미)
+- 각 축에 "features"는 5-8개의 구체적 기능을 포함해야 합니다
+- 각 feature에 competitor_feature_url과 weave_feature_url은 해당 기능의 실제 공식 문서 URL이어야 합니다
+- URL을 모르면 빈 문자열("")로 남기세요. 절대 추측하지 마세요
+- "strengths_vs_weave"는 3-5개 항목
+- "weaknesses_vs_weave"는 3-5개 항목
+- "notable_updates"는 0-5개 항목 (최근 제품 업데이트만)
+- 모든 텍스트는 한국어로 작성하세요
+- 순수 JSON만 출력, 마크다운 코드 펜스 없음\
 """
 
 
@@ -154,6 +169,23 @@ def _parse_response(raw: str) -> CompetitorAnalysis:
     return CompetitorAnalysis.model_validate(data)
 
 
+async def _verify_urls(analysis: CompetitorAnalysis) -> CompetitorAnalysis:
+    """접근 불가능한 URL을 빈 문자열로 대체"""
+    async with httpx.AsyncClient(timeout=5, follow_redirects=True) as client:
+        for axis in analysis.axes:
+            for feat in axis.features:
+                for url_field in ("competitor_feature_url", "weave_feature_url"):
+                    url = getattr(feat, url_field)
+                    if url:
+                        try:
+                            resp = await client.head(url)
+                            if resp.status_code >= 400:
+                                setattr(feat, url_field, "")
+                        except Exception:
+                            setattr(feat, url_field, "")
+    return analysis
+
+
 def analyze_competitor(
     client: OpenAI,
     model: str,
@@ -214,6 +246,7 @@ def analyze_all(
             on_progress(competitor.competitor_name, "analyzing")
 
         analysis = analyze_competitor(client, model, competitor)
+        analysis = asyncio.run(_verify_urls(analysis))
         run.competitors.append(analysis)
 
         if on_progress:
