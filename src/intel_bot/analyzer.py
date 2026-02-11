@@ -52,6 +52,7 @@ Tone guidelines:
 - Always name specific competitors when discussing threats (e.g., "facing pressure from LangSmith on X")
 - Use a "maintains lead in X, but faces pressure from Y on Z" structure for verdicts
 - Write as a strategist briefing the executive team — candid, not defensive or promotional
+- NEVER use phrases like "industry standard", "de facto standard", "gold standard", or "market standard" to describe any competitor (except W&B/Weave). Describe specific capabilities instead.
 
 Respond in English.\
 """
@@ -129,6 +130,7 @@ Tone guidelines:
 - Be balanced: acknowledge Weave's strengths honestly, then state competitive threats directly
 - Always name specific competitors when discussing threats (e.g., "facing pressure from LangSmith on X")
 - Write as a strategist briefing the executive team — candid, not defensive or promotional
+- NEVER use phrases like "industry standard", "de facto standard", "gold standard", or "market standard" to describe any competitor (except W&B/Weave). Describe specific capabilities instead.
 
 Respond in English.\
 """

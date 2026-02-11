@@ -62,7 +62,7 @@ def generate_comparison_page(run: AnalysisRun) -> str:
         "# W&B Weave — Detailed Feature Comparison",
         f"**Date**: {run.date} | **Model**: {run.model}",
         "",
-        "[← Home](./) · [Product Detail](./competitor-detail)",
+        "[Product Detail](./competitor-detail)",
         "",
         "> ●●●(Strong) / ●●○(Medium) / ●○○(Weak) / ○○○(None)",
         "",
@@ -266,7 +266,7 @@ def generate_competitor_detail_page(run: AnalysisRun) -> str:
         "# W&B Weave — Product Detail",
         f"**Date**: {run.date} | **Model**: {run.model}",
         "",
-        "[← Home](./) · [Detailed Comparison](./comparison)",
+        "[Detailed Comparison](./comparison)",
         "",
     ]
 
@@ -304,7 +304,7 @@ def generate_weekly_report(
         "# W&B Weave — Weekly Competitor Intelligence Report",
         f"**Date**: {run.date} | **Model**: {run.model} | **Data Collected**: {run.collection_date}",
         "",
-        "[← Home](../) · [Detailed Comparison](../comparison) · [Product Detail](../competitor-detail)",
+        "[Detailed Comparison](../comparison) · [Product Detail](../competitor-detail)",
         "",
     ]
 
@@ -352,8 +352,8 @@ def generate_weekly_report(
         lines.append("*No data available*")
         lines.append("")
 
-    # Section 3: New Features This Week (including Weave)
-    lines.append("## 3. New Features This Week")
+    # Section 3: New Features (Last 30 Days)
+    lines.append("## 3. New Features (Last 30 Days)")
     lines.append("")
     has_any_features = False
 
@@ -383,7 +383,7 @@ def generate_weekly_report(
                 )
             lines.append("")
     if not has_any_features:
-        lines.append("*No new features this week*")
+        lines.append("*No new features in the last 30 days*")
         lines.append("")
 
     # Section 4: Positioning Shift (including Weave)
@@ -416,16 +416,6 @@ def generate_weekly_report(
     if synthesis and synthesis.enterprise_signals:
         for sig in synthesis.enterprise_signals:
             lines.append(f"- {sig}")
-    else:
-        lines.append("- *No data available*")
-    lines.append("")
-
-    # Section 6: Watchlist
-    lines.append("## 6. Watchlist")
-    lines.append("")
-    if synthesis and synthesis.watchlist:
-        for item in synthesis.watchlist:
-            lines.append(f"- {item}")
     else:
         lines.append("- *No data available*")
     lines.append("")
