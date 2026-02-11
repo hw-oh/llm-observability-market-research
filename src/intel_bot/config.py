@@ -23,9 +23,15 @@ LANGUAGE_NAMES = {"ko": "Korean", "ja": "Japanese"}
 class CompetitorConfig:
     name: str
     docs_url: str
-    changelog_url: str | None
-    github_repo: str | None
-    pypi_package: str | None
+    changelog_url: str | None        # 수집용 (RSS/HTML)
+    changelog_display_url: str | None = None  # 사람용 (브라우저 링크). None이면 changelog_url 사용
+    github_repo: str | None = None
+    pypi_package: str | None = None
+
+    @property
+    def changelog_link(self) -> str | None:
+        """리포트에 표시할 changelog URL."""
+        return self.changelog_display_url or self.changelog_url
 
 
 COMPETITORS: list[CompetitorConfig] = [
@@ -33,22 +39,9 @@ COMPETITORS: list[CompetitorConfig] = [
         name="LangSmith",
         docs_url="https://docs.smith.langchain.com",
         changelog_url="https://changelog.langchain.com/feed.rss",
+        changelog_display_url="https://changelog.langchain.com",
         github_repo="langchain-ai/langsmith-sdk",
         pypi_package="langsmith",
-    ),
-    CompetitorConfig(
-        name="Arize Phoenix",
-        docs_url="https://docs.arize.com/phoenix",
-        changelog_url="https://arize.com/docs/phoenix/release-notes",
-        github_repo="Arize-ai/phoenix",
-        pypi_package="arize-phoenix",
-    ),
-    CompetitorConfig(
-        name="Braintrust",
-        docs_url="https://braintrust.dev/docs",
-        changelog_url="https://braintrust.dev/docs/changelog",
-        github_repo="braintrustdata/braintrust-sdk",
-        pypi_package="braintrust",
     ),
     CompetitorConfig(
         name="Langfuse",
@@ -58,25 +51,32 @@ COMPETITORS: list[CompetitorConfig] = [
         pypi_package="langfuse",
     ),
     CompetitorConfig(
-        name="Logfire",
-        docs_url="https://logfire.pydantic.dev/docs",
-        changelog_url="https://logfire.pydantic.dev/docs/release-notes",
-        github_repo="pydantic/logfire",
-        pypi_package="logfire",
+        name="Braintrust",
+        docs_url="https://braintrust.dev/docs",
+        changelog_url="https://braintrust.dev/docs/changelog",
+        github_repo="braintrustdata/braintrust-sdk",
+        pypi_package="braintrust",
     ),
     CompetitorConfig(
-        name="Helicone",
-        docs_url="https://docs.helicone.ai",
-        changelog_url="https://docs.helicone.ai/changelog",
-        github_repo="Helicone/helicone",
-        pypi_package="helicone",
+        name="MLflow",
+        docs_url="https://mlflow.org/docs/latest/genai",
+        changelog_url="https://mlflow.org/releases",
+        github_repo="mlflow/mlflow",
+        pypi_package="mlflow",
+    ),
+    CompetitorConfig(
+        name="Arize Phoenix",
+        docs_url="https://docs.arize.com/phoenix",
+        changelog_url="https://arize.com/docs/phoenix/release-notes",
+        github_repo="Arize-ai/phoenix",
+        pypi_package="arize-phoenix",
     ),
 ]
 
 WEAVE_CONFIG = CompetitorConfig(
     name="W&B Weave",
     docs_url="https://weave-docs.wandb.ai",
-    changelog_url=None,
+    changelog_url="https://app.getbeamer.com/wandb/en",
     github_repo="wandb/weave",
     pypi_package="weave",
 )

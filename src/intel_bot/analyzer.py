@@ -9,7 +9,7 @@ from datetime import date
 import weave
 from openai import OpenAI
 
-from intel_bot.config import COMPARISON_CATEGORIES, COMPETITORS, WEAVE_CONFIG, Settings
+from intel_bot.config import COMPARISON_CATEGORIES, Settings
 from intel_bot.models import (
     AnalysisRun,
     CollectionRun,
@@ -80,7 +80,6 @@ def _build_categories_schema() -> str:
 
 _USER_PROMPT_TEMPLATE = """\
 Analyze the following competitor: {competitor_name}
-Official docs base URL: {docs_base_url}
 
 === Collected Data ===
 {context}
@@ -98,8 +97,7 @@ Return a JSON object that exactly matches the schema below (no markdown fences, 
       "feature_name": "Feature name",
       "description": "Feature description",
       "release_date": "YYYY-MM-DD or YYYY-MM",
-      "category": "Category English name",
-      "source_url": "{docs_base_url}/..."
+      "category": "Category English name"
     }}
   ],
   "positioning": {{
@@ -117,7 +115,6 @@ Rules:
 - "item_name" must use the exact names specified in the schema
 - Ratings must be one of "strong", "medium", "weak", "none"
 - "new_features": 0-5 items (product updates released within the last 30 days ONLY based on today's date {today}. Exclude anything older. Empty array if none.)
-- "source_url": Find the docs page URL for this feature. It MUST start with "{docs_base_url}". Look for URLs in the OFFICIAL DOCUMENTATION section of the collected data. If no matching docs URL exists, use an empty string "". NEVER invent URLs.
 - "strengths_vs_weave": 3-5 items
 - "weaknesses_vs_weave": 3-5 items
 - All text must be written in English
@@ -176,7 +173,6 @@ Synthesize the above data and return a JSON object matching the schema below (no
       "description": "Description",
       "release_date": "YYYY-MM-DD or YYYY-MM",
       "category": "Category English name",
-      "source_url": "{weave_docs_url}/..."
     }}
   ],
   "vendor_ratings": [
@@ -212,7 +208,6 @@ Rules:
 - "weave_weaknesses": 3-5 items (areas where competitors lead, honest assessment)
 - "weave_positioning": Weave's own market positioning shift
 - "weave_new_features": 0-5 items (Weave updates from the last 30 days ONLY based on today's date {today}. Empty array if none.)
-- "source_url": Find the docs page URL for this feature. It MUST start with "{weave_docs_url}". Look for URLs in the Weave data section. If no matching docs URL exists, use an empty string "". NEVER invent URLs.
 - "vendor_ratings" must include Weave and all analyzed vendors
 - "enterprise_signals": 3-5 items
 - "watchlist": 3-5 items
@@ -274,14 +269,13 @@ def _build_context(competitor: CompetitorData) -> str:
     return full_context
 
 
-def _build_prompt(name: str, context: str, docs_base_url: str) -> str:
+def _build_prompt(name: str, context: str) -> str:
     categories_schema = _build_categories_schema()
     return _USER_PROMPT_TEMPLATE.format(
         competitor_name=name,
         context=context,
         categories_schema=categories_schema,
         today=date.today().isoformat(),
-        docs_base_url=docs_base_url,
     )
 
 
@@ -317,10 +311,9 @@ def analyze_competitor(
     client: OpenAI,
     model: str,
     competitor: CompetitorData,
-    docs_url: str = "",
 ) -> CompetitorAnalysis:
     context = _build_context(competitor)
-    user_prompt = _build_prompt(competitor.competitor_name, context, docs_url)
+    user_prompt = _build_prompt(competitor.competitor_name, context)
 
     last_error: Exception | None = None
 
@@ -377,7 +370,6 @@ def synthesize(
         all_analyses_json=all_analyses_json,
         today=date.today().isoformat(),
         weave_data_section=weave_data_section,
-        weave_docs_url=WEAVE_CONFIG.docs_url,
     )
 
     last_error: Exception | None = None
@@ -412,9 +404,6 @@ def synthesize(
     )
 
 
-_DOCS_URL_MAP: dict[str, str] = {c.name: c.docs_url for c in COMPETITORS}
-
-
 def analyze_all(
     collection: CollectionRun,
     settings: Settings,
@@ -433,8 +422,7 @@ def analyze_all(
         if on_progress:
             on_progress(competitor.competitor_name, "analyzing")
 
-        docs_url = _DOCS_URL_MAP.get(competitor.competitor_name, "")
-        analysis = analyze_competitor(client, model, competitor, docs_url=docs_url)
+        analysis = analyze_competitor(client, model, competitor)
         run.competitors.append(analysis)
 
         if on_progress:

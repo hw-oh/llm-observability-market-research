@@ -63,7 +63,6 @@ class NewFeature(BaseModel):
     description: str
     release_date: str
     category: str
-    source_url: str = ""
 
 
 class PositioningShift(BaseModel):
