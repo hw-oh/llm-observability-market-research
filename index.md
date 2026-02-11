@@ -14,14 +14,15 @@ title: Competitor intelligence reports for W&B Weave
 [📋 Latest Report (2026-02-11)](./reports/2026-02-11.md)
 
 
-- Weave establishes a first-mover advantage in multimodal evaluation with the release of **Audio Monitors** (Feb 1), while **LangSmith** and **Braintrust** remain largely text-focused.
-- The launch of **Dynamic Leaderboards** (Jan 29) counters **MLflow's** new 'Judge Builder' by offering superior, auto-updating visualization for model comparison, though MLflow's 'MemAlign' offers deeper automation of judge improvement.
-- **Weave's** support for **Custom LoRAs** in the Playground (Jan 16) reinforces its unique position connecting training (W&B) to inference, a capability **Langfuse** and **Braintrust** cannot match due to their lack of training infrastructure.
-- While **Weave** improves backend tracing, **LangSmith** (LangGraph Studio) and **Arize Phoenix** (Tool Selection Evaluators) are advancing faster on *visual* debugging and specific metrics for agentic workflows.
-- **Braintrust** has aggressively expanded SDK support (Go, Java, C#, Ruby), threatening **Weave's** adoption in non-Python/JS enterprise environments.
-- **LangSmith**, **Langfuse**, and **Braintrust** all feature mature 'Annotation Queues' for structured human review; **Weave** lacks a comparable dedicated workflow for large-scale manual labeling.
+- Weave established a first-mover advantage in multimodal observability with the Feb 1 release of Audio Monitors, leaving text-centric competitors like LangSmith and MLflow behind in the rapidly growing voice agent sector.
+- LangSmith is aggressively pivoting from pure observability to infrastructure lock-in via LangGraph Cloud, threatening to displace Weave by owning the deployment layer rather than just the trace layer.
+- MLflow 3.9's release of 'Judge Builder' and 'MemAlign' directly commoditizes our evaluation workflows, offering enterprises automated QA that reduces reliance on the manual inspection tools Weave prioritizes.
+- Weave's lack of mature 'Annotation Queues' remains a critical sales blocker against LangSmith and Langfuse, who have standardized workflows for large-scale human-in-the-loop labeling teams.
+- Braintrust has outflanked our developer experience strategy by shipping a native Cursor IDE integration, capturing the 'inner loop' workflow before developers even reach the Weave dashboard.
+- The integration of Serverless LoRA Inference into the Weave Playground (Jan 16) creates a unique 'Training-to-Inference' flywheel that standalone players like Arize Phoenix and Braintrust cannot technically replicate.
+- Action Required: Product must prioritize OpenTelemetry (OTel) compatibility in Q2, as MLflow and Arize Phoenix are winning enterprise architecture reviews by positioning their 'native OTel' support as the safer, vendor-neutral choice.
 
-> Weave leads in multimodal evaluation and training-to-inference integration, but faces increasing pressure from LangSmith on visual agent debugging and Braintrust on enterprise language support.
+> Weave holds a distinct technical lead in multimodal and training-integrated workflows, but faces an existential threat from LangSmith's infrastructure lock-in and MLflow's automated enterprise QA features.
 
 
 <!-- LATEST_REPORT_END -->

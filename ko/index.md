@@ -5,7 +5,7 @@ title: W&B Weave 경쟁사 인텔리전스 보고서
 
 # Competitor Intel Bot
 
-[상세 비교](./comparison) · [제품 세부 정보](./competitor-detail) · [경쟁 인텔리전스 (내부)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)
+[상세 비교](./comparison) · [제품 상세 정보](./competitor-detail) · [경쟁사 인텔리전스 (내부)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)
 
 ## 최신 보고서
 
@@ -14,14 +14,15 @@ title: W&B Weave 경쟁사 인텔리전스 보고서
 [📋 최신 보고서 (2026-02-11)](./reports/2026-02-11.md)
 
 
-- Weave는 **Audio Monitors**(2월 1일) 출시를 통해 멀티모달 평가 분야에서 선점 효과를 구축한 반면, **LangSmith**와 **Braintrust**는 여전히 주로 텍스트 중심에 머물러 있습니다.
-- **Dynamic Leaderboards**(1월 29일)의 출시는 모델 비교를 위한 우수한 자동 업데이트 시각화 기능을 제공함으로써 **MLflow**의 새로운 'Judge Builder'에 대응합니다. 다만, MLflow의 'MemAlign'은 평가자(judge) 개선에 있어 더 깊은 자동화를 제공합니다.
-- Playground에서 **Weave**의 **Custom LoRAs** 지원(1월 16일)은 학습(W&B)과 추론을 연결하는 독보적인 위치를 강화하며, 이는 학습 인프라가 부족한 **Langfuse**나 **Braintrust**가 따라올 수 없는 역량입니다.
-- **Weave**가 백엔드 트레이싱을 개선하는 동안, **LangSmith**(LangGraph Studio)와 **Arize Phoenix**(Tool Selection Evaluators)는 에이전트 워크플로우를 위한 *시각적* 디버깅 및 특정 메트릭 분야에서 더 빠르게 발전하고 있습니다.
-- **Braintrust**는 SDK 지원(Go, Java, C#, Ruby)을 공격적으로 확장하여, Python/JS 이외의 엔터프라이즈 환경에서 **Weave**의 채택을 위협하고 있습니다.
-- **LangSmith**, **Langfuse**, **Braintrust** 모두 구조화된 휴먼 리뷰를 위한 성숙한 'Annotation Queues' 기능을 갖추고 있으나, **Weave**는 대규모 수동 라벨링을 위한 전용 워크플로우가 부족합니다.
+- Weave는 2월 1일 Audio Monitors 출시를 통해 멀티모달 관측성(observability) 분야에서 선점 효과를 구축했으며, 이는 급성장하는 음성 에이전트 부문에서 LangSmith 및 MLflow와 같은 텍스트 중심 경쟁사들을 앞서게 했습니다.
+- LangSmith는 LangGraph Cloud를 통해 단순 관측성에서 인프라 락인(lock-in)으로 공격적인 피벗을 시도하고 있으며, 트레이스 레이어뿐만 아니라 배포 레이어까지 점유함으로써 Weave를 대체하려 위협하고 있습니다.
+- MLflow 3.9의 'Judge Builder' 및 'MemAlign' 출시는 우리의 평가 워크플로우를 직접적으로 범용화(commoditize)하고 있으며, Weave가 우선시하는 수동 검사 도구에 대한 의존도를 낮추는 기업용 자동 QA 기능을 제공합니다.
+- Weave의 성숙한 'Annotation Queues' 부재는 대규모 휴먼 인 더 루프(human-in-the-loop) 라벨링 팀을 위한 표준화된 워크플로우를 보유한 LangSmith 및 Langfuse에 대항하는 데 있어 여전히 치명적인 영업 장애 요소입니다.
+- Braintrust는 네이티브 Cursor IDE 통합을 출시하여 우리의 개발자 경험 전략을 앞질렀으며, 개발자가 Weave 대시보드에 도달하기도 전에 '이너 루프(inner loop)' 워크플로우를 선점하고 있습니다.
+- Weave Playground(1월 16일)에 서버리스 LoRA 추론이 통합됨으로써, Arize Phoenix 및 Braintrust와 같은 단독 플레이어들이 기술적으로 복제할 수 없는 독특한 '학습에서 추론까지(Training-to-Inference)'의 플라이휠을 생성했습니다.
+- 조치 필요 사항: 제품 팀은 2분기에 OpenTelemetry(OTel) 호환성을 최우선 과제로 삼아야 합니다. MLflow와 Arize Phoenix가 '네이티브 OTel' 지원을 더 안전하고 벤더 중립적인 선택지로 내세워 기업 아키텍처 검토에서 승리하고 있기 때문입니다.
 
-> Weave는 멀티모달 평가 및 학습-추론 통합 분야에서 앞서 나가고 있지만, 시각적 에이전트 디버깅 측면에서는 LangSmith로부터, 엔터프라이즈 언어 지원 측면에서는 Braintrust로부터 거센 압박을 받고 있습니다.
+> Weave는 멀티모달 및 학습 통합 워크플로우에서 뚜렷한 기술적 우위를 점하고 있으나, LangSmith의 인프라 락인과 MLflow의 자동화된 기업용 QA 기능으로부터 실존적 위협에 직면해 있습니다.
 
 
 <!-- LATEST_REPORT_END -->
