@@ -5,6 +5,8 @@ import sys
 from datetime import date
 from pathlib import Path
 
+import os
+
 import weave
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
@@ -293,7 +295,8 @@ def run() -> None:
 
 
 def main() -> None:
-    weave.init("competitor-intel-bot")
+    if os.environ.get("WANDB_API_KEY"):
+        weave.init("competitor-intel-bot")
 
     args = sys.argv[1:]
 
