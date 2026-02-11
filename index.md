@@ -13,15 +13,16 @@ title: Competitor intelligence reports for W&B Weave
 
 [📋 Latest Report (2026-02-11)](./reports/2026-02-11.md)
 
-- Major Market Shift: Humanloop is sunsetting in September 2025 following its acquisition by Anthropic. This creates an immediate, high-priority opportunity for Weave to capture displaced enterprise customers looking for a stable prompt management and evaluation alternative.
-- The 'Proxy vs. Async' Divide: Competitors like Braintrust and Helicone are doubling down on Gateway/Proxy architectures to win on cost control, caching, and rate limiting. In contrast, Weave, LangSmith, and Phoenix prioritize async logging for developer ergonomics, creating a distinct architectural split in the market.
-- Evaluation Maturity Curve: Leading competitors (LangSmith, Braintrust) are moving beyond simple 'LLM-as-a-Judge' to sophisticated Human-in-the-Loop (HITL) workflows, introducing dedicated 'Annotation Queues' and 'Pairwise Comparison' UIs to operationalize manual review.
-- Rise of SQL-based Observability: Logfire and Braintrust (BTQL) are differentiating with SQL-like query languages for traces, appealing to power users who need flexible, code-driven analytics over rigid dashboards.
-- Agent-Specific Tooling: The market is shifting from generic LLM tracing to 'Agent' observability. LangSmith, Langfuse, and Logfire have all released specialized visualizations for tool calling, multi-step reasoning loops, and sub-agent nesting.
-- OpenTelemetry Standardization: Arize Phoenix, Langfuse, and Logfire are aggressively pushing OpenTelemetry (OTel) and OpenInference as the standard, challenging proprietary SDKs by promising vendor-neutral instrumentation.
-- Language Ecosystem Expansion: Braintrust is outflanking competitors on language support, releasing native SDKs for Java, Go, Ruby, and C#, positioning itself as the go-to choice for polyglot enterprise environments.
 
-> Weave remains the premier choice for full-lifecycle ML teams, but faces increasing pressure from proxy-based gateways on cost control and OTel-native tools on standardization.
+- Market Consolidation Opportunity: Humanloop's acquisition by Anthropic and upcoming sunset (Sept 2025) creates an immediate, high-priority opportunity to capture displaced enterprise customers seeking a new home for prompt engineering and evaluation.
+- The 'Agent Ops' Shift: Competitors are aggressively moving beyond simple tracing into full lifecycle management. LangSmith's launch of 'Agent Servers' and 'Unified Cost Tracking' signals a pivot toward hosting and financial operations, challenging Weave to define its production deployment story.
+- Visualization Arms Race: There is a distinct trend toward specialized visualization for cyclic/graph-based agent workflows. LangSmith (LangGraph), Langfuse (Agent Graphs), and Arize Phoenix are differentiating with dedicated graph views, making linear trace lists feel outdated for complex agents.
+- Standardization via OpenTelemetry & MCP: Arize Phoenix, Langfuse, and Logfire are coalescing around OpenTelemetry (OTel) and the Model Context Protocol (MCP) as standards. This pressure emphasizes interoperability and 'no vendor lock-in' as key selling points against proprietary SDKs.
+- Evaluation Maturity: The market has moved to 'Managed Evaluators' and 'Annotation Queues.' LangSmith and Langfuse now offer dedicated workflows for human-in-the-loop review, positioning evaluation as a team sport rather than just a developer utility.
+- Polyglot Expansion: Braintrust is aggressively targeting the enterprise backend market by expanding native SDK support to Java, Go, Ruby, and C#, challenging the Python/JS dominance of most observability tools.
+- SQL as a Differentiator: Logfire and Braintrust are empowering power users with SQL-based querying for traces, catering to engineers who demand granular, ad-hoc data analysis capabilities beyond pre-built dashboards.
+
+> Weave retains the lead in 'training-to-production' lineage, but faces intense pressure from LangSmith on agent deployment and Langfuse/Phoenix on open standards and cost visibility.
 
 
 <!-- LATEST_REPORT_END -->
