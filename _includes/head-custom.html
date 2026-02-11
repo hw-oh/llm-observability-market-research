@@ -1,3 +1,18 @@
+<script>
+(function() {
+  var TOKEN = 'weave-intel-2026';
+  var params = new URLSearchParams(window.location.search);
+  var t = params.get('token');
+  if (t) {
+    sessionStorage.setItem('_intel_token', t);
+  }
+  var stored = sessionStorage.getItem('_intel_token');
+  if (stored !== TOKEN) {
+    document.documentElement.innerHTML = '<body style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;color:#666"><h2>Access denied. Valid token required.</h2></body>';
+    throw new Error('unauthorized');
+  }
+})();
+</script>
 <style>
 .top-nav {
   position: fixed; top: 12px; z-index: 1000;
