@@ -5,6 +5,7 @@ import logging
 import time
 from datetime import date, datetime
 
+import weave
 from openai import OpenAI
 
 from intel_bot.collectors.serper import search
@@ -76,6 +77,7 @@ If there are no new products, return an empty array: []
 Pure JSON output only, no markdown code fences."""
 
 
+@weave.op()
 def extract_emerging_competitors(
     client: OpenAI,
     model: str,

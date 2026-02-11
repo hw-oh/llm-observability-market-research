@@ -19,13 +19,22 @@ RATING_SYMBOL = {
     "none": "○○○",
 }
 
-_CHANGELOG_URL_MAP: dict[str, str] = {
-    c.name: c.changelog_url for c in COMPETITORS if c.changelog_url
-}
-if WEAVE_CONFIG.changelog_url:
-    _CHANGELOG_URL_MAP[WEAVE_CONFIG.name] = WEAVE_CONFIG.changelog_url
-
 BEAMER_URL = "https://app.getbeamer.com/weave/en"
+
+# Human-readable changelog URLs for report links.
+# RSS feed URLs are replaced with their browsable HTML equivalents.
+_RSS_TO_HTML: dict[str, str] = {
+    "https://changelog.langchain.com/feed.rss": "https://changelog.langchain.com",
+}
+
+_CHANGELOG_URL_MAP: dict[str, str] = {}
+for _c in COMPETITORS:
+    if _c.changelog_url:
+        _CHANGELOG_URL_MAP[_c.name] = _RSS_TO_HTML.get(_c.changelog_url, _c.changelog_url)
+if WEAVE_CONFIG.changelog_url:
+    _CHANGELOG_URL_MAP[WEAVE_CONFIG.name] = _RSS_TO_HTML.get(
+        WEAVE_CONFIG.changelog_url, WEAVE_CONFIG.changelog_url
+    )
 
 COMPARISON_LABEL = {
     "stronger": "Competitor Leads",

@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 
 import httpx
+import weave
 from bs4 import BeautifulSoup
 
 from intel_bot.config import CompetitorConfig
@@ -11,6 +12,7 @@ from intel_bot.models import DocsPage
 MAX_CONTENT_LENGTH = 50_000
 
 
+@weave.op()
 async def scrape_docs(url: str) -> DocsPage:
     async with httpx.AsyncClient(follow_redirects=True) as client:
         resp = await client.get(url, timeout=30)

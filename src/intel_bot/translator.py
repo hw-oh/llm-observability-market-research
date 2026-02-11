@@ -7,6 +7,7 @@ import time
 from collections.abc import Callable
 from pathlib import Path
 
+import weave
 from openai import OpenAI
 
 from intel_bot.config import LANGUAGE_NAMES, SUPPORTED_LANGS, Settings
@@ -34,6 +35,7 @@ Document:
 """
 
 
+@weave.op()
 def translate_content(
     client: OpenAI,
     model: str,

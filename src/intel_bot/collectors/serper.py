@@ -3,6 +3,7 @@ from __future__ import annotations
 from datetime import datetime
 
 import httpx
+import weave
 
 from intel_bot.config import CompetitorConfig
 from intel_bot.models import SearchResult
@@ -19,6 +20,7 @@ def _build_queries(competitor: CompetitorConfig) -> list[str]:
     ]
 
 
+@weave.op()
 async def search(
     query: str, api_key: str, num_results: int = 10
 ) -> list[SearchResult]:
