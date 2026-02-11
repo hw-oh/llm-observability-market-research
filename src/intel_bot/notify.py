@@ -9,29 +9,41 @@ from intel_bot.models import AnalysisRun
 
 console = Console()
 
+RATING_EMOJI = {
+    "strong": ":large_green_circle:",
+    "medium": ":large_yellow_circle:",
+    "weak": ":red_circle:",
+    "none": ":white_circle:",
+}
 
-def send_slack_notification(webhook_url: str, run: AnalysisRun, report_path: Path) -> None:
+
+def send_slack_notification(webhook_url: str, run: AnalysisRun, weekly_path: Path) -> None:
+    synthesis = run.synthesis
+
+    # One-line verdict
+    verdict = ""
+    if synthesis:
+        verdict = f"\n> {synthesis.one_line_verdict}\n"
+
+    # Vendor overall ratings
     summary_lines = []
-    for comp in run.competitors:
-        stronger = sum(1 for a in comp.axes if a.weave_comparison == "stronger")
-        comparable = sum(1 for a in comp.axes if a.weave_comparison == "comparable")
-        weaker = sum(1 for a in comp.axes if a.weave_comparison == "weaker")
-        summary_lines.append(
-            f"• *{comp.competitor_name}*: "
-            f":large_green_circle: Weave 우위 {weaker}  "
-            f":large_yellow_circle: 유사 {comparable}  "
-            f":red_circle: 경쟁사 우위 {stronger}"
-        )
+    if synthesis and synthesis.vendor_ratings:
+        for vr in synthesis.vendor_ratings:
+            emoji = RATING_EMOJI.get(vr.overall, ":white_circle:")
+            summary_lines.append(f"  {emoji} *{vr.vendor_name}*: Overall {vr.overall}")
+    else:
+        for comp in run.competitors:
+            summary_lines.append(f"  :white_circle: *{comp.competitor_name}*")
 
     competitor_summary = "\n".join(summary_lines)
-    axes_count = len(run.competitors[0].axes) if run.competitors else 0
 
     payload = {
         "text": (
             f":bar_chart: *경쟁사 인텔리전스 리포트 — {run.date}*\n"
-            f"*{len(run.competitors)}개 경쟁사*를 *{axes_count}개 축*에서 분석했습니다.\n\n"
+            f"*{len(run.competitors)}개 경쟁사*를 *7개 카테고리*에서 분석했습니다.\n"
+            f"{verdict}\n"
             f"{competitor_summary}\n\n"
-            f"리포트: `{report_path}`"
+            f"리포트: `{weekly_path}`"
         ),
     }
 

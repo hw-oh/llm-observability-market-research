@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 from datetime import datetime
+from typing import Literal
 
 from pydantic import BaseModel, Field
+
+Rating = Literal["strong", "medium", "weak", "none"]
 
 
 class SearchResult(BaseModel):
@@ -41,31 +44,64 @@ class CollectionRun(BaseModel):
     competitors: list[CompetitorData] = []
 
 
-class FeatureSupport(BaseModel):
-    feature_name: str
-    competitor_supported: bool
-    competitor_feature_name: str = ""
-    competitor_feature_url: str = ""
-    weave_supported: bool
-    weave_feature_name: str = ""
-    weave_feature_url: str = ""
+class FeatureRating(BaseModel):
+    item_name: str          # Must match config sub-item exactly
+    weave_rating: Rating
+    competitor_rating: Rating
+    note: str = ""
 
 
-class AxisAnalysis(BaseModel):
-    axis: str
+class CategoryAnalysis(BaseModel):
+    category_name: str      # Must match CategoryDef.name
+    features: list[FeatureRating]
     summary: str
-    features: list[FeatureSupport] = []
-    weave_comparison: str  # "stronger" | "comparable" | "weaker" | "unknown"
-    weave_comparison_reason: str
+
+
+class NewFeature(BaseModel):
+    feature_name: str
+    description: str
+    release_date: str
+    category: str
+
+
+class PositioningShift(BaseModel):
+    current_position: str
+    moving_toward: str
+    signal: str
 
 
 class CompetitorAnalysis(BaseModel):
     competitor_name: str
     overall_summary: str
-    axes: list[AxisAnalysis]
+    categories: list[CategoryAnalysis]  # 7 categories
+    new_features: list[NewFeature] = []  # 0-5
+    positioning: PositioningShift
     strengths_vs_weave: list[str]
     weaknesses_vs_weave: list[str]
-    notable_updates: list[str]
+
+
+class VendorSummaryRating(BaseModel):
+    vendor_name: str
+    trace_depth: Rating
+    eval: Rating
+    agent_observability: Rating
+    cost_tracking: Rating
+    enterprise_ready: Rating
+    overall: Rating
+
+
+class WeeklyInsight(BaseModel):
+    title: str
+    body: str
+
+
+class SynthesisResult(BaseModel):
+    executive_summary: list[str]        # Exactly 5 items
+    one_line_verdict: str
+    vendor_ratings: list[VendorSummaryRating]  # Including Weave
+    enterprise_signals: list[str]       # 3-5 items
+    insights: list[WeeklyInsight]       # Exactly 3
+    watchlist: list[str]                # 3-5 items
 
 
 class AnalysisRun(BaseModel):
@@ -73,6 +109,7 @@ class AnalysisRun(BaseModel):
     model: str
     collection_date: str
     competitors: list[CompetitorAnalysis] = []
+    synthesis: SynthesisResult | None = None
 
 
 class EmergingCompetitor(BaseModel):

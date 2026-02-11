@@ -144,17 +144,8 @@ def analyze() -> None:
 
     console.print()
     console.print(f"[bold green]분석 완료: {path}")
-    console.print()
-    for comp in run.competitors:
-        stronger = sum(1 for a in comp.axes if a.weave_comparison == "stronger")
-        weaker = sum(1 for a in comp.axes if a.weave_comparison == "weaker")
-        comparable = sum(1 for a in comp.axes if a.weave_comparison == "comparable")
-        console.print(
-            f"  {comp.competitor_name}: "
-            f"[red]경쟁사 우위 {stronger}[/red], "
-            f"[yellow]유사 {comparable}[/yellow], "
-            f"[green]Weave 우위 {weaker}[/green]"
-        )
+    console.print(f"  카테고리: {len(run.competitors[0].categories) if run.competitors else 0}개")
+    console.print(f"  종합 분석: {'완료' if run.synthesis else '없음'}")
 
 
 def report() -> None:
@@ -171,16 +162,19 @@ def report() -> None:
         console=console,
     ) as progress:
         task = progress.add_task("리포트 생성 중...", total=None)
-        path = save_report(analysis, discovery=discovery_result)
+        weekly_path, comparison_path, detail_path = save_report(analysis, discovery=discovery_result)
         progress.update(task, description="인덱스 업데이트 중...")
         update_index()
         progress.update(task, description="[green]완료")
         progress.remove_task(task)
 
     console.print()
-    console.print(f"[bold green]리포트 저장: {path}")
+    console.print(f"[bold green]리포트 저장:")
+    console.print(f"  주간 리포트: {weekly_path}")
+    console.print(f"  상세 비교표: {comparison_path}")
+    console.print(f"  경쟁사 상세: {detail_path}")
     console.print(f"  경쟁사: {len(analysis.competitors)}개")
-    console.print(f"  비교 축: {len(analysis.competitors[0].axes) if analysis.competitors else 0}개")
+    console.print(f"  카테고리: {len(analysis.competitors[0].categories) if analysis.competitors else 0}개")
     console.print(f"  인덱스 업데이트: index.md")
     if discovery_result and discovery_result.emerging_competitors:
         console.print(f"  신규 경쟁사: {len(discovery_result.emerging_competitors)}개")
@@ -210,21 +204,24 @@ def run() -> None:
         console=console,
     ) as progress:
         task = progress.add_task("리포트 생성 중...", total=None)
-        path = save_report(analysis, discovery_result)
+        weekly_path, comparison_path, detail_path = save_report(analysis, discovery_result)
         progress.update(task, description="인덱스 업데이트 중...")
         update_index()
         progress.update(task, description="[green]완료")
         progress.remove_task(task)
 
     console.print()
-    console.print(f"[bold green]리포트 저장: {path}")
+    console.print(f"[bold green]리포트 저장:")
+    console.print(f"  주간 리포트: {weekly_path}")
+    console.print(f"  상세 비교표: {comparison_path}")
+    console.print(f"  경쟁사 상세: {detail_path}")
     if discovery_result and discovery_result.emerging_competitors:
         console.print(f"  신규 경쟁사: {len(discovery_result.emerging_competitors)}개")
 
     settings = Settings()
     if settings.slack_webhook_url:
         try:
-            send_slack_notification(settings.slack_webhook_url, analysis, path)
+            send_slack_notification(settings.slack_webhook_url, analysis, weekly_path)
         except Exception as exc:
             console.print(f"[yellow]Slack 알림 실패: {exc}")
 

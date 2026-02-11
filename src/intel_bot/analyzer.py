@@ -1,21 +1,20 @@
 from __future__ import annotations
 
-import asyncio
 import json
 import logging
 import time
 from collections.abc import Callable
 from datetime import date
 
-import httpx
 from openai import OpenAI
 
-from intel_bot.config import COMPARISON_AXES, Settings
+from intel_bot.config import COMPARISON_CATEGORIES, Settings
 from intel_bot.models import (
     AnalysisRun,
     CollectionRun,
     CompetitorAnalysis,
     CompetitorData,
+    SynthesisResult,
 )
 
 logger = logging.getLogger(__name__)
@@ -28,21 +27,48 @@ _BACKOFF_BASE_SECONDS = 5
 
 SYSTEM_PROMPT = """\
 당신은 W&B Weave 팀의 경쟁사 인텔리전스 분석가입니다.
-Weave는 LLM 옵저버빌리티 및 평가 플랫폼입니다. 축별 핵심 역량:
+Weave는 LLM 옵저버빌리티 및 평가 플랫폼입니다.
 
-- 트레이싱/옵저버빌리티: LLM 호출, 도구 호출, 에이전트 스텝 자동 트레이싱; 중첩 스팬 UI; 비동기 지원
-- 평가 파이프라인: `weave.Evaluation`으로 데이터셋 기반 모델 평가 + 스코어러; 평가 간 비교
-- 데이터셋 관리: W&B에서 버전 관리되는 `weave.Dataset` 객체; UI 및 SDK로 편집
-- 프롬프트 관리: `weave.StringPrompt` / `weave.MessagesPrompt` 버전 관리 객체; 플레이그라운드 편집
-- 스코어링: 내장 스코어러(환각, 요약, SQL); 커스텀 Python 스코어러; LLM-as-judge
-- LLM/프레임워크 통합: OpenAI, Anthropic, LiteLLM, LangChain, LlamaIndex, CrewAI, DSPy 자동 패칭
-- 가격: W&B 포함 무료 티어; Teams/Enterprise 사용량 기반 과금
-- 셀프호스팅: W&B Server(온프레미스/프라이빗 클라우드)에 Weave 포함; Docker 또는 K8s 배포
+7개 카테고리 프레임워크로 경쟁사를 분석합니다:
+1. Core Observability (핵심 옵저버빌리티): Trace 깊이, 계층적 스팬, 프롬프트/응답 로깅, 토큰 추적, 레이턴시 분석, 리플레이
+2. Agent / RAG Observability (에이전트/RAG 옵저버빌리티): 도구 호출 추적, 검색 추적, 메모리 추적, 다단계 추론, 워크플로우 그래프, 실패 시각화
+3. Evaluation Integration (평가 통합): Trace→데이터셋, LLM-as-Judge, 커스텀 메트릭, 회귀 감지, 모델 비교, 휴먼 피드백
+4. Monitoring & Metrics (모니터링 & 메트릭): 비용 대시보드, 토큰 분석, 레이턴시 모니터링, 에러 추적, 도구 성공률, 커스텀 메트릭
+5. Experiment / Improvement Loop (실험/개선 루프): 프롬프트/모델/데이터셋 버전 관리, 실험 추적, 지속적 평가, RL/파인튜닝
+6. DevEx / Integration (개발자 경험/통합): SDK 지원, 프레임워크 통합, 커스텀 모델, API, 스트리밍, CLI/인프라
+7. Enterprise & Security (엔터프라이즈 & 보안): 온프레미스/VPC, RBAC, PII 마스킹, 감사 로그, 데이터 보존, 리전
 
-경쟁사 데이터를 분석하고 각 축에서 Weave와 비교하세요.
+등급 체계:
+- "strong": 해당 기능이 강력하고 성숙함 (●●●)
+- "medium": 기본 지원, 일부 제한 (●●)
+- "weak": 최소한의 지원 또는 베타 (●)
+- "none": 미지원 또는 해당 없음 (-)
+
 사실에 기반하여 구체적으로 분석하세요. 구체적인 기능명과 역량을 인용하세요.
 한국어로 응답하세요.\
 """
+
+
+def _build_categories_schema() -> str:
+    """Build JSON schema for categories dynamically from config."""
+    categories = []
+    for cat in COMPARISON_CATEGORIES:
+        features = []
+        for item in cat.items:
+            features.append(
+                f'        {{"item_name": "{item}", "weave_rating": "strong|medium|weak|none", '
+                f'"competitor_rating": "strong|medium|weak|none", "note": "간단한 비고"}}'
+            )
+        features_str = ",\n".join(features)
+        categories.append(
+            f'    {{\n'
+            f'      "category_name": "{cat.name}",\n'
+            f'      "features": [\n{features_str}\n      ],\n'
+            f'      "summary": "이 카테고리에 대한 2-3문장 요약 (한국어)"\n'
+            f'    }}'
+        )
+    return ",\n".join(categories)
+
 
 _USER_PROMPT_TEMPLATE = """\
 다음 경쟁사를 분석하세요: {competitor_name}
@@ -55,41 +81,100 @@ _USER_PROMPT_TEMPLATE = """\
 {{
   "competitor_name": "{competitor_name}",
   "overall_summary": "제품에 대한 2-3문장 요약 (한국어)",
-  "axes": [
+  "categories": [
+{categories_schema}
+  ],
+  "new_features": [
     {{
-      "axis": "<축 이름>",
-      "summary": "이 축에 대한 3-5문장 역량 요약 (한국어)",
-      "features": [
-        {{
-          "feature_name": "기능 일반명 (한국어, 예: 자동 트레이싱)",
-          "competitor_supported": true,
-          "competitor_feature_name": "경쟁사 기능명 (예: LangSmith Traces)",
-          "competitor_feature_url": "해당 기능 공식 문서/페이지 URL",
-          "weave_supported": true,
-          "weave_feature_name": "Weave 기능명 (예: Weave Tracing)",
-          "weave_feature_url": "Weave 해당 기능 공식 문서/페이지 URL"
-        }}
-      ],
-      "weave_comparison": "stronger|comparable|weaker|unknown",
-      "weave_comparison_reason": "1-2문장 판정 근거 (한국어)"
+      "feature_name": "기능명 (한국어)",
+      "description": "기능 설명 (한국어)",
+      "release_date": "YYYY-MM-DD 또는 YYYY-MM",
+      "category": "해당 카테고리 영문명"
     }}
   ],
+  "positioning": {{
+    "current_position": "현재 포지셔닝 한 문장 (한국어)",
+    "moving_toward": "이동 방향 한 문장 (한국어)",
+    "signal": "근거가 되는 시그널 (한국어)"
+  }},
   "strengths_vs_weave": ["강점 1", "강점 2", ...],
-  "weaknesses_vs_weave": ["약점 1", "약점 2", ...],
-  "notable_updates": ["최근 업데이트 1", ...]
+  "weaknesses_vs_weave": ["약점 1", "약점 2", ...]
 }}
 
 규칙:
-- "axes" 배열은 정확히 8개 항목을 포함해야 합니다. 순서: {axes_list}
-- "weave_comparison"은 "stronger", "comparable", "weaker", "unknown" 중 하나여야 합니다
-  (경쟁사 관점 — "stronger"는 경쟁사가 Weave보다 강함을 의미)
-- 각 축에 "features"는 5-8개의 구체적 기능을 포함해야 합니다
-- 각 feature에 competitor_feature_url과 weave_feature_url은 해당 기능의 실제 공식 문서 URL이어야 합니다
-- URL을 모르면 빈 문자열("")로 남기세요. 절대 추측하지 마세요
+- "categories" 배열은 정확히 7개 항목을 포함해야 합니다 (위 스키마 순서대로)
+- 각 카테고리의 "features"는 해당 카테고리의 모든 서브항목을 포함해야 합니다
+- "item_name"은 스키마에 지정된 이름을 정확히 사용하세요
+- 등급은 "strong", "medium", "weak", "none" 중 하나여야 합니다
+- "new_features"는 0-5개 항목 (최근 제품 업데이트만, 없으면 빈 배열)
 - "strengths_vs_weave"는 3-5개 항목
 - "weaknesses_vs_weave"는 3-5개 항목
-- "notable_updates"는 0-5개 항목 (최근 제품 업데이트만)
 - 모든 텍스트는 한국어로 작성하세요
+- 순수 JSON만 출력, 마크다운 코드 펜스 없음\
+"""
+
+_SYNTHESIS_SYSTEM_PROMPT = """\
+당신은 W&B Weave 팀의 시니어 경쟁사 인텔리전스 분석가입니다.
+여러 경쟁사 분석 결과를 종합하여 cross-cutting 인사이트를 도출합니다.
+한국어로 응답하세요.\
+"""
+
+_SYNTHESIS_USER_PROMPT_TEMPLATE = """\
+아래는 이번 주 분석된 모든 경쟁사의 개별 분석 결과입니다:
+
+{all_analyses_json}
+
+위 데이터를 종합하여 아래 스키마의 JSON 객체를 반환하세요 (마크다운 펜스 없이, 순수 JSON만):
+{{
+  "executive_summary": [
+    "핵심 인사이트 1 (한국어)",
+    "핵심 인사이트 2",
+    "핵심 인사이트 3",
+    "핵심 인사이트 4",
+    "핵심 인사이트 5"
+  ],
+  "one_line_verdict": "이번 주 Weave의 경쟁 포지션에 대한 한줄 총평 (한국어)",
+  "vendor_ratings": [
+    {{
+      "vendor_name": "Weave",
+      "trace_depth": "strong|medium|weak|none",
+      "eval": "strong|medium|weak|none",
+      "agent_observability": "strong|medium|weak|none",
+      "cost_tracking": "strong|medium|weak|none",
+      "enterprise_ready": "strong|medium|weak|none",
+      "overall": "strong|medium|weak|none"
+    }},
+    {{
+      "vendor_name": "LangSmith",
+      ...
+    }},
+    ...각 경쟁사 포함...
+  ],
+  "enterprise_signals": [
+    "엔터프라이즈 관련 시그널 1 (한국어)",
+    ...3-5개...
+  ],
+  "insights": [
+    {{
+      "title": "인사이트 제목 (한국어)",
+      "body": "2-3문장 설명 (한국어)"
+    }},
+    ...정확히 3개...
+  ],
+  "watchlist": [
+    "다음 주 주시 항목 1 (한국어)",
+    ...3-5개...
+  ]
+}}
+
+규칙:
+- "executive_summary"는 정확히 5개 bullet
+- "vendor_ratings"는 Weave를 포함하여 모든 분석 대상 벤더를 포함해야 합니다
+- "enterprise_signals"는 3-5개
+- "insights"는 정확히 3개
+- "watchlist"는 3-5개
+- 등급은 "strong", "medium", "weak", "none" 중 하나
+- 모든 텍스트는 한국어로 작성
 - 순수 JSON만 출력, 마크다운 코드 펜스 없음\
 """
 
@@ -147,11 +232,11 @@ def _build_context(competitor: CompetitorData) -> str:
 
 
 def _build_prompt(name: str, context: str) -> str:
-    axes_list = ", ".join(COMPARISON_AXES)
+    categories_schema = _build_categories_schema()
     return _USER_PROMPT_TEMPLATE.format(
         competitor_name=name,
         context=context,
-        axes_list=axes_list,
+        categories_schema=categories_schema,
     )
 
 
@@ -169,21 +254,17 @@ def _parse_response(raw: str) -> CompetitorAnalysis:
     return CompetitorAnalysis.model_validate(data)
 
 
-async def _verify_urls(analysis: CompetitorAnalysis) -> CompetitorAnalysis:
-    """접근 불가능한 URL을 빈 문자열로 대체"""
-    async with httpx.AsyncClient(timeout=5, follow_redirects=True) as client:
-        for axis in analysis.axes:
-            for feat in axis.features:
-                for url_field in ("competitor_feature_url", "weave_feature_url"):
-                    url = getattr(feat, url_field)
-                    if url:
-                        try:
-                            resp = await client.head(url)
-                            if resp.status_code >= 400:
-                                setattr(feat, url_field, "")
-                        except Exception:
-                            setattr(feat, url_field, "")
-    return analysis
+def _parse_synthesis_response(raw: str) -> SynthesisResult:
+    text = raw.strip()
+    if text.startswith("```"):
+        first_newline = text.index("\n")
+        text = text[first_newline + 1 :]
+    if text.endswith("```"):
+        text = text[: text.rfind("```")]
+    text = text.strip()
+
+    data = json.loads(text)
+    return SynthesisResult.model_validate(data)
 
 
 def analyze_competitor(
@@ -227,6 +308,50 @@ def analyze_competitor(
     )
 
 
+def synthesize(
+    client: OpenAI,
+    model: str,
+    competitors: list[CompetitorAnalysis],
+) -> SynthesisResult:
+    all_analyses = [c.model_dump() for c in competitors]
+    all_analyses_json = json.dumps(all_analyses, ensure_ascii=False, indent=2)
+
+    user_prompt = _SYNTHESIS_USER_PROMPT_TEMPLATE.format(
+        all_analyses_json=all_analyses_json,
+    )
+
+    last_error: Exception | None = None
+
+    for attempt in range(1, _MAX_ATTEMPTS + 1):
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": _SYNTHESIS_SYSTEM_PROMPT},
+                    {"role": "user", "content": user_prompt},
+                ],
+                temperature=0.2,
+                max_tokens=16384,
+            )
+            raw = response.choices[0].message.content or ""
+            return _parse_synthesis_response(raw)
+
+        except Exception as e:
+            last_error = e
+            logger.warning(
+                "Synthesis attempt %d/%d failed: %s",
+                attempt,
+                _MAX_ATTEMPTS,
+                e,
+            )
+            if attempt < _MAX_ATTEMPTS:
+                time.sleep(_BACKOFF_BASE_SECONDS * attempt)
+
+    raise RuntimeError(
+        f"Failed to synthesize after {_MAX_ATTEMPTS} attempts: {last_error}"
+    )
+
+
 def analyze_all(
     collection: CollectionRun,
     settings: Settings,
@@ -246,10 +371,18 @@ def analyze_all(
             on_progress(competitor.competitor_name, "analyzing")
 
         analysis = analyze_competitor(client, model, competitor)
-        analysis = asyncio.run(_verify_urls(analysis))
         run.competitors.append(analysis)
 
         if on_progress:
             on_progress(competitor.competitor_name, "done")
+
+    # Step 2: Synthesis
+    if on_progress:
+        on_progress("종합 분석", "analyzing")
+
+    run.synthesis = synthesize(client, model, run.competitors)
+
+    if on_progress:
+        on_progress("종합 분석", "done")
 
     return run
