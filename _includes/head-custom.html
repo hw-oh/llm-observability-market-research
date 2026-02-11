@@ -1,0 +1,33 @@
+<style>
+.lang-switcher {
+  position: fixed; top: 12px; right: 16px; z-index: 1000;
+  background: rgba(255,255,255,0.95); border: 1px solid #ddd;
+  border-radius: 6px; padding: 4px 10px; font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.lang-switcher a { text-decoration: none; color: #1e6bb8; padding: 0 4px; }
+.lang-switcher a:hover { text-decoration: underline; }
+.lang-switcher .lang-active { font-weight: bold; color: #333; padding: 0 4px; }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var baseUrl = '{{ site.baseurl | default: "" }}';
+  var path = window.location.pathname;
+  var rel = path.startsWith(baseUrl) ? path.substring(baseUrl.length) : path;
+
+  var lang = 'en', content = rel;
+  if (rel.startsWith('/ko/')) { lang = 'ko'; content = rel.substring(3); }
+  else if (rel.startsWith('/ja/')) { lang = 'ja'; content = rel.substring(3); }
+  if (!content.startsWith('/')) content = '/' + content;
+
+  var urls = { EN: baseUrl + content, KO: baseUrl + '/ko' + content, JA: baseUrl + '/ja' + content };
+  var el = document.createElement('div');
+  el.className = 'lang-switcher';
+  el.innerHTML = Object.keys(urls).map(function(l) {
+    return l.toLowerCase() === lang
+      ? '<span class="lang-active">' + l + '</span>'
+      : '<a href="' + urls[l] + '">' + l + '</a>';
+  }).join(' | ');
+  document.body.insertBefore(el, document.body.firstChild);
+});
+</script>

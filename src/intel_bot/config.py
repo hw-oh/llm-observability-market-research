@@ -11,7 +11,12 @@ class Settings(BaseSettings):
     serper_dev_api: str
     openrouter_api_key: str
     openrouter_model: str = "google/gemini-3-pro-preview"
+    translation_model: str = "google/gemini-3-flash-preview"
     slack_webhook_url: str | None = None
+
+
+SUPPORTED_LANGS = ["ko", "ja"]
+LANGUAGE_NAMES = {"ko": "Korean", "ja": "Japanese"}
 
 
 @dataclass
@@ -80,24 +85,31 @@ COMPETITORS: list[CompetitorConfig] = [
 class CategoryDef:
     name: str          # English name (LLM schema key)
     name_ko: str       # Korean name (report display)
-    items: list[str] = field(default_factory=list)  # Sub-items (Korean)
+    items: list[str] = field(default_factory=list)  # Sub-items (English)
 
 
 COMPARISON_CATEGORIES: list[CategoryDef] = [
     CategoryDef("Core Observability", "핵심 옵저버빌리티",
-        ["Trace 깊이", "계층적 스팬", "프롬프트 로깅", "응답 로깅", "토큰 추적", "레이턴시 분석", "리플레이"]),
+        ["Trace Depth", "Hierarchical Spans", "Prompt Logging", "Response Logging",
+         "Token Tracking", "Latency Analysis", "Replay"]),
     CategoryDef("Agent / RAG Observability", "에이전트/RAG 옵저버빌리티",
-        ["도구 호출 추적", "검색(Retrieval) 추적", "메모리 추적", "다단계 추론", "워크플로우 그래프", "실패 시각화"]),
+        ["Tool Call Tracing", "Retrieval Tracing", "Memory Tracing",
+         "Multi-step Reasoning", "Workflow Graph", "Failure Visualization"]),
     CategoryDef("Evaluation Integration", "평가 통합",
-        ["Trace→데이터셋 생성", "LLM-as-Judge", "커스텀 평가 메트릭", "회귀 감지", "모델 비교", "휴먼 피드백 UI"]),
+        ["Trace→Dataset", "LLM-as-Judge", "Custom Eval Metrics",
+         "Regression Detection", "Model Comparison", "Human Feedback UI"]),
     CategoryDef("Monitoring & Metrics", "모니터링 & 메트릭",
-        ["비용 대시보드", "토큰 분석", "레이턴시 모니터링", "에러 추적", "도구 성공률", "커스텀 메트릭"]),
+        ["Cost Dashboard", "Token Analytics", "Latency Monitoring",
+         "Error Tracking", "Tool Success Rate", "Custom Metrics"]),
     CategoryDef("Experiment / Improvement Loop", "실험/개선 루프",
-        ["프롬프트 버전 관리", "모델 버전 관리", "실험 추적", "데이터셋 버전 관리", "지속적 평가", "RL/파인튜닝 연결"]),
+        ["Prompt Versioning", "Model Versioning", "Experiment Tracking",
+         "Dataset Versioning", "Continuous Eval", "RL/Fine-tuning Link"]),
     CategoryDef("DevEx / Integration", "개발자 경험/통합",
-        ["SDK 지원", "프레임워크 통합", "커스텀 모델 지원", "API 제공", "스트리밍 추적", "CLI/인프라 통합"]),
+        ["SDK Support", "Framework Integration", "Custom Model Support",
+         "API Access", "Streaming Tracing", "CLI/Infra Integration"]),
     CategoryDef("Enterprise & Security", "엔터프라이즈 & 보안",
-        ["온프레미스/VPC", "RBAC", "PII 마스킹", "감사 로그", "데이터 보존", "리전 지원"]),
+        ["On-prem/VPC", "RBAC", "PII Masking", "Audit Logs",
+         "Data Retention", "Region Support"]),
 ]
 
 # Section 2 summary table dimensions

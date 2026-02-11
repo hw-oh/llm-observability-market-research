@@ -3,6 +3,7 @@ from __future__ import annotations
 import asyncio
 import sys
 from datetime import date
+from pathlib import Path
 
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
@@ -16,6 +17,7 @@ from intel_bot.discovery import discover
 from intel_bot.models import CollectionRun, CompetitorData
 from intel_bot.notify import send_slack_notification
 from intel_bot.report import save_report, update_index
+from intel_bot.translator import translate_all_reports
 from intel_bot.storage import (
     load_latest_analysis,
     load_latest_collection,
@@ -154,6 +156,7 @@ def report() -> None:
         console.print("[red]분석 데이터가 없습니다. 먼저 'analyze'를 실행하세요.")
         sys.exit(1)
 
+    settings = Settings()
     discovery_result = load_latest_discovery()
 
     with Progress(
@@ -165,8 +168,24 @@ def report() -> None:
         weekly_path, comparison_path, detail_path = save_report(analysis, discovery=discovery_result)
         progress.update(task, description="인덱스 업데이트 중...")
         update_index(analysis=analysis)
-        progress.update(task, description="[green]완료")
+        progress.update(task, description="[green]영어 리포트 완료")
         progress.remove_task(task)
+
+        # Translation step
+        english_paths = {
+            "index": Path("index.md"),
+            "comparison": comparison_path,
+            "detail": detail_path,
+            "weekly": weekly_path,
+        }
+
+        def on_translate_progress(lang: str, key: str) -> None:
+            progress.update(translate_task, description=f"번역 중... ({lang}/{key})")
+
+        translate_task = progress.add_task("번역 중...", total=None)
+        translated = translate_all_reports(settings, english_paths, on_progress=on_translate_progress)
+        progress.update(translate_task, description="[green]번역 완료")
+        progress.remove_task(translate_task)
 
     console.print()
     console.print(f"[bold green]리포트 저장:")
@@ -176,6 +195,8 @@ def report() -> None:
     console.print(f"  경쟁사: {len(analysis.competitors)}개")
     console.print(f"  카테고리: {len(analysis.competitors[0].categories) if analysis.competitors else 0}개")
     console.print(f"  인덱스 업데이트: index.md")
+    for lang, paths in translated.items():
+        console.print(f"  {lang} 번역: {len(paths)}개 파일")
     if discovery_result and discovery_result.emerging_competitors:
         console.print(f"  신규 경쟁사: {len(discovery_result.emerging_competitors)}개")
 
@@ -198,6 +219,8 @@ def run() -> None:
     if discovery_result is None:
         discovery_result = load_latest_discovery()
 
+    settings = Settings()
+
     with Progress(
         SpinnerColumn(),
         TextColumn("[progress.description]{task.description}"),
@@ -207,18 +230,34 @@ def run() -> None:
         weekly_path, comparison_path, detail_path = save_report(analysis, discovery_result)
         progress.update(task, description="인덱스 업데이트 중...")
         update_index(analysis=analysis)
-        progress.update(task, description="[green]완료")
+        progress.update(task, description="[green]영어 리포트 완료")
         progress.remove_task(task)
+
+        # Translation step
+        english_paths = {
+            "index": Path("index.md"),
+            "comparison": comparison_path,
+            "detail": detail_path,
+            "weekly": weekly_path,
+        }
+
+        def on_translate_progress(lang: str, key: str) -> None:
+            progress.update(translate_task, description=f"번역 중... ({lang}/{key})")
+
+        translate_task = progress.add_task("번역 중...", total=None)
+        translated = translate_all_reports(settings, english_paths, on_progress=on_translate_progress)
+        progress.update(translate_task, description="[green]번역 완료")
+        progress.remove_task(translate_task)
 
     console.print()
     console.print(f"[bold green]리포트 저장:")
     console.print(f"  주간 리포트: {weekly_path}")
     console.print(f"  상세 비교표: {comparison_path}")
     console.print(f"  경쟁사 상세: {detail_path}")
+    for lang, paths in translated.items():
+        console.print(f"  {lang} 번역: {len(paths)}개 파일")
     if discovery_result and discovery_result.emerging_competitors:
         console.print(f"  신규 경쟁사: {len(discovery_result.emerging_competitors)}개")
-
-    settings = Settings()
     if settings.slack_webhook_url:
         try:
             send_slack_notification(settings.slack_webhook_url, analysis, weekly_path)

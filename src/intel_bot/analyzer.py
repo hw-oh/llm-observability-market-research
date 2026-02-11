@@ -26,26 +26,26 @@ _MAX_ATTEMPTS = 3
 _BACKOFF_BASE_SECONDS = 5
 
 SYSTEM_PROMPT = """\
-당신은 W&B Weave 팀의 경쟁사 인텔리전스 분석가입니다.
-Weave는 LLM 옵저버빌리티 및 평가 플랫폼입니다.
+You are a competitive intelligence analyst for the W&B Weave team.
+Weave is an LLM observability and evaluation platform.
 
-7개 카테고리 프레임워크로 경쟁사를 분석합니다:
-1. Core Observability (핵심 옵저버빌리티): Trace 깊이, 계층적 스팬, 프롬프트/응답 로깅, 토큰 추적, 레이턴시 분석, 리플레이
-2. Agent / RAG Observability (에이전트/RAG 옵저버빌리티): 도구 호출 추적, 검색 추적, 메모리 추적, 다단계 추론, 워크플로우 그래프, 실패 시각화
-3. Evaluation Integration (평가 통합): Trace→데이터셋, LLM-as-Judge, 커스텀 메트릭, 회귀 감지, 모델 비교, 휴먼 피드백
-4. Monitoring & Metrics (모니터링 & 메트릭): 비용 대시보드, 토큰 분석, 레이턴시 모니터링, 에러 추적, 도구 성공률, 커스텀 메트릭
-5. Experiment / Improvement Loop (실험/개선 루프): 프롬프트/모델/데이터셋 버전 관리, 실험 추적, 지속적 평가, RL/파인튜닝
-6. DevEx / Integration (개발자 경험/통합): SDK 지원, 프레임워크 통합, 커스텀 모델, API, 스트리밍, CLI/인프라
-7. Enterprise & Security (엔터프라이즈 & 보안): 온프레미스/VPC, RBAC, PII 마스킹, 감사 로그, 데이터 보존, 리전
+You analyze competitors using a 7-category framework:
+1. Core Observability: Trace Depth, Hierarchical Spans, Prompt/Response Logging, Token Tracking, Latency Analysis, Replay
+2. Agent / RAG Observability: Tool Call Tracing, Retrieval Tracing, Memory Tracing, Multi-step Reasoning, Workflow Graph, Failure Visualization
+3. Evaluation Integration: Trace→Dataset, LLM-as-Judge, Custom Eval Metrics, Regression Detection, Model Comparison, Human Feedback
+4. Monitoring & Metrics: Cost Dashboard, Token Analytics, Latency Monitoring, Error Tracking, Tool Success Rate, Custom Metrics
+5. Experiment / Improvement Loop: Prompt/Model/Dataset Versioning, Experiment Tracking, Continuous Eval, RL/Fine-tuning
+6. DevEx / Integration: SDK Support, Framework Integration, Custom Model Support, API Access, Streaming Tracing, CLI/Infra
+7. Enterprise & Security: On-prem/VPC, RBAC, PII Masking, Audit Logs, Data Retention, Region Support
 
-등급 체계:
-- "strong": 해당 기능이 강력하고 성숙함 (●●●)
-- "medium": 기본 지원, 일부 제한 (●●)
-- "weak": 최소한의 지원 또는 베타 (●)
-- "none": 미지원 또는 해당 없음 (-)
+Rating scale:
+- "strong": Feature is robust and mature (●●●)
+- "medium": Basic support with some limitations (●●)
+- "weak": Minimal support or beta (●)
+- "none": Not supported or not applicable (-)
 
-사실에 기반하여 구체적으로 분석하세요. 구체적인 기능명과 역량을 인용하세요.
-한국어로 응답하세요.\
+Analyze based on facts and cite specific feature names and capabilities.
+Respond in English.\
 """
 
 
@@ -57,107 +57,107 @@ def _build_categories_schema() -> str:
         for item in cat.items:
             features.append(
                 f'        {{"item_name": "{item}", "weave_rating": "strong|medium|weak|none", '
-                f'"competitor_rating": "strong|medium|weak|none", "note": "간단한 비고"}}'
+                f'"competitor_rating": "strong|medium|weak|none", "note": "brief note"}}'
             )
         features_str = ",\n".join(features)
         categories.append(
             f'    {{\n'
             f'      "category_name": "{cat.name}",\n'
             f'      "features": [\n{features_str}\n      ],\n'
-            f'      "summary": "이 카테고리에 대한 2-3문장 요약 (한국어)"\n'
+            f'      "summary": "2-3 sentence summary for this category"\n'
             f'    }}'
         )
     return ",\n".join(categories)
 
 
 _USER_PROMPT_TEMPLATE = """\
-다음 경쟁사를 분석하세요: {competitor_name}
+Analyze the following competitor: {competitor_name}
 
-=== 수집된 데이터 ===
+=== Collected Data ===
 {context}
-=== 데이터 끝 ===
+=== End of Data ===
 
-아래 스키마와 정확히 일치하는 JSON 객체를 반환하세요 (마크다운 펜스 없이, 순수 JSON만):
+Return a JSON object that exactly matches the schema below (no markdown fences, pure JSON only):
 {{
   "competitor_name": "{competitor_name}",
-  "overall_summary": "제품에 대한 2-3문장 요약 (한국어)",
+  "overall_summary": "2-3 sentence summary of the product",
   "categories": [
 {categories_schema}
   ],
   "new_features": [
     {{
-      "feature_name": "기능명 (한국어)",
-      "description": "기능 설명 (한국어)",
-      "release_date": "YYYY-MM-DD 또는 YYYY-MM",
-      "category": "해당 카테고리 영문명"
+      "feature_name": "Feature name",
+      "description": "Feature description",
+      "release_date": "YYYY-MM-DD or YYYY-MM",
+      "category": "Category English name"
     }}
   ],
   "positioning": {{
-    "current_position": "현재 포지셔닝 한 문장 (한국어)",
-    "moving_toward": "이동 방향 한 문장 (한국어)",
-    "signal": "근거가 되는 시그널 (한국어)"
+    "current_position": "Current positioning in one sentence",
+    "moving_toward": "Direction of movement in one sentence",
+    "signal": "Supporting signal"
   }},
-  "strengths_vs_weave": ["강점 1", "강점 2", ...],
-  "weaknesses_vs_weave": ["약점 1", "약점 2", ...]
+  "strengths_vs_weave": ["Strength 1", "Strength 2", ...],
+  "weaknesses_vs_weave": ["Weakness 1", "Weakness 2", ...]
 }}
 
-규칙:
-- "categories" 배열은 정확히 7개 항목을 포함해야 합니다 (위 스키마 순서대로)
-- 각 카테고리의 "features"는 해당 카테고리의 모든 서브항목을 포함해야 합니다
-- "item_name"은 스키마에 지정된 이름을 정확히 사용하세요
-- 등급은 "strong", "medium", "weak", "none" 중 하나여야 합니다
-- "new_features"는 0-5개 항목 (최근 제품 업데이트만, 없으면 빈 배열)
-- "strengths_vs_weave"는 3-5개 항목
-- "weaknesses_vs_weave"는 3-5개 항목
-- 모든 텍스트는 한국어로 작성하세요
-- 순수 JSON만 출력, 마크다운 코드 펜스 없음\
+Rules:
+- "categories" array must contain exactly 7 items (in the schema order above)
+- Each category's "features" must include all sub-items for that category
+- "item_name" must use the exact names specified in the schema
+- Ratings must be one of "strong", "medium", "weak", "none"
+- "new_features": 0-5 items (recent product updates only, empty array if none)
+- "strengths_vs_weave": 3-5 items
+- "weaknesses_vs_weave": 3-5 items
+- All text must be written in English
+- Pure JSON output only, no markdown code fences\
 """
 
 _SYNTHESIS_SYSTEM_PROMPT = """\
-당신은 W&B Weave 팀의 시니어 경쟁사 인텔리전스 분석가입니다.
-여러 경쟁사 분석 결과를 종합하여 cross-cutting 인사이트를 도출합니다.
-한국어로 응답하세요.\
+You are a senior competitive intelligence analyst for the W&B Weave team.
+You synthesize multiple competitor analyses to derive cross-cutting insights.
+Respond in English.\
 """
 
 _SYNTHESIS_USER_PROMPT_TEMPLATE = """\
-아래는 이번 주 분석된 모든 경쟁사의 개별 분석 결과입니다:
+Below are the individual analysis results for all competitors analyzed this week:
 
 {all_analyses_json}
 
-위 데이터를 종합하여 아래 스키마의 JSON 객체를 반환하세요 (마크다운 펜스 없이, 순수 JSON만):
+Synthesize the above data and return a JSON object matching the schema below (no markdown fences, pure JSON only):
 {{
   "executive_summary": [
-    "핵심 인사이트 1 (한국어)",
-    "핵심 인사이트 2",
-    "핵심 인사이트 3",
-    "핵심 인사이트 4",
-    "핵심 인사이트 5",
-    "핵심 인사이트 6 (선택)",
-    "핵심 인사이트 7 (선택)"
+    "Key insight 1",
+    "Key insight 2",
+    "Key insight 3",
+    "Key insight 4",
+    "Key insight 5",
+    "Key insight 6 (optional)",
+    "Key insight 7 (optional)"
   ],
-  "one_line_verdict": "이번 주 Weave의 경쟁 포지션에 대한 한줄 총평 (한국어)",
-  "weave_summary": "Weave 제품에 대한 2-3문장 종합 요약. 경쟁사 대비 Weave의 포지셔닝과 핵심 가치 설명 (한국어)",
+  "one_line_verdict": "One-line verdict on Weave's competitive position this week",
+  "weave_summary": "2-3 sentence comprehensive summary of Weave. Explain Weave's positioning and core value vs competitors.",
   "weave_strengths": [
-    "Weave를 셀링하는 엔지니어가 강조할 수 있는 강점 1 (한국어)",
-    "강점 2",
-    ...3-5개...
+    "Strength a sales engineer could highlight about Weave 1",
+    "Strength 2",
+    ...3-5 items...
   ],
   "weave_weaknesses": [
-    "경쟁사 대비 Weave가 개선해야 할 영역 1 (한국어)",
-    "약점 2",
-    ...3-5개...
+    "Area where competitors lead over Weave 1",
+    "Weakness 2",
+    ...3-5 items...
   ],
   "weave_positioning": {{
-    "current_position": "Weave의 현재 시장 포지셔닝 (한국어)",
-    "moving_toward": "Weave가 나아가는 방향 (한국어)",
-    "signal": "근거가 되는 시그널 (한국어)"
+    "current_position": "Weave's current market positioning",
+    "moving_toward": "Direction Weave is moving toward",
+    "signal": "Supporting signal"
   }},
   "weave_new_features": [
     {{
-      "feature_name": "Weave 최근 기능/업데이트명 (한국어)",
-      "description": "설명 (한국어)",
-      "release_date": "YYYY-MM-DD 또는 YYYY-MM",
-      "category": "해당 카테고리 영문명"
+      "feature_name": "Recent Weave feature/update name",
+      "description": "Description",
+      "release_date": "YYYY-MM-DD or YYYY-MM",
+      "category": "Category English name"
     }}
   ],
   "vendor_ratings": [
@@ -174,31 +174,31 @@ _SYNTHESIS_USER_PROMPT_TEMPLATE = """\
       "vendor_name": "LangSmith",
       ...
     }},
-    ...각 경쟁사 포함...
+    ...include all competitors...
   ],
   "enterprise_signals": [
-    "엔터프라이즈 관련 시그널 1 (한국어)",
-    ...3-5개...
+    "Enterprise-related signal 1",
+    ...3-5 items...
   ],
   "watchlist": [
-    "다음 주 주시 항목 1 (한국어)",
-    ...3-5개...
+    "Item to watch next week 1",
+    ...3-5 items...
   ]
 }}
 
-규칙:
-- "executive_summary"는 5-7개 bullet (핵심 인사이트를 풍부하게 포함)
-- "weave_summary"는 Weave 셀링 엔지니어 관점에서 제품 포지셔닝 요약
-- "weave_strengths"는 3-5개 (경쟁사 분석에서 도출한 Weave의 차별화 강점)
-- "weave_weaknesses"는 3-5개 (경쟁사가 앞서는 영역, 솔직한 평가)
-- "weave_positioning"은 Weave 자체의 시장 포지셔닝 변화
-- "weave_new_features"는 0-5개 (경쟁사 데이터에서 언급된 Weave 최신 업데이트. 없으면 빈 배열)
-- "vendor_ratings"는 Weave를 포함하여 모든 분석 대상 벤더를 포함해야 합니다
-- "enterprise_signals"는 3-5개
-- "watchlist"는 3-5개
-- 등급은 "strong", "medium", "weak", "none" 중 하나
-- 모든 텍스트는 한국어로 작성
-- 순수 JSON만 출력, 마크다운 코드 펜스 없음\
+Rules:
+- "executive_summary": 5-7 bullets (include rich key insights)
+- "weave_summary": Summarize product positioning from a Weave sales engineer's perspective
+- "weave_strengths": 3-5 items (Weave's differentiating strengths derived from competitor analysis)
+- "weave_weaknesses": 3-5 items (areas where competitors lead, honest assessment)
+- "weave_positioning": Weave's own market positioning shift
+- "weave_new_features": 0-5 items (recent Weave updates mentioned in competitor data; empty array if none)
+- "vendor_ratings" must include Weave and all analyzed vendors
+- "enterprise_signals": 3-5 items
+- "watchlist": 3-5 items
+- Ratings must be one of "strong", "medium", "weak", "none"
+- All text must be written in English
+- Pure JSON output only, no markdown code fences\
 """
 
 

@@ -54,26 +54,26 @@ def _build_extraction_prompt(results: list[SearchResult]) -> str:
     context = "\n".join(context_lines)
 
     return f"""\
-아래 검색 결과에서 새로운 LLM 옵저버빌리티, 평가, 또는 트레이싱 제품/플랫폼을 추출하세요.
+Extract new LLM observability, evaluation, or tracing products/platforms from the search results below.
 
-중요: 이미 추적 중인 경쟁사는 포함하지 마세요: {known_list}, W&B Weave, Weights & Biases.
-또한 LLM 옵저버빌리티/평가 플랫폼이 아닌 일반 도구는 제외하세요 (예: 일반 APM 도구, 클라우드 제공자, 기본 로깅).
+Important: Do NOT include competitors already being tracked: {known_list}, W&B Weave, Weights & Biases.
+Also exclude general-purpose tools that are not LLM observability/evaluation platforms (e.g., generic APM tools, cloud providers, basic logging).
 
-=== 검색 결과 ===
+=== Search Results ===
 {context}
-=== 끝 ===
+=== End ===
 
-아래 스키마와 정확히 일치하는 JSON 배열을 반환하세요 (마크다운 펜스 없이, 순수 JSON만):
+Return a JSON array that exactly matches the schema below (no markdown fences, pure JSON only):
 [
   {{
-    "name": "제품명",
-    "description": "이 제품이 하는 일에 대한 한 문장 설명 (한국어)",
+    "name": "Product name",
+    "description": "One-sentence description of what this product does",
     "source_url": "https://example.com"
   }}
 ]
 
-새로운 제품이 없으면 빈 배열을 반환하세요: []
-순수 JSON만 출력, 마크다운 코드 펜스 없음."""
+If there are no new products, return an empty array: []
+Pure JSON output only, no markdown code fences."""
 
 
 def extract_emerging_competitors(
@@ -95,9 +95,9 @@ def extract_emerging_competitors(
                     {
                         "role": "system",
                         "content": (
-                            "당신은 경쟁사 인텔리전스 분석가입니다. "
-                            "검색 결과에서 새로운 LLM 옵저버빌리티/평가 제품을 추출하세요. "
-                            "한국어로 응답하세요."
+                            "You are a competitive intelligence analyst. "
+                            "Extract new LLM observability/evaluation products from search results. "
+                            "Respond in English."
                         ),
                     },
                     {"role": "user", "content": prompt},
