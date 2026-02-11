@@ -528,63 +528,14 @@ def update_index(index_path: str = "index.md", analysis: AnalysisRun | None = No
     else:
         latest_content = "No reports generated yet.\n"
 
-    _write_full_index(index_file, latest_content, archive_content, analysis)
-
-
-def _build_new_features_section(analysis: AnalysisRun | None) -> str:
-    """Build the New Features (Last 30 Days) section from analysis data."""
-    if analysis is None:
-        return ""
-
-    lines: list[str] = []
-    has_any = False
-
-    # Weave features first (from synthesis)
-    if analysis.synthesis and analysis.synthesis.weave_new_features:
-        has_any = True
-        weave_cl = _CHANGELOG_URL_MAP.get("W&B Weave")
-        lines.append(f"### [Weave]({weave_cl})" if weave_cl else "### Weave")
-        lines.append("")
-        for nf in analysis.synthesis.weave_new_features:
-            lines.append(f"- **{nf.feature_name}**: {nf.description} ({nf.release_date})")
-        lines.append("")
-
-    # Competitor features
-    for comp in analysis.competitors:
-        if comp.new_features:
-            has_any = True
-            cl_url = _CHANGELOG_URL_MAP.get(comp.competitor_name)
-            if cl_url:
-                lines.append(f"### [{comp.competitor_name}]({cl_url})")
-            else:
-                lines.append(f"### {comp.competitor_name}")
-            lines.append("")
-            for nf in comp.new_features:
-                lines.append(f"- **{nf.feature_name}**: {nf.description} ({nf.release_date})")
-            lines.append("")
-
-    if not has_any:
-        return ""
-
-    return "\n".join(lines) + "\n"
+    _write_full_index(index_file, latest_content, archive_content)
 
 
 def _write_full_index(
     index_file: Path,
     latest_content: str,
     archive_content: str,
-    analysis: AnalysisRun | None = None,
 ) -> None:
-    new_features = _build_new_features_section(analysis)
-    new_features_block = ""
-    if new_features:
-        new_features_block = (
-            "## New Features (Last 30 Days)\n"
-            "\n"
-            f"{new_features}"
-            "\n"
-        )
-
     content = (
         "---\n"
         "layout: default\n"
@@ -603,7 +554,6 @@ def _write_full_index(
         "\n"
         "<!-- LATEST_REPORT_END -->\n"
         "\n"
-        f"{new_features_block}"
         "## Report Archive\n"
         "\n"
         "<!-- REPORT_ARCHIVE_START -->\n"
