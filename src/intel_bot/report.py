@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import re
 from pathlib import Path
 
 from intel_bot.config import (
@@ -518,33 +517,7 @@ def update_index(index_path: str = "index.md", analysis: AnalysisRun | None = No
     else:
         latest_content = "No reports generated yet.\n"
 
-    if not index_file.exists():
-        _write_full_index(index_file, latest_content, archive_content)
-        return
-
-    content = index_file.read_text(encoding="utf-8")
-
-    archive_pattern = r"<!-- REPORT_ARCHIVE_START -->\n.*?<!-- REPORT_ARCHIVE_END -->"
-    latest_pattern = r"<!-- LATEST_REPORT_START -->\n.*?<!-- LATEST_REPORT_END -->"
-    has_archive = "<!-- REPORT_ARCHIVE_START -->" in content
-    has_latest = "<!-- LATEST_REPORT_START -->" in content
-
-    if has_archive and has_latest:
-        content = re.sub(
-            archive_pattern,
-            f"<!-- REPORT_ARCHIVE_START -->\n\n{archive_content}\n<!-- REPORT_ARCHIVE_END -->",
-            content,
-            flags=re.DOTALL,
-        )
-        content = re.sub(
-            latest_pattern,
-            f"<!-- LATEST_REPORT_START -->\n\n{latest_content}\n<!-- LATEST_REPORT_END -->",
-            content,
-            flags=re.DOTALL,
-        )
-        index_file.write_text(content, encoding="utf-8")
-    else:
-        _write_full_index(index_file, latest_content, archive_content)
+    _write_full_index(index_file, latest_content, archive_content)
 
 
 def _write_full_index(index_file: Path, latest_content: str, archive_content: str) -> None:

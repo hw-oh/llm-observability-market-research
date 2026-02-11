@@ -5,16 +5,15 @@ title: Home
 
 # Competitor Intel Bot
 
-W&B Weave 경쟁사 제품 비교 리포트
+Competitor intelligence reports for W&B Weave
 
-[상세 비교표](./comparison) · [제품 상세분석](./competitor-detail)
+[Detailed Comparison](./comparison) · [Product Detail](./competitor-detail)
 
 ## Latest Report
 
 <!-- LATEST_REPORT_START -->
 
 [📋 Latest Report (2026-02-11)](./reports/2026-02-11.md)
-
 
 - Major Market Shift: Humanloop is sunsetting in September 2025 following its acquisition by Anthropic. This creates an immediate, high-priority opportunity for Weave to capture displaced enterprise customers looking for a stable prompt management and evaluation alternative.
 - The 'Proxy vs. Async' Divide: Competitors like Braintrust and Helicone are doubling down on Gateway/Proxy architectures to win on cost control, caching, and rate limiting. In contrast, Weave, LangSmith, and Phoenix prioritize async logging for developer ergonomics, creating a distinct architectural split in the market.
