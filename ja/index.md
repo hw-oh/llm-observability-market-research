@@ -1,11 +1,11 @@
 ---
 layout: default
-title: W&B Weave 競合インテリジェンスレポート
+title: W&B Weave 競合インテリジェンス・レポート
 ---
 
-# 競合インテリジェンスボット
+# Competitor Intel Bot
 
-[詳細比較](./comparison) · [製品詳細](./competitor-detail) · [競合インテリジェンス (社内用)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)
+[詳細な比較](./comparison) · [製品詳細](./competitor-detail) · [競合インテリジェンス (内部用)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)
 
 ## 最新レポート
 
@@ -14,14 +14,15 @@ title: W&B Weave 競合インテリジェンスレポート
 [📋 最新レポート (2026-02-11)](./reports/2026-02-11.md)
 
 
-- Weave は、Audio Monitors（2026年2月）のリリースにより、ボイスエージェント市場において重要な差別化要因を確保し、Langfuse や LangSmith といったテキスト中心の競合他社との差を広げました。
-- LangSmith の「デプロイメント」（インフラ）への戦略的転換と Braintrust の「AI Proxy」は、競合がトラフィックパスの制御に動く中で、Weave を受動的なオブザーバーの役割に追いやる脅威となっています。
-- Arize Phoenix と Braintrust は、特化型の「ツール選択」メトリクスや「トレースレベルのスコアラー」によってエージェント評価の基準を引き上げており、Weave の汎用的なスコアラーフレームワークに挑戦しています。
-- Weave の「Dynamic Leaderboards」は、Langfuse の静的なダッシュボードに対する強力な対抗軸となり、モデル比較において優れた柔軟性を提供しています。
-- Logfire の深い Pydantic 統合と SQL ベースのアナリティクスは、UI 重視のワークフローよりもコード優先のデバッグを好む Python ネイティブなエンジニアリングチームの間で、Weave のシェアを侵食し続けています。
-- Braintrust の新しい Cursor IDE 統合は、「エディタ内オブザーバビリティ」へのシフトを示唆しており、Weave のノートブック中心の開発ループをバイパスする可能性があります。
+- Weave はマルチモーダル対応（Audio Monitors）で差別化を図っています。競合がテキストやツール中心に留まる中、ボイスエージェントのオブザーバビリティにおいてリードを広げています。
+- LangSmith と Langfuse は「エージェンティック・オブザーバビリティ」を積極的に深掘りしており、推論ステップや循環グラフの専用ビジュアライゼーションを導入し、Weave のトレースビューに圧力をかけています。
+- Braintrust と LangSmith は、専用のアノテーション・キューによって「Human-in-the-Loop」のナラティブを支配しています。これは Weave が現在、直接的にはあまり対応できていないワークフロー機能です。
+- Weave の「Dynamic Leaderboards」リリースは、モデル比較を自動化することで Braintrust の評価機能の成熟度に対抗しており、企業のモデル選定における重要なニーズに応えています。
+- 「オープンスタンダード」の脅威が増大しており、Arize Phoenix と Logfire は OpenTelemetry (OTLP) を活用して、ベンダー固有の計装を避けたいチームにアピールしています。
+- Weave は W&B Training/Artifacts との深い統合により、独自の防御壁を維持しています。これにより、競合がエクスポート経由でしかサポートできない「ファインチューニングによる修正（Fix-by-Fine-tuning）」ループをネイティブに提供しています。
+- LangSmith が LangGraph Platform を「Deployment」へとリブランドしたことは、ランタイムレイヤーの所有へのシフトを意味しており、純粋なオブザーバビリティ・プレイヤーをコモディティ化する恐れがあります。
 
-> Weave はマルチモーダル（音声）オブザーバビリティとモデルトレーニング統合においてリードしていますが、エージェントインフラに関しては LangSmith から、エンタープライズプロキシ機能に関しては Braintrust からの圧力が高まっています。
+> Weave はマルチモーダル・オブザーバビリティとトレーニング統合においてリードしていますが、エージェントの可視化については LangSmith から、エンタープライズ評価ワークフローについては Braintrust から、それぞれ特有の圧力を受けています。
 
 
 <!-- LATEST_REPORT_END -->
@@ -30,46 +31,47 @@ title: W&B Weave 競合インテリジェンスレポート
 
 ### [Weave](https://app.getbeamer.com/weave/en)
 
-- **Audio monitors**: テキストと並行して音声出力を監視・判定するモニターの作成をサポートし、ボイスエージェントの評価を可能にしました。(2026-02-01)
-- **Dynamic Leaderboards**: カスタマイズ可能なフィルターと豊富な可視化オプションを備えた、評価結果からのリーダーボード自動生成機能。(2026-01-29)
-- **Custom LoRAs in Playground**: W&B Artifacts からカスタム微調整された LoRA 重みを Weave Playground で直接使用できる機能。(2026-01-16)
+- **Audio Monitors**: テキストと並行して音声出力を監視・判定するモニターの作成をサポートし、ボイスエージェントの評価を可能にしました。(2026-02-01)
+- **Dynamic Leaderboards**: 評価からリーダーボードを自動生成し、永続的なカスタマイズとCSVエクスポートに対応しました。(2026-01-29)
+- **Playground でのカスタム LoRA**: W&B Artifacts からカスタムのファインチューニング済み LoRA 重みを Weave Playground で直接使用できるようになりました。(2026-01-16)
 
 ### [LangSmith](https://changelog.langchain.com)
 
-- **Customize trace previews**: トレースプレビューペインをカスタマイズして、関連するメタデータや入出力を一目で確認できる機能。(2026-02-06)
-- **Google Gen AI Wrapper**: 手動のインスツルメンテーションなしで Google Gen AI モデルをトレースするための新しい SDK ラッパー。(2026-01-31)
-- **LangSmith Self-Hosted v0.13**: 安定性の向上とクラウド版の新機能を取り込んだセルフホスト版のアップデート。(2026-01-16)
+- **トレースプレビューのカスタマイズ**: UI でのトレースのプレビュー方法をカスタマイズできるようになり、トリアージの速度が向上しました。(2026-02-06) [[docs]](https://docs.smith.langchain.com/observability)
+- **LangSmith セルフホスト版 v0.13**: 安定性の向上と新機能を含むセルフホスト版のアップデート。(2026-01-16) [[docs]](https://docs.smith.langchain.com/self_hosting)
 
 ### [Arize Phoenix](https://arize.com/docs/phoenix/release-notes)
 
-- **Claude Opus 4.6 Support**: 拡張思考パラメータと正確なコスト追跡を備えた Anthropic の最新モデルの Playground サポート。(2026-02-09) [[docs]](https://docs.arize.com/phoenix/release-notes)
-- **Tool Selection & Invocation Evaluators**: エージェントが正しいツールを選択し、有効なパラメータで呼び出したかを評価する新しい特化型エバリュエーター。(2026-01-31) [[docs]](https://docs.arize.com/phoenix/release-notes)
-- **CLI Commands for Prompts/Datasets**: プロンプトのリスト表示、閲覧、AI アシスタントへのパイプ処理、およびターミナルからのデータセット/実験管理のための包括的な CLI サポート。(2026-01-22) [[docs]](https://docs.arize.com/phoenix/release-notes)
-- **Trace-to-Dataset with Span Links**: 元のソーススパンへの双方向リンクを維持したまま、本番トレースから厳選されたデータセットを作成する機能。(2026-01-21) [[docs]](https://docs.arize.com/phoenix/release-notes)
-- **Export Annotations with Traces**: オフライン分析のために、トレースを手動ラベルや評価スコアと共にエクスポートする CLI サポート。(2026-01-19) [[docs]](https://docs.arize.com/phoenix/release-notes)
+- **Claude Opus 4.6 サポート**: Playground で Anthropic の Claude Opus 4.6 モデルをサポートし、自動コスト追跡に対応しました。(2026-02-09) [[docs]](https://docs.arize.com/phoenix/release-notes)
+- **ツール選択・呼び出しエバリュエーター**: エージェントが正しいツールを選択し、有効なパラメータで呼び出したかを評価する新しい専用エバリュエーター。(2026-01-31) [[docs]](https://docs.arize.com/phoenix/release-notes)
+- **プロンプト・データセット用 CLI**: プロンプトやデータセットのリスト表示、閲覧、パイプ処理を行う CLI コマンド。AI コーディングアシスタントとの統合を可能にします。(2026-01-22) [[docs]](https://docs.arize.com/phoenix/release-notes)
+- **トレースからのデータセット作成**: ソーススパンへの双方向リンクを保持したまま、トレースから直接データセットを作成する機能。(2026-01-21) [[docs]](https://docs.arize.com/phoenix/release-notes)
+- **トレースと共のアノテーション・エクスポート**: オフライン分析のために、人間によるフィードバックやアノテーションをトレースと共にエクスポートする CLI サポート。(2026-01-19) [[docs]](https://docs.arize.com/phoenix/release-notes)
 
 ### [Braintrust](https://braintrust.dev/docs/changelog)
 
-- **Trace-level scorers**: カスタムコードスコアラーが実行トレース全体にアクセスできるようになり、マルチステップのワークフローやエージェントの動作を評価可能に。(2026-02) [[docs]](https://braintrust.dev/docs/changelog)
-- **LangSmith integration**: トレースを LangSmith と Braintrust の両方に並行してルーティング、または Braintrust へ完全に移行するためのラッパー。(2026-02) [[docs]](https://braintrust.dev/docs/changelog)
-- **Cursor integration**: 自然言語を介してログの照会や実験の実行を行うための Cursor エディタ用 Braintrust 拡張機能。(2026-02) [[docs]](https://braintrust.dev/docs/changelog)
-- **Auto-instrumentation (Python, Ruby, Go)**: Python、Ruby、Go アプリケーション向けのコード記述不要なトレースサポート。(2026-01) [[docs]](https://braintrust.dev/docs/changelog)
-- **Temporal integration**: Temporal のワークフローとアクティビティを、親子関係のマッピングと共に自動トレース。(2026-01) [[docs]](https://braintrust.dev/docs/changelog)
+- **トレースレベル・スコアラー**: カスタムコード・スコアラーが実行トレース全体にアクセスできるようになり、マルチステップのワークフローやエージェントの挙動を評価可能になりました。(2026-02) [[docs]](https://braintrust.dev/docs/changelog)
+- **LangSmith 統合 (実験的)**: LangSmith のトレースおよび評価コールを Braintrust にルーティングするラッパー。二重ログ記録や移行を可能にします。(2026-02) [[docs]](https://braintrust.dev/docs/changelog)
+- **自動計装 (Python, Ruby, Go)**: Python、Ruby、Go SDK において、ほとんどのプロバイダーでコード変更なしのトレースが可能になりました。(2026-01) [[docs]](https://braintrust.dev/docs/changelog)
+- **Temporal 統合**: Temporal のワークフローとアクティビティを自動トレースし、実行スパンと分散トレースをキャプチャします。(2026-01) [[docs]](https://braintrust.dev/docs/changelog)
+- **トレースの起点へのナビゲート**: ログ内のトレースから、起点のプロンプトやデータセットの行へリンクし、迅速なイテレーションを可能にします。(2026-02) [[docs]](https://braintrust.dev/docs/changelog)
 
 ### [Langfuse](https://langfuse.com/changelog)
 
-- **Corrected Outputs for Traces**: トレースビューで LLM 出力の改善版を直接キャプチャし、微調整用データセットを構築する機能。(2026-01-14) [[docs]](https://langfuse.com/docs/observability/corrections)
+- **思考 / 推論のレンダリング**: トレース詳細において、思考の連鎖（Chain-of-thought）や推論部分を明示的にレンダリングします (v3.148.0)。(2026-02-01)
+- **単一オブザベーションの評価**: フル・トレースではなく、単一のオブザベーションに対して評価を実行できるようになりました (v3.150.0)。(2026-02-05)
+- **トレースの修正済み出力**: LLM 出力の改善版をトレースビューで直接キャプチャし、ファインチューニング用データセットを構築できます。(2026-01-14) [[docs]](https://langfuse.com/docs/observability/features/corrections)
 
 ### [Logfire](https://logfire.pydantic.dev/docs/release-notes)
 
-- **Multi-token support for project migration**: プロジェクト移行をよりスムーズにするための複数トークン処理のサポートを追加。(2026-02-04) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
-- **OTel Gen AI semantic conventions**: OpenTelemetry Gen AI セマンティックコンベンションのスカラー属性のサポートを追加。(2026-01-28) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
-- **Pytest integration**: pytest のテスト実行内でシームレスなトレースとオブザーバビリティを可能にする新しい統合。(2026-01-26) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
-- **DSPy integration**: DSPy アプリケーションをトレースおよび監視するための公式統合。(2026-01-16) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
-- **Claude SDK instrumentation**: Anthropic Claude SDK 専用のインスツルメンテーションを追加。(2026-01-12) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
+- **プロジェクト移行用のマルチトークン対応**: プロジェクトの移行を容易にするため、複数のトークンの使用をサポートしました。(2026-02-04) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
+- **OTel Gen AI セマンティック・コンベンション**: OpenTelemetry Gen AI セマンティック・コンベンションのスカラー属性のサポートを追加しました。(2026-01-28) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
+- **pytest 統合**: pytest 実行時のオブザーバビリティをサポートする新しい統合。(2026-01-26) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
+- **DSPy 統合**: DSPy フレームワークのネイティブな計装サポートを追加しました。(2026-01-16) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
+- **Claude SDK 計装**: Anthropic Claude SDK 専用の計装を追加しました。(2026-01-12) [[docs]](https://logfire.pydantic.dev/docs/release-notes)
 
 
-## レポートアーカイブ
+## レポート・アーカイブ
 
 <!-- REPORT_ARCHIVE_START -->
 
