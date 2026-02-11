@@ -529,7 +529,7 @@ def _write_full_index(index_file: Path, latest_content: str, archive_content: st
         "\n"
         "# Competitor Intel Bot\n"
         "\n"
-        "[Detailed Comparison](./comparison) · [Product Detail](./competitor-detail)\n"
+        "[Detailed Comparison](./comparison) · [Product Detail](./competitor-detail) · [Competitive Intelligence (Internal)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)\n"
         "\n"
         "## Latest Report\n"
         "\n"
