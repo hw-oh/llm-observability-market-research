@@ -10,18 +10,18 @@ title: LLM Observability 市場調査
 [📋 最新レポート (2026-02-12)](./reports/2026-02-12.md)
 
 
-- MLflow は、ビジュアル Judge Builder と MemAlign オプティマイザをリリースし、マルチワークスペース管理のための Organization Support を導入しました。
-- LangSmith は、セルフホストプラットフォームをバージョン 0.13 にアップデートし、新しい CLI 機能やペア比較キューなどの開発者向けツールを拡張しました。
-- Langfuse は、セキュリティ追跡用の Organization Audit Log Viewer をリリースし、セルフホスト版に PII マスキング機能を追加しました。
-- Braintrust は、Cursor IDE サポートを通じて開発者ワークフローの統合を深め、Temporal および MCP サーバーアーキテクチャの Tracing を追加しました。
-- Arize Phoenix は、OpenInference ベースの Tracing プラットフォーム内で、ツール選択と呼び出し精度のための専用 Eval を導入しました。
-- W&B Weave は、マルチモーダル評価のための高度なオーディオモニターとダイナミックリーダーボードをデプロイし、専用および顧客管理のデプロイオプションをサポートしました。
+- LangSmith は、エンタープライズのコンプライアンスとデータ主権に関する厳格な要件に対応するため、Self-Hosted v0.13 をリリースし、EU データレジデンシーのサポートを開始しました。
+- Langfuse は、セキュリティガバナンスのための新しい Organization Audit Log Viewer をローンチし、Agent Graphs 内で推論ステップをレンダリングする機能を追加しました。
+- MLflow は、マルチワークスペース管理を可能にする Organization Support を導入し、ツール呼び出し（tool calling）のレスポンスやリトリーバー（retriever）のクエリをキャプチャするための自動インストルメンテーションを拡張しました。
+- Braintrust は、サブエージェントのネストを明示的にサポートするために、プラットフォームの用語を「agents」から「workflows」に更新し、Python Tracing の Scoring に関するアップデートをリリースしました。
+- Arize Phoenix は、オープンソースライブラリに特定の Faithfulness および Tool Selection の Eval 機能を追加し、設定可能な OAuth2 メール抽出を実装しました。
+- W&B Weave は、Audio Monitors と Dynamic Leaderboards を使用して Eval スイートを拡張し、安全なデプロイのための SDK レベルの PII 墨消し（redaction）のサポートを継続しています。
 
-**AI による市場インサイト**:
+**AI によるマーケットインサイト**:
 
-> MLflow によるビジュアル Judge Builder と MemAlign オプティマイザの導入は、プログラムによる Eval とリーダーボードの可視化における Weave の差別化要因に挑戦しています。
-> Langfuse の専用 Audit Log Viewer と PII マスキングのリリースは、コンプライアンスの可視化に関する Weave の現在のエンタープライズ機能セットにおける特定のギャップを浮き彫りにしています。
-> Braintrust の Cursor IDE や Temporal ワークフローとの直接的な統合は、複雑なエージェントのデバッグにおける主要な開発者中心プラットフォームとしての Weave のポジショニングを脅かしています。
+> LangSmith による Self-Hosted v0.13 のリリースと EU データレジデンシーへの対応は、規制の厳しい業界に対して同等のインフラ制御を提供することで、Weave のエンタープライズにおける優位性に直接挑戦するものです。
+> Langfuse がワークフローのトポロジーを可視化する Agent Graphs を導入したことは、エージェントのステップをキャプチャするものの専用の DAG 可視化を欠いている Weave の UI における特定のギャップを浮き彫りにしています。
+> Arize Phoenix が専門的な Faithfulness や Tool Selection のメトリクスを追加したことは、エージェント特化型の構築済み Eval ライブラリを拡張するよう Weave への競争圧力を高めています。
 
 
 <!-- LATEST_REPORT_END -->

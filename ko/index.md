@@ -10,18 +10,18 @@ title: LLM Observability 시장 조사
 [📋 최신 리포트 (2026-02-12)](./reports/2026-02-12.md)
 
 
-- MLflow는 시각적 Judge Builder와 MemAlign 최적화 도구를 출시했으며, 멀티 워크스페이스 관리를 위한 Organization Support를 도입했습니다.
-- LangSmith는 셀프 호스팅 플랫폼을 0.13 버전으로 업데이트하고, 새로운 CLI 기능과 Pairwise 비교 큐를 통해 개발자 툴링을 확장했습니다.
-- Langfuse는 보안 추적을 위한 Organization Audit Log Viewer를 출시하고, 셀프 호스팅 서비스에 PII 마스킹 기능을 추가했습니다.
-- Braintrust는 Cursor IDE 지원을 통해 개발자 워크플로우 통합을 심화했으며, Temporal 및 MCP 서버 아키텍처에 대한 Tracing 기능을 추가했습니다.
-- Arize Phoenix는 OpenInference 기반 Tracing 플랫폼 내에서 도구 선택 및 호출 정확도를 위한 특화된 Eval 도구를 도입했습니다.
-- W&B Weave는 멀티모달 평가를 위한 고급 오디오 모니터와 동적 리더보드를 배포했으며, 전용 및 고객 관리형 배포 옵션을 지원합니다.
+- LangSmith는 엄격한 엔터프라이즈 컴플라이언스 및 데이터 주권 요구 사항을 해결하기 위해 Self-Hosted v0.13을 출시하고 EU 데이터 레지던시 지원을 도입했습니다.
+- Langfuse는 보안 거버넌스를 위한 새로운 Organization Audit Log Viewer를 출시하고, Agent Graphs 내에서 추론 단계를 렌더링하는 기능을 추가했습니다.
+- MLflow는 멀티 워크스페이스 관리를 가능하게 하는 Organization Support를 도입하고, 도구 호출(tool calling) 응답 및 리트리버 쿼리를 캡처하도록 자동 인스트루멘테이션을 확장했습니다.
+- Braintrust는 서브 에이전트 중첩을 명시적으로 지원하기 위해 플랫폼 용어를 'agents'에서 'workflows'로 업데이트했으며, Python Tracing Scoring에 대한 업데이트를 출시했습니다.
+- Arize Phoenix는 오픈 소스 라이브러리에 특정 Faithfulness 및 Tool Selection 평가 도구를 추가하고, 구성 가능한 OAuth2 이메일 추출 기능을 구현했습니다.
+- W&B Weave는 Audio Monitors 및 Dynamic Leaderboards로 Eval 스위트를 확장하는 동시에, 안전한 배포를 위한 SDK 수준의 PII 비식별화 지원을 지속하고 있습니다.
 
 **AI 시장 인사이트**:
 
-> MLflow의 시각적 Judge Builder 및 MemAlign 최적화 도구 도입은 프로그래밍 방식의 Eval 및 리더보드 시각화 분야에서 Weave가 가진 차별성에 도전하고 있습니다.
-> Langfuse의 전용 Audit Log Viewer 및 PII 마스킹 출시는 명시적인 컴플라이언스 가시성 측면에서 Weave의 현재 엔터프라이즈 기능 세트에 존재하는 특정 공백을 부각시킵니다.
-> Braintrust의 Cursor IDE 및 Temporal 워크플로우 직접 통합은 복잡한 에이전트 디버깅을 위한 주요 개발자 중심 플랫폼으로서의 Weave의 입지를 위협합니다.
+> LangSmith의 Self-Hosted v0.13 출시와 EU 데이터 레지던시 지원은 규제 산업에 대해 유사한 인프라 제어 권한을 제공함으로써 Weave의 엔터프라이즈 강점에 직접적으로 도전하고 있습니다.
+> 시각적 워크플로우 토폴로지를 위한 Langfuse의 Agent Graphs 도입은 현재 에이전트 단계를 캡처하지만 전용 DAG 시각화 기능이 부족한 Weave의 특정 UI 격차를 부각시킵니다.
+> Arize Phoenix의 특화된 Faithfulness 및 Tool Selection 메트릭 추가는 Weave가 사전 구축된 에이전트 전용 평가 도구 라이브러리를 확장해야 한다는 경쟁 압력을 가중시킵니다.
 
 
 <!-- LATEST_REPORT_END -->
@@ -30,7 +30,7 @@ title: LLM Observability 시장 조사
 
 <!-- REPORT_ARCHIVE_START -->
 
-| Date | Report |
+| 날짜 | 리포트 |
 |------|--------|
 | 2026-02-12 | [리포트 보기](./reports/2026-02-12.md) |
 | 2026-02-11 | [리포트 보기](./reports/2026-02-11.md) |
