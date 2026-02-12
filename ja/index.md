@@ -10,18 +10,18 @@ title: LLM Observability 市場調査
 [📋 最新レポート (2026-02-12)](./reports/2026-02-12.md)
 
 
-- Langfuse は、エンタープライズのコンプライアンスおよびガバナンス要件を明確なターゲットとした、Organization Audit Logs と RBAC ロールを導入しました。
-- LangSmith は Self-Hosted v0.13 をリリースし、オンプレミスやプライベートクラウドのインフラを必要とするチーム向けにデプロイオプションを拡張しました。
-- MLflow は、マルチワークスペース環境全体での管理を容易にするため、Tracking Server の Organization Support をリリースしました。
-- Braintrust は、顧客クラウド内でのデータレジデンシーのためのハイブリッドアーキテクチャを維持しつつ、サブエージェントのネストをサポートするようにエージェントの Observability 機能を更新しました。
-- Arize Phoenix は、1行のインストルメンターと、Faithfulness（誠実性）およびツール選択のためのプリセット Eval を提供し、OpenTelemetry ネイティブとしてのポジショニングを強化しました。
-- W&B Weave は、W&B エコシステムとの深い統合、ネイティブの OpenTelemetry サポート、およびマルチターンエージェントの推論のためのインタラクティブなトレースツリーを提供することで、差別化を継続しています。
+- LangSmith は Self-Hosted v0.13 をリリースし、オンプレミスおよび VPC 環境向けのデプロイオプションを拡張することで、データ主権の要件への対応を強化しました。
+- Langfuse は Org Audit Log Viewer を導入し、エンタープライズ層のユーザー向けに、必要なセキュリティの可視性とコンプライアンス追跡機能を追加しました。
+- MLflow は、Databricks エコシステム内の大規模なエンジニアリングチームをターゲットに、マルチワークスペース管理を容易にする Organization Support を開始しました。
+- W&B Weave は、SOC 2 および HIPAA への準拠姿勢を強調しつつ、マルチモーダルな Tracing と Eval 用の GUI ベースの Judge Wizard を提供しています。
+- Arize Phoenix は、DSPy のサポートや、リトリーバルチャンクおよび関数呼び出し（Function Calls）に特化した可視化機能により、RAG Eval における地位を固めています。
+- Braintrust は、コントロールプレーンと顧客 VPC 内のデータを分離するハイブリッドデプロイモデルを引き続き活用し、セキュリティを重視する組織への訴求を続けています。
 
 **AI による市場インサイト**:
 
-> Langfuse による RBAC と Audit Logs の追加は、成熟した W&B プラットフォームのガバナンスを継承することで Weave が以前保持していた主要なエンタープライズ差別化ポイントを中和するものです。
-> LangSmith Self-Hosted v0.13 のリリースと Braintrust のハイブリッドモデルは、Weave に対して、特定のデータレジデンシーおよびデプロイ上の利点を明確にするよう競争圧力を高めています。
-> Arize Phoenix のツール選択に特化したプリセット Eval は、Weave の広範で柔軟なカスタム Scoring フレームワークにおける特定の機能ギャップを浮き彫りにしています。
+> LangGraph を介したエージェント実行グラフの可視化における LangSmith の市場をリードする機能は、複雑なエージェントワークフローのデバッグにおいて階層ツリー構造に依存する Weave にとって直接的な脅威となっています。
+> LangSmith Self-Hosted v0.13 のリリースと Langfuse の Org Audit Log Viewer は、Weave が自社の専用クラウドやコンプライアンス機能をより積極的にマーケティングする必要性を高めています。
+> Arize Phoenix によるオフライン Eval 用の DSPy 統合や、MLflow のノーコード Judge Wizard は、Weave がマルチモーダル Tracing 機能をさらに活用しない限り、Eval ワークフローにおける Weave の差別化要因を損なう恐れがあります。
 
 
 <!-- LATEST_REPORT_END -->

@@ -12,105 +12,88 @@ title: LLM Observability — Detailed Feature Comparison
 
 | Feature | Description | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| Nested Span Tracing | Nested function/LLM call span tracing with parent-child relationships | O | O | O | O | O | O |
+| Full Request/Response Tracing | Complete capture of LLM input prompts, output responses, and parameters | O | O | O | O | O | O |
+| Nested Span & Tree View | Hierarchical span tracing with parent-child tree visualization | O | O | O | O | O | O |
+| Streaming Support | Real-time tracing of streaming LLM responses | △ | O | O | △ | △ | △ |
+| Multimodal Tracing | Tracing and rendering of image, audio, and other non-text inputs/outputs | O | X | X | O | X | X |
 | Auto-Instrumentation | One-line automatic trace collection (decorators, autolog, etc.) | O | O | O | O | O | O |
-| Prompt & Response Logging | Automatic capture of LLM input prompts and output responses | O | O | O | O | O | O |
-| Token Usage Tracking | Input/output/cached/reasoning token usage tracking | O | O | O | O | O | O |
-| Latency Measurement | Per-span and end-to-end latency measurement | O | O | O | O | O | O |
-| Cost Estimation | Automatic cost estimation based on token usage | △ | X | O | O | X | O |
-| Streaming Trace | Real-time tracing of streaming LLM responses | △ | O | △ | △ | △ | △ |
-| Metadata & Tags | Custom metadata and tag attachment on traces | △ | O | O | O | O | O |
-| OpenTelemetry Compatibility | OTEL-standard trace export/import support | O | O | O | O | O | O |
+| Metadata & Tags Filtering | Custom metadata and tag attachment with search and filtering | O | △ | O | O | O | O |
+| Token Counting & Estimation | Accurate per-tokenizer input/output/cached token counting | O | △ | O | O | △ | O |
+| OpenTelemetry Standard | OTEL-standard trace export/import compatibility | O | O | O | △ | O | O |
 
-## Agent & RAG Observability
+## Agent & RAG Specifics
 
 | Feature | Description | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| Tool/Function Call Tracing | Automatic tracing of agent tool call inputs and outputs | O | O | O | O | O | O |
-| Retrieval (RAG) Tracing | Logging of retriever queries and returned documents | O | O | O | O | △ | O |
-| Multi-step Reasoning Trace | Visualization of multi-turn agent reasoning chains | O | O | O | O | O | O |
-| Workflow Graph View | DAG/graph visualization of agent workflows | O | △ | O | △ | X | △ |
-| MCP/A2A Protocol Tracing | Model Context Protocol and Agent2Agent protocol trace support | △ | X | X | X | X | △ |
-| Failed Step Highlighting | Automatic highlighting of failed steps in traces | △ | O | △ | △ | O | △ |
-| Session/Conversation Grouping | Grouping traces by session or conversation | △ | O | O | O | △ | O |
+| RAG Retrieval Visualizer | UI display of retrieved document chunks with content and relevance scores | △ | O | O | △ | △ | O |
+| Tool/Function Call Rendering | Parsed view of tool/function call inputs and return values | O | O | △ | O | X | O |
+| Agent Execution Graph | DAG/graph visualization of agent workflows with loops and branches | △ | O | X | X | X | △ |
+| Intermediate Step State | Storage and display of agent intermediate reasoning (Chain-of-Thought) | O | O | O | △ | △ | O |
+| Session/Thread Replay | Replay of user session or conversation thread as a complete flow | O | △ | O | △ | X | O |
+| Failed Step Highlighting | Automatic highlighting of failed steps in agent traces | △ | O | △ | O | X | △ |
+| MCP Integration | Model Context Protocol server/client integration and tracing | O | X | X | X | X | X |
 
 ## Evaluation & Quality
 
 | Feature | Description | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| LLM-as-Judge | Built-in LLM-based automatic evaluation scoring | O | O | O | O | O | O |
-| Custom Eval Scorers | User-defined evaluation function authoring and execution | O | O | O | O | O | O |
-| Human Feedback / Annotation UI | UI-based human evaluation, annotation, and labeling | △ | O | O | O | O | O |
-| Evaluation Dataset Management | Evaluation dataset creation, versioning, and storage | O | O | O | O | O | △ |
-| Trace → Eval Dataset | Direct conversion of production traces to evaluation datasets | O | O | △ | O | O | △ |
-| Regression Detection | Automatic quality regression detection on model/prompt changes | △ | O | O | O | △ | △ |
-| Side-by-side Model Comparison | Side-by-side comparison of model/prompt outputs | O | △ | O | O | O | O |
-| Evaluation Leaderboard | Ranking of multiple model/prompt evaluation results | O | △ | △ | △ | △ | X |
-| CI/CD Eval Integration | Evaluation embedded in CI/CD pipelines (GitHub Actions, etc.) | X | O | △ | O | △ | X |
-| Online Evaluation (Monitors) | Real-time automatic evaluation on production traces | △ | O | O | O | O | O |
+| LLM-as-a-Judge Wizard | GUI-based LLM judge builder without requiring code | O | △ | △ | O | O | X |
+| Custom Eval Scorers | User-defined code-based evaluation function authoring and execution | O | O | O | O | O | O |
+| Dataset Management & Curation | Evaluation dataset creation, versioning, and trace-to-dataset conversion | O | O | O | O | O | O |
+| Prompt Optimization / DSPy Support | Automatic prompt optimization or candidate suggestion (e.g. DSPy integration) | X | △ | X | O | X | O |
+| Regression Testing | Automatic quality regression detection on model/prompt changes | △ | O | △ | O | O | O |
+| Comparison View (Side-by-side) | Side-by-side comparison of model/prompt outputs | O | O | X | O | O | O |
+| Annotation Queues | Team-based annotation workflows with queue management and reviewer assignment | △ | O | O | △ | △ | △ |
+| Online Evaluation | Real-time automatic evaluation on live production traffic | O | O | O | O | O | △ |
 
 ## Guardrails & Safety
 
 | Feature | Description | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| Built-in Guardrails | Built-in guardrails (toxicity, PII, hallucination, etc.) | O | △ | X | X | X | △ |
-| Custom Guardrails | User-defined guardrail scorer authoring | O | O | △ | △ | △ | O |
-| Pre/Post Response Hooks | Safety check hooks before/after LLM responses | O | △ | O | △ | △ | O |
-| PII Detection & Masking | Automatic PII detection and masking | △ | △ | △ | X | X | △ |
+| PII/Sensitive Data Masking | Automatic PII and sensitive data detection and masking | O | △ | △ | X | X | O |
+| Hallucination Detection | Dedicated guardrail for detecting hallucinated content | O | X | △ | △ | X | △ |
+| Topic/Jailbreak Guardrails | Blocking of forbidden topics and jailbreak attempt detection | O | X | △ | △ | △ | O |
+| Policy Management as Code | Guardrail rules defined and managed as code | O | X | X | △ | △ | O |
 
-## Monitoring & Analytics
-
-| Feature | Description | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
-|---|---|---|---|---|---|---|---|
-| Cost Dashboard | Real-time LLM cost tracking dashboard | O | O | O | O | X | X |
-| Token Usage Analytics | Token usage breakdown and trends | O | O | O | O | O | O |
-| Latency Percentiles & Alerting | Latency percentile monitoring and alerting | O | O | △ | △ | △ | O |
-| Error Rate Monitoring | Error rate monitoring and alerting | O | O | △ | △ | △ | △ |
-| Custom Metrics | User-defined custom metric tracking | △ | O | O | O | O | △ |
-| Drift Detection | Model input/output distribution drift detection | X | X | X | △ | X | O |
-| Embedding Clustering/Analysis | Embedding space clustering and visualization analysis | X | △ | X | X | X | △ |
-
-## Experiment & Improvement Loop
+## Analytics & Dashboard
 
 | Feature | Description | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| Prompt Versioning | Version control for prompt templates | △ | O | O | O | O | O |
-| Model Versioning | Tracking of model versions and configs | O | O | △ | △ | O | △ |
-| Experiment Tracking | A/B test and experiment management | O | O | O | O | O | O |
-| Dataset Versioning | Versioned evaluation and training datasets | X | △ | X | O | O | O |
-| LLM Playground | Interactive prompt testing interface | O | O | O | O | X | △ |
-| Continuous/Scheduled Eval | Scheduled or trigger-based automatic evaluation runs | △ | △ | X | △ | △ | △ |
-| RL/Fine-tuning Pipeline | Integration with fine-tuning/RL pipelines | O | X | △ | △ | X | △ |
-| Training Data Generation | Automatic training data generation from traces | △ | O | △ | O | △ | △ |
-| Failure Trajectory Extraction | Extraction of failure pattern traces into datasets | O | O | O | O | △ | O |
+| Cost Analysis & Attribution | Cost tracking with per-user/team/project attribution | O | △ | O | △ | X | X |
+| Token Usage Analytics | Input/output token usage breakdown and trends | O | O | O | O | O | O |
+| Latency Heatmap & P99 | Latency distribution visualization with percentile monitoring | △ | △ | O | △ | △ | △ |
+| Error Rate Monitoring | Error rate tracking and alerting | △ | O | △ | △ | O | △ |
+| Embedding Space Visualization | UMAP/t-SNE embedding clustering and visualization | X | X | X | X | X | X |
+| Custom Metrics & Dashboard | User-defined custom metric tracking with dashboard widgets | O | O | O | O | O | O |
 
-## Developer Experience & Integration
+## Development Lifecycle
 
 | Feature | Description | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| Python SDK | Official Python SDK | O | O | O | O | O | O |
-| TypeScript/JS SDK | Official TypeScript/JavaScript SDK | O | O | O | O | O | △ |
-| Framework Integration | Built-in support for LangChain, LlamaIndex, DSPy, CrewAI, etc. | O | O | △ | X | O | △ |
-| REST/GraphQL API | REST or GraphQL API for programmatic access | △ | O | O | X | O | O |
-| Custom Model Support | Tracing for non-standard or self-hosted models | O | △ | O | O | O | △ |
-| CLI Tools | Command-line interface tools | X | O | X | X | O | X |
-| Notebook Integration | Trace visualization within Jupyter/Colab notebooks | △ | X | X | X | △ | △ |
+| Prompt Management (CMS) | Prompt versioning with non-developer editing and deployment capabilities | △ | O | O | O | O | △ |
+| Playground & Sandbox | Interactive prompt and parameter testing environment | O | △ | O | O | X | O |
+| Experiment Tracking | A/B test and experiment management with hyperparameter logging | O | O | O | △ | O | O |
+| Fine-tuning Integration | Fine-tuning data export and pipeline integration | △ | △ | X | △ | △ | X |
+| Version Control & Rollback | Prompt and model version management with rollback capability | O | O | O | O | O | △ |
 
-## Infrastructure & Enterprise
+## Integration & DX
 
 | Feature | Description | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| Cloud Managed (SaaS) | Managed cloud service offering | O | O | O | O | O | O |
-| Self-Host / On-Prem | Self-hosted or on-premise deployment option | O | O | O | △ | O | O |
-| VPC Deployment | Deployment within customer VPC | O | △ | O | X | △ | O |
-| Open Source | Open-source code availability | △ | X | O | X | O | O |
-| RBAC | Role-based access control | O | X | O | O | △ | X |
-| SSO/SAML | SSO and SAML authentication support | O | X | △ | O | X | △ |
-| SOC 2 Certification | SOC 2 Type II security certification | O | X | △ | O | X | X |
-| Audit Logs | User and system action audit trail | O | X | O | △ | △ | X |
-| Data Retention Policy | Configurable data retention policies | O | X | O | △ | X | X |
-| Data Warehouse Export | Export to external data warehouses | O | X | O | X | △ | △ |
-| Multi-Region / Data Residency | Multi-region or data residency support | O | O | △ | △ | △ | △ |
-| Traditional ML Experiment Integration | Integration with traditional ML experiment tracking (W&B, MLflow, etc.) | O | X | X | X | O | X |
-| Databricks Native Integration | Databricks platform native integration | X | X | X | X | O | X |
+| SDK Support (Py/JS/Go) | Official SDK support across Python, JavaScript/TypeScript, and Go | O | △ | △ | O | △ | △ |
+| Gateway/Proxy Mode | Proxy-based tracing without SDK installation (URL change only) | X | X | X | X | O | X |
+| Popular Frameworks | Built-in support for LangChain, LlamaIndex, AutoGen, CrewAI, etc. | O | O | O | △ | △ | O |
+| API & Webhooks | REST/GraphQL API and webhook integration for external systems | O | △ | O | O | O | O |
+| CI/CD Integration | Integration with CI/CD pipelines (GitHub Actions, etc.) for automated eval and deployment | O | X | X | △ | X | △ |
+
+## Enterprise & Infrastructure
+
+| Feature | Description | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+|---|---|---|---|---|---|---|---|
+| Deployment Options | Multi-tenant SaaS, dedicated SaaS, and self-hosted/VPC deployment options | O | O | O | O | O | O |
+| Open Source | Open-source code availability and community | △ | X | O | X | O | O |
+| Data Sovereignty & Compliance | Data region selection with SOC 2/HIPAA/GDPR compliance | O | O | O | △ | △ | △ |
+| RBAC & SSO | Role-based access control with SSO/SAML authentication | O | △ | O | O | △ | △ |
+| Audit Logs | User and system action audit trail | O | O | O | X | △ | X |
+| Data Warehouse Export | Automated export to Snowflake, BigQuery, S3, etc. | O | O | O | X | X | X |
 
