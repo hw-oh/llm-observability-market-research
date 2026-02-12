@@ -7,33 +7,33 @@ title: LLM Observability 시장 조사
 
 <!-- LATEST_REPORT_START -->
 
-[📋 최신 보고서 (2026-02-12)](./reports/2026-02-12.md)
+[📋 최신 리포트 (2026-02-12)](./reports/2026-02-12.md)
 
 
-- LangSmith는 셀프 호스팅 플랫폼의 v0.13 버전을 출시하며, 멀티 스텝 추론 시각화를 위한 LangGraph와의 깊은 통합을 통해 온프레미스 역량을 강화했습니다.
-- MLflow는 멀티 워크스페이스 관리를 위한 Organization Support와 자동화된 평가자 생성을 간소화하는 시각적 Judge Builder를 도입했습니다.
-- W&B Weave는 동적 리더보드와 커스텀 Scoring 기능을 출시했으며, 멀티모달 Eval 워크플로우를 위해 설계된 고유한 오디오 모니터를 추가했습니다.
-- Braintrust는 구성 가능한 이미지 렌더링 보안 제어 기능을 구현하고, 도구 호출 Tracing을 위한 새로운 Temporal 통합으로 에이전트 Observability를 확장했습니다.
-- Langfuse는 컴플라이언스 가시성을 높이기 위해 Organization Audit Log Viewer를 출시하는 동시에, 복잡한 체인 지연 시간을 디버깅하기 위한 타임라인 뷰를 추가했습니다.
-- Arize Phoenix는 도구 선택 정확도에 특화된 지표를 출시하고 셀프 호스팅 배포를 위한 RBAC 지원을 확정하며 에이전트 기반 Eval에 집중했습니다.
+- LangSmith는 온프레미스 요구 사항을 지원하기 위해 Self-Hosted v0.13을 출시했으며, 자동화된 회귀 탐지를 위한 pairwise 어노테이션 큐를 도입했습니다.
+- MLflow는 멀티 워크스페이스 조직 지원으로 엔터프라이즈 기능 세트를 확장하고, MemAlign 옵티마이저와 함께 시각적 Judge Builder를 추가했습니다.
+- Langfuse는 컴플라이언스 모니터링 강화를 위해 조직 감사 로그 뷰어(Organization Audit Log Viewer)를 출시하고, 배치 데이터셋 실행을 위한 매니지드 LLM-as-a-judge 기능을 활성화했습니다.
+- W&B Weave는 멀티모달 LLM-as-a-judge 워크플로우를 지원하기 위해 다이내믹 리더보드와 새로운 오디오 모니터를 배포했습니다.
+- Braintrust는 Temporal 워크플로우와 트레이스 레벨 Scoring 기능을 갖춘 심층 계층 구조 Tracing을 지원함으로써 code-first 포지셔닝을 공고히 했습니다.
+- Arize Phoenix는 에이전트 시스템에서 도구 선택 정확도와 파라미터 호출을 판별하기 위해 특별히 설계된 전문 Evaluator를 도입했습니다.
 
 **AI 시장 인사이트**:
 
-> LangSmith와 Arize Phoenix는 특정 도구 선택 평가자와 추론 Tracing을 통해 에이전트 워크플로우를 공격적으로 공략하고 있으며, 이는 Weave가 기본적인 도구 호출 Tracing을 넘어 에이전트 시각화를 확장하도록 압박하고 있습니다.
-> Weave가 강력한 온프레미스 옵션을 제공하는 반면, Langfuse의 새로운 Audit Log Viewer와 LangSmith의 v0.13 셀프 호스팅 출시는 PII 마스킹 및 컴플라이언스 로그와 관련한 Weave의 명시적 문서화 공백을 부각시킵니다.
-> Braintrust의 깊은 IDE 통합과 MLflow의 시각적 Judge Builder는 코딩 환경과 Eval 로직 간의 더 긴밀한 결합을 제공함으로써 Weave의 개발자 우선 포지셔닝에 도전하고 있습니다.
+> LangSmith와 Langfuse는 이제 에이전트 추론을 위한 전용 워크플로우 그래프 시각화를 제공하고 있습니다. 이는 메모리 및 상태 그래프에 대한 특정 뷰가 부족한 Weave의 현재 에이전트 Observability 툴킷의 공백을 부각시킵니다.
+> LangSmith의 v0.13 Self-hosted 버전 출시와 Langfuse의 감사 로그 뷰어는 Weave가 엔터프라이즈 컴플라이언스를 위한 PII 마스킹 및 감사 기능을 공개적으로 문서화해야 한다는 압박을 가하고 있습니다.
+> MLflow의 새로운 시각적 Judge Builder와 MemAlign 옵티마이저는 Weave의 코드 중심 Eval 워크플로우에 대한 로우코드 대안을 제공함으로써, Eval 통합 분야에서 Weave의 우위에 도전하고 있습니다.
 
 
 <!-- LATEST_REPORT_END -->
 
-## 보고서 아카이브
+## Report Archive
 
 <!-- REPORT_ARCHIVE_START -->
 
-| 날짜 | 보고서 |
+| 날짜 | 리포트 |
 |------|--------|
-| 2026-02-12 | [보고서 보기](./reports/2026-02-12.md) |
-| 2026-02-11 | [보고서 보기](./reports/2026-02-11.md) |
-| 2026-02-10 | [보고서 보기](./reports/2026-02-10.md) |
+| 2026-02-12 | [리포트 보기](./reports/2026-02-12.md) |
+| 2026-02-11 | [리포트 보기](./reports/2026-02-11.md) |
+| 2026-02-10 | [리포트 보기](./reports/2026-02-10.md) |
 
 <!-- REPORT_ARCHIVE_END -->

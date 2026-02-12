@@ -16,7 +16,7 @@ title: LLM Observability — Detailed Feature Comparison
 | Hierarchical Spans | Parent-child span relationships | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Prompt Logging | Automatic capture of LLM prompts | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Response Logging | Automatic capture of LLM responses | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Token Tracking | Input/output token usage counting | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Token Tracking | Input/output token usage counting | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Latency Analysis | Per-span and end-to-end latency measurement | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Replay | Step-by-step trace replay in UI | ●●○ | ●●● | ●●○ | ●●● | ●●○ | ●●● |
 
@@ -24,12 +24,12 @@ title: LLM Observability — Detailed Feature Comparison
 
 | Feature | Description | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| Tool Call Tracing | Capture of tool/function call inputs and outputs | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Tool Call Tracing | Capture of tool/function call inputs and outputs | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Retrieval Tracing | Logging of retriever queries and returned documents | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●● |
-| Memory Tracing | Tracking of conversational memory reads/writes | ●●○ | ●●○ | ●●● | ●●○ | ●●● | ●●○ |
-| Multi-step Reasoning | Visualization of multi-turn agent reasoning chains | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Memory Tracing | Tracking of conversational memory reads/writes | ○○○ | ●●○ | ●●● | ●○○ | ●●○ | ●●○ |
+| Multi-step Reasoning | Visualization of multi-turn agent reasoning chains | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Workflow Graph | DAG or graph view of agent workflows | ●●○ | ●●● | ●●● | ●●○ | ●●○ | ●●○ |
-| Failure Visualization | Highlighting of failed steps in a trace | ●●○ | ●●● | ●●○ | ●●● | ●●● | ●●● |
+| Failure Visualization | Highlighting of failed steps in a trace | ●●○ | ●●● | ●●○ | ●●○ | ●●● | ●●● |
 
 ## Evaluation Integration
 
@@ -49,8 +49,8 @@ title: LLM Observability — Detailed Feature Comparison
 | Cost Dashboard | Real-time LLM cost tracking dashboard | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Token Analytics | Token usage breakdown and trends | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Latency Monitoring | Latency percentiles and alerting | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Error Tracking | Error rate monitoring and alerting | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Tool Success Rate | Success/failure rate of tool calls | ●●○ | ●●○ | ●●● | ●●○ | ●●● | ●●● |
+| Error Tracking | Error rate monitoring and alerting | ●●○ | ●●● | ●●○ | ●●● | ●●● | ●●● |
+| Tool Success Rate | Success/failure rate of tool calls | ○○○ | ●●○ | ●●● | ●●○ | ●●● | ●●● |
 | Custom Metrics | User-defined custom metric tracking | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 
 ## Experiment / Improvement Loop
@@ -58,11 +58,11 @@ title: LLM Observability — Detailed Feature Comparison
 | Feature | Description | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
 | Prompt Versioning | Version control for prompt templates | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Model Versioning | Tracking of model versions and configs | ●●● | ●●○ | ●●○ | ●●● | ●●● | ●●● |
+| Model Versioning | Tracking of model versions and configs | ●●● | ●●○ | ●●○ | ●●● | ●●● | ●●○ |
 | Experiment Tracking | A/B test and experiment management | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Dataset Versioning | Versioned eval and training datasets | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Continuous Eval | Scheduled or triggered evaluation runs | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| RL/Fine-tuning Link | Integration with fine-tuning pipelines | ●●● | ●●○ | ●●○ | ●○○ | ●●○ | ●○○ |
+| RL/Fine-tuning Link | Integration with fine-tuning pipelines | ●●● | ●●○ | ●●○ | ●○○ | ●●● | ●●○ |
 
 ## DevEx / Integration
 
@@ -72,8 +72,8 @@ title: LLM Observability — Detailed Feature Comparison
 | Framework Integration | Built-in support for LangChain, LlamaIndex, etc. | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Custom Model Support | Tracing for non-standard or self-hosted models | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | API Access | REST or GraphQL API for programmatic access | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Streaming Tracing | Tracing of streaming LLM responses | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
-| CLI/Infra Integration | CLI tools and infrastructure-as-code support | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Streaming Tracing | Tracing of streaming LLM responses | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| CLI/Infra Integration | CLI tools and infrastructure-as-code support | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
 
 ## Enterprise & Security
 
@@ -83,6 +83,6 @@ title: LLM Observability — Detailed Feature Comparison
 | RBAC | Role-based access control | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
 | PII Masking | Automatic PII detection and redaction | ○○○ | ●●○ | ●●● | ●●○ | ●●○ | ○○○ |
 | Audit Logs | Audit trail for user and system actions | ○○○ | ●●● | ●●● | ●●○ | ●●○ | ○○○ |
-| Data Retention | Configurable data retention policies | ●●○ | ●●● | ●●● | ●●● | ●●○ | ●●● |
-| Region Support | Multi-region or data residency support | ●○○ | ●●● | ●●● | ●●○ | ●●● | ●●○ |
+| Data Retention | Configurable data retention policies | ○○○ | ●●● | ●●● | ●●● | ●●○ | ●●○ |
+| Region Support | Multi-region or data residency support | ○○○ | ●●● | ●●○ | ●○○ | ●●● | ●●○ |
 
