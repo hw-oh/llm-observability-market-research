@@ -30,11 +30,11 @@ def _rating_to_symbol(rating: str) -> str:
 def _dimension_field(dim: str) -> str:
     """Map SUMMARY_DIMENSIONS display name to ProductSummaryRating field name."""
     mapping = {
-        "Trace Depth": "trace_depth",
+        "Tracing": "trace_depth",
         "Eval": "eval",
         "Agent Observability": "agent_observability",
         "Cost Tracking": "cost_tracking",
-        "Security & Governance": "enterprise_ready",
+        "Enterprise": "enterprise_ready",
         "Overall": "overall",
     }
     return mapping.get(dim, dim.lower().replace(" ", "_"))

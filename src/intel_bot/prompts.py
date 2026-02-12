@@ -118,7 +118,7 @@ Return a JSON object that exactly matches the schema below (no markdown fences, 
 }}
 
 Rules:
-- "categories" array must contain exactly 7 items — USE the ratings and notes from the category analysis above
+- "categories" array must contain exactly 8 items — USE the ratings and notes from the category analysis above
 - Adjust ratings ONLY if cross-category context reveals inconsistencies
 - "new_features": 0-10 items (product updates released within the last 30 days ONLY based on today's date {today}. Exclude anything older. Empty array if none. Include ALL qualifying updates.)
 - "strengths": 3-5 notable product strengths
