@@ -115,7 +115,7 @@ Rules:
 - Each category's "features" must include all sub-items for that category
 - "item_name" must use the exact names specified in the schema
 - Ratings must be one of "strong", "medium", "weak", "none"
-- "new_features": 0-5 items (product updates released within the last 30 days ONLY based on today's date {today}. Exclude anything older. Empty array if none.)
+- "new_features": 0-10 items (product updates released within the last 30 days ONLY based on today's date {today}. Exclude anything older. Empty array if none. Include ALL qualifying updates, not just a few.)
 - "strengths_vs_weave": 3-5 items
 - "weaknesses_vs_weave": 3-5 items
 - All text must be written in English
@@ -194,7 +194,7 @@ Rules:
 - "weave_strengths": 3-5 items (Weave's differentiating strengths derived from competitor analysis)
 - "weave_weaknesses": 3-5 items (areas where competitors lead, honest assessment)
 - "weave_positioning": Weave's own market positioning shift
-- "weave_new_features": 0-5 items (Weave updates from the last 30 days ONLY based on today's date {today}. Empty array if none.)
+- "weave_new_features": 0-10 items (Weave updates from the last 30 days ONLY based on today's date {today}. Empty array if none. Include ALL qualifying updates.)
 - "vendor_ratings" must include Weave and all analyzed vendors
 - "enterprise_signals": 3-5 items
 - Ratings must be one of "strong", "medium", "weak", "none"
@@ -260,15 +260,17 @@ def _create_client(settings: Settings) -> OpenAI:
 def _build_context(competitor: CompetitorData) -> str:
     sections: list[str] = []
 
-    # Search results
-    if competitor.search_results:
-        lines = ["=== WEB SEARCH RESULTS ==="]
-        for sr in competitor.search_results:
-            lines.append(f"[Query: {sr.query}] Title: {sr.title}")
-            lines.append(f"  Snippet: {sr.snippet}")
-            if sr.link:
-                lines.append(f"  URL: {sr.link}")
-            lines.append("")
+    # Feed entries (first — most important for new features, avoid truncation)
+    if competitor.feed_entries:
+        lines = ["=== RECENT UPDATES (GitHub Releases, PyPI, Changelog) ==="]
+        for entry in competitor.feed_entries:
+            parts = [f"[{entry.source}]"]
+            parts.append(entry.title)
+            if entry.published:
+                parts.append(f"({entry.published})")
+            if entry.summary:
+                parts.append(f"- {entry.summary}")
+            lines.append(" ".join(parts))
         sections.append("\n".join(lines))
 
     # Docs pages
@@ -281,17 +283,15 @@ def _build_context(competitor: CompetitorData) -> str:
             lines.append("")
         sections.append("\n".join(lines))
 
-    # Feed entries
-    if competitor.feed_entries:
-        lines = ["=== RECENT UPDATES (GitHub Releases & PyPI) ==="]
-        for entry in competitor.feed_entries:
-            parts = [f"[{entry.source}]"]
-            parts.append(entry.title)
-            if entry.published:
-                parts.append(f"({entry.published})")
-            if entry.summary:
-                parts.append(f"- {entry.summary}")
-            lines.append(" ".join(parts))
+    # Search results (last — least critical, OK to truncate)
+    if competitor.search_results:
+        lines = ["=== WEB SEARCH RESULTS ==="]
+        for sr in competitor.search_results:
+            lines.append(f"[Query: {sr.query}] Title: {sr.title}")
+            lines.append(f"  Snippet: {sr.snippet}")
+            if sr.link:
+                lines.append(f"  URL: {sr.link}")
+            lines.append("")
         sections.append("\n".join(lines))
 
     full_context = "\n\n".join(sections)
@@ -358,7 +358,7 @@ def analyze_competitor(
                     {"role": "system", "content": SYSTEM_PROMPT},
                     {"role": "user", "content": user_prompt},
                 ],
-                temperature=0.2,
+                temperature=0.0,
                 max_tokens=16384,
             )
             raw = response.choices[0].message.content or ""
@@ -415,7 +415,7 @@ def synthesize(
                     {"role": "system", "content": _SYNTHESIS_SYSTEM_PROMPT},
                     {"role": "user", "content": user_prompt},
                 ],
-                temperature=0.2,
+                temperature=0.0,
                 max_tokens=16384,
             )
             raw = response.choices[0].message.content or ""
@@ -470,7 +470,7 @@ def generate_executive_summary(
                     {"role": "system", "content": _EXEC_SUMMARY_SYSTEM_PROMPT},
                     {"role": "user", "content": user_prompt},
                 ],
-                temperature=0.3,
+                temperature=0.0,
                 max_tokens=4096,
             )
             raw = response.choices[0].message.content or ""
