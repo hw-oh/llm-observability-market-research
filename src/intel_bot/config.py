@@ -174,7 +174,7 @@ COMPARISON_CATEGORIES: list[CategoryDef] = [
         "{name} LangChain LlamaIndex OpenAI framework support",
         "{name} REST API streaming tracing custom model",
     ]),
-    CategoryDef("Enterprise & Security", "엔터프라이즈 & 보안", [
+    CategoryDef("Security & Governance", "보안 & 거버넌스", [
         ("On-prem/VPC", "Self-hosted or VPC deployment option"),
         ("RBAC", "Role-based access control"),
         ("PII Masking", "Automatic PII detection and redaction"),

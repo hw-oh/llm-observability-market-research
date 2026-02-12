@@ -369,7 +369,7 @@ def analyze_all(
         category_results: list[CategoryAnalysis] = []
         for cat_def in COMPARISON_CATEGORIES:
             cat_search = product.category_search_results.get(cat_def.name, [])
-            extra_docs = product.docs_pages if cat_def.name == "Enterprise & Security" else None
+            extra_docs = product.docs_pages if cat_def.name == "Security & Governance" else None
             result = analyze_category(
                 client, flash_model, product.competitor_name,
                 cat_def, cat_search, extra_docs,
