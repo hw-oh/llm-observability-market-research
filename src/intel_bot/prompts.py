@@ -17,6 +17,7 @@ logger = logging.getLogger(__name__)
 # Prompt names (used as Weave object names)
 # ---------------------------------------------------------------------------
 
+CATEGORY_ANALYSIS_PROMPT_NAME = "category-analysis-prompt"
 ANALYSIS_PROMPT_NAME = "analysis-prompt"
 SYNTHESIS_PROMPT_NAME = "synthesis-prompt"
 EXEC_SUMMARY_PROMPT_NAME = "exec-summary-prompt"
@@ -25,17 +26,50 @@ EXEC_SUMMARY_PROMPT_NAME = "exec-summary-prompt"
 # Default prompt contents (hardcoded fallbacks)
 # ---------------------------------------------------------------------------
 
+_CATEGORY_ANALYSIS_SYSTEM = """\
+You are a market research analyst covering the LLM observability and evaluation space.
+You analyze ONE specific category of a product based on provided search results.
+
+Rating scale:
+- "strong": Well supported with meaningful functionality (O)
+- "medium": Supported but with notable limitations or gaps (△)
+- "none": Not supported or not applicable (X)
+
+Analyze based ONLY on facts found in the provided data.
+Respond in English.\
+"""
+
+_CATEGORY_ANALYSIS_USER = """\
+Analyze {competitor_name} for the category: {category_name}
+
+Items to rate:
+{items_schema}
+
+=== Search Results ===
+{search_context}
+=== End ===
+
+Return a JSON object (no markdown fences, pure JSON only):
+{{
+  "category_name": "{category_name}",
+  "features": [
+    {{"item_name": "Item Name", "rating": "strong|medium|none", "note": "brief note"}}
+  ],
+  "summary": "2-3 sentence summary for this category"
+}}
+
+Rules:
+- "features" must include ALL items listed above
+- "item_name" must use the exact names specified
+- Ratings must be one of "strong", "medium", "none"
+- Base ALL conclusions on the provided data only
+- Pure JSON output only\
+"""
+
 _ANALYSIS_SYSTEM = """\
 You are a market research analyst covering the LLM observability and evaluation space.
 
-You analyze products using a 7-category framework:
-1. Core Observability: Trace Depth, Hierarchical Spans, Prompt/Response Logging, Token Tracking, Latency Analysis, Replay
-2. Agent / RAG Observability: Tool Call Tracing, Retrieval Tracing, Memory Tracing, Multi-step Reasoning, Workflow Graph, Failure Visualization
-3. Evaluation Integration: Trace→Dataset, LLM-as-Judge, Custom Eval Metrics, Regression Detection, Model Comparison, Human Feedback
-4. Monitoring & Metrics: Cost Dashboard, Token Analytics, Latency Monitoring, Error Tracking, Tool Success Rate, Custom Metrics
-5. Experiment / Improvement Loop: Prompt/Model/Dataset Versioning, Experiment Tracking, Continuous Eval, RL/Fine-tuning
-6. DevEx / Integration: SDK Support, Framework Integration, Custom Model Support, API Access, Streaming Tracing, CLI/Infra
-7. Enterprise & Security: On-prem/VPC, RBAC, PII Masking, Audit Logs, Data Retention, Region Support
+You synthesize preliminary category-level analyses into a comprehensive product assessment.
 
 Rating scale:
 - "strong": Well supported with meaningful functionality (O)
@@ -51,9 +85,13 @@ Respond in English.\
 _ANALYSIS_USER = """\
 Analyze the following product: {competitor_name}
 
-=== Collected Data ===
-{context}
-=== End of Data ===
+=== Category Analysis Results (from preliminary analysis) ===
+{category_summaries}
+=== End of Category Analysis ===
+
+=== Recent Updates (GitHub Releases, PyPI, Changelog) ===
+{feed_context}
+=== End of Recent Updates ===
 
 Return a JSON object that exactly matches the schema below (no markdown fences, pure JSON only):
 {{
@@ -80,11 +118,8 @@ Return a JSON object that exactly matches the schema below (no markdown fences, 
 }}
 
 Rules:
-- Rate THIS PRODUCT only based on the provided data
-- "categories" array must contain exactly 7 items (in the schema order above)
-- Each category's "features" must include all sub-items for that category
-- "item_name" must use the exact names specified in the schema
-- Ratings must be one of "strong", "medium", "none"
+- "categories" array must contain exactly 7 items — USE the ratings and notes from the category analysis above
+- Adjust ratings ONLY if cross-category context reveals inconsistencies
 - "new_features": 0-10 items (product updates released within the last 30 days ONLY based on today's date {today}. Exclude anything older. Empty array if none. Include ALL qualifying updates.)
 - "strengths": 3-5 notable product strengths
 - "weaknesses": 3-5 product weaknesses or gaps
@@ -192,6 +227,11 @@ Pure JSON output only, no markdown code fences.\
 # Default message lists (used when Weave is not available)
 # ---------------------------------------------------------------------------
 
+DEFAULT_CATEGORY_ANALYSIS_MESSAGES = [
+    {"role": "system", "content": _CATEGORY_ANALYSIS_SYSTEM},
+    {"role": "user", "content": _CATEGORY_ANALYSIS_USER},
+]
+
 DEFAULT_ANALYSIS_MESSAGES = [
     {"role": "system", "content": _ANALYSIS_SYSTEM},
     {"role": "user", "content": _ANALYSIS_USER},
@@ -214,6 +254,10 @@ DEFAULT_EXEC_SUMMARY_MESSAGES = [
 
 def publish_prompts() -> None:
     """Publish all prompts to Weave for versioning."""
+    cat_prompt = weave.MessagesPrompt(messages=DEFAULT_CATEGORY_ANALYSIS_MESSAGES)
+    weave.publish(cat_prompt, name=CATEGORY_ANALYSIS_PROMPT_NAME)
+    logger.info("Published %s", CATEGORY_ANALYSIS_PROMPT_NAME)
+
     analysis_prompt = weave.MessagesPrompt(messages=DEFAULT_ANALYSIS_MESSAGES)
     weave.publish(analysis_prompt, name=ANALYSIS_PROMPT_NAME)
     logger.info("Published %s", ANALYSIS_PROMPT_NAME)
@@ -250,6 +294,12 @@ def _is_weave_active() -> bool:
         return weave.get_client() is not None
     except Exception:
         return False
+
+
+def load_category_analysis_prompt() -> weave.MessagesPrompt:
+    if _is_weave_active():
+        return _load_prompt(CATEGORY_ANALYSIS_PROMPT_NAME, DEFAULT_CATEGORY_ANALYSIS_MESSAGES)
+    return weave.MessagesPrompt(messages=DEFAULT_CATEGORY_ANALYSIS_MESSAGES)
 
 
 def load_analysis_prompt() -> weave.MessagesPrompt:

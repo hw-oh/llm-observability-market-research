@@ -4,7 +4,7 @@ from datetime import datetime
 
 import httpx
 
-from intel_bot.config import CompetitorConfig
+from intel_bot.config import CategoryDef, CompetitorConfig
 from intel_bot.models import SearchResult
 
 SERPER_URL = "https://google.serper.dev/search"
@@ -54,6 +54,24 @@ async def search_competitor(
     for query in _build_queries(competitor):
         try:
             results = await search(query, api_key)
+            all_results.extend(results)
+        except httpx.HTTPError as e:
+            print(f"  [warn] Search failed for '{query}': {e}")
+    return all_results
+
+
+async def search_by_category(
+    competitor: CompetitorConfig,
+    category: CategoryDef,
+    api_key: str,
+    num_results: int = 3,
+) -> list[SearchResult]:
+    """카테고리별 검색. 3쿼리 × num_results결과."""
+    all_results: list[SearchResult] = []
+    for query_template in category.search_queries:
+        query = query_template.format(name=competitor.name)
+        try:
+            results = await search(query, api_key, num_results=num_results)
             all_results.extend(results)
         except httpx.HTTPError as e:
             print(f"  [warn] Search failed for '{query}': {e}")

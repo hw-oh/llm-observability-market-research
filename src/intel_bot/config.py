@@ -27,6 +27,7 @@ class CompetitorConfig:
     changelog_display_url: str | None = None  # 사람용 (브라우저 링크). None이면 changelog_url 사용
     github_repo: str | None = None
     pypi_package: str | None = None
+    extra_docs_urls: list[str] = field(default_factory=list)  # 추가 문서 URL
 
     @property
     def changelog_link(self) -> str | None:
@@ -79,6 +80,13 @@ WEAVE_CONFIG = CompetitorConfig(
     changelog_url="https://app.getbeamer.com/wandb/en",
     github_repo="wandb/weave",
     pypi_package="weave",
+    extra_docs_urls=[
+        "https://docs.wandb.ai/weave/guides/tracking/redact-pii",
+        "https://docs.wandb.ai/platform/hosting",
+        "https://docs.wandb.ai/platform/access-management",
+        "https://docs.wandb.ai/platform/hosting/monitoring-usage/audit-logging",
+        "https://docs.wandb.ai/platform/hosting/data-retention",
+    ],
 )
 
 BEAMER_APP_ID = "iTpiKrhl12143"
@@ -89,6 +97,7 @@ class CategoryDef:
     name: str          # English name (LLM schema key)
     name_ko: str       # Korean name (report display)
     items: list[tuple[str, str]] = field(default_factory=list)  # (name, description)
+    search_queries: list[str] = field(default_factory=list)  # 검색 쿼리 템플릿 ({name} = competitor name)
 
 
 COMPARISON_CATEGORIES: list[CategoryDef] = [
@@ -100,6 +109,10 @@ COMPARISON_CATEGORIES: list[CategoryDef] = [
         ("Token Tracking", "Input/output token usage counting"),
         ("Latency Analysis", "Per-span and end-to-end latency measurement"),
         ("Replay", "Step-by-step trace replay in UI"),
+    ], [
+        "{name} tracing spans nested function calls",
+        "{name} prompt response logging token tracking",
+        "{name} latency analysis trace replay",
     ]),
     CategoryDef("Agent / RAG Observability", "에이전트/RAG 옵저버빌리티", [
         ("Tool Call Tracing", "Capture of tool/function call inputs and outputs"),
@@ -108,6 +121,10 @@ COMPARISON_CATEGORIES: list[CategoryDef] = [
         ("Multi-step Reasoning", "Visualization of multi-turn agent reasoning chains"),
         ("Workflow Graph", "DAG or graph view of agent workflows"),
         ("Failure Visualization", "Highlighting of failed steps in a trace"),
+    ], [
+        "{name} agent tool call tracing function calls",
+        "{name} RAG retrieval tracing document retriever",
+        "{name} multi-step reasoning workflow graph visualization",
     ]),
     CategoryDef("Evaluation Integration", "평가 통합", [
         ("Trace→Dataset", "Convert production traces into eval datasets"),
@@ -116,6 +133,10 @@ COMPARISON_CATEGORIES: list[CategoryDef] = [
         ("Regression Detection", "Automatic detection of quality regressions"),
         ("Model Comparison", "Side-by-side comparison of model outputs"),
         ("Human Feedback UI", "UI for human annotation and labeling"),
+    ], [
+        "{name} LLM evaluation judge scoring metrics",
+        "{name} trace to dataset eval pipeline regression",
+        "{name} human feedback annotation model comparison",
     ]),
     CategoryDef("Monitoring & Metrics", "모니터링 & 메트릭", [
         ("Cost Dashboard", "Real-time LLM cost tracking dashboard"),
@@ -124,6 +145,10 @@ COMPARISON_CATEGORIES: list[CategoryDef] = [
         ("Error Tracking", "Error rate monitoring and alerting"),
         ("Tool Success Rate", "Success/failure rate of tool calls"),
         ("Custom Metrics", "User-defined custom metric tracking"),
+    ], [
+        "{name} cost dashboard token analytics monitoring",
+        "{name} latency percentiles error tracking alerting",
+        "{name} custom metrics tool success rate",
     ]),
     CategoryDef("Experiment / Improvement Loop", "실험/개선 루프", [
         ("Prompt Versioning", "Version control for prompt templates"),
@@ -132,6 +157,10 @@ COMPARISON_CATEGORIES: list[CategoryDef] = [
         ("Dataset Versioning", "Versioned eval and training datasets"),
         ("Continuous Eval", "Scheduled or triggered evaluation runs"),
         ("RL/Fine-tuning Link", "Integration with fine-tuning pipelines"),
+    ], [
+        "{name} prompt versioning template management",
+        "{name} experiment tracking A/B test comparison",
+        "{name} dataset versioning continuous eval fine-tuning",
     ]),
     CategoryDef("DevEx / Integration", "개발자 경험/통합", [
         ("SDK Support", "Official SDKs for Python, JS/TS, etc."),
@@ -140,6 +169,10 @@ COMPARISON_CATEGORIES: list[CategoryDef] = [
         ("API Access", "REST or GraphQL API for programmatic access"),
         ("Streaming Tracing", "Tracing of streaming LLM responses"),
         ("CLI/Infra Integration", "CLI tools and infrastructure-as-code support"),
+    ], [
+        "{name} Python SDK JavaScript TypeScript integration",
+        "{name} LangChain LlamaIndex OpenAI framework support",
+        "{name} REST API streaming tracing custom model",
     ]),
     CategoryDef("Enterprise & Security", "엔터프라이즈 & 보안", [
         ("On-prem/VPC", "Self-hosted or VPC deployment option"),
@@ -148,8 +181,12 @@ COMPARISON_CATEGORIES: list[CategoryDef] = [
         ("Audit Logs", "Audit trail for user and system actions"),
         ("Data Retention", "Configurable data retention policies"),
         ("Region Support", "Multi-region or data residency support"),
+    ], [
+        "{name} self-hosted VPC on-premise deployment",
+        "{name} RBAC PII masking audit logs",
+        "{name} data retention region support compliance",
     ]),
 ]
 
 # Section 2 summary table dimensions
-SUMMARY_DIMENSIONS = ["Trace Depth", "Eval", "Agent Observability", "Cost Tracking", "Enterprise Ready", "Overall"]
+SUMMARY_DIMENSIONS = ["Trace Depth", "Eval", "Agent Observability", "Cost Tracking", "Security & Governance", "Overall"]

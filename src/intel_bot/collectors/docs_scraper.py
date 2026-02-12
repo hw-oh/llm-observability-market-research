@@ -43,6 +43,7 @@ async def scrape_competitor_docs(
         (".rss", ".xml", ".atom")
     ):
         urls.append(competitor.changelog_url)
+    urls.extend(competitor.extra_docs_urls)
 
     pages: list[DocsPage] = []
     for url in urls:

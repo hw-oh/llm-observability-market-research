@@ -34,6 +34,7 @@ class FeedEntry(BaseModel):
 class CompetitorData(BaseModel):
     competitor_name: str
     search_results: list[SearchResult] = []
+    category_search_results: dict[str, list[SearchResult]] = {}
     docs_pages: list[DocsPage] = []
     feed_entries: list[FeedEntry] = []
 

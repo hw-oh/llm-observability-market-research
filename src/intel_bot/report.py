@@ -34,7 +34,7 @@ def _dimension_field(dim: str) -> str:
         "Eval": "eval",
         "Agent Observability": "agent_observability",
         "Cost Tracking": "cost_tracking",
-        "Enterprise Ready": "enterprise_ready",
+        "Security & Governance": "enterprise_ready",
         "Overall": "overall",
     }
     return mapping.get(dim, dim.lower().replace(" ", "_"))
@@ -56,7 +56,7 @@ def generate_comparison_page(run: AnalysisRun) -> str:
         "# LLM Observability — Detailed Feature Comparison",
         f"**Date**: {run.date} | **Model**: {run.model}",
         "",
-        "> O(Strong) / △(Weak) / X(None)",
+        "> O(Strong) / △(Medium) / X(None or Not Applicable)",
         "",
     ]
 

@@ -12,11 +12,11 @@ from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
 from intel_bot.analyzer import analyze_all
-from intel_bot.collectors.docs_scraper import scrape_competitor_docs
+from intel_bot.collectors.docs_scraper import scrape_docs
 from intel_bot.collectors.feed import fetch_competitor_feeds
-from intel_bot.collectors.serper import search_competitor
+from intel_bot.collectors.serper import search_by_category
 from intel_bot.collectors.beamer import fetch_beamer_changelog
-from intel_bot.config import BEAMER_APP_ID, COMPETITORS, WEAVE_CONFIG, Settings
+from intel_bot.config import BEAMER_APP_ID, COMPARISON_CATEGORIES, COMPETITORS, WEAVE_CONFIG, Settings
 from intel_bot.discovery import discover
 from intel_bot.models import CollectionRun, CompetitorData
 from intel_bot.notify import send_slack_notification
@@ -75,6 +75,47 @@ def _publish_wb_report_and_alert(
     console.print("  W&B Alert 전송 완료")
 
 
+async def _collect_product(comp, settings, progress):
+    """카테고리별 검색 + 피드 + extra_docs 수집."""
+    from intel_bot.models import DocsPage
+
+    task = progress.add_task(f"{comp.name} 수집 중...", total=None)
+
+    # 카테고리별 검색 (기존 search_competitor 대체)
+    category_search: dict[str, list] = {}
+    total_results = 0
+    for cat_def in COMPARISON_CATEGORIES:
+        cat_results = await search_by_category(comp, cat_def, settings.serper_dev_api)
+        category_search[cat_def.name] = cat_results
+        total_results += len(cat_results)
+    progress.update(task, description=f"  {comp.name}: 검색 결과 {total_results}건 (7 카테고리)")
+
+    # Feed 수집
+    feed_entries = fetch_competitor_feeds(comp)
+    progress.update(task, description=f"  {comp.name}: 피드 {len(feed_entries)}건")
+
+    # extra_docs만 스크래핑 (docs_url 랜딩페이지 제거)
+    docs_pages: list[DocsPage] = []
+    if comp.extra_docs_urls:
+        for url in comp.extra_docs_urls:
+            try:
+                page = await scrape_docs(url)
+                docs_pages.append(page)
+            except Exception as e:
+                print(f"  [warn] Scraping failed for {url}: {e}")
+    progress.update(task, description=f"  {comp.name}: 문서 {len(docs_pages)}건")
+
+    progress.update(task, description=f"[green]  {comp.name}: 완료")
+    progress.remove_task(task)
+
+    return CompetitorData(
+        competitor_name=comp.name,
+        category_search_results=category_search,
+        docs_pages=docs_pages,
+        feed_entries=feed_entries,
+    )
+
+
 async def _collect() -> None:
     settings = Settings()
     today = date.today().isoformat()
@@ -87,50 +128,13 @@ async def _collect() -> None:
         console=console,
     ) as progress:
         for comp in COMPETITORS:
-            task = progress.add_task(f"{comp.name} 수집 중...", total=None)
-
-            # Serper search
-            search_results = await search_competitor(comp, settings.serper_dev_api)
-            progress.update(task, description=f"  {comp.name}: 검색 결과 {len(search_results)}건")
-
-            # Docs scraping
-            docs_pages = await scrape_competitor_docs(comp)
-            progress.update(task, description=f"  {comp.name}: 문서 {len(docs_pages)}건")
-
-            # Feed collection
-            feed_entries = fetch_competitor_feeds(comp)
-            progress.update(task, description=f"  {comp.name}: 피드 {len(feed_entries)}건")
-
-            all_competitors.append(
-                CompetitorData(
-                    competitor_name=comp.name,
-                    search_results=search_results,
-                    docs_pages=docs_pages,
-                    feed_entries=feed_entries,
-                )
-            )
-
-            progress.update(task, description=f"[green]  {comp.name}: 완료")
-            progress.remove_task(task)
+            comp_data = await _collect_product(comp, settings, progress)
+            all_competitors.append(comp_data)
 
         # Weave 자체 데이터 수집 (경쟁사와 동일한 파이프라인 + Beamer changelog)
-        task = progress.add_task(f"{WEAVE_CONFIG.name} 수집 중...", total=None)
-        search_results = await search_competitor(WEAVE_CONFIG, settings.serper_dev_api)
-        progress.update(task, description=f"  {WEAVE_CONFIG.name}: 검색 결과 {len(search_results)}건")
-        docs_pages = await scrape_competitor_docs(WEAVE_CONFIG)
-        progress.update(task, description=f"  {WEAVE_CONFIG.name}: 문서 {len(docs_pages)}건")
-        feed_entries = fetch_competitor_feeds(WEAVE_CONFIG)
+        weave_data = await _collect_product(WEAVE_CONFIG, settings, progress)
         beamer_entries = await fetch_beamer_changelog(BEAMER_APP_ID)
-        feed_entries.extend(beamer_entries)
-        progress.update(task, description=f"  {WEAVE_CONFIG.name}: 피드 {len(feed_entries)}건 (Beamer {len(beamer_entries)}건)")
-        weave_data = CompetitorData(
-            competitor_name=WEAVE_CONFIG.name,
-            search_results=search_results,
-            docs_pages=docs_pages,
-            feed_entries=feed_entries,
-        )
-        progress.update(task, description=f"[green]  {WEAVE_CONFIG.name}: 완료")
-        progress.remove_task(task)
+        weave_data.feed_entries.extend(beamer_entries)
 
     run = CollectionRun(date=today, mode="initial", competitors=all_competitors, weave_data=weave_data)
     path = save_collection(run)
@@ -139,15 +143,17 @@ async def _collect() -> None:
     console.print(f"[bold green]수집 완료: {path}")
     console.print()
     for comp_data in all_competitors:
+        total_search = sum(len(v) for v in comp_data.category_search_results.values())
         console.print(
             f"  {comp_data.competitor_name}: "
-            f"검색 {len(comp_data.search_results)}건, "
+            f"검색 {total_search}건, "
             f"문서 {len(comp_data.docs_pages)}건, "
             f"피드 {len(comp_data.feed_entries)}건"
         )
+    total_weave = sum(len(v) for v in weave_data.category_search_results.values())
     console.print(
         f"  {weave_data.competitor_name}: "
-        f"검색 {len(weave_data.search_results)}건, "
+        f"검색 {total_weave}건, "
         f"문서 {len(weave_data.docs_pages)}건, "
         f"피드 {len(weave_data.feed_entries)}건"
     )
