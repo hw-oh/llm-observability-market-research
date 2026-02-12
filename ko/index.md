@@ -10,18 +10,18 @@ title: LLM Observability 시장 조사
 [📋 최신 리포트 (2026-02-12)](./reports/2026-02-12.md)
 
 
-- LangSmith가 Self-Hosted v0.13을 출시하며, 엔터프라이즈 배포를 위한 세분화된 RBAC 및 감사 로그(audit logs)를 통해 온프레미스 역량을 강화했습니다.
-- Langfuse는 Organization Audit Log Viewers를 도입하여, 대규모 엔지니어링 팀을 지원하기 위해 오픈소스 플랫폼 내 거버넌스 기능을 확장했습니다.
-- MLflow는 Tracking Server에 Organization Support를 업데이트하여, MLOps 실무자들이 멀티 워크스페이스 환경을 중앙 집중식으로 관리할 수 있게 했습니다.
-- Arize Phoenix는 도구 선택(tool selection) 및 성실성(faithfulness)을 위한 전문 Eval 기능을 배포했으며, 깊이 있는 OpenTelemetry 통합을 활용해 에이전트 워크플로우 디버깅을 타겟팅했습니다.
-- Braintrust는 SSO 및 SOC 2 준수를 제공하는 동시에 고객 VPC 내에 데이터를 유지하는 하이브리드 셀프 호스팅 모델을 통해 인프라 차별화를 지속하고 있습니다.
-- W&B Weave는 SOC 2 준수 및 내보내기 가능한 감사 로그를 통해 엔터프라이즈 준비성을 확인했으며, 데코레이터를 통한 중첩 스팬(nested span) Tracing에 대한 강력한 지원을 유지하고 있습니다.
+- Langfuse는 엔터프라이즈 컴플라이언스 및 거버넌스 요구 사항을 명확히 겨냥하여 Organization Audit Logs와 RBAC 역할을 도입했습니다.
+- LangSmith는 Self-Hosted v0.13을 출시하여 온프레미스 또는 프라이빗 클라우드 인프라가 필요한 팀을 위한 배포 옵션을 확장했습니다.
+- MLflow는 멀티 워크스페이스 환경에서의 관리를 용이하게 하기 위해 Tracking Server에 대한 Organization Support를 출시했습니다.
+- Braintrust는 고객 클라우드 데이터 레지던시를 위한 하이브리드 아키텍처를 유지하면서, 서브 에이전트 중첩을 지원하도록 에이전트 Observability 기능을 업데이트했습니다.
+- Arize Phoenix는 한 줄의 인스트루먼터(instrumentors)와 성실성(faithfulness) 및 도구 선택을 위한 사전 구축된 Eval 도구를 통해 OpenTelemetry 네이티브 포지셔닝을 공고히 했습니다.
+- W&B Weave는 W&B 에코시스템과의 깊은 통합을 통해 차별화를 지속하고 있으며, 네이티브 OpenTelemetry 지원과 멀티 턴 에이전트 추론을 위한 인터랙티브 Trace Tree를 제공합니다.
 
 **AI 시장 인사이트**:
 
-> Arize Phoenix가 전문화된 도구 선택 Eval 기능을 도입함에 따라, 서브 에이전트 의사결정에 대한 세분화된 메트릭을 제공함으로써 Weave의 에이전트 Observability 차별화 요소에 도전하고 있습니다.
-> LangSmith의 Self-Hosted v0.13 출시와 Langfuse의 새로운 Audit Log Viewers는 거버넌스 및 배포 유연성 격차를 줄임으로써 Weave의 엔터프라이즈 티어에 대한 경쟁 압력을 높이고 있습니다.
-> MLflow의 Tracking Server 내 Organization Support 추가는 이미 Databricks 생태계에 정착한 팀들에게 Weave를 대체할 통합 MLOps 대안으로서의 입지를 강화합니다.
+> Langfuse의 RBAC 및 Audit Logs 추가는 기존에 성숙한 W&B 플랫폼 거버넌스를 계승하여 Weave가 보유했던 주요 엔터프라이즈 차별화 포인트를 상쇄합니다.
+> LangSmith Self-Hosted v0.13 출시와 Braintrust의 하이브리드 모델은 Weave가 구체적인 데이터 레지던시 및 배포상의 이점을 명확히 설명해야 한다는 경쟁 압박을 가중시킵니다.
+> 도구 선택을 위한 Arize Phoenix의 특화된 사전 구축 Eval 도구는 Weave의 광범위하고 유연한 커스텀 Scoring 프레임워크 내에서 특정 기능의 공백을 부각시킵니다.
 
 
 <!-- LATEST_REPORT_END -->

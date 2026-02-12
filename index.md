@@ -10,18 +10,18 @@ title: LLM Observability Market Research
 [📋 Latest Report (2026-02-12)](./reports/2026-02-12.md)
 
 
-- LangSmith released Self-Hosted v0.13, reinforcing its on-premise capabilities with granular RBAC and audit logs for enterprise deployments.
-- Langfuse introduced Organization Audit Log Viewers, expanding governance features within its open-source platform to support larger engineering teams.
-- MLflow updated its Tracking Server with Organization Support, enabling centralized management of multi-workspace environments for MLOps practitioners.
-- Arize Phoenix deployed specialized evaluators for tool selection and faithfulness, leveraging deep OpenTelemetry integration to target agentic workflow debugging.
-- Braintrust continued to differentiate its infrastructure via a hybrid self-hosting model that retains data within customer VPCs while providing SSO and SOC 2 compliance.
-- W&B Weave confirmed enterprise readiness through SOC 2 compliance and exportable audit logs, while maintaining robust support for nested span tracing via decorators.
+- Langfuse introduced Organization Audit Logs and RBAC roles, explicitly targeting enterprise compliance and governance requirements.
+- LangSmith released Self-Hosted v0.13, expanding deployment options for teams requiring on-premise or private cloud infrastructure.
+- MLflow released Organization Support for its Tracking Server to facilitate management across multi-workspace environments.
+- Braintrust updated its agent observability capabilities to support sub-agent nesting while maintaining its hybrid architecture for customer-cloud data residency.
+- Arize Phoenix solidified its OpenTelemetry-native positioning with one-line instrumentors and pre-built evaluators for faithfulness and tool selection.
+- W&B Weave continues to differentiate via deep integration with the W&B ecosystem, offering native OpenTelemetry support and interactive trace trees for multi-turn agent reasoning.
 
 **Market Insight by AI**:
 
-> Arize Phoenix's introduction of specialized tool selection evaluators challenges Weave's agent observability differentiation by offering granular metrics for sub-agent decision-making.
-> LangSmith's release of Self-Hosted v0.13 and Langfuse's new Audit Log Viewers increase competitive pressure on Weave's enterprise tier by closing the gap on governance and deployment flexibility.
-> MLflow's addition of Organization Support to its Tracking Server strengthens its position as a unified MLOps alternative to Weave for teams already entrenched in the Databricks ecosystem.
+> Langfuse's addition of RBAC and Audit Logs neutralizes a key enterprise differentiation point Weave previously held via its inheritance of mature W&B platform governance.
+> The release of LangSmith Self-Hosted v0.13 and Braintrust's hybrid model increases competitive pressure on Weave to articulate its specific data residency and deployment advantages.
+> Arize Phoenix's specialized pre-built evaluators for tool selection highlight a specific feature gap in Weave's broader, flexible custom scorer framework.
 
 
 <!-- LATEST_REPORT_END -->
