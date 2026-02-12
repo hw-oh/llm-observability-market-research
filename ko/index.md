@@ -10,19 +10,18 @@ title: LLM Observability 시장 조사
 [📋 최신 리포트 (2026-02-12)](./reports/2026-02-12.md)
 
 
-- MLflow는 서비스 간 컨텍스트 전파를 위한 분산 Tracing 기능과 Eval 설정을 간소화하는 시각적 Judge Builder UI를 출시했습니다.
-- LangSmith는 플랫폼을 셀프 호스팅 버전 v0.13으로 업데이트하고 LangGraph와의 긴밀한 통합을 통해 에이전트 가시성을 강화했습니다.
-- W&B Weave는 멀티모달 Eval을 위한 Audio Monitors와 비용 및 성능 지표를 시각화하는 Dynamic Leaderboards를 도입했습니다.
-- Braintrust는 장기 실행 워크플로우 Tracing을 위해 Temporal과의 통합을 추가하고, Tracing 내 미디어 첨부 파일 렌더링 기능을 활성화했습니다.
-- Langfuse는 엔터프라이즈 거버넌스를 위한 Organization Audit Log Viewer를 출시하고, 추론/생각(reasoning/thinking) 단계에 대한 전용 렌더링 지원을 추가했습니다.
-- Arize Phoenix는 자동화된 서버 사이드 실험을 위한 Dataset Evaluators와 Tool Selection 신뢰성 평가를 위한 특화된 Evaluator를 출시했습니다.
-- MLflow는 지연 시간과 도구 효율성을 모니터링하기 위한 전용 Agent Performance Dashboard를 배포했으며, Langfuse는 상세한 도구 호출 필터링 기능을 추가했습니다.
+- LangSmith는 온프레미스 배포를 지원하기 위해 Self-Hosted v0.13을 출시했으며, 회귀 테스트를 위한 Pairwise 어노테이션 큐를 포함하도록 플랫폼을 업데이트했습니다.
+- MLflow는 버전 3.10에서 멀티 워크스페이스 환경을 지원하는 Organization Support를 도입하고, Eval을 위한 시각적 Judge Builder UI를 추가했습니다.
+- Langfuse는 보안 가시성을 위한 Organization Audit Log Viewer를 추가했으며, 이제 Tracing 상세 정보 내에서 Reasoning/Thinking 단계를 직접 렌더링합니다.
+- Arize Phoenix는 Viewer 역할이 포함된 RBAC를 구현하고, 도구 선택 오류 및 파라미터 문제를 식별하기 위한 특화된 Evaluator를 출시했습니다.
+- Braintrust는 칸반 레이아웃으로 휴먼 리뷰 기능을 확장했으며, 6개 SDK 언어에 걸쳐 o1과 같은 Reasoning 모델의 Tracing 지원을 확정했습니다.
+- W&B Weave는 멀티 모달 Judge를 활용한 다이내믹 리더보드를 배포했으며, 특히 오디오 Eval을 위한 새로운 모니터를 추가했습니다.
 
 **AI 시장 인사이트**:
 
-> MLflow의 시각적 Judge Builder와 Arize Phoenix의 Dataset Evaluators는 자동화된 지표 설정을 간소화함으로써 Weave의 Eval 차별화 요소를 위협하고 있습니다.
-> LangSmith의 LangGraph 시각화와 Langfuse의 추론 단계 렌더링은 Weave의 에이전틱 워크플로우 Tracing 및 도구 호출 분석 기능과 직접적인 경쟁 구도를 형성합니다.
-> Langfuse의 Audit Log Viewer와 LangSmith의 셀프 호스팅 v0.13은 Weave의 현재 RBAC 및 배포 사양을 넘어서는 엄격한 엔터프라이즈 거버넌스로의 시장 변화를 강조합니다.
+> Langfuse와 Arize Phoenix가 Reasoning 단계 렌더링 및 도구 선택 오류 탐지를 위한 특화 기능을 출시함에 따라, Weave의 에이전트 Observability는 거센 압박에 직면해 있습니다.
+> LangSmith와 MLflow가 강력한 Self-hosted 및 멀티 워크스페이스 기능을 출시하며 엔터프라이즈 준비성 격차를 벌리고 있는 반면, Weave는 현재 명확한 PII 마스킹 세부 정보가 부족하다는 점이 부각됩니다.
+> Braintrust와 같은 경쟁사들이 주로 텍스트 기반 Scoring 및 휴먼 리뷰 워크플로우에 집중하는 동안, Weave는 새로운 오디오 모니터를 통해 멀티 모달 Eval 분야에서 차별화된 우위를 유지하고 있습니다.
 
 
 <!-- LATEST_REPORT_END -->

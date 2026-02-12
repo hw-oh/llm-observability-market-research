@@ -10,19 +10,18 @@ title: LLM Observability Market Research
 [📋 Latest Report (2026-02-12)](./reports/2026-02-12.md)
 
 
-- MLflow released distributed tracing capabilities for cross-service context propagation and a visual Judge Builder UI to simplify evaluation configuration.
-- LangSmith updated its platform to self-hosted version v0.13 and enhanced agent visibility through deep integration with LangGraph.
-- W&B Weave introduced Audio Monitors for multi-modal evaluation and Dynamic Leaderboards to visualize cost and performance metrics.
-- Braintrust added integration with Temporal for tracing long-running workflows and enabled rendering for media attachments within traces.
-- Langfuse launched an Organization Audit Log Viewer for enterprise governance and added specific rendering support for reasoning/thinking steps.
-- Arize Phoenix released Dataset Evaluators for automated server-side experiments and specialized evaluators for assessing Tool Selection reliability.
-- MLflow deployed dedicated Agent Performance Dashboards to monitor latency and tool efficiency, while Langfuse added detailed tool call filtering.
+- LangSmith released Self-Hosted v0.13 to support on-premise deployments and updated its platform to include pairwise annotation queues for regression testing.
+- MLflow introduced Organization Support in version 3.10, enabling multi-workspace environments, while adding a visual Judge Builder UI for evaluation.
+- Langfuse added an Organization Audit Log Viewer for security visibility and now renders reasoning/thinking steps directly within trace details.
+- Arize Phoenix implemented RBAC with Viewer roles and released specialized evaluators to identify tool selection errors and parameter issues.
+- Braintrust expanded its human review capabilities with Kanban layouts and confirmed support for tracing reasoning models like o1 across six SDK languages.
+- W&B Weave deployed dynamic leaderboards with multi-modal judges, specifically adding new monitors for audio evaluation.
 
 **Market Insight by AI**:
 
-> MLflow's visual Judge Builder and Arize Phoenix's Dataset Evaluators threaten Weave's evaluation differentiation by simplifying the configuration of automated metrics.
-> LangSmith's LangGraph visualization and Langfuse's reasoning step rendering create direct competition for Weave's agentic workflow tracing and tool call analysis.
-> Langfuse's Audit Log Viewer and LangSmith's self-hosted v0.13 emphasize a market shift toward strict enterprise governance that exceeds Weave's current RBAC and deployment specifications.
+> Weave's agent observability faces increased pressure as Langfuse and Arize Phoenix release specialized features for rendering reasoning steps and detecting tool selection errors.
+> The gap in enterprise readiness widens as LangSmith and MLflow ship robust self-hosted and multi-workspace features, highlighting Weave's current lack of explicit PII masking details.
+> Weave maintains a differentiation edge in multi-modal evaluation with new audio monitors, while competitors like Braintrust focus primarily on text-based scoring and human review workflows.
 
 
 <!-- LATEST_REPORT_END -->
