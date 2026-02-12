@@ -10,18 +10,19 @@ title: LLM Observability 시장 조사
 [📋 최신 리포트 (2026-02-12)](./reports/2026-02-12.md)
 
 
-- LangSmith는 엄격한 엔터프라이즈 컴플라이언스 및 데이터 주권 요구 사항을 해결하기 위해 Self-Hosted v0.13을 출시하고 EU 데이터 레지던시 지원을 도입했습니다.
-- Langfuse는 보안 거버넌스를 위한 새로운 Organization Audit Log Viewer를 출시하고, Agent Graphs 내에서 추론 단계를 렌더링하는 기능을 추가했습니다.
-- MLflow는 멀티 워크스페이스 관리를 가능하게 하는 Organization Support를 도입하고, 도구 호출(tool calling) 응답 및 리트리버 쿼리를 캡처하도록 자동 인스트루멘테이션을 확장했습니다.
-- Braintrust는 서브 에이전트 중첩을 명시적으로 지원하기 위해 플랫폼 용어를 'agents'에서 'workflows'로 업데이트했으며, Python Tracing Scoring에 대한 업데이트를 출시했습니다.
-- Arize Phoenix는 오픈 소스 라이브러리에 특정 Faithfulness 및 Tool Selection 평가 도구를 추가하고, 구성 가능한 OAuth2 이메일 추출 기능을 구현했습니다.
-- W&B Weave는 Audio Monitors 및 Dynamic Leaderboards로 Eval 스위트를 확장하는 동시에, 안전한 배포를 위한 SDK 수준의 PII 비식별화 지원을 지속하고 있습니다.
+- LangSmith는 Self-Hosted v0.13을 출시하고, 엄격한 지역 컴플라이언스 요구 사항을 충족하기 위해 EU 데이터 레지던시 지원을 도입했습니다.
+- Langfuse는 Organization Audit Log Viewer를 출시했으며, 거버넌스를 중시하는 팀을 위해 전체 Self-hosting 지원을 지속하고 있습니다.
+- MLflow는 멀티 워크스페이스 관리와 Tracking Server 내 PII 마스킹을 가능하게 하는 Organization Support를 추가했습니다.
+- Braintrust는 서브 에이전트 중첩(nesting) 지원과 OpenAI 에이전트와의 깊은 연동을 통해 에이전트 Observability를 확장했습니다.
+- Arize Phoenix는 Tool Selection 및 Faithfulness 메트릭을 위해 특별히 설계된 사전 구축된 Eval 라이브러리를 도입했습니다.
+- W&B Weave는 딥 네스티드(deep nested) 함수 호출 Tracing과 LLM-as-a-judge Scoring을 위한 동적 리더보드로 차별화를 지속하고 있습니다.
+- 시장은 에이전트 지원으로 크게 이동하고 있으며, Weave, LangSmith, Braintrust 모두 리트리벌 단계와 도구 호출을 명시적으로 추적하고 있습니다.
 
 **AI 시장 인사이트**:
 
-> LangSmith의 Self-Hosted v0.13 출시와 EU 데이터 레지던시 지원은 규제 산업에 대해 유사한 인프라 제어 권한을 제공함으로써 Weave의 엔터프라이즈 강점에 직접적으로 도전하고 있습니다.
-> 시각적 워크플로우 토폴로지를 위한 Langfuse의 Agent Graphs 도입은 현재 에이전트 단계를 캡처하지만 전용 DAG 시각화 기능이 부족한 Weave의 특정 UI 격차를 부각시킵니다.
-> Arize Phoenix의 특화된 Faithfulness 및 Tool Selection 메트릭 추가는 Weave가 사전 구축된 에이전트 전용 평가 도구 라이브러리를 확장해야 한다는 경쟁 압력을 가중시킵니다.
+> LangSmith의 Self-Hosted v0.13 출시와 Langfuse의 새로운 Audit Log Viewer는 보안이 중요한 자체 관리형 엔터프라이즈 배포 분야에서 Weave의 경쟁 우위에 직접적인 도전이 되고 있습니다.
+> Arize Phoenix의 전문화된 Tool Selection Eval 추가는 현재 Weave가 심층 Tracing 시각화로 차별화하고 있는 에이전트 워크플로우 분석 유스케이스를 타겟팅하고 있습니다.
+> Braintrust의 서브 에이전트 중첩 지원 및 OpenAI 연동은 복잡하고 계층적인 에이전트 아키텍처 디버깅을 위한 주요 도구로서의 Weave의 포지셔닝을 위협하고 있습니다.
 
 
 <!-- LATEST_REPORT_END -->
