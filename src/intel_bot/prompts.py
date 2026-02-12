@@ -74,7 +74,8 @@ Rating scale:
 - "medium": Supported but with notable limitations or gaps (△)
 - "none": Not supported or not applicable (X)
 
-Analyze based ONLY on facts found in the provided data. Cite specific feature names and capabilities.
+Analyze based on facts found in the provided data. Cite specific feature names and capabilities.
+When authoritative product information is provided, use it to validate and correct category analysis ratings.
 Do NOT infer, speculate, or add information beyond what is in the data.
 
 Respond in English.\
@@ -90,6 +91,8 @@ Analyze the following product: {competitor_name}
 === Recent Updates (GitHub Releases, PyPI, Changelog) ===
 {feed_context}
 === End of Recent Updates ===
+
+{product_context}
 
 Return a JSON object that exactly matches the schema below (no markdown fences, pure JSON only):
 {{

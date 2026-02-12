@@ -14,16 +14,16 @@ collect(피드+문서) → discover(신규 경쟁사) → analyze(Sonar 카테�
 
 LangSmith, Langfuse, Braintrust, MLflow, Arize Phoenix
 
-## 8-Category 비교 프레임워크
+## 8-Category 비교 프레임워크 (49항목)
 
-1. Core Tracing & Logging
-2. Agent & RAG Observability
-3. Evaluation & Quality
-4. Guardrails & Safety
-5. Monitoring & Analytics
-6. Experiment & Improvement Loop
-7. Developer Experience & Integration
-8. Infrastructure & Enterprise
+1. Core Tracing & Logging (8)
+2. Agent & RAG Specifics (7)
+3. Evaluation & Quality (8)
+4. Guardrails & Safety (4)
+5. Analytics & Dashboard (6)
+6. Development Lifecycle (5)
+7. Integration & DX (5)
+8. Enterprise & Infrastructure (6)
 
 ## 핵심 설정
 

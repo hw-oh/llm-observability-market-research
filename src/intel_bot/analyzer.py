@@ -213,8 +213,9 @@ def analyze_competitor(
     competitor_name: str,
     category_results: list[CategoryAnalysis],
     feed_entries: list[FeedEntry],
+    product_context: str = "",
 ) -> CompetitorAnalysis:
-    """Pro 모델로 종합 분석. Flash의 카테고리 결과를 바탕으로."""
+    """Pro 모델로 종합 분석. Sonar의 카테고리 결과를 바탕으로."""
     category_summaries = _build_category_summaries(category_results)
     feed_context = _build_feed_context(feed_entries)
     categories_schema = _build_categories_schema()
@@ -226,6 +227,7 @@ def analyze_competitor(
         feed_context=feed_context,
         categories_schema=categories_schema,
         today=date.today().isoformat(),
+        product_context=product_context,
     )
 
     last_error: Exception | None = None
@@ -372,7 +374,7 @@ def analyze_all(
         # Stage 1: Sonar — 카테고리별 분석 (8회, 웹 검색 내장)
         category_results: list[CategoryAnalysis] = []
         for cat_def in COMPARISON_CATEGORIES:
-            extra_docs = product.docs_pages if cat_def.name == "Infrastructure & Enterprise" else None
+            extra_docs = product.docs_pages if cat_def.name == "Enterprise & Infrastructure" else None
             result = analyze_category(
                 sonar_client, sonar_model, product.competitor_name,
                 cat_def, product.product_description, extra_docs,
@@ -382,7 +384,7 @@ def analyze_all(
         # Stage 2: Pro — 종합 분석 (1회)
         analysis = analyze_competitor(
             pro_client, pro_model, product.competitor_name,
-            category_results, product.feed_entries,
+            category_results, product.feed_entries, product.product_context,
         )
         run.competitors.append(analysis)
 

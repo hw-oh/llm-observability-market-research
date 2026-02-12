@@ -101,6 +101,7 @@ async def _collect_product(comp, progress):
     return CompetitorData(
         competitor_name=comp.name,
         product_description=comp.product_description,
+        product_context=comp.product_context,
         docs_pages=docs_pages,
         feed_entries=feed_entries,
     )

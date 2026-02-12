@@ -109,16 +109,16 @@ Renders analysis results into Markdown files and translates to Korean/Japanese.
 | MLflow | [mlflow.org/docs/latest/genai](https://mlflow.org/docs/latest/genai) | [mlflow.org/releases](https://mlflow.org/releases) |
 | Arize Phoenix | [docs.arize.com/phoenix](https://docs.arize.com/phoenix) | [arize.com/docs/phoenix/release-notes](https://arize.com/docs/phoenix/release-notes) |
 
-## 8-Category Framework
+## 8-Category Framework (49 items)
 
-1. **Core Tracing & Logging** — Nested Spans, Auto-Instrumentation, Prompt/Response Logging, Token Usage, Latency, Cost Estimation, Streaming, Metadata, OpenTelemetry
-2. **Agent & RAG Observability** — Tool Call Tracing, Retrieval Tracing, Multi-step Reasoning, Workflow Graph, MCP/A2A Protocol, Failed Step Highlighting, Session Grouping
-3. **Evaluation & Quality** — LLM-as-Judge, Custom Scorers, Human Feedback, Dataset Management, Trace-to-Eval, Regression Detection, Model Comparison, Leaderboard, CI/CD Eval, Online Evaluation
-4. **Guardrails & Safety** — Built-in Guardrails, Custom Guardrails, Pre/Post Hooks, PII Detection & Masking
-5. **Monitoring & Analytics** — Cost Dashboard, Token Analytics, Latency Alerting, Error Rate, Custom Metrics, Drift Detection, Embedding Analysis
-6. **Experiment & Improvement Loop** — Prompt/Model/Dataset Versioning, Experiment Tracking, Playground, Continuous Eval, RL/Fine-tuning, Training Data Generation, Failure Trajectory Extraction
-7. **Developer Experience & Integration** — Python/TypeScript SDK, Framework Integration, REST/GraphQL API, Custom Model Support, CLI, Notebook Integration
-8. **Infrastructure & Enterprise** — SaaS, Self-Host, VPC, Open Source, RBAC, SSO/SAML, SOC 2, Audit Logs, Data Retention, Data Warehouse Export, Multi-Region, ML Experiment Integration, Databricks
+1. **Core Tracing & Logging** (8) — Full Request/Response Tracing, Nested Span & Tree View, Streaming, Multimodal Tracing, Auto-Instrumentation, Metadata & Tags, Token Counting, OpenTelemetry
+2. **Agent & RAG Specifics** (7) — RAG Retrieval Visualizer, Tool/Function Call Rendering, Agent Execution Graph, Intermediate Step State, Session/Thread Replay, Failed Step Highlighting, MCP Integration
+3. **Evaluation & Quality** (8) — LLM-as-a-Judge Wizard, Custom Eval Scorers, Dataset Management & Curation, Prompt Optimization/DSPy, Regression Testing, Side-by-side Comparison, Annotation Queues, Online Evaluation
+4. **Guardrails & Safety** (4) — PII/Sensitive Data Masking, Hallucination Detection, Topic/Jailbreak Guardrails, Policy Management as Code
+5. **Analytics & Dashboard** (6) — Cost Analysis & Attribution, Token Usage Analytics, Latency Heatmap & P99, Error Rate Monitoring, Embedding Space Visualization, Custom Metrics & Dashboard
+6. **Development Lifecycle** (5) — Prompt Management (CMS), Playground & Sandbox, Experiment Tracking, Fine-tuning Integration, Version Control & Rollback
+7. **Integration & DX** (5) — SDK Support (Py/JS/Go), Gateway/Proxy Mode, Popular Frameworks, API & Webhooks, CI/CD Integration
+8. **Enterprise & Infrastructure** (6) — Deployment Options (SaaS/Dedicated/Self-Host), Open Source, Data Sovereignty & Compliance, RBAC & SSO, Audit Logs, Data Warehouse Export
 
 ## Setup
 

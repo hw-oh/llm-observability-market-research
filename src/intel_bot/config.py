@@ -30,7 +30,8 @@ class CompetitorConfig:
     github_repo: str | None = None
     pypi_package: str | None = None
     extra_docs_urls: list[str] = field(default_factory=list)  # 추가 문서 URL
-    product_description: str = ""    # 분석 프롬프트에 주입되는 제품 컨텍스트
+    product_description: str = ""    # Sonar 프롬프트에 주입되는 짧은 컨텍스트
+    product_context: str = ""        # Pro 종합 분석에 전달되는 상세 제품 정보
 
     @property
     def changelog_link(self) -> str | None:
@@ -85,10 +86,66 @@ WEAVE_CONFIG = CompetitorConfig(
     pypi_package="weave",
     product_description=(
         "W&B Weave is the LLM observability product within the Weights & Biases (W&B) platform. "
-        "It inherits ALL W&B platform-level enterprise features including RBAC, SSO/SAML, "
-        "audit logs, VPC/dedicated cloud deployment, SOC 2 Type II certification, "
-        "configurable data retention, and multi-region support."
+        "It inherits ALL W&B platform-level enterprise features including RBAC (Administrator/"
+        "Member/Viewer/Custom roles), SSO/SAML, audit logs, VPC/dedicated cloud deployment, "
+        "SOC 2 Type II / HIPAA / GDPR compliance, configurable data retention, and multi-region support."
     ),
+    product_context="""\
+=== Authoritative Product Information (Internal) ===
+This is verified internal data about W&B Weave. Use this to validate and correct category analysis ratings.
+
+ENTERPRISE & INFRASTRUCTURE:
+- SOC 2 Type II: Yes
+- HIPAA: Yes
+- GDPR: Yes (Privacy Policy + Data Processing Addendum)
+- RBAC: Yes — Administrator, Member, Viewer, Custom roles (inherited from W&B platform)
+- Deployment: Multi-tenant SaaS, Dedicated SaaS (single-tenant), Self-hosted (customer managed)
+- Org structure: Organization > Team > Projects with scoped permissions
+- Registry for artifacts (models, datasets) with versioning, aliases, lineage tracking — available to Weave+Models customers but integration is not yet seamless
+
+TRACING:
+- Full request/response tracing: Yes
+- Multimodal: Yes — text, images, audio, video
+- OpenTelemetry: Yes — provides OTel endpoint for recording traces
+- MCP Integration: Yes — traces MCP client/server tool calls, resource access, prompt generation
+
+EVALUATION:
+- Offline evaluations: Yes (prompt + dataset + scorer), also available in Evaluations Playground UI
+- Online evaluations: Yes — LLM judges on production traces with filtering and random sampling, run on W&B infrastructure
+- Imperative Evaluations API: Yes
+- LLM-as-a-Judge Wizard: Yes — GUI-based judge builder, added 12/2024
+- Custom scorers: Yes in Python, TypeScript coming soon
+- Pre-built scoring functions: Yes
+
+HUMAN FEEDBACK:
+- Human annotation: Yes — custom question forms, scores stored with scorer results
+- Annotation queues: PARTIAL — annotation available but NO built-in queue management for grouping/assigning traces to reviewers
+- LLM Leaderboards: Yes (based on evaluation results)
+
+GUARDRAILS:
+- Yes — prompt injection prevention, data leakage prevention, hallucination mitigation, off-topic blocking, toxicity/harmful content blocking
+
+AGENTS:
+- Agent/agentic workflow evaluation: Yes
+- Native first-class agent support: Coming soon — no native agent treatment like LangGraph/LangSmith yet
+- Trace tree enhancements offer greater visibility into agentic workflows
+
+OBJECTS & PLAYGROUND:
+- Prompts: Yes (created programmatically, dedicated UI section)
+- Datasets: Yes (versioned)
+- Models/Applications: Yes
+- Prompt Playground: Yes
+- Evaluations Playground: Yes
+
+SDK & INTEGRATIONS:
+- Languages: Python + TypeScript
+- Framework integrations: LangChain, LlamaIndex
+- Supported LLMs: All relevant LLMs
+- CI/CD: Via W&B Automations/Registry (artifact-triggered workflows)
+
+FINE-TUNING:
+- Building and fine-tuning LLMs is part of W&B Experiments (platform-level feature)
+=== End of Product Information ===""",
     extra_docs_urls=[
         "https://docs.wandb.ai/weave/guides/tracking/redact-pii",
         "https://docs.wandb.ai/platform/hosting",
@@ -111,118 +168,101 @@ class CategoryDef:
 
 COMPARISON_CATEGORIES: list[CategoryDef] = [
     CategoryDef("Core Tracing & Logging", "핵심 트레이싱 & 로깅", [
-        ("Nested Span Tracing", "Nested function/LLM call span tracing with parent-child relationships"),
+        ("Full Request/Response Tracing", "Complete capture of LLM input prompts, output responses, and parameters"),
+        ("Nested Span & Tree View", "Hierarchical span tracing with parent-child tree visualization"),
+        ("Streaming Support", "Real-time tracing of streaming LLM responses"),
+        ("Multimodal Tracing", "Tracing and rendering of image, audio, and other non-text inputs/outputs"),
         ("Auto-Instrumentation", "One-line automatic trace collection (decorators, autolog, etc.)"),
-        ("Prompt & Response Logging", "Automatic capture of LLM input prompts and output responses"),
-        ("Token Usage Tracking", "Input/output/cached/reasoning token usage tracking"),
-        ("Latency Measurement", "Per-span and end-to-end latency measurement"),
-        ("Cost Estimation", "Automatic cost estimation based on token usage"),
-        ("Streaming Trace", "Real-time tracing of streaming LLM responses"),
-        ("Metadata & Tags", "Custom metadata and tag attachment on traces"),
-        ("OpenTelemetry Compatibility", "OTEL-standard trace export/import support"),
+        ("Metadata & Tags Filtering", "Custom metadata and tag attachment with search and filtering"),
+        ("Token Counting & Estimation", "Accurate per-tokenizer input/output/cached token counting"),
+        ("OpenTelemetry Standard", "OTEL-standard trace export/import compatibility"),
     ], [
-        "{name} tracing nested spans auto-instrumentation",
-        "{name} prompt response logging token cost tracking",
-        "{name} streaming trace OpenTelemetry metadata tags",
+        "{name} tracing request response nested spans auto-instrumentation",
+        "{name} streaming trace multimodal image audio tracing",
+        "{name} metadata tags filtering token counting OpenTelemetry",
     ]),
-    CategoryDef("Agent & RAG Observability", "에이전트 & RAG 옵저버빌리티", [
-        ("Tool/Function Call Tracing", "Automatic tracing of agent tool call inputs and outputs"),
-        ("Retrieval (RAG) Tracing", "Logging of retriever queries and returned documents"),
-        ("Multi-step Reasoning Trace", "Visualization of multi-turn agent reasoning chains"),
-        ("Workflow Graph View", "DAG/graph visualization of agent workflows"),
-        ("MCP/A2A Protocol Tracing", "Model Context Protocol and Agent2Agent protocol trace support"),
-        ("Failed Step Highlighting", "Automatic highlighting of failed steps in traces"),
-        ("Session/Conversation Grouping", "Grouping traces by session or conversation"),
+    CategoryDef("Agent & RAG Specifics", "에이전트 & RAG 심화", [
+        ("RAG Retrieval Visualizer", "UI display of retrieved document chunks with content and relevance scores"),
+        ("Tool/Function Call Rendering", "Parsed view of tool/function call inputs and return values"),
+        ("Agent Execution Graph", "DAG/graph visualization of agent workflows with loops and branches"),
+        ("Intermediate Step State", "Storage and display of agent intermediate reasoning (Chain-of-Thought)"),
+        ("Session/Thread Replay", "Replay of user session or conversation thread as a complete flow"),
+        ("Failed Step Highlighting", "Automatic highlighting of failed steps in agent traces"),
+        ("MCP Integration", "Model Context Protocol server/client integration and tracing"),
     ], [
-        "{name} agent tool call tracing function calls",
-        "{name} RAG retrieval tracing MCP A2A protocol",
-        "{name} workflow graph session grouping failed step",
+        "{name} RAG retrieval visualizer chunk score tool function call",
+        "{name} agent execution graph workflow intermediate step state",
+        "{name} session thread replay failed step MCP integration",
     ]),
     CategoryDef("Evaluation & Quality", "평가 & 품질", [
-        ("LLM-as-Judge", "Built-in LLM-based automatic evaluation scoring"),
-        ("Custom Eval Scorers", "User-defined evaluation function authoring and execution"),
-        ("Human Feedback / Annotation UI", "UI-based human evaluation, annotation, and labeling"),
-        ("Evaluation Dataset Management", "Evaluation dataset creation, versioning, and storage"),
-        ("Trace → Eval Dataset", "Direct conversion of production traces to evaluation datasets"),
-        ("Regression Detection", "Automatic quality regression detection on model/prompt changes"),
-        ("Side-by-side Model Comparison", "Side-by-side comparison of model/prompt outputs"),
-        ("Evaluation Leaderboard", "Ranking of multiple model/prompt evaluation results"),
-        ("CI/CD Eval Integration", "Evaluation embedded in CI/CD pipelines (GitHub Actions, etc.)"),
-        ("Online Evaluation (Monitors)", "Real-time automatic evaluation on production traces"),
+        ("LLM-as-a-Judge Wizard", "GUI-based LLM judge builder without requiring code"),
+        ("Custom Eval Scorers", "User-defined code-based evaluation function authoring and execution"),
+        ("Dataset Management & Curation", "Evaluation dataset creation, versioning, and trace-to-dataset conversion"),
+        ("Prompt Optimization / DSPy Support", "Automatic prompt optimization or candidate suggestion (e.g. DSPy integration)"),
+        ("Regression Testing", "Automatic quality regression detection on model/prompt changes"),
+        ("Comparison View (Side-by-side)", "Side-by-side comparison of model/prompt outputs"),
+        ("Annotation Queues", "Team-based annotation workflows with queue management and reviewer assignment"),
+        ("Online Evaluation", "Real-time automatic evaluation on live production traffic"),
     ], [
-        "{name} LLM judge evaluation scoring custom scorers",
-        "{name} human feedback annotation regression detection",
-        "{name} eval CI/CD pipeline online evaluation leaderboard",
+        "{name} LLM judge wizard evaluation custom scorers dataset",
+        "{name} prompt optimization DSPy regression testing comparison",
+        "{name} annotation queues human feedback online evaluation",
     ]),
     CategoryDef("Guardrails & Safety", "가드레일 & 안전", [
-        ("Built-in Guardrails", "Built-in guardrails (toxicity, PII, hallucination, etc.)"),
-        ("Custom Guardrails", "User-defined guardrail scorer authoring"),
-        ("Pre/Post Response Hooks", "Safety check hooks before/after LLM responses"),
-        ("PII Detection & Masking", "Automatic PII detection and masking"),
+        ("PII/Sensitive Data Masking", "Automatic PII and sensitive data detection and masking"),
+        ("Hallucination Detection", "Dedicated guardrail for detecting hallucinated content"),
+        ("Topic/Jailbreak Guardrails", "Blocking of forbidden topics and jailbreak attempt detection"),
+        ("Policy Management as Code", "Guardrail rules defined and managed as code"),
     ], [
-        "{name} guardrails safety toxicity hallucination detection",
-        "{name} PII masking redaction custom guardrail",
-        "{name} pre post response hooks content filtering",
+        "{name} PII masking sensitive data detection guardrail",
+        "{name} hallucination detection topic jailbreak guardrail",
+        "{name} policy management code guardrail safety",
     ]),
-    CategoryDef("Monitoring & Analytics", "모니터링 & 분석", [
-        ("Cost Dashboard", "Real-time LLM cost tracking dashboard"),
-        ("Token Usage Analytics", "Token usage breakdown and trends"),
-        ("Latency Percentiles & Alerting", "Latency percentile monitoring and alerting"),
-        ("Error Rate Monitoring", "Error rate monitoring and alerting"),
-        ("Custom Metrics", "User-defined custom metric tracking"),
-        ("Drift Detection", "Model input/output distribution drift detection"),
-        ("Embedding Clustering/Analysis", "Embedding space clustering and visualization analysis"),
+    CategoryDef("Analytics & Dashboard", "분석 & 대시보드", [
+        ("Cost Analysis & Attribution", "Cost tracking with per-user/team/project attribution"),
+        ("Token Usage Analytics", "Input/output token usage breakdown and trends"),
+        ("Latency Heatmap & P99", "Latency distribution visualization with percentile monitoring"),
+        ("Error Rate Monitoring", "Error rate tracking and alerting"),
+        ("Embedding Space Visualization", "UMAP/t-SNE embedding clustering and visualization"),
+        ("Custom Metrics & Dashboard", "User-defined custom metric tracking with dashboard widgets"),
     ], [
-        "{name} cost dashboard token analytics monitoring",
-        "{name} latency alerting error rate drift detection",
-        "{name} custom metrics embedding clustering analysis",
+        "{name} cost analysis attribution token usage analytics",
+        "{name} latency heatmap P99 error rate monitoring",
+        "{name} embedding visualization custom metrics dashboard",
     ]),
-    CategoryDef("Experiment & Improvement Loop", "실험 & 개선 루프", [
-        ("Prompt Versioning", "Version control for prompt templates"),
-        ("Model Versioning", "Tracking of model versions and configs"),
-        ("Experiment Tracking", "A/B test and experiment management"),
-        ("Dataset Versioning", "Versioned evaluation and training datasets"),
-        ("LLM Playground", "Interactive prompt testing interface"),
-        ("Continuous/Scheduled Eval", "Scheduled or trigger-based automatic evaluation runs"),
-        ("RL/Fine-tuning Pipeline", "Integration with fine-tuning/RL pipelines"),
-        ("Training Data Generation", "Automatic training data generation from traces"),
-        ("Failure Trajectory Extraction", "Extraction of failure pattern traces into datasets"),
+    CategoryDef("Development Lifecycle", "개발 라이프사이클", [
+        ("Prompt Management (CMS)", "Prompt versioning with non-developer editing and deployment capabilities"),
+        ("Playground & Sandbox", "Interactive prompt and parameter testing environment"),
+        ("Experiment Tracking", "A/B test and experiment management with hyperparameter logging"),
+        ("Fine-tuning Integration", "Fine-tuning data export and pipeline integration"),
+        ("Version Control & Rollback", "Prompt and model version management with rollback capability"),
     ], [
-        "{name} prompt versioning experiment tracking playground",
-        "{name} dataset versioning continuous eval fine-tuning",
-        "{name} training data generation failure trajectory extraction",
+        "{name} prompt management CMS versioning playground",
+        "{name} experiment tracking fine-tuning integration",
+        "{name} version control rollback prompt model",
     ]),
-    CategoryDef("Developer Experience & Integration", "개발자 경험 & 통합", [
-        ("Python SDK", "Official Python SDK"),
-        ("TypeScript/JS SDK", "Official TypeScript/JavaScript SDK"),
-        ("Framework Integration", "Built-in support for LangChain, LlamaIndex, DSPy, CrewAI, etc."),
-        ("REST/GraphQL API", "REST or GraphQL API for programmatic access"),
-        ("Custom Model Support", "Tracing for non-standard or self-hosted models"),
-        ("CLI Tools", "Command-line interface tools"),
-        ("Notebook Integration", "Trace visualization within Jupyter/Colab notebooks"),
+    CategoryDef("Integration & DX", "통합 & 개발 편의성", [
+        ("SDK Support (Py/JS/Go)", "Official SDK support across Python, JavaScript/TypeScript, and Go"),
+        ("Gateway/Proxy Mode", "Proxy-based tracing without SDK installation (URL change only)"),
+        ("Popular Frameworks", "Built-in support for LangChain, LlamaIndex, AutoGen, CrewAI, etc."),
+        ("API & Webhooks", "REST/GraphQL API and webhook integration for external systems"),
+        ("CI/CD Integration", "Integration with CI/CD pipelines (GitHub Actions, etc.) for automated eval and deployment"),
     ], [
-        "{name} Python SDK TypeScript JavaScript integration",
-        "{name} LangChain LlamaIndex DSPy CrewAI framework",
-        "{name} REST API CLI notebook Jupyter custom model",
+        "{name} SDK Python JavaScript TypeScript Go support",
+        "{name} gateway proxy mode LangChain LlamaIndex AutoGen",
+        "{name} API webhooks CI/CD pipeline integration",
     ]),
-    CategoryDef("Infrastructure & Enterprise", "인프라 & 엔터프라이즈", [
-        ("Cloud Managed (SaaS)", "Managed cloud service offering"),
-        ("Self-Host / On-Prem", "Self-hosted or on-premise deployment option"),
-        ("VPC Deployment", "Deployment within customer VPC"),
-        ("Open Source", "Open-source code availability"),
-        ("RBAC", "Role-based access control"),
-        ("SSO/SAML", "SSO and SAML authentication support"),
-        ("SOC 2 Certification", "SOC 2 Type II security certification"),
+    CategoryDef("Enterprise & Infrastructure", "엔터프라이즈 & 인프라", [
+        ("Deployment Options", "Multi-tenant SaaS, dedicated SaaS, and self-hosted/VPC deployment options"),
+        ("Open Source", "Open-source code availability and community"),
+        ("Data Sovereignty & Compliance", "Data region selection with SOC 2/HIPAA/GDPR compliance"),
+        ("RBAC & SSO", "Role-based access control with SSO/SAML authentication"),
         ("Audit Logs", "User and system action audit trail"),
-        ("Data Retention Policy", "Configurable data retention policies"),
-        ("Data Warehouse Export", "Export to external data warehouses"),
-        ("Multi-Region / Data Residency", "Multi-region or data residency support"),
-        ("Traditional ML Experiment Integration", "Integration with traditional ML experiment tracking (W&B, MLflow, etc.)"),
-        ("Databricks Native Integration", "Databricks platform native integration"),
+        ("Data Warehouse Export", "Automated export to Snowflake, BigQuery, S3, etc."),
     ], [
-        "{name} self-hosted VPC on-premise open source deployment",
-        "{name} RBAC SSO SAML SOC2 audit logs compliance",
-        "{name} data retention warehouse export multi-region Databricks",
+        "{name} deployment SaaS dedicated self-hosted VPC open source",
+        "{name} SOC2 HIPAA GDPR compliance data sovereignty RBAC SSO",
+        "{name} audit logs data warehouse export",
     ]),
 ]
 
