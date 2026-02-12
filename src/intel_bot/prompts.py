@@ -108,15 +108,21 @@ Below are the individual analysis results for all products analyzed this week:
 Synthesize the above data and return a JSON object matching the schema below (no markdown fences, pure JSON only):
 {{
   "market_summary": "2-3 sentence overview of the LLM observability market landscape this week.",
-  "vendor_ratings": [
+  "product_ratings": [
     {{
-      "vendor_name": "ProductName",
+      "product_name": "ProductName",
       "trace_depth": "strong|medium|weak|none",
+      "trace_depth_note": "one-sentence reason for this rating",
       "eval": "strong|medium|weak|none",
+      "eval_note": "one-sentence reason",
       "agent_observability": "strong|medium|weak|none",
+      "agent_observability_note": "one-sentence reason",
       "cost_tracking": "strong|medium|weak|none",
+      "cost_tracking_note": "one-sentence reason",
       "enterprise_ready": "strong|medium|weak|none",
-      "overall": "strong|medium|weak|none"
+      "enterprise_ready_note": "one-sentence reason",
+      "overall": "strong|medium|weak|none",
+      "overall_note": "one-sentence reason"
     }},
     ...include ALL analyzed products...
   ],
@@ -128,7 +134,8 @@ Synthesize the above data and return a JSON object matching the schema below (no
 
 Rules:
 - "market_summary": Factual overview of key market movements this week
-- "vendor_ratings" must include ALL analyzed products
+- "product_ratings" must include ALL analyzed products
+- Each "*_note" field: one factual sentence justifying the rating (cite a specific feature or gap)
 - "enterprise_signals": 3-5 items (factual enterprise-related developments from the data)
 - Ratings must be one of "strong", "medium", "weak", "none"
 - Base ALL conclusions on the provided data only — do not speculate
@@ -166,15 +173,17 @@ Write an executive summary as a JSON object (no markdown fences, pure JSON only)
 Rules for executive_summary (5-7 bullets):
 - Summarize WHAT HAPPENED this week in the market — factual, not interpretive
 - Each bullet must name at least one specific product and one specific capability
+- IMPORTANT: Every analyzed product must be mentioned at least once across all bullets
 - Prioritize NEW information: recent releases, positioning shifts
 - Be specific: "Braintrust shipped Java SDK support" not "competitors are expanding"
 - Quantify when possible: version numbers, dates, counts
 - Do NOT add insights, opinions, or recommendations — just report the facts
 
 Rules for market_insights (exactly 3 items):
-- This is the ONLY place for analytical interpretation
-- Each insight must identify a competitive dynamic or market shift
-- Each must name specific products
+- Write from Weave's competitive perspective
+- Each insight must identify what this means for Weave specifically
+  (e.g. "LangSmith's new eval pipeline narrows Weave's lead in evaluation integration")
+- Each must name at least one competing product and relate it to Weave
 - Keep each to one sentence
 
 Pure JSON output only, no markdown code fences.\

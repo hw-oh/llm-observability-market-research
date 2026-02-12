@@ -25,12 +25,12 @@ def send_slack_notification(webhook_url: str, run: AnalysisRun, weekly_path: Pat
     if synthesis:
         verdict = f"\n> {synthesis.one_line_verdict}\n"
 
-    # Vendor overall ratings
+    # Product overall ratings
     summary_lines = []
-    if synthesis and synthesis.vendor_ratings:
-        for vr in synthesis.vendor_ratings:
-            emoji = RATING_EMOJI.get(vr.overall, ":white_circle:")
-            summary_lines.append(f"  {emoji} *{vr.vendor_name}*: Overall {vr.overall}")
+    if synthesis and synthesis.product_ratings:
+        for pr in synthesis.product_ratings:
+            emoji = RATING_EMOJI.get(pr.overall, ":white_circle:")
+            summary_lines.append(f"  {emoji} *{pr.product_name}*: Overall {pr.overall}")
     else:
         for comp in run.competitors:
             summary_lines.append(f"  :white_circle: *{comp.competitor_name}*")
@@ -40,7 +40,7 @@ def send_slack_notification(webhook_url: str, run: AnalysisRun, weekly_path: Pat
     payload = {
         "text": (
             f":bar_chart: *LLM Observability Market Research — {run.date}*\n"
-            f"Analyzed *{len(run.competitors)} competitors* across *7 categories*.\n"
+            f"Analyzed *{len(run.competitors)} products* across *7 categories*.\n"
             f"{verdict}\n"
             f"{competitor_summary}\n\n"
             f"Report: `{weekly_path}`"

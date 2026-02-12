@@ -29,7 +29,7 @@ def _rating_to_symbol(rating: str) -> str:
 
 
 def _dimension_field(dim: str) -> str:
-    """Map SUMMARY_DIMENSIONS display name to VendorSummaryRating field name."""
+    """Map SUMMARY_DIMENSIONS display name to ProductSummaryRating field name."""
     mapping = {
         "Trace Depth": "trace_depth",
         "Eval": "eval",
@@ -65,12 +65,12 @@ def generate_comparison_page(run: AnalysisRun) -> str:
         lines.append(f"## {cat_def.name}")
         lines.append("")
 
-        header = f"| Feature | {' | '.join(product_names)} |"
-        separator = "|---|" + "---|" * len(product_names)
+        header = f"| Feature | Description | {' | '.join(product_names)} |"
+        separator = "|---|---|" + "---|" * len(product_names)
         lines.append(header)
         lines.append(separator)
 
-        for item_name in cat_def.items:
+        for item_name, item_desc in cat_def.items:
             ratings: dict[str, str] = {}
             for comp in run.competitors:
                 cat_data = next(
@@ -87,7 +87,7 @@ def generate_comparison_page(run: AnalysisRun) -> str:
                     ratings[comp.competitor_name] = feat.rating
 
             cells = [_rating_to_symbol(ratings.get(name, "none")) for name in product_names]
-            lines.append(f"| {item_name} | {' | '.join(cells)} |")
+            lines.append(f"| {item_name} | {item_desc} | {' | '.join(cells)} |")
 
         lines.append("")
 
@@ -228,21 +228,26 @@ def generate_weekly_report(
         lines.append("- *No synthesis data available*")
     lines.append("")
 
-    # Section 2: Vendor Feature Comparison
-    lines.append("## 2. Vendor Feature Comparison")
+    # Section 2: Product Feature Comparison
+    lines.append("## 2. Product Feature Comparison")
     lines.append("")
-    if synthesis and synthesis.vendor_ratings:
-        header = "| Vendor | " + " | ".join(SUMMARY_DIMENSIONS) + " |"
+    if synthesis and synthesis.product_ratings:
+        header = "| Product | " + " | ".join(SUMMARY_DIMENSIONS) + " |"
         sep = "|---|" + "---|" * len(SUMMARY_DIMENSIONS)
         lines.append(header)
         lines.append(sep)
-        for vr in synthesis.vendor_ratings:
+        for pr in synthesis.product_ratings:
             cells = []
             for dim in SUMMARY_DIMENSIONS:
                 field = _dimension_field(dim)
-                val = getattr(vr, field, "none")
-                cells.append(_rating_to_symbol(val))
-            lines.append(f"| **{vr.vendor_name}** | {' | '.join(cells)} |")
+                val = getattr(pr, field, "none")
+                symbol = _rating_to_symbol(val)
+                note = getattr(pr, f"{field}_note", "")
+                if note:
+                    cells.append(f"<details><summary>{symbol}</summary>{note}</details>")
+                else:
+                    cells.append(symbol)
+            lines.append(f"| **{pr.product_name}** | {' | '.join(cells)} |")
         lines.append("")
     else:
         lines.append("*No data available*")

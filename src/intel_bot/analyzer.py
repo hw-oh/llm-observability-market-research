@@ -37,9 +37,9 @@ def _build_categories_schema() -> str:
     categories = []
     for cat in COMPARISON_CATEGORIES:
         features = []
-        for item in cat.items:
+        for item_name, _ in cat.items:
             features.append(
-                f'        {{"item_name": "{item}", "rating": "strong|medium|weak|none", "note": "brief note"}}'
+                f'        {{"item_name": "{item_name}", "rating": "strong|medium|weak|none", "note": "brief note"}}'
             )
         features_str = ",\n".join(features)
         categories.append(
@@ -282,10 +282,11 @@ def analyze_all(
         collection_date=collection.date,
     )
 
-    # Analyze all products (competitors + Weave)
-    all_products = list(collection.competitors)
+    # Analyze all products (Weave first, then competitors)
+    all_products: list[CompetitorData] = []
     if collection.weave_data:
         all_products.append(collection.weave_data)
+    all_products.extend(collection.competitors)
 
     for product in all_products:
         if on_progress:

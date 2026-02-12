@@ -25,8 +25,12 @@ Rules:
 - Preserve ALL relative URLs in links — translate link text only, never URL paths
 - Preserve YAML frontmatter (---) but translate the 'title' value
 - Preserve rating symbols (●●●, ●●○, ●○○, ○○○) without change
-- Preserve product names: Weave, LangSmith, Arize Phoenix, Braintrust, Langfuse, Humanloop, Logfire, Helicone
+- Preserve product names: Weave, LangSmith, Arize Phoenix, Braintrust, Langfuse, MLflow
 - Preserve table structure (|, ---, alignment)
+- Keep English terms where Korean translations sound unnatural:
+  Tracing, Observability, SDK, API, Dashboard, Eval, Fine-tuning, Streaming, Scoring
+- Do NOT translate into obscure Sino-Korean (한자어); prefer the English original
+  when it is more commonly used in the Korean AI/ML community
 - Use standard {target_language_name} translations for technical terms
 - Output ONLY the translated markdown
 

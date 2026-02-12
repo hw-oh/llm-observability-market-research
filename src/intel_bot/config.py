@@ -88,31 +88,67 @@ BEAMER_APP_ID = "iTpiKrhl12143"
 class CategoryDef:
     name: str          # English name (LLM schema key)
     name_ko: str       # Korean name (report display)
-    items: list[str] = field(default_factory=list)  # Sub-items (English)
+    items: list[tuple[str, str]] = field(default_factory=list)  # (name, description)
 
 
 COMPARISON_CATEGORIES: list[CategoryDef] = [
-    CategoryDef("Core Observability", "핵심 옵저버빌리티",
-        ["Trace Depth", "Hierarchical Spans", "Prompt Logging", "Response Logging",
-         "Token Tracking", "Latency Analysis", "Replay"]),
-    CategoryDef("Agent / RAG Observability", "에이전트/RAG 옵저버빌리티",
-        ["Tool Call Tracing", "Retrieval Tracing", "Memory Tracing",
-         "Multi-step Reasoning", "Workflow Graph", "Failure Visualization"]),
-    CategoryDef("Evaluation Integration", "평가 통합",
-        ["Trace→Dataset", "LLM-as-Judge", "Custom Eval Metrics",
-         "Regression Detection", "Model Comparison", "Human Feedback UI"]),
-    CategoryDef("Monitoring & Metrics", "모니터링 & 메트릭",
-        ["Cost Dashboard", "Token Analytics", "Latency Monitoring",
-         "Error Tracking", "Tool Success Rate", "Custom Metrics"]),
-    CategoryDef("Experiment / Improvement Loop", "실험/개선 루프",
-        ["Prompt Versioning", "Model Versioning", "Experiment Tracking",
-         "Dataset Versioning", "Continuous Eval", "RL/Fine-tuning Link"]),
-    CategoryDef("DevEx / Integration", "개발자 경험/통합",
-        ["SDK Support", "Framework Integration", "Custom Model Support",
-         "API Access", "Streaming Tracing", "CLI/Infra Integration"]),
-    CategoryDef("Enterprise & Security", "엔터프라이즈 & 보안",
-        ["On-prem/VPC", "RBAC", "PII Masking", "Audit Logs",
-         "Data Retention", "Region Support"]),
+    CategoryDef("Core Observability", "핵심 옵저버빌리티", [
+        ("Trace Depth", "Nested function call trace depth"),
+        ("Hierarchical Spans", "Parent-child span relationships"),
+        ("Prompt Logging", "Automatic capture of LLM prompts"),
+        ("Response Logging", "Automatic capture of LLM responses"),
+        ("Token Tracking", "Input/output token usage counting"),
+        ("Latency Analysis", "Per-span and end-to-end latency measurement"),
+        ("Replay", "Step-by-step trace replay in UI"),
+    ]),
+    CategoryDef("Agent / RAG Observability", "에이전트/RAG 옵저버빌리티", [
+        ("Tool Call Tracing", "Capture of tool/function call inputs and outputs"),
+        ("Retrieval Tracing", "Logging of retriever queries and returned documents"),
+        ("Memory Tracing", "Tracking of conversational memory reads/writes"),
+        ("Multi-step Reasoning", "Visualization of multi-turn agent reasoning chains"),
+        ("Workflow Graph", "DAG or graph view of agent workflows"),
+        ("Failure Visualization", "Highlighting of failed steps in a trace"),
+    ]),
+    CategoryDef("Evaluation Integration", "평가 통합", [
+        ("Trace→Dataset", "Convert production traces into eval datasets"),
+        ("LLM-as-Judge", "Built-in LLM-based evaluation scoring"),
+        ("Custom Eval Metrics", "User-defined evaluation functions"),
+        ("Regression Detection", "Automatic detection of quality regressions"),
+        ("Model Comparison", "Side-by-side comparison of model outputs"),
+        ("Human Feedback UI", "UI for human annotation and labeling"),
+    ]),
+    CategoryDef("Monitoring & Metrics", "모니터링 & 메트릭", [
+        ("Cost Dashboard", "Real-time LLM cost tracking dashboard"),
+        ("Token Analytics", "Token usage breakdown and trends"),
+        ("Latency Monitoring", "Latency percentiles and alerting"),
+        ("Error Tracking", "Error rate monitoring and alerting"),
+        ("Tool Success Rate", "Success/failure rate of tool calls"),
+        ("Custom Metrics", "User-defined custom metric tracking"),
+    ]),
+    CategoryDef("Experiment / Improvement Loop", "실험/개선 루프", [
+        ("Prompt Versioning", "Version control for prompt templates"),
+        ("Model Versioning", "Tracking of model versions and configs"),
+        ("Experiment Tracking", "A/B test and experiment management"),
+        ("Dataset Versioning", "Versioned eval and training datasets"),
+        ("Continuous Eval", "Scheduled or triggered evaluation runs"),
+        ("RL/Fine-tuning Link", "Integration with fine-tuning pipelines"),
+    ]),
+    CategoryDef("DevEx / Integration", "개발자 경험/통합", [
+        ("SDK Support", "Official SDKs for Python, JS/TS, etc."),
+        ("Framework Integration", "Built-in support for LangChain, LlamaIndex, etc."),
+        ("Custom Model Support", "Tracing for non-standard or self-hosted models"),
+        ("API Access", "REST or GraphQL API for programmatic access"),
+        ("Streaming Tracing", "Tracing of streaming LLM responses"),
+        ("CLI/Infra Integration", "CLI tools and infrastructure-as-code support"),
+    ]),
+    CategoryDef("Enterprise & Security", "엔터프라이즈 & 보안", [
+        ("On-prem/VPC", "Self-hosted or VPC deployment option"),
+        ("RBAC", "Role-based access control"),
+        ("PII Masking", "Automatic PII detection and redaction"),
+        ("Audit Logs", "Audit trail for user and system actions"),
+        ("Data Retention", "Configurable data retention policies"),
+        ("Region Support", "Multi-region or data residency support"),
+    ]),
 ]
 
 # Section 2 summary table dimensions
