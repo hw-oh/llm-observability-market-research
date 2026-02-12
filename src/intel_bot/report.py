@@ -244,7 +244,7 @@ def generate_weekly_report(
                 symbol = _rating_to_symbol(val)
                 note = getattr(pr, f"{field}_note", "")
                 if note:
-                    cells.append(f"<details><summary>{symbol}</summary>{note}</details>")
+                    cells.append(f'<span title="{note}">{symbol}</span>')
                 else:
                     cells.append(symbol)
             lines.append(f"| **{pr.product_name}** | {' | '.join(cells)} |")
