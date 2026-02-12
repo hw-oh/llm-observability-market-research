@@ -10,19 +10,18 @@ title: LLM Observability 市場調査
 [📋 最新レポート (2026-02-12)](./reports/2026-02-12.md)
 
 
-- LangSmith は Self-Hosted v0.13 をリリースし、より厳格な地域のコンプライアンス要求に応えるため、EU データレジデンシーのサポートを導入しました。
-- Langfuse は Organization Audit Log Viewer をリリースし、ガバナンスを重視するチーム向けに完全なセルフホスティングのサポートを継続しています。
-- MLflow は、Tracking Server 内でのマルチワークスペース管理と PII マスキングを可能にする Organization Support を追加しました。
-- Braintrust は、サブエージェントのネスト構造のサポートと OpenAI エージェントとの深い統合により、エージェントの Observability を拡張しました。
-- Arize Phoenix は、特に Tool Selection と Faithfulness（誠実性）メトリクスに特化した、構築済み Eval ライブラリを導入しました。
-- W&B Weave は、深いネスト構造を持つ関数呼び出しの Tracing と、LLM-as-a-judge による Scoring のための動的なリーダーボードで差別化を続けています。
-- 市場全体としてエージェント対応への大きなシフトが見られ、Weave、LangSmith、Braintrust はいずれもリトリーバル（検索）ステップとツール呼び出しの追跡を明示的に強化しています。
+- LangSmith は Self-Hosted v0.13 をリリースし、エンタープライズ導入向けの詳細な RBAC と監査ログにより、オンプレミス機能を強化しました。
+- Langfuse は Organization Audit Log Viewers を導入し、オープンソースプラットフォーム内でのガバナンス機能を拡張して、より大規模なエンジニアリングチームをサポートします。
+- MLflow は Tracking Server を Organization Support でアップデートし、MLOps 実務者向けにマルチワークスペース環境の集中管理を可能にしました。
+- Arize Phoenix は、ツール選択と Faithfulness（誠実性）のための専用 Eval をデプロイし、OpenTelemetry との深い統合を活用してエージェント型ワークフローのデバッグをターゲットにしています。
+- Braintrust は、SSO と SOC 2 コンプライアンスを提供しながら、顧客の VPC 内にデータを保持するハイブリッドセルフホスティングモデルを通じて、インフラの差別化を継続しています。
+- W&B Weave は、SOC 2 コンプライアンスとエクスポート可能な監査ログを通じてエンタープライズ対応を確認すると同時に、デコレータによるネストされたスパンの Tracing に対する強力なサポートを維持しています。
 
 **AI による市場インサイト**:
 
-> LangSmith による Self-Hosted v0.13 のリリースと Langfuse の新しい Audit Log Viewer は、セキュアで自己管理型のエンタープライズ導入における Weave の競争優位性に直接挑戦するものです。
-> Arize Phoenix が専門的な Tool Selection Eval を追加したことは、現在 Weave が深い Tracing の可視化で差別化を図っているエージェントのワークフロー分析のユースケースをターゲットにしています。
-> Braintrust によるサブエージェントのネスト構造のサポートと OpenAI 統合は、複雑で階層的なエージェントアーキテクチャをデバッグするための主要ツールとしての Weave のポジショニングを脅かしています。
+> Arize Phoenix がツール選択専用の Eval を導入したことは、サブエージェントの意思決定に関する詳細なメトリクスを提供することで、Weave のエージェント Observability における差別化に挑戦しています。
+> LangSmith の Self-Hosted v0.13 のリリースと Langfuse の新しい Audit Log Viewers は、ガバナンスとデプロイの柔軟性の面で差を縮めることにより、Weave のエンタープライズティアに対する競争圧力を高めています。
+> MLflow が Tracking Server に Organization Support を追加したことは、すでに Databricks エコシステムに定着しているチームにとって、Weave に代わる統合 MLOps の選択肢としての地位を強化するものです。
 
 
 <!-- LATEST_REPORT_END -->
