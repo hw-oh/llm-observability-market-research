@@ -30,6 +30,7 @@ class CompetitorConfig:
     github_repo: str | None = None
     pypi_package: str | None = None
     extra_docs_urls: list[str] = field(default_factory=list)  # 추가 문서 URL
+    product_description: str = ""    # 분석 프롬프트에 주입되는 제품 컨텍스트
 
     @property
     def changelog_link(self) -> str | None:
@@ -82,6 +83,12 @@ WEAVE_CONFIG = CompetitorConfig(
     changelog_url="https://app.getbeamer.com/wandb/en",
     github_repo="wandb/weave",
     pypi_package="weave",
+    product_description=(
+        "W&B Weave is the LLM observability product within the Weights & Biases (W&B) platform. "
+        "It inherits ALL W&B platform-level enterprise features including RBAC, SSO/SAML, "
+        "audit logs, VPC/dedicated cloud deployment, SOC 2 Type II certification, "
+        "configurable data retention, and multi-region support."
+    ),
     extra_docs_urls=[
         "https://docs.wandb.ai/weave/guides/tracking/redact-pii",
         "https://docs.wandb.ai/platform/hosting",

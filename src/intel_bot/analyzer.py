@@ -80,18 +80,24 @@ def _strip_markdown_fences(raw: str) -> str:
     return text.strip()
 
 
-def _build_extra_context(extra_docs: list[DocsPage] | None) -> str:
-    """Build extra context string from docs pages."""
-    if not extra_docs:
-        return ""
-    lines = ["=== Additional Documentation ==="]
-    for doc in extra_docs:
-        content = doc.content[:_DOC_CONTENT_LIMIT]
-        lines.append(f"--- {doc.title} ({doc.url}) ---")
-        lines.append(content)
-        lines.append("")
-    lines.append("=== End ===")
-    return "\n".join(lines)
+def _build_extra_context(
+    product_description: str = "",
+    extra_docs: list[DocsPage] | None = None,
+) -> str:
+    """Build extra context string from product description and docs pages."""
+    parts: list[str] = []
+    if product_description:
+        parts.append(f"=== Product Context ===\n{product_description}\n=== End ===")
+    if extra_docs:
+        lines = ["=== Additional Documentation ==="]
+        for doc in extra_docs:
+            content = doc.content[:_DOC_CONTENT_LIMIT]
+            lines.append(f"--- {doc.title} ({doc.url}) ---")
+            lines.append(content)
+            lines.append("")
+        lines.append("=== End ===")
+        parts.append("\n".join(lines))
+    return "\n\n".join(parts)
 
 
 def _build_items_schema(category: CategoryDef) -> str:
@@ -152,10 +158,11 @@ def analyze_category(
     model: str,
     competitor_name: str,
     category: CategoryDef,
+    product_description: str = "",
     extra_docs: list[DocsPage] | None = None,
 ) -> CategoryAnalysis:
     """Perplexity Sonar로 단일 카테고리 분석 (웹 검색 내장)."""
-    extra_context = _build_extra_context(extra_docs)
+    extra_context = _build_extra_context(product_description, extra_docs)
     items_schema = _build_items_schema(category)
 
     prompt = load_category_analysis_prompt()
@@ -368,7 +375,7 @@ def analyze_all(
             extra_docs = product.docs_pages if cat_def.name == "Infrastructure & Enterprise" else None
             result = analyze_category(
                 sonar_client, sonar_model, product.competitor_name,
-                cat_def, extra_docs,
+                cat_def, product.product_description, extra_docs,
             )
             category_results.append(result)
 
