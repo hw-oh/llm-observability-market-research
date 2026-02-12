@@ -18,7 +18,6 @@ from intel_bot.models import (
     CompetitorData,
     DocsPage,
     FeedEntry,
-    SearchResult,
     SynthesisResult,
 )
 from intel_bot.prompts import (
@@ -63,6 +62,13 @@ def _create_client(settings: Settings) -> OpenAI:
     )
 
 
+def _create_perplexity_client(settings: Settings) -> OpenAI:
+    return OpenAI(
+        base_url="https://api.perplexity.ai",
+        api_key=settings.perplexity_api_key,
+    )
+
+
 def _strip_markdown_fences(raw: str) -> str:
     """Remove markdown code fences from LLM response."""
     text = raw.strip()
@@ -74,15 +80,17 @@ def _strip_markdown_fences(raw: str) -> str:
     return text.strip()
 
 
-def _build_search_context(search_results: list[SearchResult]) -> str:
-    """Build search context string from search results."""
-    lines: list[str] = []
-    for sr in search_results:
-        lines.append(f"[Query: {sr.query}] Title: {sr.title}")
-        lines.append(f"  Snippet: {sr.snippet}")
-        if sr.link:
-            lines.append(f"  URL: {sr.link}")
+def _build_extra_context(extra_docs: list[DocsPage] | None) -> str:
+    """Build extra context string from docs pages."""
+    if not extra_docs:
+        return ""
+    lines = ["=== Additional Documentation ==="]
+    for doc in extra_docs:
+        content = doc.content[:_DOC_CONTENT_LIMIT]
+        lines.append(f"--- {doc.title} ({doc.url}) ---")
+        lines.append(content)
         lines.append("")
+    lines.append("=== End ===")
     return "\n".join(lines)
 
 
@@ -136,7 +144,7 @@ def _parse_synthesis_response(raw: str) -> SynthesisResult:
     return SynthesisResult.model_validate(data)
 
 
-# ---- Stage 1: Flash — Category-level analysis ----
+# ---- Stage 1: Sonar — Category-level analysis (web search built-in) ----
 
 @weave.op()
 def analyze_category(
@@ -144,22 +152,10 @@ def analyze_category(
     model: str,
     competitor_name: str,
     category: CategoryDef,
-    search_results: list[SearchResult],
     extra_docs: list[DocsPage] | None = None,
 ) -> CategoryAnalysis:
-    """Flash 모델로 단일 카테고리 분석."""
-    search_context = _build_search_context(search_results)
-
-    # Append extra docs if provided (e.g., Weave Enterprise docs)
-    if extra_docs:
-        doc_lines = ["\n=== Additional Documentation ==="]
-        for doc in extra_docs:
-            content = doc.content[:_DOC_CONTENT_LIMIT]
-            doc_lines.append(f"--- {doc.title} ({doc.url}) ---")
-            doc_lines.append(content)
-            doc_lines.append("")
-        search_context += "\n".join(doc_lines)
-
+    """Perplexity Sonar로 단일 카테고리 분석 (웹 검색 내장)."""
+    extra_context = _build_extra_context(extra_docs)
     items_schema = _build_items_schema(category)
 
     prompt = load_category_analysis_prompt()
@@ -167,7 +163,7 @@ def analyze_category(
         competitor_name=competitor_name,
         category_name=category.name,
         items_schema=items_schema,
-        search_context=search_context,
+        extra_context=extra_context,
     )
 
     last_error: Exception | None = None
@@ -345,9 +341,10 @@ def analyze_all(
     settings: Settings,
     on_progress: Callable[[str, str], None] | None = None,
 ) -> AnalysisRun:
-    client = _create_client(settings)
-    flash_model = settings.translation_model   # gemini-3-flash-preview (재사용)
-    pro_model = settings.openrouter_model       # gemini-3-pro-preview
+    pro_client = _create_client(settings)           # OpenRouter (Pro)
+    sonar_client = _create_perplexity_client(settings)  # Perplexity (Sonar)
+    sonar_model = settings.perplexity_model         # sonar
+    pro_model = settings.openrouter_model           # gemini-3-pro-preview
 
     run = AnalysisRun(
         date=date.today().isoformat(),
@@ -365,20 +362,19 @@ def analyze_all(
         if on_progress:
             on_progress(product.competitor_name, "analyzing")
 
-        # Stage 1: Flash — 카테고리별 분석 (7회)
+        # Stage 1: Sonar — 카테고리별 분석 (8회, 웹 검색 내장)
         category_results: list[CategoryAnalysis] = []
         for cat_def in COMPARISON_CATEGORIES:
-            cat_search = product.category_search_results.get(cat_def.name, [])
             extra_docs = product.docs_pages if cat_def.name == "Infrastructure & Enterprise" else None
             result = analyze_category(
-                client, flash_model, product.competitor_name,
-                cat_def, cat_search, extra_docs,
+                sonar_client, sonar_model, product.competitor_name,
+                cat_def, extra_docs,
             )
             category_results.append(result)
 
         # Stage 2: Pro — 종합 분석 (1회)
         analysis = analyze_competitor(
-            client, pro_model, product.competitor_name,
+            pro_client, pro_model, product.competitor_name,
             category_results, product.feed_entries,
         )
         run.competitors.append(analysis)
@@ -390,7 +386,7 @@ def analyze_all(
     if on_progress:
         on_progress("종합 분석", "analyzing")
 
-    run.synthesis = synthesize(client, pro_model, run.competitors)
+    run.synthesis = synthesize(pro_client, pro_model, run.competitors)
 
     if on_progress:
         on_progress("종합 분석", "done")
@@ -401,7 +397,7 @@ def analyze_all(
             on_progress("Executive Summary", "analyzing")
 
         exec_summary, insights = generate_executive_summary(
-            client, pro_model, run.synthesis,
+            pro_client, pro_model, run.synthesis,
         )
         run.synthesis.executive_summary = exec_summary
         run.synthesis.market_insights = insights

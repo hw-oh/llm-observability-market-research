@@ -8,10 +8,12 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
-    serper_dev_api: str
+    serper_dev_api: str = ""              # discovery에서만 사용
+    perplexity_api_key: str
     openrouter_api_key: str
     openrouter_model: str = "google/gemini-3-pro-preview"
     translation_model: str = "google/gemini-3-flash-preview"
+    perplexity_model: str = "sonar"
     slack_webhook_url: str | None = None
 
 

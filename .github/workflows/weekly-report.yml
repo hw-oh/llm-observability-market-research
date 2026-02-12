@@ -44,6 +44,7 @@ jobs:
 
       - name: Run pipeline
         env:
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
           SERPER_DEV_API: ${{ secrets.SERPER_DEV_API }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

@@ -28,26 +28,24 @@ EXEC_SUMMARY_PROMPT_NAME = "exec-summary-prompt"
 
 _CATEGORY_ANALYSIS_SYSTEM = """\
 You are a market research analyst covering the LLM observability and evaluation space.
-You analyze ONE specific category of a product based on provided search results.
+Research and analyze ONE specific category of a product using web search.
 
 Rating scale:
 - "strong": Well supported with meaningful functionality (O)
 - "medium": Supported but with notable limitations or gaps (△)
 - "none": Not supported or not applicable (X)
 
-Analyze based ONLY on facts found in the provided data.
+Research thoroughly using web search and base your analysis on factual findings.
 Respond in English.\
 """
 
 _CATEGORY_ANALYSIS_USER = """\
-Analyze {competitor_name} for the category: {category_name}
+Research and analyze {competitor_name} for the category: {category_name}
 
 Items to rate:
 {items_schema}
 
-=== Search Results ===
-{search_context}
-=== End ===
+{extra_context}
 
 Return a JSON object (no markdown fences, pure JSON only):
 {{
@@ -62,7 +60,7 @@ Rules:
 - "features" must include ALL items listed above
 - "item_name" must use the exact names specified
 - Ratings must be one of "strong", "medium", "none"
-- Base ALL conclusions on the provided data only
+- Research using web search and base conclusions on factual findings
 - Pure JSON output only\
 """
 
