@@ -117,7 +117,6 @@ COMPARISON_CATEGORIES: list[CategoryDef] = [
     CategoryDef("Agent / RAG Observability", "에이전트/RAG 옵저버빌리티", [
         ("Tool Call Tracing", "Capture of tool/function call inputs and outputs"),
         ("Retrieval Tracing", "Logging of retriever queries and returned documents"),
-        ("Memory Tracing", "Tracking of conversational memory reads/writes"),
         ("Multi-step Reasoning", "Visualization of multi-turn agent reasoning chains"),
         ("Workflow Graph", "DAG or graph view of agent workflows"),
         ("Failure Visualization", "Highlighting of failed steps in a trace"),
