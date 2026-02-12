@@ -10,15 +10,17 @@ title: LLM Observability Market Research
 [📋 Latest Report (2026-02-12)](./reports/2026-02-12.md)
 
 
-- Weave established a first-mover advantage in voice agent observability with the Feb 1 release of Audio Monitors, outpacing text-centric competitors like Langfuse and Arize Phoenix in the race for multimodal evaluation.
-- Braintrust is aggressively targeting legacy enterprise stacks by adding Java, Go, and C# SDKs, creating a significant barrier to entry for Weave in non-Python/TS environments.
-- Weave's 'Data Flywheel' differentiation is strengthening: the ability to hot-swap Custom LoRAs in the Playground (Jan 16) offers an experimentation loop that MLflow and LangSmith cannot replicate without a native training registry.
-- Governance pressure is mounting: MLflow's release of 'Organization Support' (Feb 2026) sets a new baseline for multi-team tenancy that Weave must match to secure large-scale platform deals.
-- Weave remains vulnerable in the control plane: the continued lack of a native AI Proxy for caching and rate-limiting allows Braintrust to win architectural decisions where production cost-control is the primary KPI.
-- The launch of Dynamic Leaderboards (Jan 29) successfully removes manual friction in evaluation reporting, neutralizing a usability advantage previously held by LangSmith's ranking views.
-- Strategic Watch: Engineering must prioritize 'Automated Judge Optimization' features; MLflow's new 'Judge Builder' automates evaluation tuning, threatening to make Weave's manual judge setup appear outdated.
+- Langfuse released an Organization Audit Log Viewer to track security and access events within enterprise deployments.
+- MLflow introduced Organization Support to enable management of multi-workspace environments and resources.
+- LangSmith updated its Self-Hosted version to v0.13, targeting on-premise infrastructure requirements.
+- Braintrust implemented configurable image rendering security controls and introduced a Cursor extension for direct IDE integration.
+- Arize Phoenix added configurable email extraction support for OAuth2 providers and expanded CLI tooling capabilities.
 
-> Weave leads the market in multimodal and training-loop observability, but risks losing high-value enterprise platform contracts to Braintrust's superior proxy architecture and broader SDK support.
+**Market Insight by AI**:
+
+> The simultaneous release of audit logs by Langfuse and multi-workspace support by MLflow indicates a competitive pivot toward satisfying enterprise compliance and hierarchy requirements.
+> Braintrust and Arize Phoenix are moving observability upstream by embedding tracing directly into developer environments like Cursor and CLI rather than relying solely on post-execution dashboards.
+> The standardization of deep tracing for reasoning steps across LangSmith, Langfuse, and W&B Weave signals that agentic workflow visualization has become a baseline requirement rather than a differentiator.
 
 
 <!-- LATEST_REPORT_END -->

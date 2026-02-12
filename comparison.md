@@ -1,88 +1,88 @@
 ---
 layout: default
-title: W&B Weave — Detailed Feature Comparison
+title: LLM Observability — Detailed Feature Comparison
 ---
 
-# W&B Weave — Detailed Feature Comparison
+# LLM Observability — Detailed Feature Comparison
 **Date**: 2026-02-12 | **Model**: google/gemini-3-pro-preview
 
 > ●●●(Strong) / ●●○(Medium) / ●○○(Weak) / ○○○(None)
 
 ## Core Observability
 
-| Feature | **Weave** | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| Feature | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
 |---|---|---|---|---|---|---|
 | Trace Depth | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Hierarchical Spans | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Prompt Logging | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Response Logging | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Token Tracking | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Token Tracking | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
 | Latency Analysis | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Replay | ●●○ | ●●● | ●●● | ●●● | ●●○ | ●●● |
+| Replay | ●●● | ●●○ | ●●● | ●●○ | ●●● | ○○○ |
 
 ## Agent / RAG Observability
 
-| Feature | **Weave** | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| Feature | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
 |---|---|---|---|---|---|---|
 | Tool Call Tracing | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Retrieval Tracing | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●● |
-| Memory Tracing | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| Retrieval Tracing | ●●● | ●●● | ●●○ | ●●● | ●●● | ●●● |
+| Memory Tracing | ●●○ | ●●● | ●●○ | ●●○ | ●●○ | ○○○ |
 | Multi-step Reasoning | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Workflow Graph | ●●○ | ●●● | ●●● | ●●● | ●●○ | ●●○ |
-| Failure Visualization | ●●● | ●●● | ●●○ | ●●● | ●●● | ●●● |
+| Workflow Graph | ●●● | ●●● | ●●● | ●●○ | ●●○ | ●●○ |
+| Failure Visualization | ●●● | ●●○ | ●●● | ●●○ | ●●● | ●●○ |
 
 ## Evaluation Integration
 
-| Feature | **Weave** | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| Feature | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
 |---|---|---|---|---|---|---|
 | Trace→Dataset | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | LLM-as-Judge | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Custom Eval Metrics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Regression Detection | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Regression Detection | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
 | Model Comparison | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Human Feedback UI | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● |
+| Human Feedback UI | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
 
 ## Monitoring & Metrics
 
-| Feature | **Weave** | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| Feature | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
 |---|---|---|---|---|---|---|
-| Cost Dashboard | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| Cost Dashboard | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Token Analytics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
-| Latency Monitoring | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
-| Error Tracking | ●●● | ●●● | ●●○ | ●●● | ●●● | ●●● |
-| Tool Success Rate | ●●○ | ●●○ | ●●● | ●●○ | ●●● | ●●● |
+| Latency Monitoring | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Error Tracking | ●●● | ●●○ | ●●● | ●●● | ●●● | ●●○ |
+| Tool Success Rate | ●●○ | ●●○ | ●●○ | ●●● | ●●● | ○○○ |
 | Custom Metrics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 
 ## Experiment / Improvement Loop
 
-| Feature | **Weave** | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| Feature | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
 |---|---|---|---|---|---|---|
-| Prompt Versioning | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Model Versioning | ●●● | ●●○ | ●○○ | ●●○ | ●●● | ●○○ |
+| Prompt Versioning | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Model Versioning | ●●○ | ●●○ | ●●○ | ●●● | ●●○ | ●●● |
 | Experiment Tracking | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Dataset Versioning | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
-| Continuous Eval | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
-| RL/Fine-tuning Link | ●●● | ●●○ | ●●○ | ●●○ | ●●○ | ●●○ |
+| Dataset Versioning | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Continuous Eval | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| RL/Fine-tuning Link | ●●○ | ●●○ | ●○○ | ●●○ | ●●○ | ●●● |
 
 ## DevEx / Integration
 
-| Feature | **Weave** | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| Feature | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
 |---|---|---|---|---|---|---|
 | SDK Support | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Framework Integration | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Framework Integration | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Custom Model Support | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | API Access | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Streaming Tracing | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| CLI/Infra Integration | ●●○ | ●●● | ●●● | ●●● | ●●○ | ●●● |
+| Streaming Tracing | ●●● | ●●○ | ●●● | ●●● | ●●● | ○○○ |
+| CLI/Infra Integration | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 
 ## Enterprise & Security
 
-| Feature | **Weave** | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| Feature | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
 |---|---|---|---|---|---|---|
 | On-prem/VPC | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| RBAC | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| PII Masking | ●●○ | ●●○ | ●●● | ●●○ | ●●○ | ●●○ |
-| Audit Logs | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●○ |
-| Data Retention | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Region Support | ●●○ | ●●○ | ●●○ | ●●● | ●●● | ●●○ |
+| RBAC | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| PII Masking | ●●○ | ●●● | ●●○ | ●●○ | ○○○ | ○○○ |
+| Audit Logs | ●●● | ●●● | ●●○ | ●●○ | ●●○ | ○○○ |
+| Data Retention | ●●● | ●●● | ●●● | ●●○ | ●●● | ○○○ |
+| Region Support | ●●● | ●●○ | ●●○ | ●●● | ●●○ | ○○○ |
 
