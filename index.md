@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Competitor intelligence reports for W&B Weave
+title: LLM Observability Market Research
 ---
 
-# Competitor Intel Bot
+# LLM Observability Market Research
 
 [Detailed Comparison](./comparison) · [Product Detail](./competitor-detail) · [Competitive Intelligence (Internal)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)
 
@@ -40,4 +40,4 @@ title: Competitor intelligence reports for W&B Weave
 
 ---
 
-[GitHub](https://github.com/hw-oh/competitor-intel-bot)
+[GitHub](https://github.com/hw-oh/llm-observability-market-research)

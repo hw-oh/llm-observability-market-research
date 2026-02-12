@@ -1,4 +1,4 @@
-# Competitor Intel Bot
+# LLM Observability Market Research
 
 [한국어](./README_ko.md)
 

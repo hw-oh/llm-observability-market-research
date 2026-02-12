@@ -294,10 +294,10 @@ def generate_weekly_report(
     lines = [
         "---",
         "layout: default",
-        f"title: Competitor Intelligence Report - {run.date}",
+        f"title: LLM Observability Market Research - {run.date}",
         "---",
         "",
-        "# W&B Weave — Weekly Competitor Intelligence Report",
+        "# Weekly LLM Observability Market Research Report",
         f"**Date**: {run.date} | **Model**: {run.model} | **Data Collected**: {run.collection_date}",
         "",
     ]
@@ -530,7 +530,7 @@ def _write_full_index(
     content = (
         "---\n"
         "layout: default\n"
-        "title: Competitor Intel Bot\n"
+        "title: LLM Observability Market Research\n"
         "---\n"
         "\n"
         "## Executive Summary\n"

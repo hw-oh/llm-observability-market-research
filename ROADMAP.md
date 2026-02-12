@@ -29,7 +29,7 @@
 ## 프로젝트 구조
 
 ```
-competitor-intel-bot/
+llm-observability-market-research/
 ├── src/intel_bot/
 │   ├── __init__.py
 │   ├── config.py             # Settings(.env) + 경쟁사 정의(COMPETITORS)

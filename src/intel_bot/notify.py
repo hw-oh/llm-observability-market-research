@@ -39,7 +39,7 @@ def send_slack_notification(webhook_url: str, run: AnalysisRun, weekly_path: Pat
 
     payload = {
         "text": (
-            f":bar_chart: *Competitor Intelligence Report — {run.date}*\n"
+            f":bar_chart: *LLM Observability Market Research — {run.date}*\n"
             f"Analyzed *{len(run.competitors)} competitors* across *7 categories*.\n"
             f"{verdict}\n"
             f"{competitor_summary}\n\n"

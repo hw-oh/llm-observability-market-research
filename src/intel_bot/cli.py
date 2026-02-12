@@ -301,7 +301,7 @@ def run() -> None:
 
 def main() -> None:
     if os.environ.get("WANDB_API_KEY"):
-        weave.init("competitor-intel-bot")
+        weave.init("llm-observability-market-research")
 
     args = sys.argv[1:]
 

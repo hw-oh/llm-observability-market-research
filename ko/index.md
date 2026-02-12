@@ -3,7 +3,7 @@ layout: default
 title: W&B Weave 경쟁사 인텔리전스 보고서
 ---
 
-# Competitor Intel Bot
+# LLM Observability Market Research
 
 [상세 비교](./comparison) · [제품 상세 정보](./competitor-detail) · [경쟁사 인텔리전스 (내부)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)
 
@@ -40,4 +40,4 @@ title: W&B Weave 경쟁사 인텔리전스 보고서
 
 ---
 
-[GitHub](https://github.com/hw-oh/competitor-intel-bot)
+[GitHub](https://github.com/hw-oh/llm-observability-market-research)

@@ -3,7 +3,7 @@ layout: default
 title: W&B Weave 競合インテリジェンスレポート
 ---
 
-# 競合インテリジェンスボット
+# LLM Observability Market Research
 
 [詳細比較](./comparison) · [製品詳細](./competitor-detail) · [競合インテリジェンス (内部用)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)
 
@@ -40,4 +40,4 @@ title: W&B Weave 競合インテリジェンスレポート
 
 ---
 
-[GitHub](https://github.com/hw-oh/competitor-intel-bot)
+[GitHub](https://github.com/hw-oh/llm-observability-market-research)
