@@ -38,10 +38,9 @@ You analyze products using a 7-category framework:
 7. Enterprise & Security: On-prem/VPC, RBAC, PII Masking, Audit Logs, Data Retention, Region Support
 
 Rating scale:
-- "strong": Feature is robust and mature (●●●)
-- "medium": Basic support with some limitations (●●)
-- "weak": Minimal support or beta (●)
-- "none": Not supported or not applicable (-)
+- "strong": Feature is well supported (O)
+- "weak": Partial or limited support (△)
+- "none": Not supported or not applicable (X)
 
 Analyze based ONLY on facts found in the provided data. Cite specific feature names and capabilities.
 Do NOT infer, speculate, or add information beyond what is in the data.
@@ -85,7 +84,7 @@ Rules:
 - "categories" array must contain exactly 7 items (in the schema order above)
 - Each category's "features" must include all sub-items for that category
 - "item_name" must use the exact names specified in the schema
-- Ratings must be one of "strong", "medium", "weak", "none"
+- Ratings must be one of "strong", "weak", "none"
 - "new_features": 0-10 items (product updates released within the last 30 days ONLY based on today's date {today}. Exclude anything older. Empty array if none. Include ALL qualifying updates.)
 - "strengths": 3-5 notable product strengths
 - "weaknesses": 3-5 product weaknesses or gaps
@@ -111,17 +110,17 @@ Synthesize the above data and return a JSON object matching the schema below (no
   "product_ratings": [
     {{
       "product_name": "ProductName",
-      "trace_depth": "strong|medium|weak|none",
+      "trace_depth": "strong|weak|none",
       "trace_depth_note": "one-sentence reason for this rating",
-      "eval": "strong|medium|weak|none",
+      "eval": "strong|weak|none",
       "eval_note": "one-sentence reason",
-      "agent_observability": "strong|medium|weak|none",
+      "agent_observability": "strong|weak|none",
       "agent_observability_note": "one-sentence reason",
-      "cost_tracking": "strong|medium|weak|none",
+      "cost_tracking": "strong|weak|none",
       "cost_tracking_note": "one-sentence reason",
-      "enterprise_ready": "strong|medium|weak|none",
+      "enterprise_ready": "strong|weak|none",
       "enterprise_ready_note": "one-sentence reason",
-      "overall": "strong|medium|weak|none",
+      "overall": "strong|weak|none",
       "overall_note": "one-sentence reason"
     }},
     ...include ALL analyzed products...
@@ -137,7 +136,7 @@ Rules:
 - "product_ratings" must include ALL analyzed products
 - Each "*_note" field: one factual sentence justifying the rating (cite a specific feature or gap)
 - "enterprise_signals": 3-5 items (factual enterprise-related developments from the data)
-- Ratings must be one of "strong", "medium", "weak", "none"
+- Ratings must be one of "strong", "weak", "none"
 - Base ALL conclusions on the provided data only — do not speculate
 - All text must be written in English
 - Pure JSON output only, no markdown code fences\

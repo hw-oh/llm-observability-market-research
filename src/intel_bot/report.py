@@ -13,10 +13,9 @@ from intel_bot.models import AnalysisRun, CompetitorAnalysis, DiscoveryResult
 REPORTS_DIR = Path("reports")
 
 RATING_SYMBOL = {
-    "strong": "●●●",
-    "medium": "●●○",
-    "weak": "●○○",
-    "none": "○○○",
+    "strong": "O",
+    "weak": "△",
+    "none": "X",
 }
 
 _CHANGELOG_URL_MAP: dict[str, str] = {
@@ -57,7 +56,7 @@ def generate_comparison_page(run: AnalysisRun) -> str:
         "# LLM Observability — Detailed Feature Comparison",
         f"**Date**: {run.date} | **Model**: {run.model}",
         "",
-        "> ●●●(Strong) / ●●○(Medium) / ●○○(Weak) / ○○○(None)",
+        "> O(Strong) / △(Weak) / X(None)",
         "",
     ]
 
@@ -106,14 +105,12 @@ def _avg_category_rating(comp: CompetitorAnalysis, cat_name: str) -> str:
     if not cat_data or not cat_data.features:
         return "none"
 
-    rating_score = {"strong": 3, "medium": 2, "weak": 1, "none": 0}
+    rating_score = {"strong": 2, "weak": 1, "none": 0}
     scores = [rating_score.get(f.rating, 0) for f in cat_data.features]
     avg = sum(scores) / len(scores) if scores else 0
 
-    if avg >= 2.5:
+    if avg >= 1.5:
         return "strong"
-    elif avg >= 1.5:
-        return "medium"
     elif avg >= 0.5:
         return "weak"
     return "none"
@@ -242,11 +239,7 @@ def generate_weekly_report(
                 field = _dimension_field(dim)
                 val = getattr(pr, field, "none")
                 symbol = _rating_to_symbol(val)
-                note = getattr(pr, f"{field}_note", "")
-                if note:
-                    cells.append(f'<span title="{note}">{symbol}</span>')
-                else:
-                    cells.append(symbol)
+                cells.append(f'<span title="{dim}">{symbol}</span>')
             lines.append(f"| **{pr.product_name}** | {' | '.join(cells)} |")
         lines.append("")
     else:
