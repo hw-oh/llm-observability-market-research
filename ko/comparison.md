@@ -1,87 +1,87 @@
 ---
 layout: default
-title: LLM 관측성(Observability) — 상세 기능 비교
+title: LLM Observability — 상세 기능 비교
 ---
 
-# LLM 관측성(Observability) — 상세 기능 비교
+# LLM Observability — 상세 기능 비교
 **날짜**: 2026-02-12 | **모델**: google/gemini-3-pro-preview
 
-> ●●●(강력) / ●●○(보통) / ●○○(약함) / ○○○(없음)
+> ●●●(강함) / ●●○(보통) / ●○○(약함) / ○○○(없음)
 
-## 핵심 관측성 (Core Observability)
+## 핵심 Observability
 
-| 기능 | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
-|---|---|---|---|---|---|---|
-| 트레이스 깊이 (Trace Depth) | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 계층적 스팬 (Hierarchical Spans) | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 프롬프트 로깅 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 응답 로깅 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 토큰 추적 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
-| 지연 시간 분석 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 리플레이 (Replay) | ●●● | ●●○ | ●●● | ●●○ | ●●● | ○○○ |
+| 기능 | 설명 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+|---|---|---|---|---|---|---|---|
+| Trace Depth | 중첩된 함수 호출 Tracing 깊이 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Hierarchical Spans | 부모-자식 Span 관계 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Prompt Logging | LLM Prompt 자동 캡처 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Response Logging | LLM 응답 자동 캡처 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Token Tracking | 입력/출력 토큰 사용량 집계 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Latency Analysis | Span별 및 엔드투엔드 지연 시간 측정 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Replay | Dashboard UI에서 단계별 Tracing 재생 | ●●○ | ●●● | ●●○ | ●●● | ●●○ | ●●● |
 
-## 에이전트 / RAG 관측성
+## Agent / RAG Observability
 
-| 기능 | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
-|---|---|---|---|---|---|---|
-| 도구 호출 추적 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 검색(Retrieval) 추적 | ●●● | ●●● | ●●○ | ●●● | ●●● | ●●● |
-| 메모리 추적 | ●●○ | ●●● | ●●○ | ●●○ | ●●○ | ○○○ |
-| 다단계 추론 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 워크플로우 그래프 | ●●● | ●●● | ●●● | ●●○ | ●●○ | ●●○ |
-| 실패 시각화 | ●●● | ●●○ | ●●● | ●●○ | ●●● | ●●○ |
+| 기능 | 설명 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+|---|---|---|---|---|---|---|---|
+| Tool Call Tracing | 도구/함수 호출 입력 및 출력 캡처 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Retrieval Tracing | Retriever 쿼리 및 반환된 문서 로깅 | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●● |
+| Memory Tracing | 대화형 메모리 읽기/쓰기 추적 | ●●○ | ●●○ | ●●● | ●●○ | ●●● | ●●○ |
+| Multi-step Reasoning | 멀티턴 에이전트 추론 체인 시각화 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Workflow Graph | 에이전트 워크플로우의 DAG 또는 그래프 뷰 | ●●○ | ●●● | ●●● | ●●○ | ●●○ | ●●○ |
+| Failure Visualization | Tracing 내 실패 단계 강조 표시 | ●●○ | ●●● | ●●○ | ●●● | ●●● | ●●● |
 
-## 평가 통합 (Evaluation Integration)
+## Evaluation 통합
 
-| 기능 | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
-|---|---|---|---|---|---|---|
-| 트레이스→데이터셋 변환 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| LLM-as-Judge | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 사용자 정의 평가 지표 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 성능 저하(Regression) 감지 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
-| 모델 비교 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 인간 피드백 UI | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| 기능 | 설명 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+|---|---|---|---|---|---|---|---|
+| Trace→Dataset | 프로덕션 Tracing을 Eval 데이터셋으로 변환 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| LLM-as-Judge | 내장된 LLM 기반 Eval Scoring | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Custom Eval Metrics | 사용자 정의 Eval 함수 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Regression Detection | 품질 저하(Regression) 자동 감지 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Model Comparison | 모델 출력 결과의 병렬 비교 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Human Feedback UI | 사람의 어노테이션 및 레이블링을 위한 UI | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
 
-## 모니터링 및 지표
+## 모니터링 및 지표 (Metrics)
 
-| 기능 | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
-|---|---|---|---|---|---|---|
-| 비용 대시보드 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 토큰 분석 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
-| 지연 시간 모니터링 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 오류 추적 | ●●● | ●●○ | ●●● | ●●● | ●●● | ●●○ |
-| 도구 성공률 | ●●○ | ●●○ | ●●○ | ●●● | ●●● | ○○○ |
-| 사용자 정의 지표 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| 기능 | 설명 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+|---|---|---|---|---|---|---|---|
+| Cost Dashboard | 실시간 LLM 비용 추적 Dashboard | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Token Analytics | 토큰 사용량 상세 분석 및 트렌드 | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Latency Monitoring | 지연 시간 백분위수 및 알림 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Error Tracking | 에러율 모니터링 및 알림 | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Tool Success Rate | 도구 호출 성공/실패율 | ●●○ | ●●○ | ●●● | ●●○ | ●●● | ●●● |
+| Custom Metrics | 사용자 정의 커스텀 지표 추적 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 
-## 실험 / 개선 루프
+## 실험 및 개선 루프
 
-| 기능 | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
-|---|---|---|---|---|---|---|
-| 프롬프트 버전 관리 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 모델 버전 관리 | ●●○ | ●●○ | ●●○ | ●●● | ●●○ | ●●● |
-| 실험 추적 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 데이터셋 버전 관리 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 지속적 평가 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| RL/미세 조정 연결 | ●●○ | ●●○ | ●○○ | ●●○ | ●●○ | ●●● |
+| 기능 | 설명 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+|---|---|---|---|---|---|---|---|
+| Prompt Versioning | 프롬프트 템플릿 버전 관리 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Model Versioning | 모델 버전 및 설정 추적 | ●●● | ●●○ | ●●○ | ●●● | ●●● | ●●● |
+| Experiment Tracking | A/B 테스트 및 실험 관리 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Dataset Versioning | Eval 및 학습 데이터셋 버전 관리 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Continuous Eval | 예약 또는 트리거 기반 Eval 실행 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| RL/Fine-tuning Link | Fine-tuning 파이프라인과의 연동 | ●●● | ●●○ | ●●○ | ●○○ | ●●○ | ●○○ |
 
-## 개발자 경험(DevEx) / 통합
+## DevEx / 통합
 
-| 기능 | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
-|---|---|---|---|---|---|---|
-| SDK 지원 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 프레임워크 통합 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 커스텀 모델 지원 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| API 액세스 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 스트리밍 트레이싱 | ●●● | ●●○ | ●●● | ●●● | ●●● | ○○○ |
-| CLI/인프라 통합 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| 기능 | 설명 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+|---|---|---|---|---|---|---|---|
+| SDK 지원 | Python, JS/TS 등 공식 SDK 지원 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Framework 통합 | LangChain, LlamaIndex 등 내장 지원 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Custom Model 지원 | 비표준 또는 자체 호스팅 모델 Tracing | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| API Access | 프로그래밍 방식 접근을 위한 REST 또는 GraphQL API | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Streaming Tracing | Streaming LLM 응답 Tracing | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
+| CLI/Infra 통합 | CLI 도구 및 Infrastructure-as-code 지원 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 
 ## 엔터프라이즈 및 보안
 
-| 기능 | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix | W&B Weave |
-|---|---|---|---|---|---|---|
-| 온프레미스/VPC | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| 역할 기반 접근 제어(RBAC) | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
-| PII 마스킹 | ●●○ | ●●● | ●●○ | ●●○ | ○○○ | ○○○ |
-| 감사 로그 (Audit Logs) | ●●● | ●●● | ●●○ | ●●○ | ●●○ | ○○○ |
-| 데이터 보존 정책 | ●●● | ●●● | ●●● | ●●○ | ●●● | ○○○ |
-| 리전 지원 | ●●● | ●●○ | ●●○ | ●●● | ●●○ | ○○○ |
+| 기능 | 설명 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+|---|---|---|---|---|---|---|---|
+| On-prem/VPC | 자체 호스팅 또는 VPC 배포 옵션 | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| RBAC | 역할 기반 액세스 제어 | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
+| PII Masking | 개인정보(PII) 자동 감지 및 마스킹 | ○○○ | ●●○ | ●●● | ●●○ | ●●○ | ○○○ |
+| Audit Logs | 사용자 및 시스템 작업 감사 로그 | ○○○ | ●●● | ●●● | ●●○ | ●●○ | ○○○ |
+| Data Retention | 구성 가능한 데이터 보관 정책 | ●●○ | ●●● | ●●● | ●●● | ●●○ | ●●● |
+| Region 지원 | 멀티 리전 또는 데이터 레지던시 지원 | ●○○ | ●●● | ●●● | ●●○ | ●●● | ●●○ |
