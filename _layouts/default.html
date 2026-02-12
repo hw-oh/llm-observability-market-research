@@ -20,7 +20,7 @@
       <h2 class="project-tagline">{{ page.description | default: site.description | default: site.github.project_tagline }}</h2>
 
       <nav class="header-nav">
-        <a href="{{ '/' | relative_url }}" class="btn">Latest Report</a>
+        <a href="{{ site.data.latest.report_url | relative_url }}" class="btn">Latest Report</a>
         <a href="{{ '/comparison' | relative_url }}" class="btn">Detailed Comparison</a>
         <a href="{{ '/competitor-detail' | relative_url }}" class="btn">Product Detail</a>
         <a href="https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit" class="btn">CI Slide (Internal)</a>

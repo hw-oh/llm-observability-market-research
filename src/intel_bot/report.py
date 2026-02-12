@@ -473,6 +473,13 @@ def save_report(
     detail_content = generate_competitor_detail_page(run)
     detail_path.write_text(detail_content, encoding="utf-8")
 
+    # Update _data/latest.yml for Jekyll nav
+    data_dir = Path("_data")
+    data_dir.mkdir(exist_ok=True)
+    (data_dir / "latest.yml").write_text(
+        f"report_url: /reports/{run.date}\n", encoding="utf-8"
+    )
+
     return weekly_path, comparison_path, detail_path
 
 
