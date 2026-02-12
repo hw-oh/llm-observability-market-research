@@ -20,7 +20,8 @@ from intel_bot.config import BEAMER_APP_ID, COMPETITORS, WEAVE_CONFIG, Settings
 from intel_bot.discovery import discover
 from intel_bot.models import CollectionRun, CompetitorData
 from intel_bot.notify import send_slack_notification
-from intel_bot.report import save_report, update_index
+from intel_bot.report import generate_weekly_report, save_report, update_index
+from intel_bot.translator import translate_content
 from intel_bot.translator import translate_all_reports
 from intel_bot.storage import (
     load_latest_analysis,
@@ -299,6 +300,63 @@ def run() -> None:
             console.print(f"[yellow]Slack 알림 실패: {exc}")
 
 
+def preview() -> None:
+    """Analyze + generate Korean preview from existing collection data."""
+    settings = Settings()
+    collection = load_latest_collection()
+    if collection is None:
+        console.print("[red]수집 데이터가 없습니다. 먼저 'collect'를 실행하세요.")
+        sys.exit(1)
+
+    console.print(f"{collection.date} 수집 데이터로 프리뷰 생성 중...")
+    console.print()
+
+    tasks: dict[str, int] = {}
+
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        console=console,
+    ) as progress:
+        # Analyze
+        def on_progress(name: str, status: str) -> None:
+            if status == "analyzing":
+                tasks[name] = progress.add_task(f"{name} 분석 중...", total=None)
+            elif status == "done" and name in tasks:
+                progress.update(tasks[name], description=f"[green]  {name}: 완료")
+                progress.remove_task(tasks[name])
+
+        analysis = analyze_all(collection, settings, on_progress=on_progress)
+
+        # Generate English weekly report
+        task = progress.add_task("리포트 생성 중...", total=None)
+        english_content = generate_weekly_report(analysis)
+        progress.update(task, description="[green]영어 리포트 완료")
+        progress.remove_task(task)
+
+        # Translate to Korean
+        task = progress.add_task("한국어 번역 중...", total=None)
+        from openai import OpenAI
+
+        client = OpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=settings.openrouter_api_key,
+        )
+        korean_content = translate_content(
+            client, settings.translation_model, english_content, "ko"
+        )
+        progress.update(task, description="[green]한국어 번역 완료")
+        progress.remove_task(task)
+
+    preview_path = Path("preview.md")
+    preview_path.write_text(korean_content, encoding="utf-8")
+
+    console.print()
+    console.print(f"[bold green]프리뷰 저장: {preview_path}")
+    console.print(f"  경쟁사: {len(analysis.competitors)}개")
+    console.print(f"  카테고리: {len(analysis.competitors[0].categories) if analysis.competitors else 0}개")
+
+
 def main() -> None:
     if os.environ.get("WANDB_API_KEY"):
         weave.init("llm-observability-market-research")
@@ -315,7 +373,18 @@ def main() -> None:
         discover_cmd()
     elif args[0] == "run":
         run()
+    elif args[0] == "preview":
+        preview()
+    elif args[0] == "publish-prompts":
+        from intel_bot.prompts import publish_prompts
+        if not os.environ.get("WANDB_API_KEY"):
+            console.print("[red]WANDB_API_KEY가 필요합니다.")
+            sys.exit(1)
+        if weave.get_client() is None:
+            weave.init("llm-observability-market-research")
+        publish_prompts()
+        console.print("[bold green]프롬프트 발행 완료")
     else:
         console.print(f"[red]알 수 없는 명령: {args[0]}")
-        console.print("사용법: python -m intel_bot [collect|analyze|report|discover|run]")
+        console.print("사용법: python -m intel_bot [collect|analyze|report|discover|run|preview|publish-prompts]")
         sys.exit(1)

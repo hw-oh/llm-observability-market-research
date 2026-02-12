@@ -23,13 +23,6 @@ _CHANGELOG_URL_MAP: dict[str, str] = {
     c.name: c.changelog_link for c in [*COMPETITORS, WEAVE_CONFIG] if c.changelog_link
 }
 
-COMPARISON_LABEL = {
-    "stronger": "Competitor Leads",
-    "comparable": "Comparable",
-    "weaker": "Weave Leads",
-    "unknown": "Insufficient Data",
-}
-
 
 def _rating_to_symbol(rating: str) -> str:
     return RATING_SYMBOL.get(rating, "-")
@@ -53,34 +46,32 @@ def _dimension_field(dim: str) -> str:
 # ---------------------------------------------------------------------------
 
 def generate_comparison_page(run: AnalysisRun) -> str:
+    product_names = [c.competitor_name for c in run.competitors]
+
     lines = [
         "---",
         "layout: default",
-        "title: W&B Weave — Detailed Feature Comparison",
+        "title: LLM Observability — Detailed Feature Comparison",
         "---",
         "",
-        "# W&B Weave — Detailed Feature Comparison",
+        "# LLM Observability — Detailed Feature Comparison",
         f"**Date**: {run.date} | **Model**: {run.model}",
         "",
         "> ●●●(Strong) / ●●○(Medium) / ●○○(Weak) / ○○○(None)",
         "",
     ]
 
-    competitor_names = [c.competitor_name for c in run.competitors]
-
     for cat_def in COMPARISON_CATEGORIES:
         lines.append(f"## {cat_def.name}")
         lines.append("")
 
-        header = f"| Feature | **Weave** | {' | '.join(competitor_names)} |"
-        separator = "|---|---|" + "---|" * len(competitor_names)
+        header = f"| Feature | {' | '.join(product_names)} |"
+        separator = "|---|" + "---|" * len(product_names)
         lines.append(header)
         lines.append(separator)
 
         for item_name in cat_def.items:
-            weave_rating = "none"
-            comp_ratings: dict[str, str] = {}
-
+            ratings: dict[str, str] = {}
             for comp in run.competitors:
                 cat_data = next(
                     (c for c in comp.categories if c.category_name == cat_def.name),
@@ -92,18 +83,10 @@ def generate_comparison_page(run: AnalysisRun) -> str:
                     (f for f in cat_data.features if f.item_name == item_name),
                     None,
                 )
-                if not feat:
-                    continue
+                if feat:
+                    ratings[comp.competitor_name] = feat.rating
 
-                if weave_rating == "none" and feat.weave_rating != "none":
-                    weave_rating = feat.weave_rating
-                comp_ratings[comp.competitor_name] = feat.competitor_rating
-
-            weave_cell = _rating_to_symbol(weave_rating)
-            cells = [weave_cell]
-            for cname in competitor_names:
-                cells.append(_rating_to_symbol(comp_ratings.get(cname, "none")))
-
+            cells = [_rating_to_symbol(ratings.get(name, "none")) for name in product_names]
             lines.append(f"| {item_name} | {' | '.join(cells)} |")
 
         lines.append("")
@@ -115,114 +98,47 @@ def generate_comparison_page(run: AnalysisRun) -> str:
 # Output 2: competitor-detail.md -> product detail (제품 상세분석)
 # ---------------------------------------------------------------------------
 
-def _judge_category(comp: CompetitorAnalysis, cat_name: str) -> str:
-    """Determine overall verdict for a category based on feature ratings."""
+def _avg_category_rating(comp: CompetitorAnalysis, cat_name: str) -> str:
+    """Calculate average rating for a category."""
     cat_data = next(
         (c for c in comp.categories if c.category_name == cat_name), None
     )
     if not cat_data or not cat_data.features:
-        return "unknown"
+        return "none"
 
     rating_score = {"strong": 3, "medium": 2, "weak": 1, "none": 0}
-    weave_total = sum(rating_score.get(f.weave_rating, 0) for f in cat_data.features)
-    comp_total = sum(rating_score.get(f.competitor_rating, 0) for f in cat_data.features)
+    scores = [rating_score.get(f.rating, 0) for f in cat_data.features]
+    avg = sum(scores) / len(scores) if scores else 0
 
-    if comp_total > weave_total + 1:
-        return "stronger"
-    elif weave_total > comp_total + 1:
-        return "weaker"
-    elif weave_total == 0 and comp_total == 0:
-        return "unknown"
-    else:
-        return "comparable"
-
-
-def _build_weave_detail(run: AnalysisRun) -> str:
-    """Build Weave product detail section from synthesis data."""
-    synthesis = run.synthesis
-    lines = [
-        "### Weave",
-        "",
-    ]
-
-    if synthesis:
-        lines.append(f"**Overview**: {synthesis.weave_summary}")
-        lines.append("")
-        lines.append("**Key Strengths**:")
-        for s in synthesis.weave_strengths:
-            lines.append(f"- {s}")
-        lines.append("")
-        lines.append("**Areas for Improvement**:")
-        for w in synthesis.weave_weaknesses:
-            lines.append(f"- {w}")
-        lines.append("")
-        lines.append("**Recent Updates**:")
-        if synthesis.weave_new_features:
-            for nf in synthesis.weave_new_features:
-                lines.append(f"- {nf.feature_name}: {nf.description} ({nf.release_date})")
-        else:
-            lines.append("- *No updates reported*")
-    else:
-        lines.append("*No synthesis data available*")
-
-    # Weave category ratings aggregated from competitor analyses
-    lines.append("")
-    lines.append("| Category | Rating | Note |")
-    lines.append("|---|---|---|")
-
-    for cat_def in COMPARISON_CATEGORIES:
-        # Aggregate Weave ratings across all competitor analyses
-        rating_score = {"strong": 3, "medium": 2, "weak": 1, "none": 0}
-        scores = []
-        for comp in run.competitors:
-            cat_data = next(
-                (c for c in comp.categories if c.category_name == cat_def.name), None
-            )
-            if not cat_data:
-                continue
-            cat_scores = [rating_score.get(f.weave_rating, 0) for f in cat_data.features]
-            if cat_scores:
-                scores.append(sum(cat_scores) / len(cat_scores))
-
-        if scores:
-            avg = sum(scores) / len(scores)
-            if avg >= 2.5:
-                rating = "strong"
-            elif avg >= 1.5:
-                rating = "medium"
-            elif avg >= 0.5:
-                rating = "weak"
-            else:
-                rating = "none"
-        else:
-            rating = "none"
-
-        symbol = _rating_to_symbol(rating)
-        lines.append(f"| {cat_def.name} | {symbol} | |")
-
-    return "\n".join(lines) + "\n"
+    if avg >= 2.5:
+        return "strong"
+    elif avg >= 1.5:
+        return "medium"
+    elif avg >= 0.5:
+        return "weak"
+    return "none"
 
 
-def _build_competitor_detail(comp: CompetitorAnalysis) -> str:
+def _build_product_detail(comp: CompetitorAnalysis) -> str:
     lines = [
         f"### {comp.competitor_name}",
         "",
         f"**Overview**: {comp.overall_summary}",
         "",
-        "**Strengths vs Weave**:",
+        "**Strengths**:",
     ]
 
-    if comp.strengths_vs_weave:
-        for s in comp.strengths_vs_weave:
+    if comp.strengths:
+        for s in comp.strengths:
             lines.append(f"- {s}")
     else:
         lines.append("- *No data reported*")
 
     lines.append("")
-    lines.append("**Weaknesses vs Weave**:")
+    lines.append("**Weaknesses**:")
 
-    if comp.weaknesses_vs_weave:
-        for w in comp.weaknesses_vs_weave:
+    if comp.weaknesses:
+        for w in comp.weaknesses:
             lines.append(f"- {w}")
     else:
         lines.append("- *No data reported*")
@@ -234,22 +150,22 @@ def _build_competitor_detail(comp: CompetitorAnalysis) -> str:
         for nf in comp.new_features:
             lines.append(f"- {nf.feature_name}: {nf.description} ({nf.release_date})")
     else:
-        lines.append("- *No data reported*")
+        lines.append("- *No updates reported*")
 
     lines.append("")
-    lines.append("| Category | Verdict | Summary |")
+    lines.append("| Category | Rating | Summary |")
     lines.append("|---|---|---|")
 
     for cat_def in COMPARISON_CATEGORIES:
         cat_data = next(
             (c for c in comp.categories if c.category_name == cat_def.name), None
         )
-        verdict_key = _judge_category(comp, cat_def.name)
-        verdict = COMPARISON_LABEL.get(verdict_key, COMPARISON_LABEL["unknown"])
+        rating = _avg_category_rating(comp, cat_def.name)
+        symbol = _rating_to_symbol(rating)
         summary = ""
         if cat_data:
             summary = cat_data.summary.replace("|", "\\|").replace("\n", " ")
-        lines.append(f"| {cat_def.name} | {verdict} | {summary} |")
+        lines.append(f"| {cat_def.name} | {symbol} | {summary} |")
 
     return "\n".join(lines) + "\n"
 
@@ -258,23 +174,16 @@ def generate_competitor_detail_page(run: AnalysisRun) -> str:
     lines = [
         "---",
         "layout: default",
-        "title: W&B Weave — Product Detail",
+        "title: LLM Observability — Product Detail",
         "---",
         "",
-        "# W&B Weave — Product Detail",
+        "# LLM Observability — Product Detail",
         f"**Date**: {run.date} | **Model**: {run.model}",
         "",
     ]
 
-    # Weave first
-    lines.append(_build_weave_detail(run))
-    lines.append("")
-    lines.append("---")
-    lines.append("")
-
-    # Then competitors
     for comp in run.competitors:
-        lines.append(_build_competitor_detail(comp))
+        lines.append(_build_product_detail(comp))
         lines.append("")
         lines.append("---")
         lines.append("")
@@ -309,19 +218,12 @@ def generate_weekly_report(
         for bullet in synthesis.executive_summary:
             lines.append(f"- {bullet}")
         lines.append("")
-        lines.append(f"> **One-Line Verdict**: {synthesis.one_line_verdict}")
-        lines.append("")
-
-        # Weave Strengths & Weaknesses sub-section
-        lines.append("### Weave Key Strengths")
-        lines.append("")
-        for s in synthesis.weave_strengths:
-            lines.append(f"- {s}")
-        lines.append("")
-        lines.append("### Weave Areas for Improvement")
-        lines.append("")
-        for w in synthesis.weave_weaknesses:
-            lines.append(f"- {w}")
+        if synthesis.market_insights:
+            lines.append("**Market Insight by AI**:")
+            lines.append("")
+            for mi in synthesis.market_insights:
+                lines.append(f"> {mi}")
+            lines.append("")
     else:
         lines.append("- *No synthesis data available*")
     lines.append("")
@@ -351,18 +253,6 @@ def generate_weekly_report(
     lines.append("")
     has_any_features = False
 
-    # Weave features first
-    if synthesis and synthesis.weave_new_features:
-        has_any_features = True
-        weave_cl = _CHANGELOG_URL_MAP.get("W&B Weave")
-        lines.append(f"### [Weave]({weave_cl})" if weave_cl else "### Weave")
-        for nf in synthesis.weave_new_features:
-            lines.append(
-                f"- **{nf.feature_name}**: {nf.description} ({nf.release_date}, {nf.category})"
-            )
-        lines.append("")
-
-    # Competitor features
     for comp in run.competitors:
         if comp.new_features:
             has_any_features = True
@@ -380,20 +270,11 @@ def generate_weekly_report(
         lines.append("*No new features in the last 30 days*")
         lines.append("")
 
-    # Section 4: Positioning Shift (including Weave)
+    # Section 4: Positioning Shift
     lines.append("## 4. Positioning Shift")
     lines.append("")
-    lines.append("| Vendor | Current | Moving Toward | Signal |")
+    lines.append("| Product | Current | Moving Toward | Signal |")
     lines.append("|---|---|---|---|")
-
-    # Weave first
-    if synthesis:
-        wp = synthesis.weave_positioning
-        lines.append(
-            f"| **Weave** | {wp.current_position.replace('|', '\\|')} "
-            f"| {wp.moving_toward.replace('|', '\\|')} "
-            f"| {wp.signal.replace('|', '\\|')} |"
-        )
 
     for comp in run.competitors:
         pos = comp.positioning
@@ -513,7 +394,11 @@ def update_index(index_path: str = "index.md", analysis: AnalysisRun | None = No
             for bullet in analysis.synthesis.executive_summary:
                 latest_parts.append(f"- {bullet}")
             latest_parts.append("")
-            latest_parts.append(f"> {analysis.synthesis.one_line_verdict}")
+            if analysis.synthesis.market_insights:
+                latest_parts.append("**Market Insight by AI**:")
+                latest_parts.append("")
+                for mi in analysis.synthesis.market_insights:
+                    latest_parts.append(f"> {mi}")
             latest_parts.append("")
         latest_content = "\n".join(latest_parts) + "\n"
     else:
