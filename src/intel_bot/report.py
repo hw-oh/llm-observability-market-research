@@ -14,7 +14,7 @@ REPORTS_DIR = Path("reports")
 
 RATING_SYMBOL = {
     "strong": "O",
-    "weak": "△",
+    "medium": "△",
     "none": "X",
 }
 
@@ -105,14 +105,14 @@ def _avg_category_rating(comp: CompetitorAnalysis, cat_name: str) -> str:
     if not cat_data or not cat_data.features:
         return "none"
 
-    rating_score = {"strong": 2, "weak": 1, "none": 0}
+    rating_score = {"strong": 2, "medium": 1, "none": 0}
     scores = [rating_score.get(f.rating, 0) for f in cat_data.features]
     avg = sum(scores) / len(scores) if scores else 0
 
     if avg >= 1.5:
         return "strong"
     elif avg >= 0.5:
-        return "weak"
+        return "medium"
     return "none"
 
 

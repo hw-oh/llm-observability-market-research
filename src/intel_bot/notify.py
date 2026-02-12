@@ -11,7 +11,7 @@ console = Console()
 
 RATING_EMOJI = {
     "strong": ":large_green_circle:",
-    "weak": ":large_yellow_circle:",
+    "medium": ":large_yellow_circle:",
     "none": ":white_circle:",
 }
 

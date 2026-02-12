@@ -38,8 +38,8 @@ You analyze products using a 7-category framework:
 7. Enterprise & Security: On-prem/VPC, RBAC, PII Masking, Audit Logs, Data Retention, Region Support
 
 Rating scale:
-- "strong": Feature is well supported (O)
-- "weak": Partial or limited support (△)
+- "strong": Well supported with meaningful functionality (O)
+- "medium": Supported but with notable limitations or gaps (△)
 - "none": Not supported or not applicable (X)
 
 Analyze based ONLY on facts found in the provided data. Cite specific feature names and capabilities.
@@ -84,7 +84,7 @@ Rules:
 - "categories" array must contain exactly 7 items (in the schema order above)
 - Each category's "features" must include all sub-items for that category
 - "item_name" must use the exact names specified in the schema
-- Ratings must be one of "strong", "weak", "none"
+- Ratings must be one of "strong", "medium", "none"
 - "new_features": 0-10 items (product updates released within the last 30 days ONLY based on today's date {today}. Exclude anything older. Empty array if none. Include ALL qualifying updates.)
 - "strengths": 3-5 notable product strengths
 - "weaknesses": 3-5 product weaknesses or gaps
@@ -136,7 +136,7 @@ Rules:
 - "product_ratings" must include ALL analyzed products
 - Each "*_note" field: one factual sentence justifying the rating (cite a specific feature or gap)
 - "enterprise_signals": 3-5 items (factual enterprise-related developments from the data)
-- Ratings must be one of "strong", "weak", "none"
+- Ratings must be one of "strong", "medium", "none"
 - Base ALL conclusions on the provided data only — do not speculate
 - All text must be written in English
 - Pure JSON output only, no markdown code fences\

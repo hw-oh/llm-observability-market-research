@@ -408,33 +408,43 @@ def preview() -> None:
 
 
 def main() -> None:
+    import wandb as _wandb
+
     if os.environ.get("WANDB_API_KEY"):
+        today = date.today().isoformat()
+        _wandb.init(
+            entity="wandb-smle",
+            project="llm-observability-market-research",
+            name=f"report-{today}",
+        )
         weave.init("wandb-smle/llm-observability-market-research")
 
-    args = sys.argv[1:]
+    try:
+        args = sys.argv[1:]
 
-    if not args or args[0] == "collect":
-        collect()
-    elif args[0] == "analyze":
-        analyze()
-    elif args[0] == "report":
-        report()
-    elif args[0] == "discover":
-        discover_cmd()
-    elif args[0] == "run":
-        run()
-    elif args[0] == "preview":
-        preview()
-    elif args[0] == "publish-prompts":
-        from intel_bot.prompts import publish_prompts
-        if not os.environ.get("WANDB_API_KEY"):
-            console.print("[red]WANDB_API_KEY가 필요합니다.")
+        if not args or args[0] == "collect":
+            collect()
+        elif args[0] == "analyze":
+            analyze()
+        elif args[0] == "report":
+            report()
+        elif args[0] == "discover":
+            discover_cmd()
+        elif args[0] == "run":
+            run()
+        elif args[0] == "preview":
+            preview()
+        elif args[0] == "publish-prompts":
+            from intel_bot.prompts import publish_prompts
+            if not os.environ.get("WANDB_API_KEY"):
+                console.print("[red]WANDB_API_KEY가 필요합니다.")
+                sys.exit(1)
+            publish_prompts()
+            console.print("[bold green]프롬프트 발행 완료")
+        else:
+            console.print(f"[red]알 수 없는 명령: {args[0]}")
+            console.print("사용법: python -m intel_bot [collect|analyze|report|discover|run|preview|publish-prompts]")
             sys.exit(1)
-        if weave.get_client() is None:
-            weave.init("wandb-smle/llm-observability-market-research")
-        publish_prompts()
-        console.print("[bold green]프롬프트 발행 완료")
-    else:
-        console.print(f"[red]알 수 없는 명령: {args[0]}")
-        console.print("사용법: python -m intel_bot [collect|analyze|report|discover|run|preview|publish-prompts]")
-        sys.exit(1)
+    finally:
+        if _wandb.run is not None:
+            _wandb.finish()

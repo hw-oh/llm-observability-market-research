@@ -5,7 +5,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-Rating = Literal["strong", "weak", "none"]
+Rating = Literal["strong", "medium", "none"]
 
 
 class SearchResult(BaseModel):
