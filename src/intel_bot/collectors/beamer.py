@@ -3,7 +3,6 @@ from __future__ import annotations
 import re
 
 import httpx
-import weave
 from bs4 import BeautifulSoup, Tag
 
 from intel_bot.models import FeedEntry
@@ -76,7 +75,6 @@ def _parse_entries(html: str, category_filter: str = "weave") -> list[FeedEntry]
     return entries
 
 
-@weave.op()
 async def fetch_beamer_changelog(
     app_id: str,
     category_filter: str = "weave",

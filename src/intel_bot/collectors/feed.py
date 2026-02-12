@@ -3,7 +3,6 @@ from __future__ import annotations
 from time import struct_time
 
 import feedparser
-import weave
 
 from intel_bot.config import CompetitorConfig
 from intel_bot.models import FeedEntry
@@ -17,7 +16,6 @@ def _format_date(t: struct_time | None) -> str | None:
     return f"{t.tm_year:04d}-{t.tm_mon:02d}-{t.tm_mday:02d}"
 
 
-@weave.op()
 def fetch_github_releases(repo: str) -> list[FeedEntry]:
     url = f"https://github.com/{repo}/releases.atom"
     feed = feedparser.parse(url)
@@ -36,7 +34,6 @@ def fetch_github_releases(repo: str) -> list[FeedEntry]:
     return entries
 
 
-@weave.op()
 def fetch_pypi_releases(package: str) -> list[FeedEntry]:
     url = f"https://pypi.org/rss/project/{package}/releases.xml"
     feed = feedparser.parse(url)
@@ -59,7 +56,6 @@ def _is_rss_url(url: str) -> bool:
     return url.endswith((".rss", ".xml", ".atom"))
 
 
-@weave.op()
 def fetch_changelog_rss(url: str) -> list[FeedEntry]:
     feed = feedparser.parse(url)
 
