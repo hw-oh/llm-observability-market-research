@@ -39,7 +39,7 @@ def _build_categories_schema() -> str:
         features = []
         for item_name, _ in cat.items:
             features.append(
-                f'        {{"item_name": "{item_name}", "rating": "strong|weak|none", "note": "brief note"}}'
+                f'        {{"item_name": "{item_name}", "rating": "strong|medium|none", "note": "brief note"}}'
             )
         features_str = ",\n".join(features)
         categories.append(

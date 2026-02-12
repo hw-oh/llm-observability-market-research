@@ -110,17 +110,17 @@ Synthesize the above data and return a JSON object matching the schema below (no
   "product_ratings": [
     {{
       "product_name": "ProductName",
-      "trace_depth": "strong|weak|none",
+      "trace_depth": "strong|medium|none",
       "trace_depth_note": "one-sentence reason for this rating",
-      "eval": "strong|weak|none",
+      "eval": "strong|medium|none",
       "eval_note": "one-sentence reason",
-      "agent_observability": "strong|weak|none",
+      "agent_observability": "strong|medium|none",
       "agent_observability_note": "one-sentence reason",
-      "cost_tracking": "strong|weak|none",
+      "cost_tracking": "strong|medium|none",
       "cost_tracking_note": "one-sentence reason",
-      "enterprise_ready": "strong|weak|none",
+      "enterprise_ready": "strong|medium|none",
       "enterprise_ready_note": "one-sentence reason",
-      "overall": "strong|weak|none",
+      "overall": "strong|medium|none",
       "overall_note": "one-sentence reason"
     }},
     ...include ALL analyzed products...
