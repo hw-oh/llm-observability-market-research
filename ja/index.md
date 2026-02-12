@@ -10,18 +10,19 @@ title: LLM Observability 市場調査
 [📋 最新レポート (2026-02-12)](./reports/2026-02-12.md)
 
 
-- LangSmith は、オンプレミス要件をサポートする Self-Hosted v0.13 をリリースし、自動回帰検知のためのペアワイズ・アノテーションキューを導入しました。
-- MLflow は、マルチワークスペース組織サポートによりエンタープライズ機能セットを拡張し、ビジュアル Judge Builder と MemAlign オプティマイザを追加しました。
-- Langfuse は、コンプライアンス監視を強化するために Organization Audit Log Viewer をリリースし、バッチデータセット実行向けのマネージド LLM-as-a-judge 機能を有効にしました。
-- W&B Weave は、マルチモーダルな LLM-as-a-judge ワークフローをサポートするために、ダイナミックリーダーボードと新しいオーディオモニターをデプロイしました。
-- Braintrust は、Temporal ワークフローと、トレースレベルの Scoring を備えた深い階層構造の Tracing をサポートすることで、コードファーストのポジショニングを固めました。
-- Arize Phoenix は、エージェントシステムにおけるツール選択の正確性とパラメータ呼び出しを判定するために特別に設計された、専用の Eval 機能を導入しました。
+- MLflow は、サービス間コンテキスト伝播のための分散 Tracing 機能と、Eval 設定を簡素化するビジュアルな Judge Builder UI をリリースしました。
+- LangSmith は、プラットフォームをセルフホスト版 v0.13 にアップデートし、LangGraph との深い統合を通じてエージェントの可視性を強化しました。
+- W&B Weave は、マルチモーダル Eval のための Audio Monitors と、コストとパフォーマンスのメトリクスを視覚化する Dynamic Leaderboards を導入しました。
+- Braintrust は、長時間実行されるワークフローを Tracing するための Temporal との統合を追加し、Trace 内のメディア添付ファイルのレンダリングを可能にしました。
+- Langfuse は、エンタープライズガバナンスのための Organization Audit Log Viewer をローンチし、reasoning/thinking ステップの専用レンダリングサポートを追加しました。
+- Arize Phoenix は、自動化されたサーバーサイド実験のための Dataset Evaluators と、Tool Selection の信頼性を評価するための専門的な Evaluator をリリースしました。
+- MLflow は、レイテンシとツールの効率を監視するための専用の Agent Performance Dashboard をデプロイし、Langfuse は詳細なツールコールフィルタリングを追加しました。
 
 **AI による市場インサイト**:
 
-> LangSmith と Langfuse は、エージェントの推論のための専用ワークフローグラフ可視化機能を提供開始しました。これは、メモリや状態グラフの専用ビューを欠いている Weave の現在のエージェント Observability ツールキットにおけるギャップを浮き彫りにしています。
-> LangSmith の v0.13 セルフホスト版のリリースと Langfuse の Audit Log Viewer は、エンタープライズコンプライアンスのための PII マスキングおよび監査機能の公開ドキュメント化において、Weave への圧力を強めています。
-> MLflow の新しいビジュアル Judge Builder と MemAlign オプティマイザは、Weave のコード中心の Eval ワークフローに対してローコードの代替案を提供することで、Eval 統合における Weave の優位性に挑戦しています。
+> MLflow のビジュアルな Judge Builder と Arize Phoenix の Dataset Evaluators は、自動化されたメトリクスの設定を簡素化することで、Weave の Eval における差別化を脅かしています。
+> LangSmith の LangGraph 可視化と Langfuse の reasoning ステップのレンダリングは、Weave のエージェントワークフローの Tracing およびツールコール分析と直接競合しています。
+> Langfuse の Audit Log Viewer と LangSmith のセルフホスト v0.13 は、Weave の現在の RBAC およびデプロイ仕様を超える、厳格なエンタープライズガバナンスへの市場のシフトを強調しています。
 
 
 <!-- LATEST_REPORT_END -->
