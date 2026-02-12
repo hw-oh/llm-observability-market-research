@@ -3,26 +3,22 @@ layout: default
 title: LLM Observability Market Research
 ---
 
-# LLM Observability Market Research
-
-[Detailed Comparison](./comparison) · [Product Detail](./competitor-detail) · [Competitive Intelligence (Internal)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)
-
-## Latest Report
+## Executive Summary
 
 <!-- LATEST_REPORT_START -->
 
-[📋 Latest Report (2026-02-11)](./reports/2026-02-11.md)
+[📋 Latest Report (2026-02-12)](./reports/2026-02-12.md)
 
 
-- Weave established a first-mover advantage in multimodal observability with the Feb 1 release of Audio Monitors, leaving text-centric competitors like LangSmith and MLflow behind in the rapidly growing voice agent sector.
-- LangSmith is aggressively pivoting from pure observability to infrastructure lock-in via LangGraph Cloud, threatening to displace Weave by owning the deployment layer rather than just the trace layer.
-- MLflow 3.9's release of 'Judge Builder' and 'MemAlign' directly commoditizes our evaluation workflows, offering enterprises automated QA that reduces reliance on the manual inspection tools Weave prioritizes.
-- Weave's lack of mature 'Annotation Queues' remains a critical sales blocker against LangSmith and Langfuse, who have standardized workflows for large-scale human-in-the-loop labeling teams.
-- Braintrust has outflanked our developer experience strategy by shipping a native Cursor IDE integration, capturing the 'inner loop' workflow before developers even reach the Weave dashboard.
-- The integration of Serverless LoRA Inference into the Weave Playground (Jan 16) creates a unique 'Training-to-Inference' flywheel that standalone players like Arize Phoenix and Braintrust cannot technically replicate.
-- Action Required: Product must prioritize OpenTelemetry (OTel) compatibility in Q2, as MLflow and Arize Phoenix are winning enterprise architecture reviews by positioning their 'native OTel' support as the safer, vendor-neutral choice.
+- Weave established a first-mover advantage in voice agent observability with the Feb 1 release of Audio Monitors, outpacing text-centric competitors like Langfuse and Arize Phoenix in the race for multimodal evaluation.
+- Braintrust is aggressively targeting legacy enterprise stacks by adding Java, Go, and C# SDKs, creating a significant barrier to entry for Weave in non-Python/TS environments.
+- Weave's 'Data Flywheel' differentiation is strengthening: the ability to hot-swap Custom LoRAs in the Playground (Jan 16) offers an experimentation loop that MLflow and LangSmith cannot replicate without a native training registry.
+- Governance pressure is mounting: MLflow's release of 'Organization Support' (Feb 2026) sets a new baseline for multi-team tenancy that Weave must match to secure large-scale platform deals.
+- Weave remains vulnerable in the control plane: the continued lack of a native AI Proxy for caching and rate-limiting allows Braintrust to win architectural decisions where production cost-control is the primary KPI.
+- The launch of Dynamic Leaderboards (Jan 29) successfully removes manual friction in evaluation reporting, neutralizing a usability advantage previously held by LangSmith's ranking views.
+- Strategic Watch: Engineering must prioritize 'Automated Judge Optimization' features; MLflow's new 'Judge Builder' automates evaluation tuning, threatening to make Weave's manual judge setup appear outdated.
 
-> Weave holds a distinct technical lead in multimodal and training-integrated workflows, but faces an existential threat from LangSmith's infrastructure lock-in and MLflow's automated enterprise QA features.
+> Weave leads the market in multimodal and training-loop observability, but risks losing high-value enterprise platform contracts to Braintrust's superior proxy architecture and broader SDK support.
 
 
 <!-- LATEST_REPORT_END -->
@@ -33,11 +29,8 @@ title: LLM Observability Market Research
 
 | Date | Report |
 |------|--------|
+| 2026-02-12 | [View Report](./reports/2026-02-12.md) |
 | 2026-02-11 | [View Report](./reports/2026-02-11.md) |
 | 2026-02-10 | [View Report](./reports/2026-02-10.md) |
 
 <!-- REPORT_ARCHIVE_END -->
-
----
-
-[GitHub](https://github.com/hw-oh/llm-observability-market-research)

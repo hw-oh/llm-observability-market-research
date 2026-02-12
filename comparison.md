@@ -4,9 +4,7 @@ title: W&B Weave — Detailed Feature Comparison
 ---
 
 # W&B Weave — Detailed Feature Comparison
-**Date**: 2026-02-11 | **Model**: google/gemini-3-pro-preview
-
-[Product Detail](./competitor-detail)
+**Date**: 2026-02-12 | **Model**: google/gemini-3-pro-preview
 
 > ●●●(Strong) / ●●○(Medium) / ●○○(Weak) / ○○○(None)
 
@@ -19,8 +17,8 @@ title: W&B Weave — Detailed Feature Comparison
 | Prompt Logging | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Response Logging | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Token Tracking | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Latency Analysis | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Replay | ●●○ | ●●● | ●●○ | ●●● | ●●○ | ●●● |
+| Latency Analysis | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Replay | ●●○ | ●●● | ●●● | ●●● | ●●○ | ●●● |
 
 ## Agent / RAG Observability
 
@@ -28,10 +26,10 @@ title: W&B Weave — Detailed Feature Comparison
 |---|---|---|---|---|---|---|
 | Tool Call Tracing | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Retrieval Tracing | ●●● | ●●● | ●●● | ●●○ | ●●● | ●●● |
-| Memory Tracing | ●●○ | ●●● | ●●● | ●●● | ●●○ | ●●○ |
+| Memory Tracing | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●○ |
 | Multi-step Reasoning | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Workflow Graph | ●●○ | ●●● | ●●● | ●●● | ●●○ | ●●○ |
-| Failure Visualization | ●●○ | ●●● | ●●○ | ●●● | ●●● | ●●● |
+| Failure Visualization | ●●● | ●●● | ●●○ | ●●● | ●●● | ●●● |
 
 ## Evaluation Integration
 
@@ -42,16 +40,16 @@ title: W&B Weave — Detailed Feature Comparison
 | Custom Eval Metrics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Regression Detection | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Model Comparison | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Human Feedback UI | ●●○ | ●●● | ●●● | ●●● | ●●○ | ●●● |
+| Human Feedback UI | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●● |
 
 ## Monitoring & Metrics
 
 | Feature | **Weave** | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|
-| Cost Dashboard | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Token Analytics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Latency Monitoring | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Error Tracking | ●●○ | ●●● | ●●○ | ●●● | ●●● | ●●● |
+| Cost Dashboard | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| Token Analytics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| Latency Monitoring | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| Error Tracking | ●●● | ●●● | ●●○ | ●●● | ●●● | ●●● |
 | Tool Success Rate | ●●○ | ●●○ | ●●● | ●●○ | ●●● | ●●● |
 | Custom Metrics | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 
@@ -60,11 +58,11 @@ title: W&B Weave — Detailed Feature Comparison
 | Feature | **Weave** | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|
 | Prompt Versioning | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Model Versioning | ●●● | ●●○ | ●●○ | ●●○ | ●●● | ●●○ |
+| Model Versioning | ●●● | ●●○ | ●○○ | ●●○ | ●●● | ●○○ |
 | Experiment Tracking | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Dataset Versioning | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
+| Dataset Versioning | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
 | Continuous Eval | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●● |
-| RL/Fine-tuning Link | ●●● | ●○○ | ●○○ | ●●○ | ●●● | ●●○ |
+| RL/Fine-tuning Link | ●●● | ●●○ | ●●○ | ●●○ | ●●○ | ●●○ |
 
 ## DevEx / Integration
 
@@ -75,7 +73,7 @@ title: W&B Weave — Detailed Feature Comparison
 | Custom Model Support | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | API Access | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | Streaming Tracing | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| CLI/Infra Integration | ●●○ | ●●○ | ●●● | ●●● | ●●● | ●●● |
+| CLI/Infra Integration | ●●○ | ●●● | ●●● | ●●● | ●●○ | ●●● |
 
 ## Enterprise & Security
 
@@ -83,8 +81,8 @@ title: W&B Weave — Detailed Feature Comparison
 |---|---|---|---|---|---|---|
 | On-prem/VPC | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
 | RBAC | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| PII Masking | ●●○ | ●●● | ●●● | ●●○ | ●●○ | ●●○ |
-| Audit Logs | ●●● | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| PII Masking | ●●○ | ●●○ | ●●● | ●●○ | ●●○ | ●●○ |
+| Audit Logs | ●●● | ●●● | ●●● | ●●● | ●●○ | ●●○ |
 | Data Retention | ●●● | ●●● | ●●● | ●●● | ●●● | ●●● |
-| Region Support | ●●○ | ●●● | ●●● | ●●● | ●●● | ●●○ |
+| Region Support | ●●○ | ●●○ | ●●○ | ●●● | ●●● | ●●○ |
 
