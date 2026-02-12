@@ -14,43 +14,46 @@ A single command runs the full 6-step pipeline sequentially.
 
 ### Step 1. Collect
 
-Gathers data from multiple sources for each competitor + Weave. Official docs and changelogs are primary sources for feature accuracy; web search supplements with broader market context.
+Gathers feeds and extra docs for each competitor + Weave. Changelogs and release feeds are the primary data sources.
 
 | Source | Module | What it captures |
 |--------|--------|------------------|
-| Official Docs | `collectors/docs_scraper.py` | Product documentation pages — feature details, API references |
 | Changelog | `collectors/docs_scraper.py` / `feed.py` | Release notes — new features, version history (HTML or RSS) |
-| Web Search | `collectors/serper.py` | News, blogs, community discussions via Serper.dev API |
 | GitHub/PyPI | `collectors/feed.py` | Release tags and package versions |
+| Extra Docs | `collectors/docs_scraper.py` | Additional documentation pages (e.g. Weave enterprise docs) |
 | Beamer | `collectors/beamer.py` | Weave only — W&B changelog via Beamer API |
 
 Docs/changelog URLs are configured per competitor in `config.py`. Results are saved to `data/collections/YYYY-MM-DD.json`.
 
 ### Step 2. Discover
 
-Searches the web for new LLM observability products not yet tracked. LLM extracts emerging competitors from search results. Pipeline continues even if this step fails.
+Searches the web (via Serper) for new LLM observability products not yet tracked. LLM extracts emerging competitors from search results. Pipeline continues even if this step fails.
 
-### Step 3. Analyze — Per-Competitor (LLM)
+### Step 3. Analyze — Per-Category (Perplexity Sonar)
 
-One LLM call per competitor, analyzing across a 7-category framework.
+Perplexity Sonar performs web search + analysis in a single call for each category per product. 8 categories per product, 6 products (5 competitors + Weave).
 
 ```
-5 competitors x 1 LLM call = 5 calls
+6 products x 8 categories x 1 Sonar call = 48 calls
 ```
 
-Output: per-category ratings, new features, strengths/weaknesses, positioning
+Output: per-category ratings and summaries with web citations
 
-### Step 4. Analyze — Synthesis (LLM)
+### Step 4. Analyze — Per-Competitor Synthesis (Gemini Pro)
 
-Aggregates all 5 individual analyses into a single LLM call.
+One Gemini Pro call per product synthesizes the 8 category results + feed data into a comprehensive analysis.
 
-Output: vendor ratings comparison, Weave strengths/weaknesses, positioning, enterprise signals
+```
+6 products x 1 Pro call = 6 calls
+```
 
-### Step 5. Analyze — Executive Summary (LLM)
+Output: overall summary, category ratings, new features, strengths/weaknesses, positioning
 
-A **dedicated LLM call** generates the executive summary from synthesis results. Uses a specialized prompt targeting VP/Engineering leadership briefing quality.
+### Step 5. Analyze — Synthesis + Executive Summary (Gemini Pro)
 
-Output: 5-7 key insight bullets + one-line verdict
+Two additional Pro calls: one aggregates all product analyses into a market landscape, another generates an executive summary targeting VP/Engineering leadership.
+
+Output: vendor comparison, enterprise signals, 5-7 key insight bullets, market insights
 
 ### Step 6. Report & Translate
 
@@ -59,7 +62,7 @@ Renders analysis results into Markdown files and translates to Korean/Japanese.
 | File | Content |
 |------|---------|
 | `index.md` | Home — Executive Summary + Report Archive |
-| `comparison.md` | Detailed comparison across 7 categories |
+| `comparison.md` | Detailed comparison across 8 categories |
 | `competitor-detail.md` | Per-product deep dive |
 | `reports/YYYY-MM-DD.md` | Full weekly report |
 | `ko/`, `ja/` | Translated versions |
@@ -67,35 +70,33 @@ Renders analysis results into Markdown files and translates to Korean/Japanese.
 ## Pipeline Diagram
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│  python -m intel_bot run                                │
-│                                                         │
-│  ┌───────────┐   ┌──────────┐   ┌────────────────────┐ │
-│  │ 1. Collect │──▶│2. Discover│──▶│ 3. Analyze (x5)   │ │
-│  │           │   │          │   │   Per-competitor    │ │
-│  │ serper    │   │ LLM call │   │   LLM call x5      │ │
-│  │ docs      │   └──────────┘   └─────────┬──────────┘ │
-│  │ feeds     │                            │            │
-│  │ beamer    │                            ▼            │
-│  └───────────┘                  ┌────────────────────┐ │
-│                                 │ 4. Synthesize      │ │
-│                                 │   Cross-cutting    │ │
-│                                 │   LLM call x1      │ │
-│                                 └─────────┬──────────┘ │
-│                                           │            │
-│                                           ▼            │
-│                                 ┌────────────────────┐ │
-│                                 │ 5. Exec Summary    │ │
-│                                 │   Dedicated LLM x1 │ │
-│                                 └─────────┬──────────┘ │
-│                                           │            │
-│                                           ▼            │
-│                                 ┌────────────────────┐ │
-│                                 │ 6. Report          │ │
-│                                 │   MD + Translate    │ │
-│                                 │   LLM call x8      │ │
-│                                 └────────────────────┘ │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│  python -m intel_bot run                                 │
+│                                                          │
+│  ┌───────────┐  ┌──────────┐  ┌───────────────────────┐ │
+│  │ 1. Collect │─▶│2. Discover│─▶│ 3. Category Analysis │ │
+│  │           │  │          │  │   Sonar x48           │ │
+│  │ feeds     │  │ Serper + │  │   (search + analyze)  │ │
+│  │ docs      │  │ LLM call │  └──────────┬────────────┘ │
+│  │ beamer    │  └──────────┘             │              │
+│  └───────────┘                           ▼              │
+│                               ┌───────────────────────┐ │
+│                               │ 4. Product Synthesis  │ │
+│                               │   Pro x6              │ │
+│                               └──────────┬────────────┘ │
+│                                          │              │
+│                                          ▼              │
+│                               ┌───────────────────────┐ │
+│                               │ 5. Synthesis + Exec   │ │
+│                               │   Pro x2              │ │
+│                               └──────────┬────────────┘ │
+│                                          │              │
+│                                          ▼              │
+│                               ┌───────────────────────┐ │
+│                               │ 6. Report + Translate │ │
+│                               │   LLM x8 (translate)  │ │
+│                               └───────────────────────┘ │
+└──────────────────────────────────────────────────────────┘
 ```
 
 ## Competitors
@@ -108,15 +109,16 @@ Renders analysis results into Markdown files and translates to Korean/Japanese.
 | MLflow | [mlflow.org/docs/latest/genai](https://mlflow.org/docs/latest/genai) | [mlflow.org/releases](https://mlflow.org/releases) |
 | Arize Phoenix | [docs.arize.com/phoenix](https://docs.arize.com/phoenix) | [arize.com/docs/phoenix/release-notes](https://arize.com/docs/phoenix/release-notes) |
 
-## 7-Category Framework
+## 8-Category Framework
 
-1. **Core Observability** — Trace Depth, Hierarchical Spans, Prompt/Response Logging, Token Tracking, Latency Analysis, Replay
-2. **Agent / RAG Observability** — Tool Call Tracing, Retrieval Tracing, Memory Tracing, Multi-step Reasoning, Workflow Graph, Failure Visualization
-3. **Evaluation Integration** — Trace→Dataset, LLM-as-Judge, Custom Eval Metrics, Regression Detection, Model Comparison, Human Feedback
-4. **Monitoring & Metrics** — Cost Dashboard, Token Analytics, Latency Monitoring, Error Tracking, Tool Success Rate, Custom Metrics
-5. **Experiment / Improvement Loop** — Prompt/Model/Dataset Versioning, Experiment Tracking, Continuous Eval, RL/Fine-tuning
-6. **DevEx / Integration** — SDK Support, Framework Integration, Custom Model Support, API Access, Streaming Tracing, CLI/Infra
-7. **Enterprise & Security** — On-prem/VPC, RBAC, PII Masking, Audit Logs, Data Retention, Region Support
+1. **Core Tracing & Logging** — Nested Spans, Auto-Instrumentation, Prompt/Response Logging, Token Usage, Latency, Cost Estimation, Streaming, Metadata, OpenTelemetry
+2. **Agent & RAG Observability** — Tool Call Tracing, Retrieval Tracing, Multi-step Reasoning, Workflow Graph, MCP/A2A Protocol, Failed Step Highlighting, Session Grouping
+3. **Evaluation & Quality** — LLM-as-Judge, Custom Scorers, Human Feedback, Dataset Management, Trace-to-Eval, Regression Detection, Model Comparison, Leaderboard, CI/CD Eval, Online Evaluation
+4. **Guardrails & Safety** — Built-in Guardrails, Custom Guardrails, Pre/Post Hooks, PII Detection & Masking
+5. **Monitoring & Analytics** — Cost Dashboard, Token Analytics, Latency Alerting, Error Rate, Custom Metrics, Drift Detection, Embedding Analysis
+6. **Experiment & Improvement Loop** — Prompt/Model/Dataset Versioning, Experiment Tracking, Playground, Continuous Eval, RL/Fine-tuning, Training Data Generation, Failure Trajectory Extraction
+7. **Developer Experience & Integration** — Python/TypeScript SDK, Framework Integration, REST/GraphQL API, Custom Model Support, CLI, Notebook Integration
+8. **Infrastructure & Enterprise** — SaaS, Self-Host, VPC, Open Source, RBAC, SSO/SAML, SOC 2, Audit Logs, Data Retention, Data Warehouse Export, Multi-Region, ML Experiment Integration, Databricks
 
 ## Setup
 
@@ -128,8 +130,9 @@ pip install -e .
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `SERPER_DEV_API` | Yes | Serper.dev API key |
-| `OPENROUTER_API_KEY` | Yes | OpenRouter API key |
+| `PERPLEXITY_API_KEY` | Yes | Perplexity Sonar API key (category analysis with web search) |
+| `OPENROUTER_API_KEY` | Yes | OpenRouter API key (Gemini Pro for synthesis) |
+| `SERPER_DEV_API` | No | Serper.dev API key (used only for competitor discovery) |
 | `SLACK_WEBHOOK_URL` | No | Slack notification webhook |
 | `WANDB_API_KEY` | No | W&B Weave tracing |
 
@@ -141,6 +144,7 @@ python -m intel_bot discover   # Competitor discovery only
 python -m intel_bot analyze    # Analysis only (requires collected data)
 python -m intel_bot report     # Report generation only (requires analysis data)
 python -m intel_bot run        # Full pipeline
+python -m intel_bot preview    # Analyze + Korean preview from existing collection
 ```
 
 ## CI/CD

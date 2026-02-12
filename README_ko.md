@@ -14,45 +14,47 @@ python -m intel_bot run
 
 ### Step 1. Collect (데이터 수집)
 
-각 경쟁사 + Weave에 대해 여러 소스에서 데이터를 수집합니다. 공식 문서와 changelog가 기능 정확도의 1차 소스이며, 웹 검색은 시장 컨텍스트를 보충합니다.
+각 경쟁사 + Weave에 대해 피드와 추가 문서를 수집합니다. Changelog와 릴리스 피드가 주요 데이터 소스입니다.
 
 | 소스 | 모듈 | 수집 내용 |
 |------|------|----------|
-| 공식 문서 | `collectors/docs_scraper.py` | 제품 문서 페이지 — 기능 상세, API 레퍼런스 |
 | Changelog | `collectors/docs_scraper.py` / `feed.py` | 릴리스 노트 — 신기능, 버전 이력 (HTML 또는 RSS) |
-| 웹 검색 | `collectors/serper.py` | 뉴스, 블로그, 커뮤니티 토론 (Serper.dev API) |
 | GitHub/PyPI | `collectors/feed.py` | Release 태그 및 패키지 버전 |
+| 추가 문서 | `collectors/docs_scraper.py` | 추가 문서 페이지 (예: Weave enterprise docs) |
 | Beamer | `collectors/beamer.py` | Weave 전용 — W&B changelog (Beamer API) |
 
 경쟁사별 docs/changelog URL은 `config.py`에 설정되어 있습니다. 수집 결과는 `data/collections/YYYY-MM-DD.json`에 저장됩니다.
 
 ### Step 2. Discover (신규 경쟁사 탐색)
 
-웹 검색으로 아직 추적하지 않는 신규 LLM observability 제품을 탐색합니다.
+웹 검색(Serper)으로 아직 추적하지 않는 신규 LLM observability 제품을 탐색합니다.
 LLM이 검색 결과에서 emerging competitor를 추출합니다. 실패해도 파이프라인은 계속 진행됩니다.
 
-### Step 3. Analyze — 개별 분석 (LLM)
+### Step 3. Analyze — 카테고리별 분석 (Perplexity Sonar)
 
-경쟁사별로 LLM 호출 1회씩, 7개 카테고리 프레임워크로 분석합니다.
+Perplexity Sonar가 카테고리별로 웹 검색 + 분석을 한 번에 수행합니다. 제품당 8개 카테고리, 총 6개 제품 (경쟁사 5 + Weave).
 
 ```
-경쟁사 5개 × LLM 호출 1회 = 5회
+6개 제품 × 8 카테고리 × Sonar 1회 = 48회
 ```
 
-출력: 카테고리별 rating, 신기능, 강점/약점, 포지셔닝
+출력: 카테고리별 rating과 요약 (웹 citation 포함)
 
-### Step 4. Analyze — 종합 분석 (LLM)
+### Step 4. Analyze — 제품별 종합 분석 (Gemini Pro)
 
-5개 개별 분석 결과를 하나로 모아 LLM 호출 1회로 종합합니다.
+제품당 Gemini Pro 호출 1회로 8개 카테고리 결과 + 피드 데이터를 종합 분석합니다.
 
-출력: vendor ratings 비교표, Weave 강점/약점, 포지셔닝, enterprise signals
+```
+6개 제품 × Pro 1회 = 6회
+```
 
-### Step 5. Analyze — Executive Summary (LLM)
+출력: 전체 요약, 카테고리 rating, 신기능, 강점/약점, 포지셔닝
 
-종합 분석 결과를 입력으로 **별도 LLM 호출**로 executive summary를 생성합니다.
-전용 프롬프트를 사용하여 VP/Engineering 리더십 대상 브리핑 품질로 작성됩니다.
+### Step 5. Analyze — 종합 분석 + Executive Summary (Gemini Pro)
 
-출력: 5-7개 핵심 인사이트 불릿 + one-line verdict
+Pro 호출 2회 추가: 전체 제품 분석을 시장 landscape로 종합 + VP/Engineering 리더십 대상 executive summary 생성.
+
+출력: vendor 비교, enterprise signals, 5-7개 핵심 인사이트, market insights
 
 ### Step 6. Report & Translate (리포트 생성 + 번역)
 
@@ -61,7 +63,7 @@ LLM이 검색 결과에서 emerging competitor를 추출합니다. 실패해도 
 | 파일 | 내용 |
 |------|------|
 | `index.md` | 홈 — Executive Summary + Report Archive |
-| `comparison.md` | 7개 카테고리 상세 비교표 |
+| `comparison.md` | 8개 카테고리 상세 비교표 |
 | `competitor-detail.md` | 제품별 상세 분석 |
 | `reports/YYYY-MM-DD.md` | 주간 리포트 전문 |
 | `ko/`, `ja/` | 번역본 |
@@ -69,35 +71,33 @@ LLM이 검색 결과에서 emerging competitor를 추출합니다. 실패해도 
 ## 파이프라인 다이어그램
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│  python -m intel_bot run                                │
-│                                                         │
-│  ┌───────────┐   ┌──────────┐   ┌────────────────────┐ │
-│  │ 1. Collect │──▶│2. Discover│──▶│ 3. Analyze (×5)   │ │
-│  │           │   │          │   │   개별 경쟁사 분석  │ │
-│  │ serper    │   │ LLM call │   │   LLM call ×5      │ │
-│  │ docs      │   └──────────┘   └─────────┬──────────┘ │
-│  │ feeds     │                            │            │
-│  │ beamer    │                            ▼            │
-│  └───────────┘                  ┌────────────────────┐ │
-│                                 │ 4. Synthesize      │ │
-│                                 │   종합 분석         │ │
-│                                 │   LLM call ×1      │ │
-│                                 └─────────┬──────────┘ │
-│                                           │            │
-│                                           ▼            │
-│                                 ┌────────────────────┐ │
-│                                 │ 5. Exec Summary    │ │
-│                                 │   전용 LLM call ×1 │ │
-│                                 └─────────┬──────────┘ │
-│                                           │            │
-│                                           ▼            │
-│                                 ┌────────────────────┐ │
-│                                 │ 6. Report          │ │
-│                                 │   MD 생성 + 번역   │ │
-│                                 │   LLM call ×8      │ │
-│                                 └────────────────────┘ │
-└─────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────┐
+│  python -m intel_bot run                                 │
+│                                                          │
+│  ┌───────────┐  ┌──────────┐  ┌───────────────────────┐ │
+│  │ 1. Collect │─▶│2. Discover│─▶│ 3. 카테고리 분석     │ │
+│  │           │  │          │  │   Sonar ×48           │ │
+│  │ feeds     │  │ Serper + │  │   (검색 + 분석)       │ │
+│  │ docs      │  │ LLM call │  └──────────┬────────────┘ │
+│  │ beamer    │  └──────────┘             │              │
+│  └───────────┘                           ▼              │
+│                               ┌───────────────────────┐ │
+│                               │ 4. 제품별 종합 분석   │ │
+│                               │   Pro ×6              │ │
+│                               └──────────┬────────────┘ │
+│                                          │              │
+│                                          ▼              │
+│                               ┌───────────────────────┐ │
+│                               │ 5. 종합 + Exec Summary│ │
+│                               │   Pro ×2              │ │
+│                               └──────────┬────────────┘ │
+│                                          │              │
+│                                          ▼              │
+│                               ┌───────────────────────┐ │
+│                               │ 6. 리포트 + 번역      │ │
+│                               │   LLM ×8 (번역)       │ │
+│                               └───────────────────────┘ │
+└──────────────────────────────────────────────────────────┘
 ```
 
 ## 경쟁사 목록
@@ -110,15 +110,16 @@ LLM이 검색 결과에서 emerging competitor를 추출합니다. 실패해도 
 | MLflow | [mlflow.org/docs/latest/genai](https://mlflow.org/docs/latest/genai) | [mlflow.org/releases](https://mlflow.org/releases) |
 | Arize Phoenix | [docs.arize.com/phoenix](https://docs.arize.com/phoenix) | [arize.com/docs/phoenix/release-notes](https://arize.com/docs/phoenix/release-notes) |
 
-## 7-Category 분석 프레임워크
+## 8-Category 분석 프레임워크
 
-1. **Core Observability** — Trace Depth, Hierarchical Spans, Prompt/Response Logging, Token Tracking, Latency Analysis, Replay
-2. **Agent / RAG Observability** — Tool Call Tracing, Retrieval Tracing, Memory Tracing, Multi-step Reasoning, Workflow Graph, Failure Visualization
-3. **Evaluation Integration** — Trace→Dataset, LLM-as-Judge, Custom Eval Metrics, Regression Detection, Model Comparison, Human Feedback
-4. **Monitoring & Metrics** — Cost Dashboard, Token Analytics, Latency Monitoring, Error Tracking, Tool Success Rate, Custom Metrics
-5. **Experiment / Improvement Loop** — Prompt/Model/Dataset Versioning, Experiment Tracking, Continuous Eval, RL/Fine-tuning
-6. **DevEx / Integration** — SDK Support, Framework Integration, Custom Model Support, API Access, Streaming Tracing, CLI/Infra
-7. **Enterprise & Security** — On-prem/VPC, RBAC, PII Masking, Audit Logs, Data Retention, Region Support
+1. **Core Tracing & Logging** — Nested Spans, Auto-Instrumentation, Prompt/Response Logging, Token Usage, Latency, Cost Estimation, Streaming, Metadata, OpenTelemetry
+2. **Agent & RAG Observability** — Tool Call Tracing, Retrieval Tracing, Multi-step Reasoning, Workflow Graph, MCP/A2A Protocol, Failed Step Highlighting, Session Grouping
+3. **Evaluation & Quality** — LLM-as-Judge, Custom Scorers, Human Feedback, Dataset Management, Trace-to-Eval, Regression Detection, Model Comparison, Leaderboard, CI/CD Eval, Online Evaluation
+4. **Guardrails & Safety** — Built-in Guardrails, Custom Guardrails, Pre/Post Hooks, PII Detection & Masking
+5. **Monitoring & Analytics** — Cost Dashboard, Token Analytics, Latency Alerting, Error Rate, Custom Metrics, Drift Detection, Embedding Analysis
+6. **Experiment & Improvement Loop** — Prompt/Model/Dataset Versioning, Experiment Tracking, Playground, Continuous Eval, RL/Fine-tuning, Training Data Generation, Failure Trajectory Extraction
+7. **Developer Experience & Integration** — Python/TypeScript SDK, Framework Integration, REST/GraphQL API, Custom Model Support, CLI, Notebook Integration
+8. **Infrastructure & Enterprise** — SaaS, Self-Host, VPC, Open Source, RBAC, SSO/SAML, SOC 2, Audit Logs, Data Retention, Data Warehouse Export, Multi-Region, ML Experiment Integration, Databricks
 
 ## 설치
 
@@ -130,8 +131,9 @@ pip install -e .
 
 | 변수 | 필수 | 설명 |
 |------|------|------|
-| `SERPER_DEV_API` | Yes | Serper.dev API key |
-| `OPENROUTER_API_KEY` | Yes | OpenRouter API key |
+| `PERPLEXITY_API_KEY` | Yes | Perplexity Sonar API key (웹 검색 + 카테고리 분석) |
+| `OPENROUTER_API_KEY` | Yes | OpenRouter API key (Gemini Pro 종합 분석) |
+| `SERPER_DEV_API` | No | Serper.dev API key (신규 경쟁사 탐색에만 사용) |
 | `SLACK_WEBHOOK_URL` | No | Slack 알림 webhook |
 | `WANDB_API_KEY` | No | W&B Weave tracing |
 
@@ -143,6 +145,7 @@ python -m intel_bot discover   # 신규 경쟁사 탐색만
 python -m intel_bot analyze    # 분석만 (수집 데이터 필요)
 python -m intel_bot report     # 리포트 생성만 (분석 데이터 필요)
 python -m intel_bot run        # 전체 파이프라인
+python -m intel_bot preview    # 분석 + 한국어 프리뷰 (기존 수집 데이터 사용)
 ```
 
 ## CI/CD
