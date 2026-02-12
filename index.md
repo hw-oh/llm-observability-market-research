@@ -10,18 +10,18 @@ title: LLM Observability Market Research
 [📋 Latest Report (2026-02-12)](./reports/2026-02-12.md)
 
 
-- LangSmith released Self-Hosted v0.13 to support on-premise deployments and updated its platform to include pairwise annotation queues for regression testing.
-- MLflow introduced Organization Support in version 3.10, enabling multi-workspace environments, while adding a visual Judge Builder UI for evaluation.
-- Langfuse added an Organization Audit Log Viewer for security visibility and now renders reasoning/thinking steps directly within trace details.
-- Arize Phoenix implemented RBAC with Viewer roles and released specialized evaluators to identify tool selection errors and parameter issues.
-- Braintrust expanded its human review capabilities with Kanban layouts and confirmed support for tracing reasoning models like o1 across six SDK languages.
-- W&B Weave deployed dynamic leaderboards with multi-modal judges, specifically adding new monitors for audio evaluation.
+- MLflow released a visual Judge Builder and MemAlign optimizer while introducing Organization Support for multi-workspace management.
+- LangSmith updated its self-hosted platform to version 0.13 and expanded developer tooling with new CLI capabilities and pairwise comparison queues.
+- Langfuse launched an Organization Audit Log Viewer for security tracking and added PII masking capabilities to its self-hosted offering.
+- Braintrust deepened developer workflow integration via Cursor IDE support and added tracing for Temporal and MCP server architectures.
+- Arize Phoenix introduced specialized evaluators for tool selection and invocation accuracy within its OpenInference-based tracing platform.
+- W&B Weave deployed advanced audio monitors and dynamic leaderboards for multi-modal evaluation, supporting dedicated and customer-managed deployment options.
 
 **Market Insight by AI**:
 
-> Weave's agent observability faces increased pressure as Langfuse and Arize Phoenix release specialized features for rendering reasoning steps and detecting tool selection errors.
-> The gap in enterprise readiness widens as LangSmith and MLflow ship robust self-hosted and multi-workspace features, highlighting Weave's current lack of explicit PII masking details.
-> Weave maintains a differentiation edge in multi-modal evaluation with new audio monitors, while competitors like Braintrust focus primarily on text-based scoring and human review workflows.
+> MLflow's introduction of a visual Judge Builder and MemAlign optimizer challenges Weave's differentiation in programmatic evaluation and leaderboard visualization.
+> Langfuse's release of a dedicated Audit Log Viewer and PII masking highlights a specific gap in Weave's current enterprise feature set regarding explicit compliance visibility.
+> Braintrust's direct integration with the Cursor IDE and Temporal workflows threatens Weave's positioning as the primary developer-centric platform for complex agent debugging.
 
 
 <!-- LATEST_REPORT_END -->

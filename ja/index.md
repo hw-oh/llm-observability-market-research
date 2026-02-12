@@ -10,18 +10,18 @@ title: LLM Observability 市場調査
 [📋 最新レポート (2026-02-12)](./reports/2026-02-12.md)
 
 
-- LangSmith は、オンプレミス展開をサポートする Self-Hosted v0.13 をリリースし、回帰テスト用のペアワイズ・アノテーションキューを含むプラットフォームのアップデートを行いました。
-- MLflow は、バージョン 3.10 で Organization Support を導入し、マルチワークスペース環境を可能にするとともに、Eval 用のビジュアルな Judge Builder UI を追加しました。
-- Langfuse は、セキュリティの可視性を高めるための Organization Audit Log Viewer を追加し、Tracing の詳細内で reasoning/thinking ステップを直接レンダリングできるようになりました。
-- Arize Phoenix は、Viewer ロールを備えた RBAC を実装し、ツールの選択エラーやパラメータの問題を特定するための専用エバリュエーターをリリースしました。
-- Braintrust は、カンバンレイアウトによるヒューマンレビュー機能を拡張し、6つの SDK 言語にわたって o1 などの推論モデルの Tracing サポートを確定しました。
-- W&B Weave は、マルチモーダルな Judge を備えたダイナミックなリーダーボードをデプロイし、特にオーディオ Eval 用の新しいモニターを追加しました。
+- MLflow は、ビジュアル Judge Builder と MemAlign オプティマイザをリリースし、マルチワークスペース管理のための Organization Support を導入しました。
+- LangSmith は、セルフホストプラットフォームをバージョン 0.13 にアップデートし、新しい CLI 機能やペア比較キューなどの開発者向けツールを拡張しました。
+- Langfuse は、セキュリティ追跡用の Organization Audit Log Viewer をリリースし、セルフホスト版に PII マスキング機能を追加しました。
+- Braintrust は、Cursor IDE サポートを通じて開発者ワークフローの統合を深め、Temporal および MCP サーバーアーキテクチャの Tracing を追加しました。
+- Arize Phoenix は、OpenInference ベースの Tracing プラットフォーム内で、ツール選択と呼び出し精度のための専用 Eval を導入しました。
+- W&B Weave は、マルチモーダル評価のための高度なオーディオモニターとダイナミックリーダーボードをデプロイし、専用および顧客管理のデプロイオプションをサポートしました。
 
 **AI による市場インサイト**:
 
-> Langfuse と Arize Phoenix が推論ステップのレンダリングやツール選択エラーの検出のための専門機能をリリースしたことで、Weave のエージェント Observability はさらなる圧力に直面しています。
-> LangSmith と MLflow が堅牢なセルフホスト機能やマルチワークスペース機能を出荷する中、エンタープライズ対応の格差が広がっており、Weave における明示的な PII マスキングの詳細の欠如が浮き彫りになっています。
-> Weave は新しいオーディオモニターによってマルチモーダル Eval における差別化の優位性を維持していますが、Braintrust などの競合他社は主にテキストベースの Scoring とヒューマンレビューのワークフローに焦点を当てています。
+> MLflow によるビジュアル Judge Builder と MemAlign オプティマイザの導入は、プログラムによる Eval とリーダーボードの可視化における Weave の差別化要因に挑戦しています。
+> Langfuse の専用 Audit Log Viewer と PII マスキングのリリースは、コンプライアンスの可視化に関する Weave の現在のエンタープライズ機能セットにおける特定のギャップを浮き彫りにしています。
+> Braintrust の Cursor IDE や Temporal ワークフローとの直接的な統合は、複雑なエージェントのデバッグにおける主要な開発者中心プラットフォームとしての Weave のポジショニングを脅かしています。
 
 
 <!-- LATEST_REPORT_END -->
