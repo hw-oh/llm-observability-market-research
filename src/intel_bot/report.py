@@ -62,8 +62,6 @@ def generate_comparison_page(run: AnalysisRun) -> str:
         "# W&B Weave — Detailed Feature Comparison",
         f"**Date**: {run.date} | **Model**: {run.model}",
         "",
-        "[Product Detail](./competitor-detail)",
-        "",
         "> ●●●(Strong) / ●●○(Medium) / ●○○(Weak) / ○○○(None)",
         "",
     ]
@@ -266,8 +264,6 @@ def generate_competitor_detail_page(run: AnalysisRun) -> str:
         "# W&B Weave — Product Detail",
         f"**Date**: {run.date} | **Model**: {run.model}",
         "",
-        "[Detailed Comparison](./comparison)",
-        "",
     ]
 
     # Weave first
@@ -303,8 +299,6 @@ def generate_weekly_report(
         "",
         "# W&B Weave — Weekly Competitor Intelligence Report",
         f"**Date**: {run.date} | **Model**: {run.model} | **Data Collected**: {run.collection_date}",
-        "",
-        "[Detailed Comparison](../comparison) · [Product Detail](../competitor-detail)",
         "",
     ]
 
@@ -529,14 +523,10 @@ def _write_full_index(
     content = (
         "---\n"
         "layout: default\n"
-        "title: Competitor intelligence reports for W&B Weave\n"
+        "title: Competitor Intel Bot\n"
         "---\n"
         "\n"
-        "# Competitor Intel Bot\n"
-        "\n"
-        "[Detailed Comparison](./comparison) · [Product Detail](./competitor-detail) · [Competitive Intelligence (Internal)](https://docs.google.com/presentation/d/125NLww3icyIEa8qq0668gVTEcQuuF9RjAcSo0B3Xzqo/edit)\n"
-        "\n"
-        "## Latest Report\n"
+        "## Executive Summary\n"
         "\n"
         "<!-- LATEST_REPORT_START -->\n"
         "\n"
@@ -551,9 +541,5 @@ def _write_full_index(
         f"{archive_content}"
         "\n"
         "<!-- REPORT_ARCHIVE_END -->\n"
-        "\n"
-        "---\n"
-        "\n"
-        "[GitHub](https://github.com/hw-oh/competitor-intel-bot)\n"
     )
     index_file.write_text(content, encoding="utf-8")
