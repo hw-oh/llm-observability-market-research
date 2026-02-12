@@ -35,6 +35,46 @@ from intel_bot.storage import (
 console = Console()
 
 
+def _publish_wb_report_and_alert(
+    weekly_path: Path,
+    comparison_path: Path,
+    detail_path: Path,
+    report_date: str,
+) -> None:
+    """W&B Report 발행 + Alert (WANDB_API_KEY가 있을 때만)."""
+    if not os.environ.get("WANDB_API_KEY"):
+        return
+
+    from intel_bot.wb_report import publish_wb_report
+
+    weekly_en = weekly_path.read_text(encoding="utf-8")
+    comparison_en = comparison_path.read_text(encoding="utf-8")
+    detail_en = detail_path.read_text(encoding="utf-8")
+
+    weekly_ko = (Path("ko") / weekly_path).read_text(encoding="utf-8")
+    weekly_ja = (Path("ja") / weekly_path).read_text(encoding="utf-8")
+    comparison_ko = (Path("ko") / comparison_path).read_text(encoding="utf-8")
+    comparison_ja = (Path("ja") / comparison_path).read_text(encoding="utf-8")
+    detail_ko = (Path("ko") / detail_path).read_text(encoding="utf-8")
+    detail_ja = (Path("ja") / detail_path).read_text(encoding="utf-8")
+
+    report_url = publish_wb_report(
+        weekly_en, weekly_ko, weekly_ja,
+        comparison_en, comparison_ko, comparison_ja,
+        detail_en, detail_ko, detail_ja,
+        report_date=report_date,
+    )
+    console.print(f"  W&B Report: {report_url}")
+
+    import wandb
+
+    wandb.alert(
+        title=f"Market Research Report — {report_date}",
+        text=f"Weekly report published: {report_url}",
+    )
+    console.print("  W&B Alert 전송 완료")
+
+
 async def _collect() -> None:
     settings = Settings()
     today = date.today().isoformat()
@@ -234,6 +274,11 @@ def report() -> None:
     if discovery_result and discovery_result.emerging_competitors:
         console.print(f"  신규 경쟁사: {len(discovery_result.emerging_competitors)}개")
 
+    try:
+        _publish_wb_report_and_alert(weekly_path, comparison_path, detail_path, analysis.date)
+    except Exception as exc:
+        console.print(f"[yellow]W&B Report 발행 실패: {exc}")
+
 
 @weave.op()
 def run() -> None:
@@ -299,6 +344,11 @@ def run() -> None:
         except Exception as exc:
             console.print(f"[yellow]Slack 알림 실패: {exc}")
 
+    try:
+        _publish_wb_report_and_alert(weekly_path, comparison_path, detail_path, analysis.date)
+    except Exception as exc:
+        console.print(f"[yellow]W&B Report 발행 실패: {exc}")
+
 
 def preview() -> None:
     """Analyze + generate Korean preview from existing collection data."""
@@ -359,7 +409,7 @@ def preview() -> None:
 
 def main() -> None:
     if os.environ.get("WANDB_API_KEY"):
-        weave.init("llm-observability-market-research")
+        weave.init("wandb-smle/llm-observability-market-research")
 
     args = sys.argv[1:]
 
@@ -381,7 +431,7 @@ def main() -> None:
             console.print("[red]WANDB_API_KEY가 필요합니다.")
             sys.exit(1)
         if weave.get_client() is None:
-            weave.init("llm-observability-market-research")
+            weave.init("wandb-smle/llm-observability-market-research")
         publish_prompts()
         console.print("[bold green]프롬프트 발행 완료")
     else:
