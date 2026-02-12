@@ -37,6 +37,11 @@ jobs:
       - name: Install dependencies
         run: pip install -e .
 
+      - name: Publish prompts to Weave
+        env:
+          WANDB_API_KEY: ${{ secrets.WANDB_API_KEY }}
+        run: python -m intel_bot publish-prompts
+
       - name: Run pipeline
         env:
           SERPER_DEV_API: ${{ secrets.SERPER_DEV_API }}
