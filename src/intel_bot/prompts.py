@@ -202,7 +202,7 @@ Below is the full synthesis data from this week's market analysis:
 Write an executive summary as a JSON object (no markdown fences, pure JSON only):
 {{
   "executive_summary": ["bullet 1", "bullet 2", ...],
-  "market_insights": ["insight 1", "insight 2", "insight 3"]
+  "market_insight": "Single sentence insight from Weave's perspective"
 }}
 
 Rules for executive_summary (5-7 bullets):
@@ -214,12 +214,12 @@ Rules for executive_summary (5-7 bullets):
 - Quantify when possible: version numbers, dates, counts
 - Do NOT add insights, opinions, or recommendations — just report the facts
 
-Rules for market_insights (exactly 3 items):
+Rules for market_insight (exactly 1 sentence):
 - Write from Weave's competitive perspective
-- Each insight must identify what this means for Weave specifically
+- Identify what this week's market movements mean for Weave specifically
   (e.g. "LangSmith's new eval pipeline narrows Weave's lead in evaluation integration")
-- Each must name at least one competing product and relate it to Weave
-- Keep each to one sentence
+- Name at least one competing product and relate it to Weave
+- Keep to one sentence
 
 Pure JSON output only, no markdown code fences.\
 """

@@ -327,7 +327,8 @@ def generate_executive_summary(
             text = _strip_markdown_fences(raw)
 
             data = json.loads(text)
-            return data["executive_summary"], data["market_insights"]
+            insight = data.get("market_insight", "")
+            return data["executive_summary"], [insight] if insight else []
 
         except Exception as e:
             last_error = e

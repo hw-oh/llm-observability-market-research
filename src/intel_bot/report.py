@@ -202,8 +202,7 @@ def generate_weekly_report(
             lines.append(f"- {bullet}")
         lines.append("")
         if synthesis.market_insights:
-            insight_text = " | ".join(synthesis.market_insights)
-            lines.append(f"> **Market Insight**: {insight_text}")
+            lines.append(f"> **Market Insight**: {synthesis.market_insights[0]}")
             lines.append("")
     else:
         lines.append("- *No synthesis data available*")
@@ -358,8 +357,7 @@ def update_index(index_path: str = "index.md", analysis: AnalysisRun | None = No
                 latest_parts.append(f"- {bullet}")
             latest_parts.append("")
             if analysis.synthesis.market_insights:
-                insight_text = " | ".join(analysis.synthesis.market_insights)
-                latest_parts.append(f"> **Market Insight**: {insight_text}")
+                latest_parts.append(f"> **Market Insight**: {analysis.synthesis.market_insights[0]}")
             latest_parts.append("")
         latest_content = "\n".join(latest_parts) + "\n"
     else:
