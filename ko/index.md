@@ -10,14 +10,13 @@ title: LLM Observability 시장 조사
 [📋 최신 리포트 (2026-02-13)](./reports/2026-02-13.md)
 
 
-- LangSmith는 Self-Hosted v0.13을 출시하고 LLM, 도구, 검색(retrieval) 구성 요소를 모두 아우르는 통합 비용 추적 기능을 도입했습니다.
-- Langfuse는 컴플라이언스 모니터링을 위한 Organization Audit Log Viewer를 출시하고, 에이전트 가시성 개선을 위해 추론 단계(reasoning step) 렌더링 기능을 추가했습니다.
-- MLflow는 Tracking Server 내에서 멀티 워크스페이스 관리가 가능하도록 Organization Support를 도입하여, 거버넌스 역량을 전문 LLM 도구 수준으로 끌어올렸습니다.
-- Braintrust는 재현 가능한 엔터프라이즈 실험 및 회귀 테스트를 지원하기 위해 Eval용 세부 캐시 제어 기능을 추가했습니다.
-- Arize Phoenix는 도구 선택 및 성실성(faithfulness) 전용 신규 평가 도구와 함께, LLM judge 설정을 위한 GUI 기반 위저드(wizard)를 출시했습니다.
-- W&B Weave는 멀티모달 입력 Tracing에 대한 네이티브 지원을 유지하면서, 팀 단위의 Eval 비교를 용이하게 하는 다이내믹 리더보드를 출시했습니다.
+- Langfuse는 추론 단계를 시각화하기 위한 'thinking' Tracing 렌더링 지원을 도입했으며, Arize Phoenix는 에이전트 워크플로우에서 도구 선택 및 성실성(faithfulness)을 평가하기 위한 전용 지표를 출시했습니다.
+- MLflow는 버전 3.10을 출시하며 대규모 엔터프라이즈 환경 내에서 멀티 워크스페이스 관리 및 액세스 제어를 가능하게 하는 Organization Support 기능을 도입했습니다.
+- LangSmith는 Streaming 지원 및 에이전트 실행 그래프 시각화 기능을 유지하면서, 온프레미스 배포를 위한 인프라 안정성을 개선한 Self-Hosted v0.13을 출시했습니다.
+- Braintrust는 기존의 'Loop' AI Eval 어시스턴트와 더불어, Human-in-the-loop 품질 관리 워크플로우를 구조화하기 위한 전용 'Review' Span 타입을 추가했습니다.
+- W&B Weave는 VPC 옵션에 대해 SOC 2 Type II 및 HIPAA 준수를 확인했으며, 네이티브 Model Context Protocol (MCP) 통합을 통해 에이전트 Observability 역량을 차별화했습니다.
 
-> **Market Insight**: Langfuse와 MLflow가 감사 로그 및 조직 수준 관리 기능을 동시에 출시한 것은 관리 거버넌스의 격차를 줄임으로써 Weave의 엔터프라이즈 준비성 내러티브에 도전장을 내민 것입니다. | Arize Phoenix가 LLM judge를 위한 GUI 기반 위저드를 도입한 것은 Weave의 기존 노코드 Eval 생성 워크플로우와 직접 경쟁하며, judge 설정의 사용 편의성을 범용화하고 있습니다. | LangSmith의 심층 에이전트 샌드박스와 Langfuse의 추론 단계 렌더링은 현재 복잡한 에이전트 워크플로우를 위한 상위 수준 실행 그래프가 부족한 Weave의 에이전트 Observability 공백을 부각시킵니다.
+> **Market Insight**: Arize Phoenix의 전문화된 에이전트 지표 출시와 Langfuse의 'thinking' Tracing 지원은 Weave의 에이전트 Observability 깊이에 직접적인 도전이 되고 있습니다. 기술적 차별성을 유지하기 위해 Weave의 독점적인 Model Context Protocol (MCP) 통합을 지속적으로 활용할 필요가 있습니다.
 
 
 <!-- LATEST_REPORT_END -->

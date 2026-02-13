@@ -8,221 +8,222 @@ title: LLM Observability — Product Detail
 
 ### W&B Weave
 
-**Overview**: W&B Weave is a developer-centric LLM observability and evaluation platform that integrates deeply with the broader Weights & Biases ecosystem. It excels in programmatic tracing, multimodal evaluation (including audio), and enterprise-grade infrastructure, though it favors code-first workflows over no-code prompt management or proxy-based integration.
+**Overview**: W&B Weave is a developer-centric observability and evaluation toolkit deeply integrated into the Weights & Biases ecosystem, designed for building rigorous LLM applications. It excels in code-first evaluation workflows, complex agent tracing (including native MCP support), and enterprise-grade infrastructure, bridging the gap between offline experimentation and online production monitoring.
 
 **Strengths**:
-- Strong multimodal tracing and evaluation capabilities (Text, Audio, Video)
-- Deep integration with W&B Experiments for full lifecycle management
-- Robust enterprise infrastructure with self-hosted and compliance options
-- Flexible evaluation framework with custom scorers and dynamic leaderboards
-- Native support for Model Context Protocol (MCP) tracing
+- Deep integration with W&B ecosystem (Experiments, Models) for full lifecycle management.
+- Strong support for Agentic patterns including native MCP integration and complex trace trees.
+- Comprehensive evaluation capabilities with both code-based scorers and a GUI wizard.
+- Enterprise-ready with robust deployment options (SaaS, VPC, Self-hosted) and compliance.
 
 **Weaknesses**:
-- Lack of no-code prompt management (CMS) features
-- No proxy/gateway mode for zero-code integration
-- Absence of specialized RAG retrieval visualization
-- Manual annotation workflows without built-in queue management
-- Agent visualization limited to trace trees without high-level DAG views
+- Lack of a no-code 'Prompt CMS' for non-technical stakeholders (relies on programmatic creation).
+- No native Gateway/Proxy mode for zero-code interception.
+- Annotation workflows lack advanced queue management for large teams.
 
 **Recent Updates**:
-- Audio Monitors: Online evaluation monitors for audio outputs, enabling LLM judges to assess MP3/WAV files alongside text. (2026-02-01)
-- Dynamic Leaderboards: Auto-generated leaderboards in evaluations with persistent customization for filters and metrics. (2026-01-29)
-- Custom LoRAs in Playground: Support for testing and comparing custom fine-tuned LoRA weights directly in the Weave Playground. (2026-01-16)
+- Audio Monitors: Create monitors that observe and judge audio outputs alongside text, enabling evaluation of voice agents. (2026-02-01)
+- Dynamic Leaderboards: Auto-generated leaderboards from evaluations with filtering and customization, replacing manual setup. (2026-01-29)
+- Custom LoRAs in Playground: Support for testing and evaluating custom fine-tuned LoRA weights directly in the Weave Playground. (2026-01-16)
 
 | Category | Rating | Summary |
 |---|---|---|
-| Core Tracing & Logging | O | Weave delivers robust core tracing with standout multimodal support and OpenTelemetry compatibility. It effectively handles complex nested spans and metadata, making it highly suitable for technical teams requiring detailed visibility. |
-| Agent & RAG Specifics | △ | Weave provides strong visibility into agent internals through trace trees and MCP integration. However, it lacks specialized visualizations for RAG retrieval chunks and high-level agent execution graphs found in some competitors. |
-| Evaluation & Quality | △ | Evaluation is a core strength, featuring a GUI wizard for judges, strong online evaluation capabilities (including audio), and dynamic leaderboards. While dataset management is functional, it lacks advanced automation for regression testing and annotation queues. |
-| Guardrails & Safety | O | Weave offers a solid suite of safety features with programmable guardrails. It covers essential needs like PII masking, hallucination detection, and prompt injection prevention effectively. |
-| Analytics & Dashboard | △ | Analytics are robust for operational metrics like cost and tokens, with flexible custom dashboarding. It is less specialized in deep data science visualizations like embedding clusters or latency heatmaps. |
-| Development Lifecycle | △ | Weave is optimized for engineers, offering strong experiment tracking and playgrounds. Prompt management is code-centric, which may be a barrier for non-technical users compared to CMS-style competitors. |
-| Integration & DX | △ | Developer experience is strong for Python and TypeScript users, with excellent framework support. The lack of a proxy mode means integration requires code changes, fitting a 'code-first' philosophy. |
-| Enterprise & Infrastructure | O | Enterprise infrastructure is a major strength, offering flexible deployment models (including on-prem) and comprehensive compliance certifications, making it suitable for regulated industries. |
+| Core Tracing & Logging | O | Weave delivers robust tracing capabilities with full multimodal support (including video/audio), native OpenTelemetry integration, and granular hierarchical logging suitable for complex agentic workflows. |
+| Agent & RAG Specifics | O | Weave provides strong observability for agents, distinguishing itself with native MCP integration and detailed tool call tracking, though it relies on trace trees rather than specialized graph visualizers for workflow inspection. |
+| Evaluation & Quality | O | Evaluation is a core strength, featuring both code-based flexibility and a GUI wizard for judges. It supports online evaluation on production traffic, though human annotation workflows lack advanced queue management. |
+| Guardrails & Safety | O | Weave offers a solid suite of safety features with pre-built scorers for PII, hallucinations, and toxicity, capable of operating in real-time to block harmful content. |
+| Analytics & Dashboard | △ | Analytics are robust for cost and token tracking with flexible custom dashboards. While it covers standard metrics well, it lacks specialized visualizations like embedding clusters. |
+| Development Lifecycle | O | Weave benefits significantly from the W&B ecosystem, offering strong experiment tracking and fine-tuning integration. Prompt management is present but leans towards developer-centric programmatic workflows. |
+| Integration & DX | △ | Integration is strong for Python/TypeScript ecosystems and popular frameworks. The lack of a gateway mode requires code changes for adoption, but CI/CD integration is well-supported via W&B Automations. |
+| Enterprise & Infrastructure | O | Weave is enterprise-ready, inheriting W&B's robust security, compliance, and deployment flexibility, making it suitable for regulated industries and large organizations. |
 
 
 ---
 
 ### LangSmith
 
-**Overview**: LangSmith is a comprehensive DevOps platform for LLM applications, specializing in deep observability, evaluation, and collaboration for the LangChain ecosystem. It combines granular tracing of complex agentic workflows with robust dataset management and human-in-the-loop annotation tools, though it leans heavily on code-centric configurations for guardrails and advanced evaluations.
+**Overview**: LangSmith is a comprehensive DevOps platform for LLM applications, serving as the de facto observability standard for the LangChain ecosystem while supporting other frameworks. It excels in deep tracing of complex agentic workflows, evaluation pipelines, and enterprise-grade deployment options including self-hosting.
 
 **Strengths**:
-- Deep native integration with LangChain for seamless auto-instrumentation of complex agents.
-- Comprehensive evaluation workflow combining automated code/LLM scorers with human annotation queues.
-- Strong enterprise deployment options including multi-cloud SaaS, BYOC, and self-hosted Kubernetes.
-- Advanced tracing capabilities for nested spans, streaming responses, and tool usage.
+- Deep native integration with LangChain and agentic workflows (nested traces, thread replay)
+- Robust evaluation framework with online/offline scoring and annotation queues
+- Flexible enterprise deployment options including multi-tenant, dedicated, and self-hosted Kubernetes
+- Comprehensive debugging tools including terminal-based 'Fetch' and customizable trace views
 
 **Weaknesses**:
-- Lack of native guardrails for safety (hallucination, jailbreak) without external library integration.
-- No 'no-code' wizard for setting up LLM-as-a-judge evaluators; requires prompt engineering.
-- Absence of a Go SDK and proxy-based tracing mode limits integration flexibility for some stacks.
+- Lack of native active guardrails for real-time prevention (focuses on passive logging)
+- No zero-code Gateway/Proxy mode; requires SDK instrumentation
+- Limited support for non-text multimodal trace visualization compared to text capabilities
+- Closed-source core platform limits community contributions to the infrastructure itself
 
 **Recent Updates**:
-- Customize trace previews: Ability to customize how trace previews are rendered in the LangSmith UI. (2026-02-06)
-- LangSmith Self-Hosted v0.13: New version release for the self-hosted enterprise deployment option. (2026-01-16)
+- Customize trace previews: Ability to customize how traces are previewed in the LangSmith UI. (2026-02-06)
+- Non-otel Google ADK wrapper: New wrapper for Google ADK integration without OpenTelemetry dependency. (2026-02-02)
+- Google Gen AI wrapper: Exported wrapper for Google Generative AI integration. (2026-01-31)
+- Gemini TS wrapper: Beta TypeScript wrapper for Gemini models. (2026-01-26)
+- LangSmith Self-Hosted v0.13: Update to the self-hosted version of the platform. (2026-01-16)
 
 | Category | Rating | Summary |
 |---|---|---|
-| Core Tracing & Logging | O | LangSmith excels in core tracing with comprehensive visibility into hierarchical runs, streaming support, and seamless auto-instrumentation, particularly for LangChain applications. |
-| Agent & RAG Specifics | △ | The platform provides strong visibility into RAG and agent internals, including retrieval steps and tool calls, though explicit execution graph visualization and session replay are limited. |
-| Evaluation & Quality | O | LangSmith offers a powerful evaluation framework with strong dataset management, regression testing, and human annotation workflows, though it favors code-based configuration over no-code wizards. |
-| Guardrails & Safety | △ | Safety features are primarily observational, relying on integration with external libraries for active blocking or masking rather than providing native, out-of-the-box guardrails. |
-| Analytics & Dashboard | O | Analytics are robust with strong support for token, latency, and cost tracking (recently unified), allowing for deep customizability, though embedding visualizations are absent. |
-| Development Lifecycle | O | LangSmith strongly supports the development lifecycle with advanced prompt management, version control, and recently added sandboxes for agent debugging. |
-| Integration & DX | △ | Developer experience is strong for Python/JS users, especially within the LangChain ecosystem, but lacks a Go SDK and proxy-based integration options. |
-| Enterprise & Infrastructure | △ | LangSmith offers robust enterprise infrastructure with flexible deployment models (SaaS/Self-hosted) and recently added SSO support, though the core platform is proprietary. |
+| Core Tracing & Logging | O | LangSmith excels in core tracing with robust end-to-end visibility, hierarchical tree views, and seamless auto-instrumentation. It fully supports streaming, metadata filtering, and OpenTelemetry, with recent updates adding support for Google's multimodal models. |
+| Agent & RAG Specifics | O | LangSmith offers top-tier observability for RAG and agent workflows, featuring detailed visualizations for retrieval and execution graphs. Recent updates have added specific support for the Model Context Protocol (MCP), addressing previous gaps. |
+| Evaluation & Quality | O | The platform provides robust evaluation infrastructure, particularly for dataset management, regression testing, and online monitoring. While it supports advanced custom scorers, the user experience for non-technical users (wizards) and DSPy integration remains limited. |
+| Guardrails & Safety | X | LangSmith is primarily an observability tool, not a guardrails enforcement engine. It excels at forensic analysis of safety incidents but relies on integrations with external libraries for active runtime protection and blocking. |
+| Analytics & Dashboard | O | Analytics capabilities are strong, featuring unified cost tracking, token usage, and error monitoring. Custom dashboards allow for flexible reporting, though advanced visualizations like embedding space clusters are missing. |
+| Development Lifecycle | △ | LangSmith supports the development lifecycle well with strong experiment tracking and playground features. Prompt management is functional but lacks advanced CMS capabilities for non-developers, and fine-tuning integration is manual. |
+| Integration & DX | △ | Developer experience is strong for Python and JS/TS users, especially within the LangChain ecosystem. Integration is achieved primarily via SDKs, with no zero-code proxy option. Recent updates have expanded framework support to include Google's Gen AI stack. |
+| Enterprise & Infrastructure | O | LangSmith is enterprise-ready with robust deployment options including self-hosting and BYOC. Security features like SSO and RBAC are well-supported, making it suitable for compliance-heavy environments, though it remains a closed-source proprietary product. |
 
 
 ---
 
 ### Langfuse
 
-**Overview**: Langfuse is an open-source, developer-centric LLM engineering platform that combines robust observability with comprehensive evaluation capabilities. It excels in tracing complex RAG and agent workflows, offering flexible deployment options including self-hosted and SaaS, while providing integrated tools for prompt management and experimentation.
+**Overview**: Langfuse is an open-source LLM engineering platform that combines robust observability with comprehensive evaluation and prompt management capabilities. It excels in tracing complex agentic workflows and RAG pipelines, offering strong integration with frameworks like LangChain and LlamaIndex, while providing flexible deployment options including a self-hosted solution.
 
 **Strengths**:
-- Fully open-source and self-hostable, offering maximum data control
-- Strong integration with popular frameworks like LangChain and LlamaIndex
-- Comprehensive evaluation suite including LLM-as-a-Judge and human annotation queues
-- Integrated prompt management and playground for rapid iteration
-- Flexible deployment options ranging from SaaS to air-gapped VPCs
+- Open-source with full self-hosting capabilities (MIT license)
+- Strong integration with popular frameworks (LangChain, LlamaIndex)
+- Comprehensive prompt management and versioning system (CMS)
+- Robust LLM-as-a-Judge and online evaluation features
+- Detailed cost and token usage analytics
 
 **Weaknesses**:
-- Lack of native guardrails and policy-as-code enforcement
-- No support for multimodal tracing (images/audio)
-- Absence of a dedicated regression testing UI despite A/B testing support
-- No official Go SDK
-- Missing fine-tuning data pipeline integrations
+- Lack of native multimodal tracing support
+- No built-in PII masking or sensitive data detection
+- Limited visual debugging tools for agent graphs (no DAG view)
+- No side-by-side comparison view for prompt outputs
+- Missing fine-tuning pipeline integrations
 
 **Recent Updates**:
-- LLM-as-a-Judge on Observations: Added support for running LLM-as-a-judge evaluations directly on individual observations. (2026-02-13)
-- Single Observation Evals: Enabled evaluation workflows for single observations. (2026-02-10)
-- Thinking/Reasoning Rendering: Added rendering for thinking and reasoning parts in trace details, improving Chain-of-Thought visibility. (2026-01-28)
-- Org Audit Log Viewer: Introduced a viewer for organization-level audit logs. (2026-01-28)
-- Inline Trace Comments: Allowed adding comments inline on fractions of IO data within traces. (2026-01-20)
+- LLM-as-a-Judge on Observations: Added support for running LLM-as-a-judge evaluations directly on specific observations for more granular quality control. (2026-02-13)
+- Thinking/Reasoning Trace Rendering: New trace detail rendering for 'thinking' and 'reasoning' parts, supporting Chain-of-Thought models like DeepSeek. (2026-02-05)
+- Inline Trace Comments: Allows users to add comments inline on fractions of IO data within a trace, improving collaboration. (2026-01-25)
+- Single Observation Evals: Enables running evaluations on single observations rather than just full traces. (2026-02-08)
 
 | Category | Rating | Summary |
 |---|---|---|
-| Core Tracing & Logging | O | Langfuse provides a robust tracing foundation with strong OpenTelemetry support, detailed token tracking, and auto-instrumentation, though it currently lacks multimodal capabilities. |
-| Agent & RAG Specifics | △ | Strong RAG visualization capabilities are complemented by evolving agent support, including recent additions for rendering reasoning steps, though graph visualization and MCP support are absent. |
-| Evaluation & Quality | O | A comprehensive evaluation suite featuring strong LLM-as-a-Judge tools, dataset management, and online evaluation, with recent updates enhancing observation-level assessment. |
-| Guardrails & Safety | △ | Safety features focus on observability and monitoring through integrations and evaluations rather than native, real-time enforcement or policy-as-code mechanisms. |
-| Analytics & Dashboard | O | Strong analytics capabilities cover cost, tokens, and latency with customizable dashboards, though error alerting and advanced embedding visualizations are missing. |
-| Development Lifecycle | O | Excellent support for the development lifecycle with integrated prompt management, playground, and experiment tracking, facilitating smooth iteration and version control. |
-| Integration & DX | △ | Strong developer experience for Python and JS/TS ecosystems with deep framework integrations, though lacking a Go SDK and proxy-based tracing options. |
-| Enterprise & Infrastructure | O | Enterprise-ready with robust deployment flexibility (SaaS/Self-hosted), RBAC, and data exports, recently enhanced with an organization-level audit log viewer. |
+| Core Tracing & Logging | O | Langfuse provides robust core tracing and logging with strong support for full tracing, nested spans, auto-instrumentation, metadata filtering, token counting, and OpenTelemetry compatibility. Nested observations enable hierarchical tree views, while background processing ensures performance. Limitations include unclear real-time streaming and no multimodal tracing. |
+| Agent & RAG Specifics | △ | Langfuse excels in RAG observability with strong retrieval logging, relevance scoring, and trace visualizations, alongside robust agent tracing for steps, sessions, and errors. Agent-specific features like execution graphs and tool rendering are supported through traces but lack explicit advanced UI elements. No evidence of MCP integration. |
+| Evaluation & Quality | △ | Langfuse offers robust evaluation capabilities centered on LLM-as-a-Judge via UI, custom scorers, datasets for testing, and online production evals. It excels in observability-integrated evaluations and CI/CD workflows but lacks prompt optimization, side-by-side views, and advanced regression testing. Human annotation and custom pipelines provide flexibility for teams. |
+| Guardrails & Safety | △ | Langfuse excels in observability for guardrails, offering native support for logging, tracing, and scoring security checks including jailbreaks and harmful content. It enables code-based guardrail management and integrates with external tools for PII and hallucination detection, but does not provide built-in automatic masking or dedicated native detection. Overall, it supports robust monitoring workflows to evaluate and improve safety measures. |
+| Analytics & Dashboard | O | Langfuse offers robust analytics and dashboarding with curated views for cost, latency, and usage, plus highly customizable dashboards supporting flexible metrics and real-time data. Core LLM observability needs like token usage, latency percentiles, and cost attribution are strongly supported through pre-built and user-defined visualizations. Advanced features like embedding visualizations are absent, while error monitoring is present but lacks explicit alerting details. |
+| Development Lifecycle | O | Langfuse excels in prompt management, playground testing, experiment tracking via A/B versioning, and version control with easy rollback through labels. It lacks fine-tuning integration. These features enable iterative development without code changes, integrating seamlessly with observability. |
+| Integration & DX | △ | Langfuse offers robust SDK support for Python and JS/TS with excellent integrations for LangChain and LlamaIndex, alongside a comprehensive REST API. Lacks official Go SDK and proxy mode, with no evidence of CI/CD-specific tools. OpenTelemetry provides flexible alternatives for broader language support. |
+| Enterprise & Infrastructure | O | Langfuse demonstrates strong enterprise infrastructure capabilities with flexible deployment options (Cloud and self-hosted), MIT-licensed open source availability, and comprehensive audit logging. Data sovereignty and compliance features are supported through multi-region deployment and self-hosting options, though specific compliance certifications are not explicitly documented. RBAC and data warehouse export capabilities are present but have notable limitations in SSO/SAML specificity and data warehouse integration breadth. |
 
 
 ---
 
 ### Braintrust
 
-**Overview**: Braintrust is an enterprise-grade AI development platform that tightly integrates evaluation, prompt management, and observability into a single workflow. It distinguishes itself with a strong focus on 'evaluation-driven development,' offering robust tools for regression testing, dataset curation, and hybrid self-hosted deployments for data privacy. While it excels in the development lifecycle and custom scoring, it currently lacks specialized visualizations for complex agent graphs and dedicated real-time guardrail enforcement features.
+**Overview**: Braintrust is an enterprise-grade AI development platform that tightly integrates evaluation, prompt management, and observability into a continuous improvement loop. It excels in regression testing, custom scoring, and dataset management, making it highly effective for teams focused on rigorous engineering standards. While it offers strong tracing and SDK support, it currently prioritizes quantitative evaluation and list-based logging over visual debugging tools like execution graphs or session replays.
 
 **Strengths**:
-- Comprehensive evaluation framework with custom scorers and regression testing
-- Strong development lifecycle tools including prompt CMS and playgrounds
-- Hybrid deployment model ensuring data stays in customer cloud
-- Robust SDK support for Python, TypeScript, and Go
-- Integrated dataset management and curation workflows
+- Unified workflow connecting prompt engineering, evaluation, and logging
+- Robust regression testing and experiment tracking capabilities
+- Strong enterprise security features including RBAC, SSO, and hybrid deployment
+- High-quality SDKs with excellent auto-instrumentation support
 
 **Weaknesses**:
-- Lack of advanced agent execution graph visualizations
-- No dedicated real-time guardrails for PII or jailbreak detection
-- Limited pre-built integrations for CI/CD pipelines and data warehouses
-- No open-source version or self-hosted community edition
-- Missing specialized visualizations for embeddings and vector retrieval
+- Lack of advanced visual debugging tools like agent execution graphs
+- No native session replay UI for reviewing multi-turn conversations
+- Limited out-of-the-box guardrails (PII, jailbreak) compared to specialized security tools
+- No full self-hosting or open-source option for complete data sovereignty
 
 **Recent Updates**:
-- Sub-agent nesting for Claude Agent: Added support for sub-agent nesting in the Claude Agent SDK wrapper, improving tracing for complex agentic workflows. (2026-02-12)
-- Classifications Field: Introduced a new 'Classifications' field in the SDK, likely for enhanced metadata tagging or categorization of traces. (2026-01-31)
-- Eval Cache Control: Added options to turn off caching during evaluations and after span exports, providing more control over experiment reproducibility. (2026-01-29)
-- Python Trace Scoring: New candidate implementation for trace scoring in Python, enhancing programmatic evaluation capabilities. (2026-01-21)
-- Review Span Type: Added a specific 'review' span type to the SDK, facilitating better categorization of human review steps in traces. (2026-01-15)
+- Thread Retrieval API: Added capability to retrieve threads programmatically in the Python SDK. (2026-02-12)
+- Sub-agent Nesting: Added support for sub-agent nesting in the Claude Agent SDK wrapper. (2026-02-12)
+- Review Span Type: Introduced a specific 'Review' span type to support human review workflows. (2026-02-05)
+- Classifications Field: Added a classifications field to SDKs for enhanced metadata tagging. (2026-01-31)
+- Trace Scoring Candidate: New functionality for scoring traces directly within the Python SDK. (2026-01-21)
 
 | Category | Rating | Summary |
 |---|---|---|
-| Core Tracing & Logging | O | Braintrust delivers robust core tracing with strong support for multimodal data, hierarchical spans, and metadata filtering. It emphasizes native SDK instrumentation while offering OpenTelemetry compatibility. |
-| Agent & RAG Specifics | △ | Support for agents and RAG is functional through standard tracing and session replays but lacks advanced visualizations like execution graphs or detailed retrieval inspection found in specialized competitors. |
-| Evaluation & Quality | O | This is Braintrust's strongest category, offering a comprehensive suite for offline and online evaluation, regression testing, and dataset management, making it a top choice for engineering-led quality assurance. |
-| Guardrails & Safety | △ | Safety features are primarily implemented through the evaluation framework (policy-as-code) rather than as active, pre-built interception layers for PII or jailbreaks. |
-| Analytics & Dashboard | △ | Analytics are strong for high-level metrics and custom dashboards, powered by a fast backend, but lack specialized visualizations for embeddings or granular cost attribution. |
-| Development Lifecycle | O | Braintrust excels in the development lifecycle, providing a unified environment for prompt engineering, version control, and experiment tracking that integrates well with code. |
-| Integration & DX | △ | Developer experience is centered around strong SDKs for major languages. Integration with external frameworks and CI/CD pipelines is possible but requires more manual setup compared to competitors with pre-built adapters. |
-| Enterprise & Infrastructure | △ | Braintrust targets enterprise users with strong security features like RBAC and a hybrid deployment model that keeps sensitive data within the customer's infrastructure, though it lacks full self-hosting and open-source options. |
+| Core Tracing & Logging | O | Braintrust delivers robust core tracing capabilities with strong support for nested spans, multimodal data, and OpenTelemetry standards. Its metadata filtering and auto-instrumentation features are particularly mature, though streaming documentation could be more explicit. |
+| Agent & RAG Specifics | △ | The platform provides foundational support for RAG and agents through standard tracing but lacks specialized visualizers like execution graphs or session replays. Recent updates added sub-agent nesting support, yet the experience remains focused on log analysis rather than visual debugging. |
+| Evaluation & Quality | O | Evaluation is Braintrust's strongest category, featuring a comprehensive suite for custom scorers, regression testing, and dataset curation. The 'Loop' feature simplifies judge creation, and recent updates continue to refine trace scoring and review workflows. |
+| Guardrails & Safety | △ | Safety features are primarily driven by the evaluation engine, allowing teams to deploy custom evals as guardrails. While powerful for logic and hallucination checks, it lacks out-of-the-box PII masking or standard jailbreak libraries found in specialized security tools. |
+| Analytics & Dashboard | △ | Braintrust provides a solid analytics foundation with customizable dashboards and strong token/metric tracking. It is less focused on exploratory visualizations like embedding clusters or latency heatmaps, prioritizing operational metrics instead. |
+| Development Lifecycle | O | The platform excels in the development lifecycle, offering a robust CMS for prompts and a sophisticated experiment tracking system. It effectively bridges the gap between engineering and product teams through its playground and version control features. |
+| Integration & DX | △ | Developer experience is a priority, evidenced by high-quality SDKs and API access. The integration strategy focuses on code-first instrumentation rather than proxy-based interception, fitting well into standard engineering workflows. |
+| Enterprise & Infrastructure | △ | Braintrust targets enterprise users with strong security features like RBAC and SSO, alongside a hybrid deployment model that keeps data local. However, it lacks some traditional enterprise infrastructure features like full self-hosting, audit logs, and data warehouse exports. |
 
 
 ---
 
 ### MLflow
 
-**Overview**: MLflow is a mature, open-source MLOps platform that has successfully expanded into GenAI observability with robust tracing, evaluation, and experiment tracking capabilities. While it excels in code-centric workflows, custom metrics, and production monitoring via auto-instrumentation, it is still evolving its specialized agent visualizations and non-technical collaboration features compared to LLM-native niche tools. Recent updates have bolstered its prompt management and multi-workspace capabilities, reinforcing its position as a versatile standard for engineering teams.
+**Overview**: MLflow is a mature, open-source MLOps platform that has successfully expanded into GenAI observability with robust tracing, evaluation, and lifecycle management features. While it excels in core experiment tracking, custom evaluation (LLM-as-a-Judge), and broad library support via Autolog, it lags behind niche competitors in specialized agent visualizations and interactive prompt engineering workflows.
 
 **Strengths**:
-- Industry-standard experiment tracking and model registry with massive community adoption.
-- Strong auto-instrumentation for major LLM libraries (LangChain, LlamaIndex, OpenAI).
-- Flexible deployment options ranging from local open-source to managed enterprise SaaS.
-- Robust custom evaluation capabilities with support for code-based scorers and datasets.
-- Deep integration with the broader data engineering ecosystem (Databricks, Spark).
+- Industry-standard experiment tracking and model registry
+- Strong LLM-as-a-Judge capabilities with UI builders
+- Extensive auto-instrumentation for libraries like LangChain
+- Flexible open-source and self-hosted deployment options
+- Robust custom metric and dashboarding system
 
 **Weaknesses**:
-- Lacks specialized agent visualization tools like execution graphs or session replays.
-- No native interactive playground for prompt engineering and testing.
-- Limited non-technical collaboration features (CMS, no-code wizards) compared to niche competitors.
-- Missing built-in cost analysis and attribution features.
-- Enterprise security features like RBAC and audit logs are limited in the open-source version.
+- Lack of specialized agent visualizations (e.g., execution graphs)
+- No interactive playground for prompt testing
+- Limited native safety guardrails (PII, hallucination)
+- Absence of real-time streaming observability
+- No built-in annotation queues for human review
 
 **Recent Updates**:
-- Organization Support: Support for multi-workspace environments in MLflow Tracking Server, allowing organization of experiments across different workspaces. (2026-02-12)
-- MLflow Assistant: In-product chatbot backed by Claude Code to help identify, diagnose, and fix issues directly within the MLflow UI. (2026-01-29)
+- Organization Support: Support for multi-workspace environments allowing organization of experiments and resources across different workspaces. (2026-02-12)
+- MLflow Assistant: In-product chatbot backed by Claude Code to help identify, diagnose, and fix issues directly within the UI. (2026-01-29)
 
 | Category | Rating | Summary |
 |---|---|---|
-| Core Tracing & Logging | △ | MLflow provides robust core tracing with full request/response capture, nested spans, auto-instrumentation, and OTEL compatibility. It excels in metadata filtering and production async logging but lacks streaming and multimodal support. |
-| Agent & RAG Specifics | X | MLflow supports RAG observability via integrations with LlamaIndex and LangChain, providing UI views of retrieval steps. However, it lacks specialized agent features like execution graphs, tool rendering, or session replay. |
-| Evaluation & Quality | △ | MLflow offers robust GenAI evaluation with strong support for custom scorers, dataset management, and side-by-side trace comparison. It lacks no-code GUI tools for judge building and prompt optimization. |
-| Guardrails & Safety | △ | MLflow supports guardrails primarily through integrations with libraries like Guardrails AI, enabling safety checks and policy management. It lacks native, built-in features for automatic PII masking or hallucination detection. |
-| Analytics & Dashboard | △ | MLflow offers robust analytics through its Tracking UI and Agent Dashboard, excelling in token usage, error tracking, and custom metrics. It lacks cost attribution and embedding visualizations. |
-| Development Lifecycle | △ | MLflow excels in experiment tracking and model versioning. Recent updates have added prompt management capabilities, though it still lacks a dedicated interactive playground. |
-| Integration & DX | △ | MLflow offers strong Python SDK support and auto-instrumentation for popular LLM libraries. However, it lacks official Go client SDKs, gateway modes, and direct CI/CD pipeline integrations. |
-| Enterprise & Infrastructure | △ | MLflow excels in flexible deployment options and open-source availability. Recent updates introduced multi-workspace organization support, though advanced compliance and audit features often require the managed Databricks service. |
+| Core Tracing & Logging | O | MLflow delivers enterprise-grade tracing with strong OpenTelemetry alignment and autologging capabilities. It provides detailed visibility into trace hierarchies and token usage but currently lacks support for streaming and multimodal data. |
+| Agent & RAG Specifics | X | Agent observability is functional but basic, relying on standard tracing views rather than specialized agent visualizations. While it supports RAG pipelines via integrations, it lacks advanced features like execution graphs, session replay, and dedicated tool rendering. |
+| Evaluation & Quality | O | Evaluation is a standout category, offering a comprehensive suite for offline and online assessment. Features like the LLM-as-a-Judge wizard, regression testing, and side-by-side trace comparison provide a robust framework for quality assurance. |
+| Guardrails & Safety | △ | Safety features are primarily delivered through integrations rather than native capabilities. While the platform supports tracing of external guardrails, it lacks built-in PII detection, hallucination checks, or native policy management. |
+| Analytics & Dashboard | △ | Analytics are robust for operational metrics like token usage and errors, supported by the Agent Dashboard. Custom metric support is strong, though the platform lacks specialized visualizations for embeddings or granular cost attribution. |
+| Development Lifecycle | △ | MLflow leverages its heritage in experiment tracking to provide strong lifecycle management. Recent additions of prompt management features improve the developer workflow, though it still lacks a dedicated interactive playground. |
+| Integration & DX | △ | Developer experience is solid with strong Python/JS SDKs and extensive framework support via Autolog. However, integration options are somewhat limited by the absence of proxy modes, webhooks, and pre-built CI/CD components. |
+| Enterprise & Infrastructure | △ | MLflow offers versatile deployment options and strong open-source foundations, making it adaptable for various infrastructure needs. Enterprise governance features like native RBAC and audit logs are less developed compared to commercial SaaS alternatives. |
 
 
 ---
 
 ### Arize Phoenix
 
-**Overview**: Arize Phoenix is an open-source AI observability and evaluation platform built on OpenTelemetry standards, designed to bridge the gap between development and production. It excels in deep tracing for RAG applications, LLM-as-a-judge evaluation workflows, and seamless auto-instrumentation for major Python frameworks, though it relies on the broader Arize ecosystem for advanced production monitoring and team collaboration features.
+**Overview**: Arize Phoenix is a leading open-source LLM observability and evaluation platform built on OpenTelemetry standards, designed primarily for AI engineers to trace, debug, and evaluate complex agentic and RAG workflows. It combines robust tracing visualization with a comprehensive evaluation library, offering seamless integration with popular frameworks like LangChain and LlamaIndex, though it focuses more on code-centric workflows than non-technical prompt management.
 
 **Strengths**:
-- Comprehensive OpenTelemetry-based tracing with deep RAG visualization
-- Strong LLM-as-a-judge capabilities with pre-built and custom evaluators
-- Seamless auto-instrumentation for major frameworks like LangChain and LlamaIndex
-- Flexible deployment options including open-source self-hosting and SaaS
+- Native OpenTelemetry architecture ensures standard compliance and no vendor lock-in.
+- Best-in-class auto-instrumentation for LangChain, LlamaIndex, and other major frameworks.
+- Powerful RAG and Agent debugging tools, including retrieval visualization and session replay.
+- Robust code-based evaluation framework supporting custom scorers and regression testing.
+- Flexible deployment options ranging from fully open-source self-hosted to managed SaaS.
 
 **Weaknesses**:
-- Lack of native prompt management (CMS) and version control features
-- Limited cost analysis and attribution capabilities
-- No documented support for multimodal tracing or streaming response visualization
-- Absence of a proxy/gateway mode for simplified integration
+- Lacks a non-technical Prompt CMS for versioning and managing prompts outside of code.
+- No native Go SDK, limiting adoption in Go-based infrastructure.
+- Missing financial operations features like cost attribution and budget tracking.
+- Does not support multimodal tracing (images/audio) or embedding space visualization.
+- No gateway or proxy mode, requiring direct SDK integration for all tracing.
 
 **Recent Updates**:
 - Claude Opus 4.6 Support: Added support for Claude Opus 4.6 model in the playground. (2026-02-09)
-- Tool Selection Evaluator: Added a missing tool_selection evaluator to libraries. (2026-02-06)
-- Faithfulness Evaluator: Introduced FaithfulnessEvaluator and deprecated HallucinationEvaluator. (2026-02-02)
-- Tool Invocation Accuracy Metric: Added a new metric for tracking tool invocation accuracy. (2026-01-27)
+- Tool Selection Evaluator: New evaluator added to assess the quality of tool selection in agentic workflows. (2026-02-06)
+- Faithfulness Evaluator: Introduced FaithfulnessEvaluator (deprecating HallucinationEvaluator) for checking groundedness. (2026-02-02)
+- Tool Invocation Accuracy Metric: New metric to track the accuracy of tool invocations. (2026-02-02)
+- Configurable Email Extraction: Added EMAIL_ATTRIBUTE_PATH for configurable email extraction in OAuth2. (2026-01-28)
 - Cursor Rule for Metrics: Added cursor rule for creating new built-in metrics (LLM classification evaluators). (2026-01-21)
 
 | Category | Rating | Summary |
 |---|---|---|
-| Core Tracing & Logging | △ | Phoenix provides robust core tracing capabilities rooted in OpenTelemetry, offering excellent visibility into request lifecycles and auto-instrumentation. However, it currently lacks specific features for streaming and multimodal data. |
-| Agent & RAG Specifics | △ | The platform is highly effective for RAG and agent observability, featuring strong retrieval and tool usage visualization. While it captures intermediate states well, advanced graph visualizations and session replay features are less developed. |
-| Evaluation & Quality | O | Phoenix is a strong contender in evaluation, offering comprehensive tools for LLM-as-a-judge, dataset management, and regression testing. It supports custom scorers well but relies on external integrations for online evaluation and advanced annotation workflows. |
-| Guardrails & Safety | △ | Safety features are primarily delivered through deep integrations with Guardrails AI and Arize's proprietary tools. While it offers strong visibility into jailbreaks and topic violations, native masking and policy management are absent. |
-| Analytics & Dashboard | △ | The platform offers solid analytics for token usage and custom metrics, allowing for flexible dashboard creation. However, it lacks financial operations features like cost attribution and advanced technical visualizations like embedding spaces. |
-| Development Lifecycle | △ | Phoenix is strong in experiment tracking and iterative testing, making it useful for developers. However, it is not a Prompt CMS and lacks features for prompt versioning, rollback, and non-technical collaboration. |
-| Integration & DX | △ | Developer experience is a highlight for Python and JS users due to strong SDKs and framework support. The lack of a proxy mode, Go support, and out-of-the-box CI/CD integrations limits its versatility in some environments. |
-| Enterprise & Infrastructure | △ | Arize Phoenix offers excellent deployment flexibility, including a robust open-source version and enterprise SaaS. While it supports basic compliance and sovereignty via self-hosting, it lacks advanced enterprise features like audit logs and automated data exports. |
+| Core Tracing & Logging | O | Phoenix excels in core tracing with a native OpenTelemetry architecture, offering deep visibility into LLM calls via robust auto-instrumentation and hierarchical views. While it lacks multimodal support, its text-based tracing and metadata filtering are best-in-class for engineering workflows. |
+| Agent & RAG Specifics | △ | The platform provides powerful tools for debugging Agentic RAG, particularly in visualizing retrievals and tool calls. While it supports session replay and reasoning inspection well, visualization of complex agent graphs and explicit failure highlighting could be more advanced. |
+| Evaluation & Quality | O | Phoenix is a powerhouse for code-centric evaluation, offering strong tools for custom scorers, dataset management, and regression testing. It is less suited for non-technical users due to the lack of GUI wizards for judges and advanced annotation workflows in the open-source version. |
+| Guardrails & Safety | O | Safety features are robust, leveraging integrations with Guardrails AI to provide comprehensive detection for PII, hallucinations, and jailbreaks. The policy-as-code approach aligns well with engineering workflows but requires developer implementation. |
+| Analytics & Dashboard | △ | Analytics are focused on operational metrics like token usage and custom performance indicators, with strong dashboard flexibility. However, it lacks financial operations (FinOps) features like cost attribution and advanced visualizations for embeddings or latency distributions. |
+| Development Lifecycle | △ | Phoenix is strong in the experimentation phase of development, allowing engineers to iterate on prompts and models with data. However, it is not a Prompt CMS and lacks lifecycle management features like version control, rollbacks, or fine-tuning exports. |
+| Integration & DX | △ | Developer experience is a highlight for Python and TypeScript users, with deep framework integrations and a robust API. The absence of a Go SDK and a proxy mode limits its utility for some infrastructure setups, but it fits well into code-first environments. |
+| Enterprise & Infrastructure | △ | Phoenix offers excellent deployment flexibility, ranging from open-source self-hosting to managed SaaS, making it adaptable to various enterprise needs. While it supports data sovereignty via self-hosting, it lacks some enterprise-grade administrative features like detailed audit logs and automated data exports. |
 
 
 ---

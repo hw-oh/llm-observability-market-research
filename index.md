@@ -10,14 +10,13 @@ title: LLM Observability Market Research
 [📋 Latest Report (2026-02-13)](./reports/2026-02-13.md)
 
 
-- LangSmith released Self-Hosted v0.13 and introduced unified cost tracking that now covers LLMs, tools, and retrieval components.
-- Langfuse launched an Organization Audit Log Viewer for compliance monitoring and added reasoning step rendering to improve agent visibility.
-- MLflow introduced Organization Support to enable multi-workspace management within its Tracking Server, bringing its governance capabilities closer to specialized LLM tools.
-- Braintrust added granular cache controls for evaluations to support reproducible enterprise experiments and regression testing.
-- Arize Phoenix released new evaluators specifically for tool selection and faithfulness, alongside a GUI-based wizard for configuring LLM judges.
-- W&B Weave launched dynamic leaderboards to facilitate team-based evaluation comparisons while maintaining native support for multimodal input tracing.
+- Langfuse introduced rendering support for 'thinking' traces to visualize reasoning steps, while Arize Phoenix released specific metrics for evaluating tool selection and faithfulness in agentic workflows.
+- MLflow launched version 3.10, introducing Organization Support to enable multi-workspace management and access control within large enterprise environments.
+- LangSmith released Self-Hosted v0.13 to improve infrastructure stability for on-premise deployments while maintaining its streaming support and agent execution graph visualizations.
+- Braintrust added a dedicated 'Review' span type to structure human-in-the-loop quality control workflows alongside its existing 'Loop' AI evaluator assistant.
+- W&B Weave confirmed SOC 2 Type II and HIPAA compliance for its VPC options and distinguished its agent observability capabilities with native Model Context Protocol (MCP) integration.
 
-> **Market Insight**: Langfuse and MLflow's simultaneous release of audit logs and organization-level management features challenges Weave's enterprise readiness narrative by closing the gap on administrative governance. | Arize Phoenix's introduction of a GUI-based wizard for LLM judges directly competes with Weave's existing no-code evaluation creation workflows, commoditizing ease-of-use in judge configuration. | LangSmith's deep agent sandboxes and Langfuse's reasoning step rendering highlight a specific gap in Weave's agent observability, which currently lacks high-level execution graphs for complex agentic workflows.
+> **Market Insight**: The release of specialized agentic metrics by Arize Phoenix and 'thinking' trace support by Langfuse directly challenges Weave's agent observability depth, necessitating continued leverage of Weave's exclusive Model Context Protocol (MCP) integration to maintain technical differentiation.
 
 
 <!-- LATEST_REPORT_END -->
