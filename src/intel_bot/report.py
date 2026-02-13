@@ -5,7 +5,6 @@ from pathlib import Path
 from intel_bot.config import (
     COMPARISON_CATEGORIES,
     COMPETITORS,
-    SUMMARY_DIMENSIONS,
     WEAVE_CONFIG,
 )
 from intel_bot.models import AnalysisRun, CompetitorAnalysis, DiscoveryResult
@@ -25,19 +24,6 @@ _CHANGELOG_URL_MAP: dict[str, str] = {
 
 def _rating_to_symbol(rating: str) -> str:
     return RATING_SYMBOL.get(rating, "-")
-
-
-def _dimension_field(dim: str) -> str:
-    """Map SUMMARY_DIMENSIONS display name to ProductSummaryRating field name."""
-    mapping = {
-        "Tracing": "trace_depth",
-        "Eval": "eval",
-        "Agent Observability": "agent_observability",
-        "Cost Tracking": "cost_tracking",
-        "Enterprise": "enterprise_ready",
-        "Overall": "overall",
-    }
-    return mapping.get(dim, dim.lower().replace(" ", "_"))
 
 
 # ---------------------------------------------------------------------------
@@ -216,38 +202,15 @@ def generate_weekly_report(
             lines.append(f"- {bullet}")
         lines.append("")
         if synthesis.market_insights:
-            lines.append("**Market Insight by AI**:")
-            lines.append("")
-            for mi in synthesis.market_insights:
-                lines.append(f"> {mi}")
+            insight_text = " | ".join(synthesis.market_insights)
+            lines.append(f"> **Market Insight**: {insight_text}")
             lines.append("")
     else:
         lines.append("- *No synthesis data available*")
     lines.append("")
 
-    # Section 2: Product Feature Comparison
-    lines.append("## 2. Product Feature Comparison")
-    lines.append("")
-    if synthesis and synthesis.product_ratings:
-        header = "| Product | " + " | ".join(SUMMARY_DIMENSIONS) + " |"
-        sep = "|---|" + "---|" * len(SUMMARY_DIMENSIONS)
-        lines.append(header)
-        lines.append(sep)
-        for pr in synthesis.product_ratings:
-            cells = []
-            for dim in SUMMARY_DIMENSIONS:
-                field = _dimension_field(dim)
-                val = getattr(pr, field, "none")
-                symbol = _rating_to_symbol(val)
-                cells.append(f'<span title="{dim}">{symbol}</span>')
-            lines.append(f"| **{pr.product_name}** | {' | '.join(cells)} |")
-        lines.append("")
-    else:
-        lines.append("*No data available*")
-        lines.append("")
-
-    # Section 3: New Features (Last 30 Days)
-    lines.append("## 3. New Features (Last 30 Days)")
+    # Section 2: New Features (Last 30 Days)
+    lines.append("## 2. New Features (Last 30 Days)")
     lines.append("")
     has_any_features = False
 
@@ -268,8 +231,8 @@ def generate_weekly_report(
         lines.append("*No new features in the last 30 days*")
         lines.append("")
 
-    # Section 4: Positioning Shift
-    lines.append("## 4. Positioning Shift")
+    # Section 3: Positioning Shift
+    lines.append("## 3. Positioning Shift")
     lines.append("")
     lines.append("| Product | Current | Moving Toward | Signal |")
     lines.append("|---|---|---|---|")
@@ -283,8 +246,8 @@ def generate_weekly_report(
         )
     lines.append("")
 
-    # Section 5: Enterprise Signals
-    lines.append("## 5. Enterprise Signals")
+    # Section 4: Enterprise Signals
+    lines.append("## 4. Enterprise Signals")
     lines.append("")
     if synthesis and synthesis.enterprise_signals:
         for sig in synthesis.enterprise_signals:
@@ -299,10 +262,12 @@ def generate_weekly_report(
     lines.append("## Methodology")
     lines.append("")
     lines.append(
-        f"Data was collected on {run.collection_date} via Serper.dev web search, "
-        "official documentation scraping, and GitHub/PyPI feeds."
+        f"Data was collected on {run.collection_date} via GitHub/PyPI feeds and documentation scraping."
     )
-    lines.append(f"Analysis was performed using the {run.model} model via OpenRouter.")
+    lines.append(
+        f"Category analysis was performed using Perplexity Sonar (web search + analysis). "
+        f"Synthesis was performed using the {run.model} model via OpenRouter."
+    )
     lines.append("")
 
     # Emerging competitors (if any)
@@ -393,10 +358,8 @@ def update_index(index_path: str = "index.md", analysis: AnalysisRun | None = No
                 latest_parts.append(f"- {bullet}")
             latest_parts.append("")
             if analysis.synthesis.market_insights:
-                latest_parts.append("**Market Insight by AI**:")
-                latest_parts.append("")
-                for mi in analysis.synthesis.market_insights:
-                    latest_parts.append(f"> {mi}")
+                insight_text = " | ".join(analysis.synthesis.market_insights)
+                latest_parts.append(f"> **Market Insight**: {insight_text}")
             latest_parts.append("")
         latest_content = "\n".join(latest_parts) + "\n"
     else:
