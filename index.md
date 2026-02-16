@@ -7,16 +7,17 @@ title: LLM Observability Market Research
 
 <!-- LATEST_REPORT_START -->
 
-[📋 Latest Report (2026-02-13)](./reports/2026-02-13.md)
+[📋 Latest Report (2026-02-16)](./reports/2026-02-16.md)
 
 
-- Langfuse introduced rendering support for 'thinking' traces to visualize reasoning steps, while Arize Phoenix released specific metrics for evaluating tool selection and faithfulness in agentic workflows.
-- MLflow launched version 3.10, introducing Organization Support to enable multi-workspace management and access control within large enterprise environments.
-- LangSmith released Self-Hosted v0.13 to improve infrastructure stability for on-premise deployments while maintaining its streaming support and agent execution graph visualizations.
-- Braintrust added a dedicated 'Review' span type to structure human-in-the-loop quality control workflows alongside its existing 'Loop' AI evaluator assistant.
-- W&B Weave confirmed SOC 2 Type II and HIPAA compliance for its VPC options and distinguished its agent observability capabilities with native Model Context Protocol (MCP) integration.
+- W&B Weave launched Audio Monitors to support online evaluation for multimodal voice agents and added tracing support for the Model Context Protocol (MCP).
+- LangSmith released standalone Google Gen AI and Gemini wrappers, expanding its integration capabilities beyond the core LangChain ecosystem.
+- Langfuse introduced an Organization Audit Log Viewer to enhance governance for self-hosted instances and added rendering for Chain-of-Thought reasoning.
+- MLflow released version 3.10 with Organization Support, enabling multi-workspace environments for improved resource isolation.
+- Arize Phoenix deployed specific evaluators for tool selection and faithfulness to bolster its code-first evaluation framework.
+- Braintrust added a 'Review' span type to formalize human-in-the-loop workflows within traces, complementing its existing AI scorer wizard.
 
-> **Market Insight**: The release of specialized agentic metrics by Arize Phoenix and 'thinking' trace support by Langfuse directly challenges Weave's agent observability depth, necessitating continued leverage of Weave's exclusive Model Context Protocol (MCP) integration to maintain technical differentiation.
+> **Market Insight**: Weave's release of Audio Monitors reinforces its differentiation in multimodal tracing, while Arize Phoenix's new tool selection evaluators intensify competition in granular agentic evaluation.
 
 
 <!-- LATEST_REPORT_END -->
@@ -27,6 +28,7 @@ title: LLM Observability Market Research
 
 | Date | Report |
 |------|--------|
+| 2026-02-16 | [View Report](./reports/2026-02-16.md) |
 | 2026-02-13 | [View Report](./reports/2026-02-13.md) |
 | 2026-02-12 | [View Report](./reports/2026-02-12.md) |
 | 2026-02-11 | [View Report](./reports/2026-02-11.md) |
