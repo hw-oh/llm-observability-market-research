@@ -7,17 +7,17 @@ title: LLM Observability Market Research
 
 <!-- LATEST_REPORT_START -->
 
-[📋 Latest Report (2026-02-16)](./reports/2026-02-16.md)
+[📋 Latest Report (2026-02-23)](./reports/2026-02-23.md)
 
 
-- W&B Weave launched Audio Monitors to support online evaluation for multimodal voice agents and added tracing support for the Model Context Protocol (MCP).
-- LangSmith released standalone Google Gen AI and Gemini wrappers, expanding its integration capabilities beyond the core LangChain ecosystem.
-- Langfuse introduced an Organization Audit Log Viewer to enhance governance for self-hosted instances and added rendering for Chain-of-Thought reasoning.
-- MLflow released version 3.10 with Organization Support, enabling multi-workspace environments for improved resource isolation.
-- Arize Phoenix deployed specific evaluators for tool selection and faithfulness to bolster its code-first evaluation framework.
-- Braintrust added a 'Review' span type to formalize human-in-the-loop workflows within traces, complementing its existing AI scorer wizard.
+- MLflow released Organization Support (v2026-02-20) to enable multi-workspace environments and resource isolation.
+- Langfuse introduced single-span judging capabilities and an Organization Audit Log Viewer (v2026-02-06) for enhanced governance.
+- W&B Weave deployed new audio monitors for voice agents and native integration with the Model Context Protocol (MCP).
+- Braintrust added support for OpenAI Agents to its evaluation platform while maintaining its hybrid deployment model.
+- LangSmith provides full session replays and hierarchical run trees to visualize complex agent execution graphs.
+- Arize Phoenix offers specialized visualizations for retrieval chunks and agent execution pathways via native OpenTelemetry support.
 
-> **Market Insight**: Weave's release of Audio Monitors reinforces its differentiation in multimodal tracing, while Arize Phoenix's new tool selection evaluators intensify competition in granular agentic evaluation.
+> **Market Insight**: While Weave retains a lead in multimodal tracing with new audio monitors, the release of granular governance features by Langfuse and MLflow signals increasing competitive pressure on enterprise administrative capabilities.
 
 
 <!-- LATEST_REPORT_END -->
@@ -28,6 +28,7 @@ title: LLM Observability Market Research
 
 | Date | Report |
 |------|--------|
+| 2026-02-23 | [View Report](./reports/2026-02-23.md) |
 | 2026-02-16 | [View Report](./reports/2026-02-16.md) |
 | 2026-02-13 | [View Report](./reports/2026-02-13.md) |
 | 2026-02-12 | [View Report](./reports/2026-02-12.md) |

@@ -7,17 +7,17 @@ title: LLM Observability 시장 조사
 
 <!-- LATEST_REPORT_START -->
 
-[📋 최신 리포트 (2026-02-16)](./reports/2026-02-16.md)
+[📋 최신 리포트 (2026-02-23)](./reports/2026-02-23.md)
 
 
-- W&B Weave는 멀티모달 보이스 에이전트의 온라인 Eval을 지원하기 위해 Audio Monitors를 출시했으며, Model Context Protocol (MCP)에 대한 Tracing 지원을 추가했습니다.
-- LangSmith는 독립형 Google Gen AI 및 Gemini 래퍼를 출시하여 핵심 LangChain 생태계를 넘어 통합 기능을 확장했습니다.
-- Langfuse는 셀프 호스팅 인스턴스의 거버넌스 강화를 위해 Organization Audit Log Viewer를 도입하고, Chain-of-Thought 추론 렌더링 기능을 추가했습니다.
-- MLflow는 리소스 격리 개선을 위한 멀티 워크스페이스 환경을 지원하는 Organization Support가 포함된 버전 3.10을 출시했습니다.
-- Arize Phoenix는 코드 우선(code-first) Eval 프레임워크를 강화하기 위해 도구 선택(tool selection) 및 성실성(faithfulness)에 특화된 전용 Evaluator를 배포했습니다.
-- Braintrust는 기존 AI Scoring 마법사를 보완하여 Tracing 내에서 human-in-the-loop 워크플로우를 공식화하는 'Review' 스팬 유형을 추가했습니다.
+- MLflow는 멀티 워크스페이스 환경과 리소스 격리를 지원하기 위해 Organization Support (v2026-02-20)를 출시했습니다.
+- Langfuse는 거버넌스 강화를 위해 single-span judging 기능과 Organization Audit Log Viewer (v2026-02-06)를 도입했습니다.
+- W&B Weave는 보이스 에이전트를 위한 새로운 오디오 모니터와 Model Context Protocol (MCP)과의 네이티브 통합을 배포했습니다.
+- Braintrust는 하이브리드 배포 모델을 유지하면서 OpenAI 에이전트에 대한 지원을 Eval 플랫폼에 추가했습니다.
+- LangSmith는 복잡한 에이전트 실행 그래프를 시각화하기 위해 전체 세션 리플레이와 계층적 run tree를 제공합니다.
+- Arize Phoenix는 네이티브 OpenTelemetry 지원을 통해 리트리벌 청크(retrieval chunks) 및 에이전트 실행 경로에 특화된 시각화를 제공합니다.
 
-> **Market Insight**: Weave의 Audio Monitors 출시는 멀티모달 Tracing 분야에서의 차별성을 강화하며, Arize Phoenix의 새로운 도구 선택 Evaluator는 세밀한 에이전트 Eval 시장의 경쟁을 심화시키고 있습니다.
+> **Market Insight**: Weave가 새로운 오디오 모니터로 멀티모달 Tracing 분야에서 선두를 유지하고 있는 반면, Langfuse와 MLflow가 세분화된 거버넌스 기능을 출시함에 따라 엔터프라이즈 관리 기능에 대한 경쟁 압력이 거세지고 있습니다.
 
 
 <!-- LATEST_REPORT_END -->
@@ -28,6 +28,7 @@ title: LLM Observability 시장 조사
 
 | 날짜 | 리포트 |
 |------|--------|
+| 2026-02-23 | [리포트 보기](./reports/2026-02-23.md) |
 | 2026-02-16 | [리포트 보기](./reports/2026-02-16.md) |
 | 2026-02-13 | [리포트 보기](./reports/2026-02-13.md) |
 | 2026-02-12 | [리포트 보기](./reports/2026-02-12.md) |
