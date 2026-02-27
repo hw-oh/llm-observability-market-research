@@ -1,0 +1,389 @@
+{
+  "product_name": "LangSmith",
+  "last_updated": "2026-02-26",
+  "categories": [
+    {
+      "category_name": "1. Core Tracing & Logging",
+      "features": [
+        {
+          "item_name": "Full Request/Response Tracing",
+          "feature_name": "Tracing / Run Tree",
+          "available": "yes",
+          "provision_method": "SDK decorator / Auto-instrumentation",
+          "notes": "Captures full inputs, outputs, and parameters; supports LangChain and third-party LLMs via SDK."
+        },
+        {
+          "item_name": "Nested Span & Tree View",
+          "feature_name": "Run Tree",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Visualizes hierarchical execution of chains, agents, and tools."
+        },
+        {
+          "item_name": "Streaming Support",
+          "feature_name": "Streaming Events / Time-to-first-token",
+          "available": "yes",
+          "provision_method": "SDK / Built-in UI",
+          "notes": "Captures streaming events and visualizes time-to-first-token metrics in dashboards."
+        },
+        {
+          "item_name": "Multimodal Tracing",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "No specific evidence of image/audio rendering in trace views found in documentation."
+        },
+        {
+          "item_name": "Auto-Instrumentation",
+          "feature_name": "@traceable / Integrations",
+          "available": "yes",
+          "provision_method": "SDK decorator / Environment Variable",
+          "notes": "Supports zero-code instrumentation for LangChain via environment variables; decorators for other code."
+        },
+        {
+          "item_name": "Metadata & Tags Filtering",
+          "feature_name": "Metadata and Tags",
+          "available": "yes",
+          "provision_method": "SDK / Built-in UI",
+          "notes": "Allows attaching key-value metadata and tags to traces for filtering in the UI."
+        },
+        {
+          "item_name": "Token Counting & Estimation",
+          "feature_name": "Token Usage",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Tracks total, prompt, and completion tokens; displayed in dashboards and trace views."
+        },
+        {
+          "item_name": "OpenTelemetry Standard",
+          "feature_name": "OpenTelemetry Support",
+          "available": "yes",
+          "provision_method": "SDK Exporter",
+          "notes": "Supports exporting traces to OpenTelemetry compatible backends."
+        }
+      ]
+    },
+    {
+      "category_name": "2. Agent & RAG Specifics",
+      "features": [
+        {
+          "item_name": "RAG Retrieval Visualizer",
+          "feature_name": "Retrieved Documents",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Visualizes retrieved document chunks and metadata within the trace view."
+        },
+        {
+          "item_name": "Tool/Function Call Rendering",
+          "feature_name": "Tool Usage",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Renders tool inputs, outputs, and execution status as distinct spans in the run tree."
+        },
+        {
+          "item_name": "Agent Execution Graph",
+          "feature_name": "Trace Visualization",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Visualizes agent loops, branches, and multi-step execution flows."
+        },
+        {
+          "item_name": "Intermediate Step State",
+          "feature_name": "Intermediate Steps",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Captures and displays intermediate reasoning and variable states relative to the final output."
+        },
+        {
+          "item_name": "Session/Thread Replay",
+          "feature_name": "Threads",
+          "available": "partial",
+          "provision_method": "Built-in UI",
+          "notes": "Groups runs into threads for multi-turn conversation view; exact 'replay' simulation is limited."
+        },
+        {
+          "item_name": "Failed Step Highlighting",
+          "feature_name": "Status: Error",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "highlights spans with error status and supports filtering traces by error state."
+        },
+        {
+          "item_name": "MCP Integration",
+          "feature_name": "LangSmith MCP Server",
+          "available": "yes",
+          "provision_method": "Integration",
+          "notes": "Explicit documentation for 'LangSmith MCP Server' to view server logs and connect via Model Context Protocol."
+        }
+      ]
+    },
+    {
+      "category_name": "3. Evaluation & Quality",
+      "features": [
+        {
+          "item_name": "LLM-as-a-Judge Wizard",
+          "feature_name": "Online Evaluators / LLM-as-judge",
+          "available": "yes",
+          "provision_method": "Built-in UI / SDK",
+          "notes": "Configurable evaluators to score runs based on criteria using an LLM."
+        },
+        {
+          "item_name": "Custom Eval Scorers",
+          "feature_name": "Custom Evaluators",
+          "available": "yes",
+          "provision_method": "Python/JS Code",
+          "notes": "Supports defining custom evaluation logic as python functions."
+        },
+        {
+          "item_name": "Dataset Management & Curation",
+          "feature_name": "Datasets",
+          "available": "yes",
+          "provision_method": "Built-in UI / SDK",
+          "notes": "Allows creating datasets from traces (curation) and managing examples for testing."
+        },
+        {
+          "item_name": "Prompt Optimization / DSPy Support",
+          "feature_name": "Prompt Engineering",
+          "available": "partial",
+          "provision_method": "Built-in UI",
+          "notes": "Supports prompt playground and experimentation; DSPy integration is via SDK, not native UI wizard."
+        },
+        {
+          "item_name": "Regression Testing",
+          "feature_name": "Offline Evaluations",
+          "available": "yes",
+          "provision_method": "SDK / CI Pipeline",
+          "notes": "Enables running evaluations against datasets to detect regressions before deployment."
+        },
+        {
+          "item_name": "Comparison View (Side-by-side)",
+          "feature_name": "Comparison View",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Compare results of multiple experiments or runs side-by-side."
+        },
+        {
+          "item_name": "Annotation Queues",
+          "feature_name": "Annotation Queues",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Workflow for human review and annotation of selected traces."
+        },
+        {
+          "item_name": "Online Evaluation",
+          "feature_name": "Online Evaluations",
+          "available": "yes",
+          "provision_method": "Built-in UI / Automation Rules",
+          "notes": "Runs evaluators on sampled production traffic automatically."
+        }
+      ]
+    },
+    {
+      "category_name": "4. Guardrails & Safety",
+      "features": [
+        {
+          "item_name": "PII/Sensitive Data Masking",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Not explicitly mentioned as a native automatic feature in the provided docs."
+        },
+        {
+          "item_name": "Hallucination Detection",
+          "feature_name": "Evaluators",
+          "available": "partial",
+          "provision_method": "Custom Evaluators",
+          "notes": "Can be implemented via LLM-as-judge evaluators checking for hallucinations, but no dedicated 'switch'."
+        },
+        {
+          "item_name": "Topic/Jailbreak Guardrails",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "No proprietary guardrail models provided out-of-the-box."
+        },
+        {
+          "item_name": "Policy Management as Code",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Not supported."
+        }
+      ]
+    },
+    {
+      "category_name": "5. Analytics & Dashboard",
+      "features": [
+        {
+          "item_name": "Cost Analysis & Attribution",
+          "feature_name": "Cost Tracking",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Tracks estimates of costs based on token usage and model pricing."
+        },
+        {
+          "item_name": "Token Usage Analytics",
+          "feature_name": "Token Usage",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Visualizes input, output, and total token consumption over time."
+        },
+        {
+          "item_name": "Latency Heatmap & P99",
+          "feature_name": "Latency Monitoring",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Dashboards include P50/P99 latency metrics and visualizations."
+        },
+        {
+          "item_name": "Error Rate Monitoring",
+          "feature_name": "Monitoring & Alerting",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Tracks error rates and supports setting up alerts."
+        },
+        {
+          "item_name": "Embedding Space Visualization",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Not supported."
+        },
+        {
+          "item_name": "Custom Metrics & Dashboard",
+          "feature_name": "Dashboards",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Allows creating custom charts based on trace data and feedback."
+        }
+      ]
+    },
+    {
+      "category_name": "6. Development Lifecycle",
+      "features": [
+        {
+          "item_name": "Prompt Management (CMS)",
+          "feature_name": "Prompt Hub",
+          "available": "yes",
+          "provision_method": "Built-in UI / SDK",
+          "notes": "Centralized repository for managing, versioning, and deploying prompts."
+        },
+        {
+          "item_name": "Playground & Sandbox",
+          "feature_name": "Playground",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Interactive environment to test and iterate on prompts."
+        },
+        {
+          "item_name": "Experiment Tracking",
+          "feature_name": "Experiments",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Tracks results of running datasets against applications/models."
+        },
+        {
+          "item_name": "Fine-tuning Integration",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Not mentioned in the provided documentation."
+        },
+        {
+          "item_name": "Version Control & Rollback",
+          "feature_name": "Prompt Versioning",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Supports version history for prompts within the Prompt Hub."
+        }
+      ]
+    },
+    {
+      "category_name": "7. Integration & DX",
+      "features": [
+        {
+          "item_name": "SDK Support (Py/JS/Go)",
+          "feature_name": "LangSmith SDK",
+          "available": "yes",
+          "provision_method": "SDK",
+          "notes": "Official support for Python and JavaScript/TypeScript. Go support mentioned in CLI context."
+        },
+        {
+          "item_name": "Gateway/Proxy Mode",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "No explicit proxy mode documented; relies on SDK or APM integration."
+        },
+        {
+          "item_name": "Popular Frameworks",
+          "feature_name": "Integrations",
+          "available": "yes",
+          "provision_method": "SDK / Auto-instrumentation",
+          "notes": "Native support for LangChain, LlamaIndex, OpenAI, Anthropic, CrewAI, Vercel AI SDK."
+        },
+        {
+          "item_name": "API & Webhooks",
+          "feature_name": "API & Webhooks",
+          "available": "yes",
+          "provision_method": "REST API",
+          "notes": "Full API access and webhook configuration for alerts and rules."
+        },
+        {
+          "item_name": "CI/CD Integration",
+          "feature_name": "CI/CD Integration",
+          "available": "yes",
+          "provision_method": "SDK / Scripting",
+          "notes": "Can run evaluations and experiments as part of CI pipelines."
+        }
+      ]
+    },
+    {
+      "category_name": "8. Enterprise & Infrastructure",
+      "features": [
+        {
+          "item_name": "Deployment Options",
+          "feature_name": "Self-Hosted / Cloud / Hybrid",
+          "available": "yes",
+          "provision_method": "Docker / SaaS",
+          "notes": "Documentation confirms availability of Cloud, Hybrid, and Self-hosted options."
+        },
+        {
+          "item_name": "Open Source",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "The platform itself is proprietary; SDKs are open source."
+        },
+        {
+          "item_name": "Data Sovereignty & Compliance",
+          "feature_name": "Regions",
+          "available": "yes",
+          "provision_method": "Configuration",
+          "notes": "Supports region configuration and compliance features on enterprise plans."
+        },
+        {
+          "item_name": "RBAC & SSO",
+          "feature_name": "RBAC / SSO",
+          "available": "yes",
+          "provision_method": "Admin UI",
+          "notes": "Supports Workspace roles, Organization roles, and SSO integration."
+        },
+        {
+          "item_name": "Audit Logs",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Not explicitly detailed in the administration overview."
+        },
+        {
+          "item_name": "Data Warehouse Export",
+          "feature_name": "Bulk Export",
+          "available": "partial",
+          "provision_method": "API / UI",
+          "notes": "Supports bulk export of trace data, but automated continuous sync to warehouses is not explicitly detailed."
+        }
+      ]
+    }
+  ]
+}

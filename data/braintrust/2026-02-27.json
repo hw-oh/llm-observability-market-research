@@ -1,0 +1,627 @@
+{
+  "product_name": "Braintrust",
+  "last_updated": "2026-02-27",
+  "categories": [
+    {
+      "category_name": "Core Tracing & Logging",
+      "features": [
+        {
+          "item_name": "Full Request/Response Tracing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Comprehensive Traces",
+              "provision_method": "SDK Auto-wrappers",
+              "notes": "Captures exact inputs, outputs, parameters, latency, and metadata for every request"
+            }
+          ]
+        },
+        {
+          "item_name": "Nested Span & Tree View",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Span Hierarchy",
+              "provision_method": "Built-in UI",
+              "notes": "Spans nest inside each other to visualize the execution flow and application structure"
+            }
+          ]
+        },
+        {
+          "item_name": "Streaming Support",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Stream Responses",
+              "provision_method": "SDK",
+              "notes": "Real-time streaming response deployment and monitoring support explicitly documented"
+            }
+          ]
+        },
+        {
+          "item_name": "Multimodal Tracing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Log Attachments",
+              "provision_method": "SDK / UI",
+              "notes": "Allows logging of generic data capabilities via attachments, but explicit multimodal rendering interfaces are not strictly documented"
+            },
+            {
+              "name": "Attachment Rendering",
+              "provision_method": "Built-in UI",
+              "notes": "Custom trace views natively support directly rendering embedded object resources, audio, video, and image attachments safely."
+            }
+          ]
+        },
+        {
+          "item_name": "Auto-Instrumentation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Wrap AI Providers",
+              "provision_method": "SDK Decorators/Wrappers",
+              "notes": "Automatically logs all LLM calls from major AI providers and frameworks with minimal setup"
+            }
+          ]
+        },
+        {
+          "item_name": "Metadata & Tags Filtering",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Metadata & Filtering",
+              "provision_method": "Built-in UI / SDK",
+              "notes": "Attaches custom metadata and leverages BTQL/search capabilities to filter logs and discover insights"
+            },
+            {
+              "name": "Automated Topic Classification",
+              "provision_method": "Built-in UI / Auto-Classification",
+              "notes": "Utilizes machine learning to automatically cluster and conceptually classify logs to surface semantic metadata and topic domains."
+            },
+            {
+              "name": "Advanced Span Aggregations",
+              "provision_method": "Built-in UI / BTQL",
+              "notes": "Enhances SQL querying via combining singular constraints alongside aggregation groupings natively restricted by output limit limits."
+            },
+            {
+              "name": "Topic Maps",
+              "provision_method": "Built-in UI",
+              "notes": "Combines preprocessors and AI prompts to automatically summarize and categorize logs into meaningful topics, supporting both custom and built-in maps including Task, Sentiment, and Issues."
+            }
+          ]
+        },
+        {
+          "item_name": "Token Counting & Estimation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Token Usage Tracking",
+              "provision_method": "Built-in UI / SDK",
+              "notes": "Automatically accounts for input and output token counts and calculates costs automatically"
+            }
+          ]
+        },
+        {
+          "item_name": "OpenTelemetry Standard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "OpenTelemetry Support",
+              "provision_method": "SDK Integration",
+              "notes": "Standardized trace and span compatibility via integrated OpenTelemetry pipelines"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Agent & RAG Specifics",
+      "features": [
+        {
+          "item_name": "RAG Retrieval Visualizer",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Vector Database Searches",
+              "provision_method": "Built-in UI",
+              "notes": "Logs vector DB retrieval directly inside spans, but does not identify dedicated external document visualizers"
+            }
+          ]
+        },
+        {
+          "item_name": "Tool/Function Call Rendering",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Tool & Function Spans",
+              "provision_method": "Built-in UI",
+              "notes": "Detailed parsing and rendering of tool and nested function invocation within trace boundaries"
+            }
+          ]
+        },
+        {
+          "item_name": "Agent Execution Graph",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Service Maps & Hierarchy",
+              "provision_method": "Built-in UI",
+              "notes": "Highlights agent execution logic temporally and hierarchically, without dedicated workflow DAG graph visualizations"
+            }
+          ]
+        },
+        {
+          "item_name": "Intermediate Step State",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Agent Reasoning Steps",
+              "provision_method": "Built-in UI",
+              "notes": "Isolates and visualizes intermediate multi-stage agent states and Chain-of-Thought debugging paths"
+            }
+          ]
+        },
+        {
+          "item_name": "Session/Thread Replay",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Multi-turn Sessions",
+              "provision_method": "Built-in UI",
+              "notes": "Tracks conversation contexts across sessions manually but lacks isolated end-to-end replay players"
+            }
+          ]
+        },
+        {
+          "item_name": "Failed Step Highlighting",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Error Detection",
+              "provision_method": "Built-in UI",
+              "notes": "Captures explicit error rates per span and flags failed hierarchy executions organically"
+            }
+          ]
+        },
+        {
+          "item_name": "MCP Integration",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Model Context Protocol",
+              "provision_method": "SDK / UI",
+              "notes": "Functions natively with MCP server implementations"
+            },
+            {
+              "name": "Code Editor Plugins",
+              "provision_method": "MCP Extensions",
+              "notes": "Auto-installation resources directly connecting programmatic workspaces via official Cursor, Claude Code, and OpenCode application bounds."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Evaluation & Quality",
+      "features": [
+        {
+          "item_name": "LLM-as-a-Judge Wizard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Loop Agent",
+              "provision_method": "Built-in UI",
+              "notes": "GUI-based AI assistant to generate scorers efficiently without programmatic instructions"
+            },
+            {
+              "name": "Loop Agent Context Tools",
+              "provision_method": "Built-in UI",
+              "notes": "Enhances the integrated chat interface handling rapid query modifications, mentions referencing data sources seamlessly alongside support logic."
+            }
+          ]
+        },
+        {
+          "item_name": "Custom Eval Scorers",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Scorer Library",
+              "provision_method": "SDK / UI",
+              "notes": "Permits extensive development via automated factuality metrics, algorithmic comparisons, and custom code-based validation"
+            },
+            {
+              "name": "Full Execution Trace Access",
+              "provision_method": "SDK Code",
+              "notes": "Equips evaluation handlers holistic insight into overarching operation sequences scoring complex agent workflow progression comprehensively."
+            }
+          ]
+        },
+        {
+          "item_name": "Dataset Management & Curation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Dataset Curation",
+              "provision_method": "Built-in UI / SDK",
+              "notes": "Transforms live interactions into structured test scenarios and exports refined human validation inputs automatically"
+            },
+            {
+              "name": "Trace Origin Navigation",
+              "provision_method": "Built-in UI",
+              "notes": "Grants isolated trace linkage mapping operational iterations directly reverting to defined dataset seeds and specific instructions continuously."
+            }
+          ]
+        },
+        {
+          "item_name": "Prompt Optimization / DSPy Support",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "DSPy Integrations & Loop",
+              "provision_method": "SDK / UI Sandbox",
+              "notes": "Direct DSPy integration mapping alongside AI-assisted optimization iterations directly against established data"
+            }
+          ]
+        },
+        {
+          "item_name": "Regression Testing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Offline Eval Experiments",
+              "provision_method": "CLI / SDK / UI",
+              "notes": "Automates tracking offline metrics prior to release, contrasting performance to restrict pipeline regressions"
+            }
+          ]
+        },
+        {
+          "item_name": "Comparison View (Side-by-side)",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Compare Experiments",
+              "provision_method": "Built-in UI",
+              "notes": "Highlights specific iteration impacts simultaneously visualizing parameter differences and baseline behavior"
+            }
+          ]
+        },
+        {
+          "item_name": "Annotation Queues",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Human Validation Views",
+              "provision_method": "Built-in UI",
+              "notes": "Grants annotation and correction labels manually but lacks explicit dedicated role-based queue task allocation metrics"
+            }
+          ]
+        },
+        {
+          "item_name": "Online Evaluation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Production Scoring",
+              "provision_method": "Built-in UI / Serverless Evaluators",
+              "notes": "Monitors active behavior and triggers automatic scoring functions simultaneously indexing interactions organically"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Guardrails & Safety",
+      "features": [
+        {
+          "item_name": "PII/Sensitive Data Masking",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Image Rendering Controls",
+              "provision_method": "Built-in UI Configuration",
+              "notes": "Enforces operational blocks or click-to-load permissions restricting external rendering and containing potential sensitive metadata leaks explicitly."
+            }
+          ]
+        },
+        {
+          "item_name": "Hallucination Detection",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Factuality Scorer",
+              "provision_method": "SDK / Evaluators",
+              "notes": "Exposes qualitative metrics isolating inaccuracies but lacks fully dedicated real-time guardrail circuit breaking explicitly mapped for hallucinations"
+            }
+          ]
+        },
+        {
+          "item_name": "Topic/Jailbreak Guardrails",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Safety Evaluators",
+              "provision_method": "SDK / Evaluators",
+              "notes": "Uses established custom scorers for general safety blocking without defining explicit out-of-the-box jailbreak implementations"
+            }
+          ]
+        },
+        {
+          "item_name": "Policy Management as Code",
+          "available": "no",
+          "sub_features": []
+        }
+      ]
+    },
+    {
+      "category_name": "Analytics & Dashboard",
+      "features": [
+        {
+          "item_name": "Cost Analysis & Attribution",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Cost Tracking",
+              "provision_method": "Built-in UI dashboard",
+              "notes": "Continuously records per-span API pricing models resolving detailed deployment expenditure"
+            }
+          ]
+        },
+        {
+          "item_name": "Token Usage Analytics",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Token Dashboards",
+              "provision_method": "Built-in UI dashboard",
+              "notes": "Provides trends delineating inputs vs returned output computations directly tied to LLM overhead"
+            }
+          ]
+        },
+        {
+          "item_name": "Latency Heatmap & P99",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Latency Timing Metrics",
+              "provision_method": "Built-in UI dashboard",
+              "notes": "Logs operational initiation times enabling analytical review but lacking purely plotted analytical heatmaps explicitly detailed"
+            }
+          ]
+        },
+        {
+          "item_name": "Error Rate Monitoring",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Exception Monitoring",
+              "provision_method": "Built-in UI dashboard",
+              "notes": "Enables proactive operational anomaly thresholds mapping failed traces continuously"
+            }
+          ]
+        },
+        {
+          "item_name": "Embedding Space Visualization",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Custom Metrics & Dashboard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Custom Dashboards",
+              "provision_method": "Built-in UI dashboard",
+              "notes": "User-defined views parsing distinct structured parameters across production insights manually"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Development Lifecycle",
+      "features": [
+        {
+          "item_name": "Prompt Management (CMS)",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Prompt Environments & Deployments",
+              "provision_method": "Built-in UI / SDK",
+              "notes": "Governs instructions dynamically, distributing variations systematically independent of manual engineering codebase modifications"
+            }
+          ]
+        },
+        {
+          "item_name": "Playground & Sandbox",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Playgrounds",
+              "provision_method": "Built-in UI",
+              "notes": "A responsive no-code interactive utility validating specific outputs utilizing internal historical environments iteratively"
+            }
+          ]
+        },
+        {
+          "item_name": "Experiment Tracking",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Offline Experiments",
+              "provision_method": "Built-in UI / SDK",
+              "notes": "Records complex variant performance combinations referencing alternative implementations systematiucally"
+            },
+            {
+              "name": "Reusable Evaluation Parameters",
+              "provision_method": "Built-in UI / Sandbox Controls",
+              "notes": "Allows versioned configuration variables isolating environment-bound inputs deployed dynamically throughout multiple remote sandbox evaluations."
+            }
+          ]
+        },
+        {
+          "item_name": "Fine-tuning Integration",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Version Control & Rollback",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Component Versioning",
+              "provision_method": "Built-in UI",
+              "notes": "Organizes deployment updates securely tracking previous alterations ready to instantly deploy rollback configurations"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Integration & DX",
+      "features": [
+        {
+          "item_name": "SDK Support (Py/JS/Go)",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "TypeScript/Python Libraries",
+              "provision_method": "Package Libraries",
+              "notes": "Official TypeScript and Python abstractions are extensive, whereas alternative stacks fundamentally rely on overarching OpenTelemetry pipelines"
+            }
+          ]
+        },
+        {
+          "item_name": "Gateway/Proxy Mode",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "AI Gateway",
+              "provision_method": "API Service",
+              "notes": "Manages AI boundaries via API routing endpoints comprehensively. Proxy endpoints exist but are currently designated deprecated."
+            },
+            {
+              "name": "Multi-Provider Utility API",
+              "provision_method": "API Gateway",
+              "notes": "Standardizes diverse vendor endpoint deployments handling caching routing multi- provision capabilities via individual external operational SDK structures."
+            }
+          ]
+        },
+        {
+          "item_name": "Popular Frameworks",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Agent & SDK Integrations",
+              "provision_method": "Native Packages",
+              "notes": "Compatible directly with AutoGen, Vercel AI SDK, LangGraph, LLamaIndex, CrewAI natively mapped."
+            },
+            {
+              "name": "LangSmith Interoperability",
+              "provision_method": "Wrapper Integration",
+              "notes": "Implements an experimental structured boundary to concurrently push evaluation logging tracking onto parallel third-party deployment monitoring targets natively."
+            }
+          ]
+        },
+        {
+          "item_name": "API & Webhooks",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Rest Integrations & Automations",
+              "provision_method": "Rest API / Automations",
+              "notes": "Presents structured querying parameters mapping directly toward external data handlers"
+            }
+          ]
+        },
+        {
+          "item_name": "CI/CD Integration",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "CLI Eval Commands",
+              "provision_method": "CLI Library",
+              "notes": "Automates quality validation executing structural tasks seamlessly attached to build deployments automatically"
+            },
+            {
+              "name": "Multi-Function CLI Utility",
+              "provision_method": "Terminal CLI",
+              "notes": "A discrete command-line suite interacting across operational syncing queries managing projects evaluation executing and programmatic profiles thoroughly."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Enterprise & Infrastructure",
+      "features": [
+        {
+          "item_name": "Deployment Options",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Cloud Hosted / Self-hosting",
+              "provision_method": "SaaS / Docker",
+              "notes": "Provisioned strictly supporting common cloud delivery alongside distinct self-hosted Docker architectures (dedicated explicit VPC isolation instances are not defined)"
+            }
+          ]
+        },
+        {
+          "item_name": "Open Source",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Self-hosted Packages",
+              "provision_method": "GitHub Repositories",
+              "notes": "Permits isolated manual execution boundaries although establishing comprehensive core enterprise services typically relies on primary platforms"
+            }
+          ]
+        },
+        {
+          "item_name": "Data Sovereignty & Compliance",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Data Boundaries",
+              "provision_method": "Self-Hosted Implementation",
+              "notes": "Mitigates externalized storage restrictions via internal self-hosting, though dedicated pre-certified SOC 2 validation bounds natively within the core documentation are absent"
+            }
+          ]
+        },
+        {
+          "item_name": "RBAC & SSO",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Access Control & Authentication",
+              "provision_method": "Admin Panel",
+              "notes": "Implements discrete organizational privilege modeling systematically handling administrative access layers and authentication"
+            }
+          ]
+        },
+        {
+          "item_name": "Audit Logs",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Operational Tracking",
+              "provision_method": "Built-in UI",
+              "notes": "Supports internal behavior parsing across project implementations natively but extensive manual user compliance action logs lack complete documented breakdowns"
+            }
+          ]
+        },
+        {
+          "item_name": "Data Warehouse Export",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Annotated Exporters",
+              "provision_method": "Built-in UI / Automations",
+              "notes": "Distributes analytical files programmatically standardizing downstream insights referencing structured outputs natively"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,576 @@
+{
+  "product_name": "Arize Phoenix",
+  "last_updated": "2026-02-27",
+  "categories": [
+    {
+      "category_name": "Core Tracing & Logging",
+      "features": [
+        {
+          "item_name": "Full Request/Response Tracing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "AI Trace View",
+              "provision_method": "SDK / OTLP / UI",
+              "notes": "Span-level LLM tracing capturing prompts, responses, parameters, latency, and errors for models including OpenAI, Anthropic, and Bedrock."
+            }
+          ]
+        },
+        {
+          "item_name": "Nested Span & Tree View",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Hierarchical trace visualization",
+              "provision_method": "Built-in UI",
+              "notes": "Tree and step-by-step debugging views displaying parent-child spans for LLM chains and agents."
+            }
+          ]
+        },
+        {
+          "item_name": "Streaming Support",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "OpenInference Tracing",
+              "provision_method": "SDK / OTLP",
+              "notes": "OTEL-based tracing supports streaming in background, but the UI may lag for real-time live streaming."
+            }
+          ]
+        },
+        {
+          "item_name": "Multimodal Tracing",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Auto-Instrumentation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Python Auto-instrumentation",
+              "provision_method": "Python SDK",
+              "notes": "One-line decorators and autolog for 50+ integrations, including LangChain, LlamaIndex, and DSPy."
+            },
+            {
+              "name": "Claude Agent SDK Instrumentation",
+              "provision_method": "NPM Package",
+              "notes": "OpenInference instrumentation via @arizeai/openinference-instrumentation-claude-agent-sdk automatically capturing AGENT and TOOL spans for Claude Agent SDK applications."
+            }
+          ]
+        },
+        {
+          "item_name": "Metadata & Tags Filtering",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Interactive trace querying",
+              "provision_method": "SDK / Built-in UI",
+              "notes": "Supports custom metadata and tag attachment with interactive search and filtering in the UI."
+            }
+          ]
+        },
+        {
+          "item_name": "Token Counting & Estimation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Token usage analytics",
+              "provision_method": "Real-time telemetry / UI",
+              "notes": "Provides accurate tracking of per-token input and output values."
+            }
+          ]
+        },
+        {
+          "item_name": "OpenTelemetry Standard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "OpenTelemetry-native setup",
+              "provision_method": "SDK / OTLP Collectors",
+              "notes": "Core architecture natively uses the OTLP protocol for vendor-agnostic trace export and import."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Agent & RAG Specifics",
+      "features": [
+        {
+          "item_name": "RAG Retrieval Visualizer",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "UI Trace View",
+              "provision_method": "Built-in UI",
+              "notes": "Shows retrieval steps and relevance via integrated frameworks, but lacks a dedicated UI specifically for chunk content or retrieval scores."
+            }
+          ]
+        },
+        {
+          "item_name": "Tool/Function Call Rendering",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Tool/Function call parsing",
+              "provision_method": "Built-in UI",
+              "notes": "Renders parsed inputs and returned values directly within the trace spans for agent tools."
+            }
+          ]
+        },
+        {
+          "item_name": "Agent Execution Graph",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Agents Service Map",
+              "provision_method": "Built-in UI",
+              "notes": "DAG/graph visualization displaying execution flow, loops, branches, and component interactions."
+            }
+          ]
+        },
+        {
+          "item_name": "Intermediate Step State",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Step-by-step debugging",
+              "provision_method": "Built-in UI",
+              "notes": "Stores and displays agent intermediate reasoning and Chain-of-Thought states within general traces."
+            }
+          ]
+        },
+        {
+          "item_name": "Session/Thread Replay",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Trace replay view",
+              "provision_method": "Built-in UI",
+              "notes": "Supports session-based UI inspection of conversational flows, but lacks an interactive step-through replay mode."
+            }
+          ]
+        },
+        {
+          "item_name": "Failed Step Highlighting",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Error details view",
+              "provision_method": "Built-in UI",
+              "notes": "Automatically highlights failed operational steps in traces including error details and latency metrics."
+            }
+          ]
+        },
+        {
+          "item_name": "MCP Integration",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "MCP Server integration",
+              "provision_method": "SDK / UI",
+              "notes": "Offers direct observability connection allowing tracing for platforms like GitHub Copilot, Claude, and Cursor."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Evaluation & Quality",
+      "features": [
+        {
+          "item_name": "LLM-as-a-Judge Wizard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "LLM as a Judge Builder",
+              "provision_method": "Built-in UI / API",
+              "notes": "GUI-based, no-code required evaluation setup builder that scales properly to production."
+            }
+          ]
+        },
+        {
+          "item_name": "Custom Eval Scorers",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Code-based metrics",
+              "provision_method": "SDK / Custom Code",
+              "notes": "Ability to write user-defined code-based evaluation functions and have them run via the execution engine."
+            }
+          ]
+        },
+        {
+          "item_name": "Dataset Management & Curation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Dataset management",
+              "provision_method": "Built-in UI",
+              "notes": "Enables dataset creation, versioning, trace-to-dataset conversion, and implements clustering algorithms for curation."
+            },
+            {
+              "name": "Dataset Evaluators",
+              "provision_method": "Built-in UI",
+              "notes": "Allows attaching evaluator suites directly to datasets to turn them into reusable evaluation suites that automatically run server-side upon experiment execution."
+            }
+          ]
+        },
+        {
+          "item_name": "Prompt Optimization / DSPy Support",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Prompt playground / DSPy Integrations",
+              "provision_method": "Built-in UI",
+              "notes": "Integrates optimization features via DSPy for candidate suggestion and systematic prompt optimization."
+            }
+          ]
+        },
+        {
+          "item_name": "Regression Testing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Regression detection",
+              "provision_method": "Built-in UI / API",
+              "notes": "Eval-driven continuous checks detecting quality regressions on model and prompt changes."
+            }
+          ]
+        },
+        {
+          "item_name": "Comparison View (Side-by-side)",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Experiments UI",
+              "provision_method": "Built-in UI",
+              "notes": "Enables comparing variations within the experiments tab, but there is no specific explicit 'side-by-side' specialized UI."
+            }
+          ]
+        },
+        {
+          "item_name": "Annotation Queues",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Human annotation workflows",
+              "provision_method": "Built-in UI",
+              "notes": "Capabilities tailored for teams performing manual evaluations, with specific assignment functionality and queue management."
+            }
+          ]
+        },
+        {
+          "item_name": "Online Evaluation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Real-time evaluation",
+              "provision_method": "Built-in UI / Monitors",
+              "notes": "Enables proactive automatic evaluation capabilities on live production traffic mapped back through generated traces."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Guardrails & Safety",
+      "features": [
+        {
+          "item_name": "PII/Sensitive Data Masking",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Hallucination Detection",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Hallucination-detecting tool",
+              "provision_method": "SDK / UI",
+              "notes": "Provides a dedicated LLM-powered evaluation metric guardrail designed to identify hallucinated content."
+            }
+          ]
+        },
+        {
+          "item_name": "Topic/Jailbreak Guardrails",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Evaluation Framework",
+              "provision_method": "Eval platform",
+              "notes": "Topics can be monitored using custom LLM-as-a-Judge evals, but lacks dedicated out-of-the-box jailbreak detection implementations."
+            }
+          ]
+        },
+        {
+          "item_name": "Policy Management as Code",
+          "available": "no",
+          "sub_features": []
+        }
+      ]
+    },
+    {
+      "category_name": "Analytics & Dashboard",
+      "features": [
+        {
+          "item_name": "Cost Analysis & Attribution",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Arize AX Cost Analytics",
+              "provision_method": "Commercial UI",
+              "notes": "Provided in commercial tiers (Arize AX) allowing project/user attribution, but missing or very limited in the core open-source Phoenix tool."
+            }
+          ]
+        },
+        {
+          "item_name": "Token Usage Analytics",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Token usage breakdowns",
+              "provision_method": "Built-in Real-time Dashboards",
+              "notes": "Displays precise token consumption with input/output analytics mapping into observable trends."
+            }
+          ]
+        },
+        {
+          "item_name": "Latency Heatmap & P99",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Latency distribution monitoring",
+              "provision_method": "Built-in UI",
+              "notes": "Presents runtime latency distributions with proper heatmaps allowing detailed viewing down to the P99 level."
+            }
+          ]
+        },
+        {
+          "item_name": "Error Rate Monitoring",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Error rate tracking",
+              "provision_method": "Monitors and Dashboards",
+              "notes": "Maintains persistent tracking over operational error rates alongside active alerting functionalities."
+            }
+          ]
+        },
+        {
+          "item_name": "Embedding Space Visualization",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Embedding clustering",
+              "provision_method": "Built-in UI",
+              "notes": "Calculates and maps t-SNE / UMAP plots allowing visual tracking regarding concepts and embedding drift detection."
+            }
+          ]
+        },
+        {
+          "item_name": "Custom Metrics & Dashboard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Custom metric dashboards",
+              "provision_method": "UI Widgets",
+              "notes": "Exposes widgets permitting user-defined metrics to be freely pinned to dashboards."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Development Lifecycle",
+      "features": [
+        {
+          "item_name": "Prompt Management (CMS)",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Prompt Serving/Management",
+              "provision_method": "Built-in UI",
+              "notes": "Versioned interface accommodating non-developers to edit visually, maintain versions, and deploy live prompts."
+            }
+          ]
+        },
+        {
+          "item_name": "Playground & Sandbox",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Prompt playground",
+              "provision_method": "Built-in UI",
+              "notes": "Dedicated interactive sandbox section created to manually configure and test targeted prompts or parameters."
+            },
+            {
+              "name": "Custom Providers Configuration",
+              "provision_method": "Built-in UI / Settings",
+              "notes": "Centralized credential storage and routing configuration for custom providers (including OpenAI Responses API type vs Chat Completions) reusable across playground and prompt versions."
+            }
+          ]
+        },
+        {
+          "item_name": "Experiment Tracking",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Experiments feature",
+              "provision_method": "Built-in UI",
+              "notes": "Allows tracking of variations testing (A/B testing) along with automated hyperparameter capturing via logging."
+            }
+          ]
+        },
+        {
+          "item_name": "Fine-tuning Integration",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Dataset export formats",
+              "provision_method": "Data tools",
+              "notes": "Provides export outputs geared toward fine-tuning model efforts internally, though lacking fully connected direct pipeline interfaces."
+            }
+          ]
+        },
+        {
+          "item_name": "Version Control & Rollback",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Prompt versioning",
+              "provision_method": "Built-in UI",
+              "notes": "Model controls capturing current schemas, retaining versions, and providing complete immediate rollback execution capability."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Integration & DX",
+      "features": [
+        {
+          "item_name": "SDK Support (Py/JS/Go)",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "OpenInference SDK",
+              "provision_method": "Python SDK / Generic OTLP",
+              "notes": "Official native SDK provides comprehensive coverage primarily in Python, while JS and Go rely on standard general OTLP paths."
+            }
+          ]
+        },
+        {
+          "item_name": "Gateway/Proxy Mode",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Popular Frameworks",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Built-in support",
+              "provision_method": "Auto-instrumentation",
+              "notes": "Excellent dedicated support implementations accommodating DSPy, Haystack, AutoGen/smolagents, LangChain, LlamaIndex."
+            }
+          ]
+        },
+        {
+          "item_name": "API & Webhooks",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "REST API connectivity",
+              "provision_method": "Integration API",
+              "notes": "Traces and specific queries can be interacted with directly using the REST structure with webhooks implied by monitors usage."
+            }
+          ]
+        },
+        {
+          "item_name": "CI/CD Integration",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "CI/CD Experiments",
+              "provision_method": "API / Tooling",
+              "notes": "Ties into automated pipelines relying heavily on GitHub Actions deployments initiating evals effectively."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Enterprise & Infrastructure",
+      "features": [
+        {
+          "item_name": "Deployment Options",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "OSS & Arize AX Tiers",
+              "provision_method": "Platform Installation",
+              "notes": "Includes multi-tenant managed SaaS, Self-hosted open source formats, alongside managed isolated VPC alternatives."
+            }
+          ]
+        },
+        {
+          "item_name": "Open Source",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Arize Phoenix OSS",
+              "provision_method": "GitHub Project",
+              "notes": "Open-core ELv2 licensed tool allowing unrestricted platform usage holding an inclusive and highly active GitHub base."
+            }
+          ]
+        },
+        {
+          "item_name": "Data Sovereignty & Compliance",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "AX Enterprise Compliance",
+              "provision_method": "Enterprise Platform",
+              "notes": "AX achieves compliance structures like SOC2 alongside explicit GDPR controls and regions. OSS instances remain entirely privately governed (Self-managed). Explicit HIPAA references notably omitted."
+            }
+          ]
+        },
+        {
+          "item_name": "RBAC & SSO",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Enterprise RBAC",
+              "provision_method": "Commercial Platform",
+              "notes": "Arize AX exclusively holds integrations for handling deep access restrictions, managing role schemas alongside functional SAML / Identity SSO setups."
+            }
+          ]
+        },
+        {
+          "item_name": "Audit Logs",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "AX Audit Systems",
+              "provision_method": "Commercial Platform",
+              "notes": "Available system trace logs derived out of retentions normally, yet pure identity auditing actions generally require full AX."
+            }
+          ]
+        },
+        {
+          "item_name": "Data Warehouse Export",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Export functions",
+              "provision_method": "Standard Output formats",
+              "notes": "Exporters structured out-the-box natively accommodating continuous transfers mapping directly to options like S3 pipelines, Snowflake, and BigQuery."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

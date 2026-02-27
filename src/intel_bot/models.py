@@ -1,128 +1,115 @@
 from __future__ import annotations
 
-from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 Rating = Literal["strong", "medium", "none"]
+Availability = Literal["yes", "no", "partial"]
 
 
-class SearchResult(BaseModel):
-    query: str
+# ---------------------------------------------------------------------------
+# Baseline — per-product feature snapshot (source of truth)
+# ---------------------------------------------------------------------------
+
+class SubFeature(BaseModel):
+    name: str               # 제품이 실제로 부르는 기능명
+    provision_method: str   # 제공 방식
+    notes: str              # 비고
+
+
+class FeatureBaseline(BaseModel):
+    item_name: str                      # 작은 카테고리 (49개 표준 항목명)
+    available: Availability
+    sub_features: list[SubFeature] = []
+
+
+class CategoryBaseline(BaseModel):
+    category_name: str        # 큰 카테고리 (8개)
+    features: list[FeatureBaseline]
+
+
+class ProductBaseline(BaseModel):
+    product_name: str
+    last_updated: str
+    categories: list[CategoryBaseline]
+
+
+# ---------------------------------------------------------------------------
+# Step 1 output — UpdateCollector: recent updates per product
+# ---------------------------------------------------------------------------
+
+class RecentUpdate(BaseModel):
     title: str
-    link: str
-    snippet: str
-    date: str | None = None
+    date: str = ""
+    summary: str
 
 
-class DocsPage(BaseModel):
-    url: str
-    title: str
-    content: str
-    fetched_at: datetime = Field(default_factory=datetime.now)
+class ProductUpdates(BaseModel):
+    product_name: str
+    updates: list[RecentUpdate] = []
 
 
-class FeedEntry(BaseModel):
-    source: str  # "github" or "pypi"
-    title: str
-    link: str
-    published: str | None = None
-    summary: str = ""
+# ---------------------------------------------------------------------------
+# Step 2 output — BaselineAnalyzer: changeset + updated baseline
+# ---------------------------------------------------------------------------
+
+class FeatureChange(BaseModel):
+    item_name: str
+    sub_feature_name: str = ""  # 변경된 sub_feature name ("NEW" = 신규 추가)
+    field: str                  # "available", "name", "provision_method", "notes"
+    before: str
+    after: str
 
 
-class CompetitorData(BaseModel):
-    competitor_name: str
-    product_description: str = ""
-    product_context: str = ""
-    search_results: list[SearchResult] = []
-    category_search_results: dict[str, list[SearchResult]] = {}
-    docs_pages: list[DocsPage] = []
-    feed_entries: list[FeedEntry] = []
+class ProductChangeset(BaseModel):
+    product_name: str
+    changes: list[FeatureChange] = []
+    updated_baseline: ProductBaseline
 
 
-class CollectionRun(BaseModel):
-    date: str
-    mode: str = "initial"  # "initial" or "update"
-    competitors: list[CompetitorData] = []
-    weave_data: CompetitorData | None = None
+# ---------------------------------------------------------------------------
+# Step 3 output — ReportWriter: cross-product comparison + commentary
+# ---------------------------------------------------------------------------
 
-
-class FeatureRating(BaseModel):
-    item_name: str          # Must match config sub-item exactly
+class ProductFeatureRating(BaseModel):
+    product_name: str
     rating: Rating
     note: str = ""
 
 
-class CategoryAnalysis(BaseModel):
-    category_name: str      # Must match CategoryDef.name
-    features: list[FeatureRating]
+class FeatureComparison(BaseModel):
+    item_name: str
+    ratings: list[ProductFeatureRating]
+
+
+class CategoryComparison(BaseModel):
+    category_name: str
+    features: list[FeatureComparison]
+
+
+class ProductHighlight(BaseModel):
+    product_name: str
     summary: str
 
 
-class NewFeature(BaseModel):
-    feature_name: str
-    description: str
-    release_date: str
-    category: str
+class AIComment(BaseModel):
+    product_highlights: list[ProductHighlight]
+    market_trend: str
 
 
-class PositioningShift(BaseModel):
-    current_position: str
-    moving_toward: str
-    signal: str
+class ReportSynthesis(BaseModel):
+    ai_comment: AIComment
+    categories: list[CategoryComparison]
 
 
-class CompetitorAnalysis(BaseModel):
-    competitor_name: str
-    overall_summary: str
-    categories: list[CategoryAnalysis]  # 7 categories
-    new_features: list[NewFeature] = []
-    positioning: PositioningShift
-    strengths: list[str]
-    weaknesses: list[str]
-
-
-class ProductSummaryRating(BaseModel):
-    product_name: str
-    trace_depth: Rating
-    trace_depth_note: str = ""
-    eval: Rating
-    eval_note: str = ""
-    agent_observability: Rating
-    agent_observability_note: str = ""
-    cost_tracking: Rating
-    cost_tracking_note: str = ""
-    enterprise_ready: Rating
-    enterprise_ready_note: str = ""
-    overall: Rating
-    overall_note: str = ""
-
-
-class SynthesisResult(BaseModel):
-    executive_summary: list[str] = []   # Generated by dedicated LLM call
-    market_insights: list[str] = []     # 3 analytical insights (generated by dedicated LLM call)
-    market_summary: str = ""            # Overall market landscape
-    product_ratings: list[ProductSummaryRating] = []
-    enterprise_signals: list[str] = []
-
+# ---------------------------------------------------------------------------
+# Top-level run record
+# ---------------------------------------------------------------------------
 
 class AnalysisRun(BaseModel):
     date: str
     model: str
-    collection_date: str
-    competitors: list[CompetitorAnalysis] = []
-    synthesis: SynthesisResult | None = None
-
-
-class EmergingCompetitor(BaseModel):
-    name: str
-    description: str
-    source_url: str
-
-
-class DiscoveryResult(BaseModel):
-    date: str
-    queries: list[str] = []
-    search_results_count: int = 0
-    emerging_competitors: list[EmergingCompetitor] = []
+    updates: list[ProductUpdates] = []
+    changesets: list[ProductChangeset] = []
+    synthesis: ReportSynthesis | None = None

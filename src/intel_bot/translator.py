@@ -109,7 +109,7 @@ def translate_all_reports(
     """Translate English reports to ko/ja. Returns {lang: [paths]}."""
     client = OpenAI(
         base_url="https://openrouter.ai/api/v1",
-        api_key=settings.openrouter_api_key,
+        api_key=settings.openrouter_api_key.get_secret_value(),
     )
     model = settings.translation_model
 

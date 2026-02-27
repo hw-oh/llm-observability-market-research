@@ -1,0 +1,576 @@
+{
+  "product_name": "MLflow",
+  "last_updated": "2026-02-27",
+  "categories": [
+    {
+      "category_name": "Core Tracing & Logging",
+      "features": [
+        {
+          "item_name": "Full Request/Response Tracing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "MLflow Tracing",
+              "provision_method": "Auto-instrumentation / SDK",
+              "notes": "Captures complete inputs, outputs, parameters, and metadata for each intermediate step of a request"
+            },
+            {
+              "name": "Distributed Tracing",
+              "provision_method": "SDK",
+              "notes": "Distributed tracing support for tracing complex, multi-step AI workflows natively"
+            }
+          ]
+        },
+        {
+          "item_name": "Nested Span & Tree View",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Intermediate Step Tracing",
+              "provision_method": "Built-in UI / SDK",
+              "notes": "Hierarchical tracing of intermediate steps with OpenTelemetry compatibility, but lacking an explicitly visualized complex tree view"
+            }
+          ]
+        },
+        {
+          "item_name": "Streaming Support",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Multimodal Tracing",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Multimodal Evaluation Tracking",
+              "provision_method": "SDK",
+              "notes": "Supports evaluating models with multimodal data (text, image) but tracing details are generally limited to basic input/output capture"
+            }
+          ]
+        },
+        {
+          "item_name": "Auto-Instrumentation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "One-line Auto Tracing",
+              "provision_method": "Auto-instrumentation",
+              "notes": "mlflow.<library>.autolog() integrates automatically with 20+ frameworks"
+            },
+            {
+              "name": "@mlflow.trace",
+              "provision_method": "SDK decorator",
+              "notes": "Decorates Python functions to capture input/output and block execution traces"
+            }
+          ]
+        },
+        {
+          "item_name": "Metadata & Tags Filtering",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Trace Sessions & Metadata",
+              "provision_method": "SDK / Built-in UI",
+              "notes": "Group and filter traces using session IDs; record user, timestamp, revisions, and metadata"
+            }
+          ]
+        },
+        {
+          "item_name": "Token Counting & Estimation",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Token Telemetry",
+              "provision_method": "Auto-instrumentation",
+              "notes": "Tracks input/output token usage at each logic step, though lacking distinct per-model tokenizer approximation capabilities natively"
+            }
+          ]
+        },
+        {
+          "item_name": "OpenTelemetry Standard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "OpenTelemetry Compatibility",
+              "provision_method": "Export / SDK",
+              "notes": "Fully compliant with OTEL standards, supporting context propagation and external tool integration"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Agent & RAG Specifics",
+      "features": [
+        {
+          "item_name": "RAG Retrieval Visualizer",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Retrieval Metrics Tracking",
+              "provision_method": "SDK",
+              "notes": "Captures internal components like retrievers in traces, but does not provide a specialized UI explicitly prioritizing document chunk relevance scores"
+            }
+          ]
+        },
+        {
+          "item_name": "Tool/Function Call Rendering",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Component Details Logs",
+              "provision_method": "Built-in UI / SDK",
+              "notes": "Captures and parses tool calls with explicit details mapped beneath the abstractions of agent library frameworks"
+            }
+          ]
+        },
+        {
+          "item_name": "Agent Execution Graph",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Intermediate Step State",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Step Trace Storage",
+              "provision_method": "SDK / Built-in UI",
+              "notes": "Stores deep insights into intermediate agent execution steps to pinpoint unexpected behaviors"
+            }
+          ]
+        },
+        {
+          "item_name": "Session/Thread Replay",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Session Trace Grouping",
+              "provision_method": "SDK / API",
+              "notes": "Grouping by sessions enables conversational thread review via trace search, though lacking visual multi-turn replay UIs natively"
+            },
+            {
+              "name": "Multi-Turn Evaluation & Simulation",
+              "provision_method": "SDK / Built-in UI",
+              "notes": "Simulate and score entire conversations for agent testing using session-level conversational scorers."
+            }
+          ]
+        },
+        {
+          "item_name": "Failed Step Highlighting",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Bug Pinpointing",
+              "provision_method": "Built-in UI",
+              "notes": "Enables users to pinpoint bug sources intuitively, though automated explicit highlighting features aren't present"
+            }
+          ]
+        },
+        {
+          "item_name": "MCP Integration",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Model Context Protocol",
+              "provision_method": "SDK",
+              "notes": "Model Context Protocol integrated explicitly under MLflow's broader GenAI features structure"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Evaluation & Quality",
+      "features": [
+        {
+          "item_name": "LLM-as-a-Judge Wizard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Pre-built Evaluators",
+              "provision_method": "SDK",
+              "notes": "Provides pre-built LLM judges for applications such as relevance; however, setup is primarily code-based, not via a no-code GUI wizard"
+            },
+            {
+              "name": "In-UI Trace Evaluation",
+              "provision_method": "Built-in UI",
+              "notes": "Evaluate traces directly via the user interface using LLM judges, enabling on-demand, no-code trace evaluations."
+            },
+            {
+              "name": "Judge Builder UI",
+              "provision_method": "Built-in UI",
+              "notes": "Enables creation of custom evaluators via a GUI wizard without requiring code"
+            }
+          ]
+        },
+        {
+          "item_name": "Custom Eval Scorers",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "MLflow GenAI Evaluation Functions",
+              "provision_method": "SDK",
+              "notes": "Allows authoring of custom heuristic loops, class-based evaluators, and LLM judge rulesets"
+            },
+            {
+              "name": "MemAlign Judge Optimizer",
+              "provision_method": "SDK",
+              "notes": "Optimizer algorithm introduced for improving LLM-as-a-Judge evaluation quality and alignment"
+            }
+          ]
+        },
+        {
+          "item_name": "Dataset Management & Curation",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Trace-to-Dataset Creation",
+              "provision_method": "SDK",
+              "notes": "Capture perfect data iteratively from production traffic traces to build high-quality datasets; lacks dedicated full-featured curation UI"
+            }
+          ]
+        },
+        {
+          "item_name": "Prompt Optimization / DSPy Support",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "DSPy Framework Integration",
+              "provision_method": "Auto-instrumentation",
+              "notes": "Compatible natively with DSPy to support prompt optimization features and tracing simultaneously"
+            }
+          ]
+        },
+        {
+          "item_name": "Regression Testing",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Experiment Versioning",
+              "provision_method": "Built-in UI",
+              "notes": "Tracks changes iteratively allowing devs to trace performance metrics on new versions, but lacks completely automated scheduled regression suite tests"
+            }
+          ]
+        },
+        {
+          "item_name": "Comparison View (Side-by-side)",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Annotation Queues",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Online Evaluation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Production Monitoring Evaluator",
+              "provision_method": "SDK / Async Logging",
+              "notes": "Real-time non-blocking online evaluation running registered evaluators automatically on incoming trace traffic"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Guardrails & Safety",
+      "features": [
+        {
+          "item_name": "PII/Sensitive Data Masking",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Trace Redaction",
+              "provision_method": "SDK configuration",
+              "notes": "Configuration capabilities automatically redact PII data originating from application inputs inside traces"
+            }
+          ]
+        },
+        {
+          "item_name": "Hallucination Detection",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Hallucination LLM-as-a-Judge",
+              "provision_method": "SDK",
+              "notes": "Built-in real-time monitoring criteria to systematically detect hallucinated generations"
+            }
+          ]
+        },
+        {
+          "item_name": "Topic/Jailbreak Guardrails",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Policy Management as Code",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Custom Scorers",
+              "provision_method": "SDK",
+              "notes": "Developers define real-time evaluation rule sets as code to determine guardrail success but lacks a dedicated guardrail policy engine"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Analytics & Dashboard",
+      "features": [
+        {
+          "item_name": "Cost Analysis & Attribution",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Token Cost Tracking",
+              "provision_method": "Built-in UI",
+              "notes": "Supports tracking compute token usages as proxies for costs via session tags, but lacks robust built-in per-user/team attribution UI"
+            },
+            {
+              "name": "Trace Cost Tracking UI",
+              "provision_method": "Built-in UI",
+              "notes": "Trace cost tracking with explicit UI integration and aggregation, including AI Gateway usage analytics."
+            }
+          ]
+        },
+        {
+          "item_name": "Token Usage Analytics",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Production Efficiency Observability",
+              "provision_method": "Built-in UI",
+              "notes": "Monitors aggregate token usage per step identifying bottlenecks and optimizing consumption"
+            }
+          ]
+        },
+        {
+          "item_name": "Latency Heatmap & P99",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Latency Telemetry",
+              "provision_method": "Built-in UI",
+              "notes": "Triggers key latency metrics per captured component, though explicit visualization tools representing P99 heatmaps are not provided natively"
+            }
+          ]
+        },
+        {
+          "item_name": "Error Rate Monitoring",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Production Error Alerting",
+              "provision_method": "Integrations",
+              "notes": "Tracks failure and anomaly rates systematically across live operational environments"
+            }
+          ]
+        },
+        {
+          "item_name": "Embedding Space Visualization",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Custom Metrics & Dashboard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Custom Evaluator Dashboards",
+              "provision_method": "Built-in UI",
+              "notes": "Integrates user-defined metrics evaluated on traces into overarching tracking dashboards"
+            },
+            {
+              "name": "Agent Performance Dashboards",
+              "provision_method": "Built-in UI",
+              "notes": "Pre-built dashboard views providing core metrics covering latency, request counts, quality scores, and tool call summaries natively"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Development Lifecycle",
+      "features": [
+        {
+          "item_name": "Prompt Management (CMS)",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Experiment Prompt Tracking",
+              "provision_method": "Built-in UI",
+              "notes": "Prompt versioning recorded inside structured experiment tracking records; lacks dedicated non-developer CMS interfaces"
+            }
+          ]
+        },
+        {
+          "item_name": "Playground & Sandbox",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Experiment Tracking",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "MLflow End-to-End Tracking",
+              "provision_method": "Built-in UI / SDK",
+              "notes": "Comprehensive classical ML to GenAI experiment monitoring including hyperparameter optimization logging"
+            },
+            {
+              "name": "Multi-Workspace Support",
+              "provision_method": "Built-in UI / SDK",
+              "notes": "Organize experiments and models across multiple workspaces with coarser-level granularity within a single tracking server"
+            }
+          ]
+        },
+        {
+          "item_name": "Fine-tuning Integration",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Lifecycle Integration",
+              "provision_method": "SDK / Connectors",
+              "notes": "Export data flows natively into comprehensive pipeline management tools configured externally for fine-tuning"
+            }
+          ]
+        },
+        {
+          "item_name": "Version Control & Rollback",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "End-to-End Version Lifecycle",
+              "provision_method": "Built-in UI / Registry",
+              "notes": "Provides native rollbacks alongside ML flow versioning linked natively to the Model Registry"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Integration & DX",
+      "features": [
+        {
+          "item_name": "SDK Support (Py/JS/Go)",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Supported SDKs",
+              "provision_method": "SDK Packages",
+              "notes": "Includes comprehensive python implementations (mlflow, mlflow-tracing) and JS/TS integration; Go is not supported"
+            }
+          ]
+        },
+        {
+          "item_name": "Gateway/Proxy Mode",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "AI Gateway",
+              "provision_method": "Proxy Server",
+              "notes": "Provides a proxy-based gateway facilitating centralized LLM API management alongside base MLflow functionality"
+            }
+          ]
+        },
+        {
+          "item_name": "Popular Frameworks",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Library Agnostic Integration",
+              "provision_method": "Auto-instrumentation",
+              "notes": "Built-in integration covering 20+ architectures like LangChain, OpenAI, LlamaIndex, Pydantic AI, DSPy, and Vercel AI"
+            }
+          ]
+        },
+        {
+          "item_name": "API & Webhooks",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "REST API",
+              "provision_method": "API",
+              "notes": "Offers REST-based searching and metric evaluation API endpoints; explicit Webhook logic not integrated by default"
+            }
+          ]
+        },
+        {
+          "item_name": "CI/CD Integration",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Enterprise Lifecycle Management",
+              "provision_method": "CLI / SDK",
+              "notes": "Handles quality gate tracking automatically allowing developers to integrate CLI workflows natively within traditional CI servers"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Enterprise & Infrastructure",
+      "features": [
+        {
+          "item_name": "Deployment Options",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Self-Hosting Deployment",
+              "provision_method": "Binary / Docker",
+              "notes": "Infrastructure hosted locally to avoid supplementary SaaS obligations entirely"
+            }
+          ]
+        },
+        {
+          "item_name": "Open Source",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Linux Foundation Project",
+              "provision_method": "GitHub OS",
+              "notes": "100% free offering possessing over 20K GitHub repository stars without vendor dependency restrictions"
+            }
+          ]
+        },
+        {
+          "item_name": "Data Sovereignty & Compliance",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Local Storage Rights",
+              "provision_method": "Hosting Provision",
+              "notes": "Organizations retain complete unmitigated data sovereignty utilizing local hosting; explicit SOC 2 SaaS compliances don't apply similarly to OSS"
+            }
+          ]
+        },
+        {
+          "item_name": "RBAC & SSO",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Audit Logs",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Data Warehouse Export",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Analytics Integration",
+              "provision_method": "Connectors / Plugins",
+              "notes": "Offers seamless integration to automate metrics reporting natively onto traditional cloud stores like BigQuery, S3, or Snowflake"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

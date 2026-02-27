@@ -1,0 +1,524 @@
+{
+  "product_name": "LangSmith",
+  "last_updated": "2026-02-27",
+  "categories": [
+    {
+      "category_name": "Core Tracing & Logging",
+      "features": [
+        {
+          "item_name": "Full Request/Response Tracing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "LangSmith Tracing",
+              "provision_method": "SDK decorator / Auto-instrumentation",
+              "notes": "Captures complete LLM prompts, outputs, parameters, and full execution traces"
+            },
+            {
+              "name": "Trace Preview Customization",
+              "provision_method": "Built-in UI",
+              "notes": "Configure which parts of a trace's inputs and outputs appear directly in the tracing table"
+            }
+          ]
+        },
+        {
+          "item_name": "Nested Span & Tree View",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Run Tree Visualization",
+              "provision_method": "Built-in UI",
+              "notes": "Hierarchical visualization displaying parent-child spans, nested chains, and tool workflows"
+            }
+          ]
+        },
+        {
+          "item_name": "Streaming Support",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Time-to-First-Token (TTFT) Monitoring",
+              "provision_method": "Built-in UI / Dashboards",
+              "notes": "Tracks streaming latency metrics like TTFT, but lacks explicit real-time trace rendering"
+            }
+          ]
+        },
+        {
+          "item_name": "Multimodal Tracing",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Auto-Instrumentation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Framework Integrations",
+              "provision_method": "Environment Variable",
+              "notes": "Turnkey automatic trace collection for LangChain, LangGraph, and other frameworks without code changes"
+            }
+          ]
+        },
+        {
+          "item_name": "Metadata & Tags Filtering",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Trace Filtering",
+              "provision_method": "Built-in UI / SDK",
+              "notes": "Search and filter traces using custom metadata attributes, operational tags, and user feedback"
+            }
+          ]
+        },
+        {
+          "item_name": "Token Counting & Estimation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Token Usage Monitoring",
+              "provision_method": "Built-in UI",
+              "notes": "Tracks input/output token usage with per-step attribution for high-volume spans"
+            }
+          ]
+        },
+        {
+          "item_name": "OpenTelemetry Standard",
+          "available": "no",
+          "sub_features": []
+        }
+      ]
+    },
+    {
+      "category_name": "Agent & RAG Specifics",
+      "features": [
+        {
+          "item_name": "RAG Retrieval Visualizer",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "RAG App Tracing",
+              "provision_method": "Built-in UI",
+              "notes": "Logs vector DB queries and retrieved documents within the hierarchy, but lacks native chunk relevance scoring visualization"
+            }
+          ]
+        },
+        {
+          "item_name": "Tool/Function Call Rendering",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Tool Call Interception",
+              "provision_method": "Built-in UI",
+              "notes": "Parsed display of tool invocations, inputs, selected arguments, and return values in agent traces"
+            }
+          ]
+        },
+        {
+          "item_name": "Agent Execution Graph",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Agent Trajectory Graph",
+              "provision_method": "Built-in UI",
+              "notes": "DAG visualization of agent loop components, tool selection choices, and workflow branches"
+            }
+          ]
+        },
+        {
+          "item_name": "Intermediate Step State",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Intermediate Child Runs",
+              "provision_method": "Built-in UI",
+              "notes": "Stores and provides inspection of intermediate chain-of-thought logic and iterative LLM tool calls"
+            }
+          ]
+        },
+        {
+          "item_name": "Session/Thread Replay",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Thread Tracing",
+              "provision_method": "Built-in UI",
+              "notes": "Collects related runs representing multi-turn conversations for thread-scoped evaluation, but lacks full interactive replay capability"
+            }
+          ]
+        },
+        {
+          "item_name": "Failed Step Highlighting",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Failure Debugging",
+              "provision_method": "Built-in UI",
+              "notes": "Automatically flags and highlights failed steps, exceptions, and loops in an agent trace"
+            }
+          ]
+        },
+        {
+          "item_name": "MCP Integration",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "LangSmith MCP Server",
+              "provision_method": "MCP Server",
+              "notes": "Connects LangSmith to tools like Claude or VSCode for real-time querying of server logs and trace properties"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Evaluation & Quality",
+      "features": [
+        {
+          "item_name": "LLM-as-a-Judge Wizard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "LLM-as-Judge Evaluators",
+              "provision_method": "Built-in UI / SDK",
+              "notes": "GUI-supported building of LLM evaluators to configure custom criteria over traces or datasets"
+            }
+          ]
+        },
+        {
+          "item_name": "Custom Eval Scorers",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Custom Evaluator Functions",
+              "provision_method": "SDK / Code",
+              "notes": "User-defined custom scoring functions providing measurement logic for performance evaluations"
+            }
+          ]
+        },
+        {
+          "item_name": "Dataset Management & Curation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Datasets and Examples",
+              "provision_method": "Built-in UI / SDK",
+              "notes": "Manage diverse evaluation datasets consisting of inputs, operational metadata, and reference outputs, with trace curation support"
+            }
+          ]
+        },
+        {
+          "item_name": "Prompt Optimization / DSPy Support",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Prompt Analytics",
+              "provision_method": "Built-in UI",
+              "notes": "Allows analysis and comparison of prompt iterations, though automated suggestion routines like DSPy have no explicit native interface"
+            }
+          ]
+        },
+        {
+          "item_name": "Regression Testing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Offline Evaluations",
+              "provision_method": "SDK / Platform",
+              "notes": "Automatically execute evaluations strictly over defined offline examples to catch model generation regressions"
+            }
+          ]
+        },
+        {
+          "item_name": "Comparison View (Side-by-side)",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Compare Experiments",
+              "provision_method": "Built-in UI",
+              "notes": "Provides parallel visual execution records to contrast varying prompt configurations explicitly"
+            }
+          ]
+        },
+        {
+          "item_name": "Annotation Queues",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Annotation Queues",
+              "provision_method": "Built-in UI",
+              "notes": "A directed interface letting team experts review, judge systematically, and annotate inline spans over shared queries"
+            }
+          ]
+        },
+        {
+          "item_name": "Online Evaluation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Online Evaluators",
+              "provision_method": "SDK / Webhooks Setup",
+              "notes": "Applies evaluation heuristics asynchronously over streaming real traffic for production monitoring"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Guardrails & Safety",
+      "features": [
+        {
+          "item_name": "PII/Sensitive Data Masking",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Hallucination Detection",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Custom Hallucination Evaluator",
+              "provision_method": "SDK / Evaluator Engine",
+              "notes": "Can utilize LLM evaluator criteria strictly applied to detect hallucinations, but not an independent drop-in native guardrail"
+            }
+          ]
+        },
+        {
+          "item_name": "Topic/Jailbreak Guardrails",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Policy Management as Code",
+          "available": "no",
+          "sub_features": []
+        }
+      ]
+    },
+    {
+      "category_name": "Analytics & Dashboard",
+      "features": [
+        {
+          "item_name": "Cost Analysis & Attribution",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Granular Usage Limits and Pricing",
+              "provision_method": "Built-in UI",
+              "notes": "Cost tracking linked across separated environments tracking organizational attribution granularly via rules"
+            }
+          ]
+        },
+        {
+          "item_name": "Token Usage Analytics",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Token Dashboards",
+              "provision_method": "Built-in UI",
+              "notes": "Visualizes breakdown of LLM interaction token bandwidth directly coupled to workspace performance"
+            }
+          ]
+        },
+        {
+          "item_name": "Latency Heatmap & P99",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Latency Distribution Metrics",
+              "provision_method": "Built-in UI",
+              "notes": "Observes overall completion spans and percentiles, though lacks highly configured pure heatmaps explicitly"
+            }
+          ]
+        },
+        {
+          "item_name": "Error Rate Monitoring",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Automated Alerts and Monitoring",
+              "provision_method": "Built-in UI / Webhooks",
+              "notes": "Configurable anomaly thresholds paired with outgoing webhook notifications routing exceptions to DevOps"
+            }
+          ]
+        },
+        {
+          "item_name": "Embedding Space Visualization",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Custom Metrics & Dashboard",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Project Dashboard Analytics",
+              "provision_method": "Built-in UI",
+              "notes": "Displays overarching evaluative distributions for workspaces limiting robust chart custom drag-and-drop metrics builder views"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Development Lifecycle",
+      "features": [
+        {
+          "item_name": "Prompt Management (CMS)",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Prompt Versioning",
+              "provision_method": "Built-in UI",
+              "notes": "Allows defining version-controlled reference prompt texts although lacks completely externalized standalone deployment API routing endpoints"
+            }
+          ]
+        },
+        {
+          "item_name": "Playground & Sandbox",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Prompt Experimentation",
+              "provision_method": "Built-in UI",
+              "notes": "Immediate simulation platform enabling dry-run evaluation on model parameter variations live"
+            }
+          ]
+        },
+        {
+          "item_name": "Experiment Tracking",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Experiments Suite",
+              "provision_method": "Built-in UI",
+              "notes": "Binds specific app variations over static dataset collections verifying relative score differences historically"
+            }
+          ]
+        },
+        {
+          "item_name": "Fine-tuning Integration",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Version Control & Rollback",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Prompt Revisions",
+              "provision_method": "Built-in UI",
+              "notes": "Tracks structural history natively allowing parallel analysis, but explicit zero-latency rollback routing is not explicitly listed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Integration & DX",
+      "features": [
+        {
+          "item_name": "SDK Support (Py/JS/Go)",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "LangSmith SDKs",
+              "provision_method": "Native SDK library",
+              "notes": "Fully supported across Python and JS/TS but lacks official SDK references natively resolving to Go modules"
+            }
+          ]
+        },
+        {
+          "item_name": "Gateway/Proxy Mode",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Popular Frameworks",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Provider Integrations",
+              "provision_method": "SDK Hooks",
+              "notes": "Interacts smoothly tracing LangChain, LLamaIndex, CrewAI, Vercel AI SDK, and Pydantic AI applications natively"
+            }
+          ]
+        },
+        {
+          "item_name": "API & Webhooks",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Public API & Automations",
+              "provision_method": "REST Endpoint / Webhook Service",
+              "notes": "Offers workspace API keys driving organization setups and robust configurable outbound hooks pushing alerts globally"
+            }
+          ]
+        },
+        {
+          "item_name": "CI/CD Integration",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Offline Eval Triggering",
+              "provision_method": "CLI / SDK execution script",
+              "notes": "Experiment scripts integrate gracefully blocking merge checks though avoids a provided dedicated proprietary GitHub workflow syntax"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Enterprise & Infrastructure",
+      "features": [
+        {
+          "item_name": "Deployment Options",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Platform Hosting Models",
+              "provision_method": "SaaS / Kubernetes Config",
+              "notes": "Provided in public pure cloud, secured hybrid environments, or self-hosted VPCs entirely"
+            }
+          ]
+        },
+        {
+          "item_name": "Open Source",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Data Sovereignty & Compliance",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Regional Environments",
+              "provision_method": "Platform Options",
+              "notes": "Provides varying trust regions explicitly and supports enterprise data arrangements lacking strict documented automatic HIPAA defaults globally"
+            }
+          ]
+        },
+        {
+          "item_name": "RBAC & SSO",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Workload Isolation & Identity Setup",
+              "provision_method": "Enterprise Platform Setup",
+              "notes": "Establishes robust Workspace isolation implementing workspace roles (RBAC) securely tied externally to corporate Single Sign-on (SSO) providers"
+            }
+          ]
+        },
+        {
+          "item_name": "Audit Logs",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Data Warehouse Export",
+          "available": "no",
+          "sub_features": []
+        }
+      ]
+    }
+  ]
+}

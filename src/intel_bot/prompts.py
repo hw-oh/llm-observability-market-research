@@ -1,321 +1,198 @@
-"""Weave prompt management for LLM analysis prompts.
+"""Agent and task prompts — stored in Weave for version tracking.
 
-Prompts are stored as Weave MessagesPrompt objects and versioned automatically.
-At runtime, prompts are loaded from Weave if available, with fallback to
-hardcoded defaults when WANDB_API_KEY is not set.
+Each prompt is a ``weave.StringPrompt`` with ``{variable}`` placeholders.
+``load_prompts()`` fetches the latest versions from Weave (falls back to the
+defaults defined here), and ``publish_prompts()`` pushes the defaults to Weave.
 """
 
 from __future__ import annotations
 
 import logging
+from dataclasses import dataclass
 
 import weave
 
 logger = logging.getLogger(__name__)
 
 # ---------------------------------------------------------------------------
-# Prompt names (used as Weave object names)
+# Default prompt values — 3-agent pipeline
 # ---------------------------------------------------------------------------
 
-CATEGORY_ANALYSIS_PROMPT_NAME = "category-analysis-prompt"
-ANALYSIS_PROMPT_NAME = "analysis-prompt"
-SYNTHESIS_PROMPT_NAME = "synthesis-prompt"
-EXEC_SUMMARY_PROMPT_NAME = "exec-summary-prompt"
+UPDATE_COLLECTOR_BACKSTORY = (
+    "You are a product update specialist monitoring the LLM observability "
+    "and evaluation space. You track changelogs, release notes, and product "
+    "announcements to identify recent feature additions, changes, and "
+    "deprecations across competing products."
+)
 
-# ---------------------------------------------------------------------------
-# Default prompt contents (hardcoded fallbacks)
-# ---------------------------------------------------------------------------
+BASELINE_ANALYZER_BACKSTORY = (
+    "You are a senior competitive intelligence analyst who maintains "
+    "detailed product feature baselines. You meticulously compare new "
+    "update information against existing baseline data to identify "
+    "changes in feature availability, provision methods, and capabilities. "
+    "You update every relevant field precisely and document all changes."
+)
 
-_CATEGORY_ANALYSIS_SYSTEM = """\
-You are a market research analyst covering the LLM observability and evaluation space.
-Research and analyze ONE specific category of a product using web search.
+REPORT_WRITER_BACKSTORY = (
+    "You are a VP-level market research analyst creating executive briefings "
+    "on the LLM observability market. You compare products objectively, "
+    "rate features conservatively based on evidence, and write concise "
+    "commentary that highlights this week's notable changes and names "
+    "specific products and capabilities."
+)
 
-Rating scale:
-- "strong": Well supported with meaningful functionality (O)
-- "medium": Supported but with notable limitations or gaps (△)
-- "none": Not supported or not applicable (X)
+UPDATE_COLLECTOR_TASK = (
+    "Identify RECENT updates and changes for {product_name} in the LLM "
+    "observability and evaluation space.\n\n"
+    "=== Changelog / Release Notes (scraped) ===\n"
+    "{changelog_content}\n"
+    "=== End Changelog ===\n\n"
+    "{product_desc}\n\n"
+    "{changelog_filter_hint}\n\n"
+    "=== Current Baseline Features (already known) ===\n"
+    "{baseline_summary}\n"
+    "=== End Baseline ===\n\n"
+    "Instructions:\n"
+    "- Focus on updates from the last 7 days relative to {date}\n"
+    "- CRITICAL: The baseline above lists features we ALREADY know about. "
+    "Do NOT report existing features as updates. Only report genuinely NEW "
+    "capabilities, NEW integrations, or CHANGED behavior that is not yet "
+    "reflected in the baseline.\n"
+    "- If a changelog entry describes a feature already listed in the "
+    "baseline, skip it entirely.\n"
+    "- For each genuine update, provide: title, date (if available), and a "
+    "concise summary of what changed\n"
+    "- Include feature additions, API changes, deprecations, and "
+    "significant improvements\n"
+    "- Also search the web for any recent announcements, blog posts, or "
+    "community discussions about new {product_name} features that may not "
+    "appear in the changelog\n"
+    '- product_name must be exactly "{product_name}"'
+)
 
-Research thoroughly using web search and base your analysis on factual findings.
-Respond in English.\
-"""
+BASELINE_ANALYZER_TASK = (
+    "Analyze the recent updates for {product_name} and update the product "
+    "baseline accordingly.\n\n"
+    "=== Recent Updates Found ===\n"
+    "{updates_json}\n"
+    "=== End Updates ===\n\n"
+    "=== Current Baseline (last updated: {baseline_date}) ===\n"
+    "{baseline_json}\n"
+    "=== End Baseline ===\n\n"
+    "{url_context}\n\n"
+    "The baseline uses a sub_features structure. Each feature item has:\n"
+    "- item_name: standardized name (49 items)\n"
+    "- available: yes/no/partial\n"
+    "- sub_features: list of {{name, provision_method, notes}}\n\n"
+    "Instructions:\n"
+    "- Compare each update against the existing baseline sub_features\n"
+    "- A change is ONLY one of these:\n"
+    "  1. A NEW sub_feature that does not exist in the baseline (record "
+    "with sub_feature_name=\"NEW\", field=\"name\", before=\"\", after=new name)\n"
+    "  2. available changed (e.g., \"no\" to \"yes\")\n"
+    "  3. provision_method of an existing sub_feature changed\n"
+    "- Do NOT record a change for:\n"
+    "  - Notes wording enrichment (adding detail to existing notes)\n"
+    "  - Features already present in the baseline with the same status\n"
+    "  - Mere mentions of existing features in the update\n"
+    "- When adding a new sub_feature, add it to the appropriate item's "
+    "sub_features list in the updated_baseline\n"
+    "- The updated_baseline must contain ALL {num_categories} categories "
+    "with ALL feature items — not just the changed ones\n"
+    "- category_name values must match EXACTLY as listed below WITHOUT "
+    "numeric prefixes (e.g., use \"Core Tracing & Logging\" NOT "
+    "\"1. Core Tracing & Logging\"):\n"
+    "{categories_desc}\n"
+    "- If no changes are found for a feature, preserve it exactly as-is\n"
+    "- updated_baseline.last_updated must be {date}\n"
+    '- product_name must be exactly "{product_name}"'
+)
 
-_CATEGORY_ANALYSIS_USER = """\
-Research and analyze {competitor_name} for the category: {category_name}
-
-Items to rate:
-{items_schema}
-
-{extra_context}
-
-Return a JSON object (no markdown fences, pure JSON only):
-{{
-  "category_name": "{category_name}",
-  "features": [
-    {{"item_name": "Item Name", "rating": "strong|medium|none", "note": "brief note"}}
-  ],
-  "summary": "2-3 sentence summary for this category"
-}}
-
-Rules:
-- "features" must include ALL items listed above
-- "item_name" must use the exact names specified
-- Ratings must be one of "strong", "medium", "none"
-- Research using web search and base conclusions on factual findings
-- Pure JSON output only\
-"""
-
-_ANALYSIS_SYSTEM = """\
-You are a market research analyst covering the LLM observability and evaluation space.
-
-You synthesize preliminary category-level analyses into a comprehensive product assessment.
-
-Rating scale:
-- "strong": Well supported with meaningful functionality (O)
-- "medium": Supported but with notable limitations or gaps (△)
-- "none": Not supported or not applicable (X)
-
-Analyze based on facts found in the provided data. Cite specific feature names and capabilities.
-When authoritative product information is provided, use it to validate and correct category analysis ratings.
-Do NOT infer, speculate, or add information beyond what is in the data.
-
-Respond in English.\
-"""
-
-_ANALYSIS_USER = """\
-Analyze the following product: {competitor_name}
-
-=== Category Analysis Results (from preliminary analysis) ===
-{category_summaries}
-=== End of Category Analysis ===
-
-=== Recent Updates (GitHub Releases, PyPI, Changelog) ===
-{feed_context}
-=== End of Recent Updates ===
-
-{product_context}
-
-Return a JSON object that exactly matches the schema below (no markdown fences, pure JSON only):
-{{
-  "competitor_name": "{competitor_name}",
-  "overall_summary": "2-3 sentence summary of the product",
-  "categories": [
-{categories_schema}
-  ],
-  "new_features": [
-    {{
-      "feature_name": "Feature name",
-      "description": "Feature description",
-      "release_date": "YYYY-MM-DD or YYYY-MM",
-      "category": "Category English name"
-    }}
-  ],
-  "positioning": {{
-    "current_position": "Current positioning in one sentence",
-    "moving_toward": "Direction of movement in one sentence",
-    "signal": "Supporting signal"
-  }},
-  "strengths": ["Strength 1", "Strength 2", ...],
-  "weaknesses": ["Weakness 1", "Weakness 2", ...]
-}}
-
-Rules:
-- "categories" array must contain exactly 8 items — USE the ratings and notes from the category analysis above
-- Adjust ratings ONLY if cross-category context reveals inconsistencies
-- "new_features": 0-10 items (product updates released within the last 30 days ONLY based on today's date {today}. Exclude anything older. Empty array if none. Include ALL qualifying updates.)
-- "strengths": 3-5 notable product strengths
-- "weaknesses": 3-5 product weaknesses or gaps
-- All text must be written in English
-- Pure JSON output only, no markdown code fences\
-"""
-
-_SYNTHESIS_SYSTEM = """\
-You are a senior market research analyst covering the LLM observability space.
-You synthesize multiple product analyses into a market landscape overview.
-
-Respond in English.\
-"""
-
-_SYNTHESIS_USER = """\
-Below are the individual analysis results for all products analyzed this week:
-
-{all_analyses_json}
-
-Synthesize the above data and return a JSON object matching the schema below (no markdown fences, pure JSON only):
-{{
-  "market_summary": "2-3 sentence overview of the LLM observability market landscape this week.",
-  "product_ratings": [
-    {{
-      "product_name": "ProductName",
-      "trace_depth": "strong|medium|none",
-      "trace_depth_note": "one-sentence reason for this rating",
-      "eval": "strong|medium|none",
-      "eval_note": "one-sentence reason",
-      "agent_observability": "strong|medium|none",
-      "agent_observability_note": "one-sentence reason",
-      "cost_tracking": "strong|medium|none",
-      "cost_tracking_note": "one-sentence reason",
-      "enterprise_ready": "strong|medium|none",
-      "enterprise_ready_note": "one-sentence reason",
-      "overall": "strong|medium|none",
-      "overall_note": "one-sentence reason"
-    }},
-    ...include ALL analyzed products...
-  ],
-  "enterprise_signals": [
-    "Enterprise-related signal 1",
-    ...3-5 items...
-  ]
-}}
-
-Rules:
-- "market_summary": Factual overview of key market movements this week
-- "product_ratings" must include ALL analyzed products
-- Each "*_note" field: one factual sentence justifying the rating (cite a specific feature or gap)
-- "enterprise_signals": 3-5 items (factual enterprise-related developments from the data)
-- Ratings must be one of "strong", "medium", "none"
-- Base ALL conclusions on the provided data only — do not speculate
-- All text must be written in English
-- Pure JSON output only, no markdown code fences\
-"""
-
-_EXEC_SUMMARY_SYSTEM = """\
-You are a senior market research analyst writing a weekly briefing \
-on the LLM observability market.
-
-Your audience: product and engineering leaders evaluating tools in this space.
-
-Tone:
-- Direct and factual
-- Name specific products and capabilities
-- Do NOT write prescriptive statements (e.g. "X must...", "teams should...")
-
-Respond in English.\
-"""
-
-_EXEC_SUMMARY_USER = """\
-Below is the full synthesis data from this week's market analysis:
-
-=== Synthesis Data ===
-{synthesis_json}
-=== End of Synthesis Data ===
-
-Write an executive summary as a JSON object (no markdown fences, pure JSON only):
-{{
-  "executive_summary": ["bullet 1", "bullet 2", ...],
-  "market_insight": "Single sentence insight from Weave's perspective"
-}}
-
-Rules for executive_summary (5-7 bullets):
-- Summarize WHAT HAPPENED this week in the market — factual, not interpretive
-- Each bullet must name at least one specific product and one specific capability
-- IMPORTANT: Every analyzed product must be mentioned at least once across all bullets
-- Prioritize NEW information: recent releases, positioning shifts
-- Be specific: "Braintrust shipped Java SDK support" not "competitors are expanding"
-- Quantify when possible: version numbers, dates, counts
-- Do NOT add insights, opinions, or recommendations — just report the facts
-
-Rules for market_insight (exactly 1 sentence):
-- Write from Weave's competitive perspective
-- Identify what this week's market movements mean for Weave specifically
-  (e.g. "LangSmith's new eval pipeline narrows Weave's lead in evaluation integration")
-- Name at least one competing product and relate it to Weave
-- Keep to one sentence
-
-Pure JSON output only, no markdown code fences.\
-"""
-
-# ---------------------------------------------------------------------------
-# Default message lists (used when Weave is not available)
-# ---------------------------------------------------------------------------
-
-DEFAULT_CATEGORY_ANALYSIS_MESSAGES = [
-    {"role": "system", "content": _CATEGORY_ANALYSIS_SYSTEM},
-    {"role": "user", "content": _CATEGORY_ANALYSIS_USER},
-]
-
-DEFAULT_ANALYSIS_MESSAGES = [
-    {"role": "system", "content": _ANALYSIS_SYSTEM},
-    {"role": "user", "content": _ANALYSIS_USER},
-]
-
-DEFAULT_SYNTHESIS_MESSAGES = [
-    {"role": "system", "content": _SYNTHESIS_SYSTEM},
-    {"role": "user", "content": _SYNTHESIS_USER},
-]
-
-DEFAULT_EXEC_SUMMARY_MESSAGES = [
-    {"role": "system", "content": _EXEC_SUMMARY_SYSTEM},
-    {"role": "user", "content": _EXEC_SUMMARY_USER},
-]
+REPORT_WRITER_TASK = (
+    "Produce a cross-product comparison report based on the latest baseline "
+    "data and this week's changes.\n\n"
+    "=== This Week's Changes ===\n"
+    "{all_changesets_json}\n"
+    "=== End Changes ===\n\n"
+    "=== All Product Baselines ===\n"
+    "{all_baselines_json}\n"
+    "=== End Baselines ===\n\n"
+    "Produce a ReportSynthesis output with:\n"
+    "1. ai_comment: an AIComment object containing:\n"
+    "   a) product_highlights: a list of ProductHighlight objects — one per "
+    "product. Each has product_name (must exactly match baseline) and summary "
+    "(1-2 concise sentences highlighting this product's key strengths or "
+    "notable recent changes)\n"
+    "   b) market_trend: a single sentence summarizing the overall market "
+    "trend or competitive dynamics this week\n"
+    "2. categories: for each of the {num_categories} categories below, rate "
+    "every product on every feature item.\n"
+    "{categories_desc}\n\n"
+    "Rating scale:\n"
+    '- "strong": well-supported with meaningful functionality\n'
+    '- "medium": supported but with notable limitations\n'
+    '- "none": not supported or no evidence found\n\n'
+    "Rules:\n"
+    "- Each baseline feature item has sub_features — rate based on the "
+    "overall capability represented by ALL sub_features combined\n"
+    "- Base ALL ratings on the baseline data (which reflects the latest state)\n"
+    "- Every product must appear in every FeatureComparison.ratings list\n"
+    "- Product names must exactly match the baselines\n"
+    "- category_name values must match EXACTLY as listed above WITHOUT "
+    "numeric prefixes (e.g., use \"Core Tracing & Logging\" NOT "
+    "\"1. Core Tracing & Logging\")\n"
+    "- If a product has no changes this week, still rate it based on "
+    "its baseline data"
+)
 
 
 # ---------------------------------------------------------------------------
-# Publish prompts to Weave (run once or when prompts change)
+# Prompt name constants (used as Weave object names)
+# ---------------------------------------------------------------------------
+
+PROMPT_NAMES = {
+    "update_collector_backstory": UPDATE_COLLECTOR_BACKSTORY,
+    "baseline_analyzer_backstory": BASELINE_ANALYZER_BACKSTORY,
+    "report_writer_backstory": REPORT_WRITER_BACKSTORY,
+    "update_collector_task": UPDATE_COLLECTOR_TASK,
+    "baseline_analyzer_task": BASELINE_ANALYZER_TASK,
+    "report_writer_task": REPORT_WRITER_TASK,
+}
+
+
+@dataclass
+class PromptSet:
+    """All prompts used by the 3-agent pipeline."""
+    update_collector_backstory: str = UPDATE_COLLECTOR_BACKSTORY
+    baseline_analyzer_backstory: str = BASELINE_ANALYZER_BACKSTORY
+    report_writer_backstory: str = REPORT_WRITER_BACKSTORY
+    update_collector_task: str = UPDATE_COLLECTOR_TASK
+    baseline_analyzer_task: str = BASELINE_ANALYZER_TASK
+    report_writer_task: str = REPORT_WRITER_TASK
+
+
+# ---------------------------------------------------------------------------
+# Public API
 # ---------------------------------------------------------------------------
 
 def publish_prompts() -> None:
-    """Publish all prompts to Weave for versioning."""
-    cat_prompt = weave.MessagesPrompt(messages=DEFAULT_CATEGORY_ANALYSIS_MESSAGES)
-    weave.publish(cat_prompt, name=CATEGORY_ANALYSIS_PROMPT_NAME)
-    logger.info("Published %s", CATEGORY_ANALYSIS_PROMPT_NAME)
-
-    analysis_prompt = weave.MessagesPrompt(messages=DEFAULT_ANALYSIS_MESSAGES)
-    weave.publish(analysis_prompt, name=ANALYSIS_PROMPT_NAME)
-    logger.info("Published %s", ANALYSIS_PROMPT_NAME)
-
-    synthesis_prompt = weave.MessagesPrompt(messages=DEFAULT_SYNTHESIS_MESSAGES)
-    weave.publish(synthesis_prompt, name=SYNTHESIS_PROMPT_NAME)
-    logger.info("Published %s", SYNTHESIS_PROMPT_NAME)
-
-    exec_summary_prompt = weave.MessagesPrompt(messages=DEFAULT_EXEC_SUMMARY_MESSAGES)
-    weave.publish(exec_summary_prompt, name=EXEC_SUMMARY_PROMPT_NAME)
-    logger.info("Published %s", EXEC_SUMMARY_PROMPT_NAME)
+    """Publish all default prompts to Weave for version tracking."""
+    for name, text in PROMPT_NAMES.items():
+        prompt = weave.StringPrompt(text)
+        weave.publish(prompt, name=name)
+        logger.info("Published prompt: %s", name)
 
 
-# ---------------------------------------------------------------------------
-# Load prompts at runtime
-# ---------------------------------------------------------------------------
-
-def _load_prompt(name: str, default_messages: list[dict]) -> weave.MessagesPrompt:
-    """Load a prompt from Weave, falling back to hardcoded default."""
-    try:
-        prompt = weave.ref(name).get()
-        if isinstance(prompt, weave.MessagesPrompt):
-            return prompt
-        # Handle WeaveObject returned from ref().get()
-        return weave.MessagesPrompt.from_obj(prompt)
-    except Exception:
-        logger.debug("Could not load prompt '%s' from Weave, using default", name)
-        return weave.MessagesPrompt(messages=default_messages)
-
-
-def _is_weave_active() -> bool:
-    """Check if Weave has been initialized."""
-    try:
-        return weave.get_client() is not None
-    except Exception:
-        return False
-
-
-def load_category_analysis_prompt() -> weave.MessagesPrompt:
-    if _is_weave_active():
-        return _load_prompt(CATEGORY_ANALYSIS_PROMPT_NAME, DEFAULT_CATEGORY_ANALYSIS_MESSAGES)
-    return weave.MessagesPrompt(messages=DEFAULT_CATEGORY_ANALYSIS_MESSAGES)
-
-
-def load_analysis_prompt() -> weave.MessagesPrompt:
-    if _is_weave_active():
-        return _load_prompt(ANALYSIS_PROMPT_NAME, DEFAULT_ANALYSIS_MESSAGES)
-    return weave.MessagesPrompt(messages=DEFAULT_ANALYSIS_MESSAGES)
-
-
-def load_synthesis_prompt() -> weave.MessagesPrompt:
-    if _is_weave_active():
-        return _load_prompt(SYNTHESIS_PROMPT_NAME, DEFAULT_SYNTHESIS_MESSAGES)
-    return weave.MessagesPrompt(messages=DEFAULT_SYNTHESIS_MESSAGES)
-
-
-def load_exec_summary_prompt() -> weave.MessagesPrompt:
-    if _is_weave_active():
-        return _load_prompt(EXEC_SUMMARY_PROMPT_NAME, DEFAULT_EXEC_SUMMARY_MESSAGES)
-    return weave.MessagesPrompt(messages=DEFAULT_EXEC_SUMMARY_MESSAGES)
+def load_prompts() -> PromptSet:
+    """Load prompts from Weave, falling back to code defaults."""
+    ps = PromptSet()
+    for name in PROMPT_NAMES:
+        try:
+            obj = weave.ref(name).get()
+            value = obj.format() if hasattr(obj, "format") else str(obj)
+            if value:
+                setattr(ps, name, value)
+                logger.debug("Loaded prompt from Weave: %s", name)
+        except Exception:
+            logger.debug("Using default prompt: %s", name)
+    return ps

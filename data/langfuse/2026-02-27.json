@@ -1,0 +1,576 @@
+{
+  "product_name": "Langfuse",
+  "last_updated": "2026-02-27",
+  "categories": [
+    {
+      "category_name": "Core Tracing & Logging",
+      "features": [
+        {
+          "item_name": "Full Request/Response Tracing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Application Tracing",
+              "provision_method": "SDK / UI",
+              "notes": "Captures full context of LLM apps including prompts, responses, token usage, latency, and full execution lifecycle."
+            }
+          ]
+        },
+        {
+          "item_name": "Nested Span & Tree View",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Hierarchical Tracing",
+              "provision_method": "SDK / UI",
+              "notes": "Hierarchical span tracing with parent-child tree visualization, ideal for complex chains and agents."
+            }
+          ]
+        },
+        {
+          "item_name": "Streaming Support",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Real-time Monitoring",
+              "provision_method": "SDK",
+              "notes": "Asynchronous background flushing of traces prevents application latency; real-time execution monitoring supported but exact streaming chunk display limitations may exist."
+            }
+          ]
+        },
+        {
+          "item_name": "Multimodal Tracing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Multi-Modality Observability",
+              "provision_method": "SDK / UI",
+              "notes": "Native multi-modality tracing capabilities documented as an advanced observability feature."
+            }
+          ]
+        },
+        {
+          "item_name": "Auto-Instrumentation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "@observe() Decorator",
+              "provision_method": "SDK Decorator",
+              "notes": "One-line auto-instrumentation via decorators and over 100 framework-specific integrations."
+            }
+          ]
+        },
+        {
+          "item_name": "Metadata & Tags Filtering",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Tags and Metadata",
+              "provision_method": "SDK / UI",
+              "notes": "Custom metadata, tags, user tracking, and environment assignments supported with advanced UI filtering."
+            }
+          ]
+        },
+        {
+          "item_name": "Token Counting & Estimation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Token Tracking",
+              "provision_method": "SDK / UI",
+              "notes": "Accurate tracking of input/output tokens per trace linked to cost analysis."
+            }
+          ]
+        },
+        {
+          "item_name": "OpenTelemetry Standard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "OpenTelemetry Compatibility",
+              "provision_method": "SDK / API",
+              "notes": "Framework-agnostic integration with native OTEL trace export/import capabilities."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Agent & RAG Specifics",
+      "features": [
+        {
+          "item_name": "RAG Retrieval Visualizer",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Retrieval Step Observation",
+              "provision_method": "UI / SDK",
+              "notes": "Traces retriever steps with semantic types but lacks a highly specialized distinct UI exclusively for visual rendering of documents chunks and relevance."
+            }
+          ]
+        },
+        {
+          "item_name": "Tool/Function Call Rendering",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Tool Executions",
+              "provision_method": "UI / SDK",
+              "notes": "Explicit, parsed multi-turn trace observation types for tool and function call inputs/outputs."
+            }
+          ]
+        },
+        {
+          "item_name": "Agent Execution Graph",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Agent Graphs",
+              "provision_method": "UI",
+              "notes": "Visual representation and graph debugging for non-deterministic agent control flows, multi-step workflows, and decision trees."
+            }
+          ]
+        },
+        {
+          "item_name": "Intermediate Step State",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Structured Tracing",
+              "provision_method": "SDK / UI",
+              "notes": "Logs and accurately represents intermediary reasoning and Chain-of-Thought states within the unified nested trace."
+            }
+          ]
+        },
+        {
+          "item_name": "Session/Thread Replay",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Session Grouping",
+              "provision_method": "SDK / UI",
+              "notes": "Groups multi-turn interactions or distinct trace lifecycles into replayable thread 'Sessions'."
+            }
+          ]
+        },
+        {
+          "item_name": "Failed Step Highlighting",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Trace Log Levels & Corrections",
+              "provision_method": "UI",
+              "notes": "Features visual 'warning' or 'error' log levels highlighting within spans, but not an exclusive agent-failed-step auto-highlighter."
+            }
+          ]
+        },
+        {
+          "item_name": "MCP Integration",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "MCP Tracing & Server",
+              "provision_method": "Built-in API / SDK",
+              "notes": "Explicit support for Model Context Protocol (MCP) trace gathering and hosting an MCP Server to query data dynamically."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Evaluation & Quality",
+      "features": [
+        {
+          "item_name": "LLM-as-a-Judge Wizard",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "LLM-as-a-Judge Automation",
+              "provision_method": "SDK / Backend",
+              "notes": "Provides automated model-based evaluation and scoring running asynchronously over trace data; typically configured via SDK/API (wizard GUI implied/partial)."
+            },
+            {
+              "name": "Observation-level Evaluations",
+              "provision_method": "Backend",
+              "notes": "Observation-level evaluations enable precise operation-specific scoring for production monitoring."
+            }
+          ]
+        },
+        {
+          "item_name": "Custom Eval Scorers",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Scores API/SDK",
+              "provision_method": "SDK / API",
+              "notes": "Author custom programatic evaluation scoring (both human and algorithmic) appending structured 'Scores' to traces."
+            }
+          ]
+        },
+        {
+          "item_name": "Dataset Management & Curation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Datasets API & Dashboard",
+              "provision_method": "UI / API",
+              "notes": "Provides dataset curation natively linked to project traces. Seamlessly allows conversion of live inputs to evaluation datasets."
+            },
+            {
+              "name": "Versioned Datasets",
+              "provision_method": "UI / API / SDK",
+              "notes": "Fetch datasets at specific version timestamps and run experiments on historical dataset versions via UI, API, and SDKs for full reproducibility."
+            }
+          ]
+        },
+        {
+          "item_name": "Prompt Optimization / DSPy Support",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Prompt Experiments",
+              "provision_method": "UI / SDK",
+              "notes": "Supports robust multi-version testing and experiment tracking, but automated DSPy-style query optimization functionality is not natively available."
+            }
+          ]
+        },
+        {
+          "item_name": "Regression Testing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Automated Experiments",
+              "provision_method": "SDK / UI",
+              "notes": "Ensures prompt configurations don't regress by continually evaluating experiment datasets when model/prompt specs change."
+            }
+          ]
+        },
+        {
+          "item_name": "Comparison View (Side-by-side)",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Prompt A/B Testing",
+              "provision_method": "UI",
+              "notes": "Can compare different prompt versions and resulting operational quality scores via experiments; explicit visual side-by-side output panel has limitations."
+            }
+          ]
+        },
+        {
+          "item_name": "Annotation Queues",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Annotation Queues",
+              "provision_method": "UI",
+              "notes": "Designed for team workflows offering queue management capabilities to manually review and evaluate specific slices of traces."
+            }
+          ]
+        },
+        {
+          "item_name": "Online Evaluation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Live Evaluator",
+              "provision_method": "Backend / SDK",
+              "notes": "Real-time asynchronous evaluators set up to inherently trigger against live production traffic to collect continuous scores."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Guardrails & Safety",
+      "features": [
+        {
+          "item_name": "PII/Sensitive Data Masking",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Data Masking & Redaction Integrations",
+              "provision_method": "SDK / Platform",
+              "notes": "Platform integrates with tooling like LLM Guard to specifically anonymize and redact inputs prior to tracing via `@observe()` and features built-in payload masking."
+            }
+          ]
+        },
+        {
+          "item_name": "Hallucination Detection",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Topic/Jailbreak Guardrails",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Security Measures Observability",
+              "provision_method": "SDK Integration",
+              "notes": "Relies on external security library integrations (Prompt Armor, NeMo) to instrument run-time protection, observing their latencies and blocking actions on the graph."
+            }
+          ]
+        },
+        {
+          "item_name": "Policy Management as Code",
+          "available": "no",
+          "sub_features": []
+        }
+      ]
+    },
+    {
+      "category_name": "Analytics & Dashboard",
+      "features": [
+        {
+          "item_name": "Cost Analysis & Attribution",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Spend Alerts & Tracking",
+              "provision_method": "Dashboard / API",
+              "notes": "Sophisticated trace cost attribution categorized per-model, per-project, or arbitrary tagging accompanied by configurable Spend Alerts."
+            }
+          ]
+        },
+        {
+          "item_name": "Token Usage Analytics",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Token Metrics Dashboard",
+              "provision_method": "Dashboard",
+              "notes": "Analyzes specific input/output metric shifts, trendline graphs, and unit utilization across all billable events."
+            }
+          ]
+        },
+        {
+          "item_name": "Latency Heatmap & P99",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Latency Monitoring",
+              "provision_method": "Dashboard / UI",
+              "notes": "Built-in analytics visually monitor application latency spread, including percentile distributions (P99, P95) per prompt/model/action."
+            }
+          ]
+        },
+        {
+          "item_name": "Error Rate Monitoring",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Error Diagnostics",
+              "provision_method": "Dashboard",
+              "notes": "Flags structural execution failures natively and visually tracks generalized error rate volumes alongside success flows."
+            }
+          ]
+        },
+        {
+          "item_name": "Embedding Space Visualization",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Custom Metrics & Dashboard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Custom Dashboards",
+              "provision_method": "UI",
+              "notes": "Allows users to create specialized metric widgets to monitor unique use-case evaluation scores or volume analytics tailored to specific tags."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Development Lifecycle",
+      "features": [
+        {
+          "item_name": "Prompt Management (CMS)",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Prompt CMS",
+              "provision_method": "UI",
+              "notes": "Built-in collaborative prompt CMS utilizing message placeholders, config schema definitions, and direct dynamic linking from external repos."
+            }
+          ]
+        },
+        {
+          "item_name": "Playground & Sandbox",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Interactive Playground",
+              "provision_method": "UI",
+              "notes": "Visual sandbox directly within platform linking to prompts; easily interact with variables in real-time."
+            }
+          ]
+        },
+        {
+          "item_name": "Experiment Tracking",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Prompt Experiments via SDK/UI",
+              "provision_method": "UI / SDK",
+              "notes": "Orchestrate, evaluate, and structurally record parameters and quality benchmarks for explicit experimentation runs."
+            }
+          ]
+        },
+        {
+          "item_name": "Fine-tuning Integration",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Version Control & Rollback",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Prompt Versioning Engine",
+              "provision_method": "UI / Core",
+              "notes": "Strict prompt-iteration history maintaining discrete versions, ensuring traceability and safe prompt rollbacks functionality."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Integration & DX",
+      "features": [
+        {
+          "item_name": "SDK Support (Py/JS/Go)",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Official Library Integrations",
+              "provision_method": "Native Package",
+              "notes": "Supports major ecosystem packages explicitly distributing Python, JS/TS, and Java officially backed SDKs."
+            }
+          ]
+        },
+        {
+          "item_name": "Gateway/Proxy Mode",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Proxy Logging Frameworks",
+              "provision_method": "Third-party Integration",
+              "notes": "Operates without direct SDK dependencies leveraging integration with external proxy gateways (LiteLLM, etc.)."
+            }
+          ]
+        },
+        {
+          "item_name": "Popular Frameworks",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "AI Framework Instrumentation",
+              "provision_method": "SDK Add-ons",
+              "notes": "Substantial catalog of 100+ native hookups including explicit libraries for LangChain, Autogen, LlamaIndex, OpenAI, Anthropic, etc."
+            }
+          ]
+        },
+        {
+          "item_name": "API & Webhooks",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Observations API & Webhooks",
+              "provision_method": "REST API Server",
+              "notes": "Open API platform handling extensive programmatic querying alongside functional outbound Webhooks tied to prompt syncs."
+            },
+            {
+              "name": "Langfuse CLI",
+              "provision_method": "CLI",
+              "notes": "Fully use Langfuse from the CLI. Built for AI agents and power users."
+            }
+          ]
+        },
+        {
+          "item_name": "CI/CD Integration",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "GitHub Application & Actions",
+              "provision_method": "API / Tooling",
+              "notes": "Utilizes automated API scripts and a GitHub Integration to sync changes or fetch offline evaluation criteria."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Enterprise & Infrastructure",
+      "features": [
+        {
+          "item_name": "Deployment Options",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Flexible Deploy",
+              "provision_method": "SaaS / On-Prem",
+              "notes": "Provisioning includes scalable multi-tenant Cloud endpoints, strict dedicated enterprise instances, or localized self-hosted environments."
+            }
+          ]
+        },
+        {
+          "item_name": "Open Source",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Open Repo Footprint",
+              "provision_method": "GitHub",
+              "notes": "Codebase is transparent and massively adopted via GitHub community offering permissive fundamental architectures."
+            }
+          ]
+        },
+        {
+          "item_name": "Data Sovereignty & Compliance",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Security & Compliance Offerings",
+              "provision_method": "Platform Architecture",
+              "notes": "Designed targeting sensitive organizations providing self-hosting isolation capabilities paired with detailed regulatory compliant data retention policies."
+            }
+          ]
+        },
+        {
+          "item_name": "RBAC & SSO",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Access Control (RBAC) & SSO",
+              "provision_method": "Enterprise Core",
+              "notes": "Extends robust administrative controls natively executing deep SCIM/Org API handling alongside Role-Based Access parameters."
+            }
+          ]
+        },
+        {
+          "item_name": "Audit Logs",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Security Audit Logs",
+              "provision_method": "UI API",
+              "notes": "Enterprise feature rigorously tracking historical data deletions and internal user modifications directly."
+            }
+          ]
+        },
+        {
+          "item_name": "Data Warehouse Export",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Blob & Data Platform Sync",
+              "provision_method": "Data Export Pipelines",
+              "notes": "Automated pipeline egress sending data natively to arbitrary Blob storage frameworks (S3), Mixpanel, Posthog, and ClickHouse."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

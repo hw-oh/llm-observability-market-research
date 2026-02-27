@@ -9,39 +9,27 @@ from intel_bot.models import AnalysisRun
 
 console = Console()
 
-RATING_EMOJI = {
-    "strong": ":large_green_circle:",
-    "medium": ":large_yellow_circle:",
-    "none": ":white_circle:",
-}
-
 
 def send_slack_notification(webhook_url: str, run: AnalysisRun, weekly_path: Path) -> None:
     synthesis = run.synthesis
 
-    # One-line verdict
     verdict = ""
-    if synthesis:
-        verdict = f"\n> {synthesis.one_line_verdict}\n"
+    if synthesis and synthesis.ai_comment:
+        verdict = f"\n> {synthesis.ai_comment.market_trend}\n"
 
-    # Product overall ratings
-    summary_lines = []
-    if synthesis and synthesis.product_ratings:
-        for pr in synthesis.product_ratings:
-            emoji = RATING_EMOJI.get(pr.overall, ":white_circle:")
-            summary_lines.append(f"  {emoji} *{pr.product_name}*: Overall {pr.overall}")
-    else:
-        for comp in run.competitors:
-            summary_lines.append(f"  :white_circle: *{comp.competitor_name}*")
+    product_lines = [f"  :white_circle: *{pu.product_name}*" for pu in run.updates]
+    product_summary = "\n".join(product_lines)
 
-    competitor_summary = "\n".join(summary_lines)
+    total_changes = sum(len(cs.changes) for cs in run.changesets)
+    change_info = f"  :arrows_counterclockwise: *{total_changes} changes detected*" if total_changes else ""
 
     payload = {
         "text": (
             f":bar_chart: *LLM Observability Market Research — {run.date}*\n"
-            f"Analyzed *{len(run.competitors)} products* across *7 categories*.\n"
+            f"Analyzed *{len(run.updates)} products*.\n"
             f"{verdict}\n"
-            f"{competitor_summary}\n\n"
+            f"{product_summary}\n"
+            f"{change_info}\n\n"
             f"Report: `{weekly_path}`"
         ),
     }

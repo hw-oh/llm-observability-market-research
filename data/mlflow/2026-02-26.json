@@ -1,0 +1,389 @@
+{
+  "product_name": "MLflow",
+  "last_updated": "2026-02-26",
+  "categories": [
+    {
+      "category_name": "1. Core Tracing & Logging",
+      "features": [
+        {
+          "item_name": "Full Request/Response Tracing",
+          "feature_name": "MLflow Tracing",
+          "available": "yes",
+          "provision_method": "SDK decorator / Auto-instrumentation",
+          "notes": "Captures inputs, outputs, and metadata for each intermediate step via @mlflow.trace or autolog"
+        },
+        {
+          "item_name": "Nested Span & Tree View",
+          "feature_name": "Trace UI",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Provides deep insights into internal components and abstractions with hierarchical navigation"
+        },
+        {
+          "item_name": "Streaming Support",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Explicit real-time streaming response rendering not documented in search results"
+        },
+        {
+          "item_name": "Multimodal Tracing",
+          "feature_name": "Multimodal Support",
+          "available": "partial",
+          "provision_method": "SDK",
+          "notes": "Documentation confirms support for GenAI applications; search evidence indicates text and image support"
+        },
+        {
+          "item_name": "Auto-Instrumentation",
+          "feature_name": "One-line Auto Tracing",
+          "available": "yes",
+          "provision_method": "SDK (mlflow.<flavor>.autolog())",
+          "notes": "Supports 20+ libraries including OpenAI, LangChain, DSPy, LlamaIndex, and Pydantic AI"
+        },
+        {
+          "item_name": "Metadata & Tags Filtering",
+          "feature_name": "Tracing Tags & Metadata",
+          "available": "yes",
+          "provision_method": "SDK / UI",
+          "notes": "Supports attaching metadata/tags to traces and filtering via search"
+        },
+        {
+          "item_name": "Token Counting & Estimation",
+          "feature_name": "Token Usage Metrics",
+          "available": "yes",
+          "provision_method": "Auto-instrumentation",
+          "notes": "Captures key metrics like latency and token usage at each step"
+        },
+        {
+          "item_name": "OpenTelemetry Standard",
+          "feature_name": "OpenTelemetry Compatibility",
+          "available": "yes",
+          "provision_method": "Native Protocol",
+          "notes": "Fully OpenTelemetry-compatible, preventing vendor lock-in"
+        }
+      ]
+    },
+    {
+      "category_name": "2. Agent & RAG Specifics",
+      "features": [
+        {
+          "item_name": "RAG Retrieval Visualizer",
+          "feature_name": "Trace View",
+          "available": "partial",
+          "provision_method": "Built-in UI",
+          "notes": "Captures details for internal components like retrievers, but specific chunk visualizer UI not explicitly detailed"
+        },
+        {
+          "item_name": "Tool/Function Call Rendering",
+          "feature_name": "Tool Tracing",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Precise details for internal components including tools are captured and displayed"
+        },
+        {
+          "item_name": "Agent Execution Graph",
+          "feature_name": "Trace Visualization",
+          "available": "partial",
+          "provision_method": "Built-in UI",
+          "notes": "Visualizes steps and hierarchy; full DAG/graph view not explicitly confirmed in docs"
+        },
+        {
+          "item_name": "Intermediate Step State",
+          "feature_name": "Intermediate Step Capture",
+          "available": "yes",
+          "provision_method": "SDK / Auto-instrumentation",
+          "notes": "Captures inputs, outputs, and metadata associated with each intermediate step"
+        },
+        {
+          "item_name": "Session/Thread Replay",
+          "feature_name": "Sessions",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Traces can be grouped and filtered by session"
+        },
+        {
+          "item_name": "Failed Step Highlighting",
+          "feature_name": "Error Visibility",
+          "available": "partial",
+          "provision_method": "Built-in UI",
+          "notes": "Enables pinpointing sources of bugs; dashboard monitors error rates"
+        },
+        {
+          "item_name": "MCP Integration",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Model Context Protocol integration not documented"
+        }
+      ]
+    },
+    {
+      "category_name": "3. Evaluation & Quality",
+      "features": [
+        {
+          "item_name": "LLM-as-a-Judge Wizard",
+          "feature_name": "Judge Building UI",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Introduced in MLflow 3.9 for building and managing LLM judges"
+        },
+        {
+          "item_name": "Custom Eval Scorers",
+          "feature_name": "Custom Evaluators",
+          "available": "yes",
+          "provision_method": "SDK",
+          "notes": "Supports defining custom evaluation logic and conversational scorers"
+        },
+        {
+          "item_name": "Dataset Management & Curation",
+          "feature_name": "Evaluation Datasets",
+          "available": "yes",
+          "provision_method": "SDK",
+          "notes": "Supports creating datasets from production traces for evaluation"
+        },
+        {
+          "item_name": "Prompt Optimization / DSPy Support",
+          "feature_name": "DSPy Integration",
+          "available": "yes",
+          "provision_method": "SDK / Auto-instrumentation",
+          "notes": "Direct integration with DSPy library supported"
+        },
+        {
+          "item_name": "Regression Testing",
+          "feature_name": "N/A",
+          "available": "partial",
+          "provision_method": "SDK",
+          "notes": "Supported via Experiment Tracking comparison, but automated regression alerts not explicitly documented"
+        },
+        {
+          "item_name": "Comparison View (Side-by-side)",
+          "feature_name": "Run Comparison",
+          "available": "partial",
+          "provision_method": "Built-in UI",
+          "notes": "MLflow supports run comparison, but specific side-by-side prompt output diffing not detailed"
+        },
+        {
+          "item_name": "Annotation Queues",
+          "feature_name": "Human Feedback",
+          "available": "partial",
+          "provision_method": "Built-in UI",
+          "notes": "Supports collecting and managing feedback, but explicit queue/assignment workflow not documented"
+        },
+        {
+          "item_name": "Online Evaluation",
+          "feature_name": "Production Monitoring / GenAI Evaluation",
+          "available": "yes",
+          "provision_method": "SDK",
+          "notes": "Supports tracking quality assessment and production metrics"
+        }
+      ]
+    },
+    {
+      "category_name": "4. Guardrails & Safety",
+      "features": [
+        {
+          "item_name": "PII/Sensitive Data Masking",
+          "feature_name": "PII Redaction",
+          "available": "yes",
+          "provision_method": "SDK Configuration",
+          "notes": "Capability to redact PII data from traces explicitly supported"
+        },
+        {
+          "item_name": "Hallucination Detection",
+          "feature_name": "Hallucination Detection",
+          "available": "yes",
+          "provision_method": "SDK / Dashboard",
+          "notes": "Search evidence mentions real-time production monitoring for hallucinations"
+        },
+        {
+          "item_name": "Topic/Jailbreak Guardrails",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Specific topic blocking or jailbreak detection features not documented"
+        },
+        {
+          "item_name": "Policy Management as Code",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Guardrails-as-code management not documented"
+        }
+      ]
+    },
+    {
+      "category_name": "5. Analytics & Dashboard",
+      "features": [
+        {
+          "item_name": "Cost Analysis & Attribution",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Cost tracking features not documented in current sources"
+        },
+        {
+          "item_name": "Token Usage Analytics",
+          "feature_name": "Token Metrics",
+          "available": "yes",
+          "provision_method": "Dashboard / UI",
+          "notes": "Captures and displays token usage at various steps"
+        },
+        {
+          "item_name": "Latency Heatmap & P99",
+          "feature_name": "Latency Metrics",
+          "available": "partial",
+          "provision_method": "Dashboard / UI",
+          "notes": "Captures latency at each step; heatmap visualization not explicitly confirmed"
+        },
+        {
+          "item_name": "Error Rate Monitoring",
+          "feature_name": "Error Monitoring",
+          "available": "yes",
+          "provision_method": "Dashboard / UI",
+          "notes": "Dashboard includes capabilities to identify unexpected behaviors and errors"
+        },
+        {
+          "item_name": "Embedding Space Visualization",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "UMAP/t-SNE visualization not documented"
+        },
+        {
+          "item_name": "Custom Metrics & Dashboard",
+          "feature_name": "Quality Metrics",
+          "available": "yes",
+          "provision_method": "SDK / UI",
+          "notes": "Supports tracking various quality metrics and custom evaluation results"
+        }
+      ]
+    },
+    {
+      "category_name": "6. Development Lifecycle",
+      "features": [
+        {
+          "item_name": "Prompt Management (CMS)",
+          "feature_name": "Prompt Management",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Listed in documentation sidebar as 'Prompt Management & Optimization'"
+        },
+        {
+          "item_name": "Playground & Sandbox",
+          "feature_name": "MLflow Prompt Engineering UI",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Implied by 'Prompt Management' and 'Try MLflow GenAI Demo' functionality"
+        },
+        {
+          "item_name": "Experiment Tracking",
+          "feature_name": "MLflow Experiments",
+          "available": "yes",
+          "provision_method": "SDK / UI",
+          "notes": "Core MLflow capability fully integrated with Tracing"
+        },
+        {
+          "item_name": "Fine-tuning Integration",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Fine-tuning pipeline integration not explicitly detailed in Tracing docs"
+        },
+        {
+          "item_name": "Version Control & Rollback",
+          "feature_name": "Version Tracking",
+          "available": "yes",
+          "provision_method": "Built-in UI",
+          "notes": "Documented feature for tracking versions of components"
+        }
+      ]
+    },
+    {
+      "category_name": "7. Integration & DX",
+      "features": [
+        {
+          "item_name": "SDK Support (Py/JS/Go)",
+          "feature_name": "MLflow SDK",
+          "available": "partial",
+          "provision_method": "SDK",
+          "notes": "Python and JavaScript/TypeScript supported; Go not mentioned"
+        },
+        {
+          "item_name": "Gateway/Proxy Mode",
+          "feature_name": "AI Gateway",
+          "available": "yes",
+          "provision_method": "Server Component",
+          "notes": "Listed as 'AI Gateway' in documentation components"
+        },
+        {
+          "item_name": "Popular Frameworks",
+          "feature_name": "GenAI Library Integrations",
+          "available": "yes",
+          "provision_method": "SDK Integrations",
+          "notes": "Integrates with 20+ libraries including OpenAI, LangChain, LlamaIndex, DSPy"
+        },
+        {
+          "item_name": "API & Webhooks",
+          "feature_name": "REST API",
+          "available": "partial",
+          "provision_method": "REST API",
+          "notes": "Standard MLflow REST API available; Webhook integration not explicitly documented"
+        },
+        {
+          "item_name": "CI/CD Integration",
+          "feature_name": "N/A",
+          "available": "partial",
+          "provision_method": "CLI / SDK",
+          "notes": "Supports usage in CI/CD (e.g. 'Production Monitoring'), but dedicated CI integration utility not detailed"
+        }
+      ]
+    },
+    {
+      "category_name": "8. Enterprise & Infrastructure",
+      "features": [
+        {
+          "item_name": "Deployment Options",
+          "feature_name": "Deployment",
+          "available": "yes",
+          "provision_method": "Self-hosted / SaaS",
+          "notes": "Supports self-hosted (open source) and Managed MLflow options"
+        },
+        {
+          "item_name": "Open Source",
+          "feature_name": "Open Source",
+          "available": "yes",
+          "provision_method": "GitHub",
+          "notes": "100% Free and Open Source, part of Linux Foundation"
+        },
+        {
+          "item_name": "Data Sovereignty & Compliance",
+          "feature_name": "Self-Hosted Storage",
+          "available": "yes",
+          "provision_method": "Self-hosted",
+          "notes": "Trace data hosted on own infrastructure; specific compliance certs depend on deployment"
+        },
+        {
+          "item_name": "RBAC & SSO",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Not a feature of core MLflow Open Source (typically provided by managed services like Databricks)"
+        },
+        {
+          "item_name": "Audit Logs",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Not documented in open source capabilities"
+        },
+        {
+          "item_name": "Data Warehouse Export",
+          "feature_name": "N/A",
+          "available": "no",
+          "provision_method": "N/A",
+          "notes": "Automated warehouse export not documented in Tracing features"
+        }
+      ]
+    }
+  ]
+}

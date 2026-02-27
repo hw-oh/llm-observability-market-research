@@ -1,98 +1,98 @@
 ---
 layout: default
-title: LLM Observability — 機能詳細比較
+title: LLM Observability — 詳細機能比較
 ---
 
-# LLM Observability — 機能詳細比較
-**日付**: 2026-02-23 | **モデル**: google/gemini-3-pro-preview
+# LLM Observability — 詳細機能比較
+**日付**: 2026-02-25 | **モデル**: google/gemini-3-pro-preview
 
 > O(強力) / △(中程度) / X(なし、または該当なし)
 
 ## Core Tracing & Logging
 
-| 機能 | 説明 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| 機能 | 説明 | Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| Full Request/Response Tracing | LLMの入力プロンプト、出力レスポンス、パラメータの完全なキャプチャ | O | O | O | O | O | O |
-| Nested Span & Tree View | 親子ツリー構造による階層的なスパンTracingの可視化 | O | O | O | O | O | O |
-| Streaming Support | ストリーミング形式のLLMレスポンスのリアルタイムTracing | △ | O | O | △ | X | △ |
-| Multimodal Tracing | 画像、音声、その他の非テキスト入出力のTracingとレンダリング | O | X | X | O | X | △ |
-| Auto-Instrumentation | 1行のコード（デコレータ、autologなど）による自動トレース収集 | O | O | O | O | O | O |
-| Metadata & Tags Filtering | カスタムメタデータやタグの付与、およびそれらによる検索・フィルタリング | O | O | O | O | O | O |
-| Token Counting & Estimation | トークナイザーごとの正確な入力/出力/キャッシュトークン数のカウント | △ | O | O | O | △ | O |
-| OpenTelemetry Standard | OTEL標準のトレースエクスポート/インポート互換性 | O | O | O | △ | O | O |
+| フルリクエスト/レスポンス Tracing | LLMの入力プロンプト、出力レスポンス、パラメータの完全なキャプチャ | O | O | O | O | O | O |
+| ネストされた Span & ツリービュー | 親子ツリー視覚化による階層的な Span Tracing | O | O | O | O | O | O |
+| Streaming サポート | ストリーミング LLM レスポンスのリアルタイム Tracing | △ | O | △ | O | △ | △ |
+| マルチモーダル Tracing | 画像、音声、その他の非テキスト入力/出力の Tracing とレンダリング | O | △ | △ | △ | △ | X |
+| Auto-Instrumentation | 1行のコードによる自動トレース収集（デコレータ、autologなど） | O | O | O | O | O | O |
+| メタデータ & タグフィルタリング | カスタムメタデータとタグの付与、および検索・フィルタリング | O | O | O | O | O | O |
+| トークンカウント & 推定 | トークナイザーごとの正確な入力/出力/キャッシュトークン数のカウント | O | O | O | O | O | △ |
+| OpenTelemetry 標準 | OTEL標準のトレースエクスポート/インポート互換性 | O | O | O | O | O | O |
 
 ## Agent & RAG Specifics
 
-| 機能 | 説明 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| 機能 | 説明 | Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| RAG Retrieval Visualizer | 取得されたドキュメントチャンクの内容と関連性ScoringのUI表示 | △ | O | O | △ | △ | O |
-| Tool/Function Call Rendering | ツール/関数呼び出しの入力と戻り値のパース済みビュー | O | O | △ | O | △ | O |
-| Agent Execution Graph | ループや分岐を含むエージェントワークフローのDAG/グラフ可視化 | O | O | X | X | X | O |
-| Intermediate Step State | エージェントの中間思考プロセス（Chain-of-Thought）の保存と表示 | O | O | O | △ | △ | O |
-| Session/Thread Replay | ユーザーセッションや会話スレッドを一連の流れとして再生 | △ | O | O | △ | X | O |
-| Failed Step Highlighting | エージェントトレース内の失敗したステップの自動ハイライト | O | O | △ | O | X | △ |
-| MCP Integration | Model Context Protocol サーバー/クライアントの統合とTracing | O | X | X | △ | X | X |
+| RAG Retrieval Visualizer | 取得されたドキュメントチャンクの内容と関連性スコアのUI表示 | O | O | △ | △ | △ | O |
+| Tool/Function Call レンダリング | ツール/関数呼び出しの入力と戻り値のパース済み表示 | O | O | O | O | O | O |
+| Agent 実行グラフ | ループや分岐を含む Agent ワークフローの DAG/グラフ視覚化 | O | O | O | O | △ | O |
+| 中間ステップの状態 | Agent の中間的な推論過程（Chain-of-Thought）の保存と表示 | O | O | O | O | O | O |
+| セッション/スレッドリプレイ | ユーザーセッションや会話スレッドを一連の流れとして再生 | X | O | O | △ | O | △ |
+| 失敗ステップのハイライト | Agent トレース内での失敗したステップの自動ハイライト | △ | O | O | O | O | O |
+| MCP 統合 | Model Context Protocol サーバー/クライアントの統合と Tracing | O | O | O | X | X | O |
 
 ## Evaluation & Quality
 
-| 機能 | 説明 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| 機能 | 説明 | Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| LLM-as-a-Judge Wizard | コード不要でGUIベースのLLM Judgeを構築 | O | O | O | △ | X | △ |
-| Custom Eval Scorers | ユーザー定義のコードベース評価関数の作成と実行 | O | O | O | O | O | O |
-| Dataset Management & Curation | Eval用データセットの作成、バージョニング、トレースからのデータセット変換 | O | O | △ | O | O | O |
-| Prompt Optimization / DSPy Support | プロンプトの自動最適化または候補の提案（DSPy連携など） | X | △ | X | X | X | △ |
-| Regression Testing | モデルやプロンプトの変更時における品質低下（リグレッション）の自動検知 | △ | O | O | O | O | O |
-| Comparison View (Side-by-side) | モデルやプロンプトの出力を横並びで比較 | O | O | △ | O | △ | O |
-| Annotation Queues | キュー管理とレビュー担当者割り当てによるチームベースのアノテーションワークフロー | X | O | △ | X | X | X |
-| Online Evaluation | 本番環境のライブトラフィックに対するリアルタイムの自動Eval | O | O | O | △ | O | O |
+| LLM-as-a-Judge ウィザード | コード不要の GUI ベース LLM Judge ビルダー | O | O | O | O | O | △ |
+| カスタム Eval Scorers | ユーザー定義のコードベース評価関数の作成と実行 | O | O | O | O | O | O |
+| データセット管理 & キュレーション | Eval データセットの作成、バージョニング、トレースからデータセットへの変換 | X | O | O | X | O | O |
+| プロンプト最適化 / DSPy サポート | 自動プロンプト最適化または候補の提案（DSPy 統合など） | X | △ | △ | X | O | O |
+| 回帰テスト | モデル/プロンプト変更時の自動的な品質低下（回帰）検知 | O | O | O | O | △ | O |
+| 比較ビュー (Side-by-side) | モデル/プロンプト出力の横並び比較 | X | O | O | X | O | O |
+| アノテーションキュー | キュー管理とレビュー担当者割り当てによるチームベースのアノテーションワークフロー | △ | O | O | △ | △ | X |
+| オンライン Eval | 本番環境のライブトラフィックに対するリアルタイム自動評価 | O | O | O | O | O | O |
 
 ## Guardrails & Safety
 
-| 機能 | 説明 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| 機能 | 説明 | Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| PII/Sensitive Data Masking | PII（個人情報）や機密データの自動検知とマスキング | O | X | X | X | △ | △ |
-| Hallucination Detection | ハルシネーション（幻覚）検知専用のガードレール | O | X | △ | △ | X | X |
-| Topic/Jailbreak Guardrails | 禁止トピックのブロックおよびジェイルブレイク試行の検知 | △ | X | △ | X | X | O |
-| Policy Management as Code | コードとして定義・管理されるガードレールルール | O | X | O | △ | X | O |
+| PII/機密データマスキング | PII（個人情報）および機密データの自動検知とマスキング | X | △ | O | X | O | X |
+| ハルシネーション検知 | ハルシネーション（幻覚）コンテンツを検知するための専用 Guardrail | O | O | △ | △ | O | O |
+| トピック/ジェイルブレイク Guardrails | 禁止トピックのブロックおよびジェイルブレイク試行の検知 | O | O | △ | X | X | X |
+| Policy Management as Code | コードとして定義・管理される Guardrail ルール | O | X | △ | X | △ | X |
 
 ## Analytics & Dashboard
 
-| 機能 | 説明 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| 機能 | 説明 | Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| Cost Analysis & Attribution | ユーザー/チーム/プロジェクトごとのコスト追跡と割り当て | O | △ | O | △ | △ | X |
-| Token Usage Analytics | 入出力トークン使用量の内訳とトレンド分析 | O | O | O | O | O | O |
-| Latency Heatmap & P99 | パーセンタイル監視を含むレイテンシ分布の可視化 | △ | O | △ | △ | △ | △ |
-| Error Rate Monitoring | エラー率の追跡とアラート通知 | △ | O | △ | O | O | △ |
-| Embedding Space Visualization | UMAP/t-SNEによる埋め込みベクトルのクラスタリングと可視化 | X | X | X | X | X | X |
-| Custom Metrics & Dashboard | ダッシュボードウィジェットによるユーザー定義のカスタムメトリクス追跡 | O | O | O | O | O | O |
+| コスト分析 & アトリビューション | ユーザー/チーム/プロジェクトごとのコスト追跡と割り当て | O | O | O | O | X | △ |
+| トークン使用量分析 | 入力/出力トークン使用量の内訳とトレンド | O | O | O | O | O | O |
+| レイテンシヒートマップ & P99 | パーセンタイル監視を伴うレイテンシ分布の視覚化 | O | O | O | X | O | O |
+| エラー率モニタリング | エラー率の追跡とアラート通知 | O | O | O | O | O | O |
+| Embedding 空間の視覚化 | UMAP/t-SNE による埋め込みベクトルのクラスタリングと視覚化 | X | X | X | X | X | O |
+| カスタムメトリクス & Dashboard | ユーザー定義のカスタムメトリクス追跡とダッシュボードウィジェット | O | O | O | O | O | O |
 
 ## Development Lifecycle
 
-| 機能 | 説明 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| 機能 | 説明 | Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| Prompt Management (CMS) | 非エンジニアでも編集・デプロイ可能なプロンプトのバージョニング | △ | O | O | O | △ | △ |
-| Playground & Sandbox | インタラクティブなプロンプトとパラメータのテスト環境 | O | O | O | O | △ | △ |
-| Experiment Tracking | ハイパーパラメータのログ記録を含むA/Bテストと実験管理 | O | O | O | O | O | O |
-| Fine-tuning Integration | Fine-tuning用データの書き出しとパイプライン連携 | △ | △ | X | X | △ | △ |
-| Version Control & Rollback | ロールバック機能を備えたプロンプトとモデルのバージョン管理 | △ | O | O | △ | O | △ |
+| プロンプト管理 (CMS) | 非エンジニアでも編集・デプロイ可能なプロンプトのバージョニング | O | O | O | O | O | O |
+| Playground & サンドボックス | インタラクティブなプロンプトとパラメータのテスト環境 | O | O | O | O | △ | O |
+| 実験トラッキング | ハイパーパラメータのログ記録を伴う A/B テストと実験管理 | O | O | O | O | O | O |
+| Fine-tuning 統合 | Fine-tuning 用データの書き出しとパイプライン統合 | O | △ | △ | X | △ | X |
+| バージョン管理 & ロールバック | プロンプトとモデルのバージョン管理とロールバック機能 | O | O | O | O | O | △ |
 
 ## Integration & DX
 
-| 機能 | 説明 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| 機能 | 説明 | Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| SDK Support (Py/JS/Go) | Python、JavaScript/TypeScript、Goにおける公式SDKサポート | △ | O | △ | O | O | △ |
-| Gateway/Proxy Mode | SDKのインストール不要、URL変更のみで利用可能なプロキシベースのTracing | X | X | X | X | X | O |
-| Popular Frameworks | LangChain、LlamaIndex、AutoGen、CrewAIなどの組み込みサポート | O | △ | O | △ | O | O |
-| API & Webhooks | 外部システム連携のためのREST/GraphQL APIおよびWebhook | △ | O | O | O | △ | O |
-| CI/CD Integration | 自動EvalとデプロイのためのCI/CDパイプライン（GitHub Actionsなど）との連携 | △ | △ | X | △ | X | △ |
+| SDK サポート (Py/JS/Go) | Python、JavaScript/TypeScript、Go における公式 SDK サポート | X | O | O | X | △ | O |
+| Gateway/Proxy モード | SDK インストール不要のプロキシベース Tracing（URL変更のみ） | X | X | X | O | O | X |
+| 主要フレームワーク対応 | LangChain, LlamaIndex, AutoGen, CrewAI などの組み込みサポート | O | O | O | O | O | O |
+| API & Webhooks | 外部システム連携のための REST/GraphQL API と Webhook 統合 | O | O | O | O | △ | O |
+| CI/CD 統合 | 自動 Eval とデプロイのための CI/CD パイプライン（GitHub Actionsなど）との統合 | O | O | O | O | △ | △ |
 
 ## Enterprise & Infrastructure
 
-| 機能 | 説明 | W&B Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
+| 機能 | 説明 | Weave | LangSmith | Langfuse | Braintrust | MLflow | Arize Phoenix |
 |---|---|---|---|---|---|---|---|
-| Deployment Options | マルチテナントSaaS、専用SaaS、セルフホスト/VPCデプロイの選択肢 | O | O | O | O | O | O |
-| Open Source | オープンソースコードの公開とコミュニティの有無 | X | X | O | X | O | O |
-| Data Sovereignty & Compliance | データリージョン選択とSOC 2/HIPAA/GDPRコンプライアンス | O | O | O | O | △ | △ |
-| RBAC & SSO | SSO/SAML認証を含むロールベースのアクセス制御 | O | △ | △ | O | △ | X |
-| Audit Logs | ユーザーおよびシステムの操作履歴（監査ログ） | O | O | △ | X | △ | X |
-| Data Warehouse Export | Snowflake、BigQuery、S3などへの自動エクスポート | △ | O | O | X | X | △ |
+| デプロイオプション | マルチテナント SaaS、専用 SaaS、セルフホスト/VPC デプロイの選択肢 | O | O | O | O | O | O |
+| オープンソース | オープンソースコードの公開とコミュニティ | △ | X | O | X | O | O |
+| データ主権 & コンプライアンス | データリージョン選択と SOC 2/HIPAA/GDPR コンプライアンス | X | △ | O | △ | O | O |
+| RBAC & SSO | SSO/SAML 認証を伴うロールベースのアクセス制御 | O | O | O | △ | △ | O |
+| 監査ログ | ユーザーおよびシステムの操作履歴（監査トレール） | O | △ | O | △ | △ | X |
+| データウェアハウス・エクスポート | Snowflake, BigQuery, S3 などへの自動エクスポート | O | △ | O | O | O | △ |

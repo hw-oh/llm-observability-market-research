@@ -1,0 +1,1651 @@
+{
+  "date": "2026-02-26",
+  "model": "google/gemini-3-pro-preview",
+  "updates": [
+    {
+      "product_name": "W&B Weave",
+      "updates": [
+        {
+          "title": "AI Observability for Data Flywheel Blueprint",
+          "date": "",
+          "summary": "New blueprint extends NVIDIA AI Blueprint for data flywheels with W&B Weave observability, providing traceability, experiment tracking, evaluation, monitoring for agentic AI workflows, continuous model optimization, quality, latency, cost, safety improvements.[1]"
+        },
+        {
+          "title": "What's New Wednesdays - AI Agents Session",
+          "date": "April 29, 2026",
+          "summary": "Upcoming session on new Weights & Biases features for AI agents workflow, potentially including Weave LLM observability updates.[5]"
+        },
+        {
+          "title": "What's New Wednesdays - AI Agents Session",
+          "date": "May 27, 2026",
+          "summary": "Upcoming session on new Weights & Biases features for AI agents workflow, potentially including Weave LLM observability updates.[5]"
+        },
+        {
+          "title": "Product Newsletter: Updates for January 2026",
+          "date": "Feb 02, 2026",
+          "summary": "Announcing new W&B feature releases including Weave and Evaluations.[7]"
+        }
+      ],
+      "raw_findings": "Changelog from https://app.getbeamer.com/wandb/en: What's new on Weights & Biases, Developer tools for agentic AI applications and models, categories: agents, inference, models, new, registry, rl, w&b training, weave. No specific dated Weave updates extracted.[changelog]\n\nSearch results:\n[1] NVIDIA blueprint with W&B Weave for AI observability in data flywheels: extends NVIDIA AI Blueprint, adds observability, experiment tracking to agentic AI, traceability, evaluation, monitoring, optimization with real-world data, user feedback. W&B Weave: evaluate, monitor, iterate AI apps, comprehensive evaluations, debugging, production monitoring, secure collaboration.\n[2] LLM observability report: W&B Weave logs prompts, outputs, metrics; tracks inputs/outputs/code/metadata; detects hallucinations, latency, security; drift detection; explainability, evaluations, custom scoring, human feedback.\n[3] RL observability: W&B Weave for complex AI systems, agentic systems, RL agents; improves quality, latency, cost, safety.\n[4] LLM debugging guide: W&B Weave for debugging, tracing, monitoring; custom scorers, dashboards, bias/safety evaluation, monitors, guardrails; future real-time anomaly detection.\n[5] What's new Wednesdays: March 2026 NVIDIA GTC, April 29 2026 AI agents new features, May 27 2026 AI agents new features.\n[6] LLM articles: Recent tutorials on inference, evaluations, debugging, tracing, monitoring with Weave (Sep 15, Aug 13, etc., 2025 dates).\n[7] Product newsletter Jan 2026 updates, new features Weave Evaluations, Feb 02 2026.\n[8] Feature releases articles.\n[9] GitHub wandb/weave: toolkit for GenAI apps, log/debug LM inputs/outputs."
+    },
+    {
+      "product_name": "Langfuse",
+      "updates": [
+        {
+          "title": "Langfuse CLI",
+          "date": "February 17, 2026",
+          "summary": "Fully use Langfuse from the CLI. Built for AI agents and power users."
+        },
+        {
+          "title": "Evaluate Individual Operations: Faster, More Precise LLM-as-a-Judge",
+          "date": "February 13, 2026",
+          "summary": "Observation-level evaluations enable precise operation-specific scoring for production monitoring."
+        },
+        {
+          "title": "Run Experiments on Versioned Datasets",
+          "date": "February 11, 2026",
+          "summary": "Fetch datasets at specific version timestamps and run experiments on historical dataset versions via UI, API, and SDKs for full reproducibility."
+        }
+      ],
+      "raw_findings": "Changelog from https://langfuse.com/changelog lists recent updates including: February 17, 2026 - Langfuse CLI: Fully use Langfuse from the CLI. Built for AI agents and power users. February 13, 2026 - Evaluate Individual Operations: Faster, More Precise LLM-as-a-Judge: Observation-level evaluations enable precise operation-specific scoring for production monitoring. February 11, 2026 - Run Experiments on Versioned Datasets: Fetch datasets at specific version timestamps and run experiments on historical dataset versions via UI, API, and SDKs for full reproducibility. January 14, 2026 - Corrected Outputs for Traces and Observations: Capture improved versions of LLM outputs directly in trace views. Build fine-tuning datasets and drive continuous improvement with domain expert feedback. January 7, 2026 - Inline Comments on Observation I/O: Anchor comments to specific text selections within trace and observation input, output, and metadata fields. December 22, 2025 - Filter Observations by Tool Calls and add Tool Calls to Dashboard Widgets: Add filtering, table columns, and dashboard widgets for analyzing tool usage in your LLM applications. December 17, 2025 - v2 Metrics and Observations API (Beta): New high-performance v2 APIs for metrics and observations with cursor-based pagination, selective field retrieval, and optimized data architecture. December 15, 2025 - Dataset Item Versioning: Track dataset changes over time with automatic versioning on every addition, update, or deletion of dataset items. December 12, 2025 - OpenAI GPT-5.2 support: Langfuse now supports OpenAI GPT-5.2 with day 1 support across all major features. December 11, 2025 - Batch Add Observations to Datasets: Select multiple observations from the observations table and add them to a new or existing dataset with flexible field mapping. And earlier updates down to August 2025. Roadmap at https://langfuse.com/docs/roadmap mentions 10 most recent changelog items: Langfuse CLI(Feb 17, 2026); Evaluate Individual Operations: Faster, More Precise LLM-as-a-Judge; Run Experiments on Versioned Datasets; Corrected Outputs for Traces and Observations; Inline Comments on Observation I/O; Filter Observations by Tool Calls and add Tool Calls to Dashboard Widgets; v2 Metrics and Observations API (Beta); Dataset Item Versioning; OpenAI GPT-5.2 support; Batch Add Observations to Datasets. Active development areas: Agent Observability, Evals, Playground, UI/UX, Infrastructure/Data Platform. Notra changelog https://www.usenotra.com/changelog/langfuse/single-span-evals-and-scores-filtering for February 2–13, 2026 mentions: Single-span evaluations moved into open beta, fixes for job queue deadlocks, new filtering for scores API, dashboard charting with Recharts, project-wide table defaults, always-visible playground controls, various PRs like PostHog error handling, dataset item version inference, observation filter options, Tremor to Recharts migration, etc. GitHub discussions https://github.com/orgs/langfuse/discussions/categories/announcements has older announcements like Kubernetes Helm Chart 1.0.0 on Feb 26, 2025, Roadmap 2025 on Jan 13, 2025. Blog post https://langfuse.com/blog/2024-07-ai-agent-observability-with-langfuse last updated February 20, 2026 discusses AI Agent Observability but no specific new updates. Other pages like docs and homepage reiterate changelog items."
+    }
+  ],
+  "changesets": [
+    {
+      "product_name": "W&B Weave",
+      "changes": [
+        {
+          "item_name": "PII/Sensitive Data Masking",
+          "field": "notes",
+          "before": "Integrates Microsoft Presidio for automatic PII redaction.",
+          "after": "Integrates Microsoft Presidio (Python SDK only) for automatic PII redaction and custom key masking."
+        },
+        {
+          "item_name": "Audit Logs",
+          "field": "notes",
+          "before": "Tracks user and system activity.",
+          "after": "Tracks user and system activity; available via API and storage bucket sync with configurable PII exclusion."
+        }
+      ],
+      "updated_baseline": {
+        "product_name": "W&B Weave",
+        "last_updated": "2026-02-26",
+        "categories": [
+          {
+            "category_name": "Core Tracing & Logging",
+            "features": [
+              {
+                "item_name": "Full Request/Response Tracing",
+                "feature_name": "@weave.op / weave.init",
+                "available": "yes",
+                "provision_method": "SDK decorator",
+                "notes": "Captures complete inputs, outputs, and metadata via Python/TypeScript SDKs."
+              },
+              {
+                "item_name": "Nested Span & Tree View",
+                "feature_name": "Trace Tree",
+                "available": "yes",
+                "provision_method": "Built-in UI",
+                "notes": "Hierarchical visualization with continuous scrolling support for unlimited log lines."
+              },
+              {
+                "item_name": "Streaming Support",
+                "feature_name": "N/A",
+                "available": "no",
+                "provision_method": "N/A",
+                "notes": "Real-time streaming response visualization not explicitly detailed in documentation."
+              },
+              {
+                "item_name": "Multimodal Tracing",
+                "feature_name": "Multimodal Tracing",
+                "available": "yes",
+                "provision_method": "SDK & UI",
+                "notes": "Supports tracing and rendering of text, images, audio, and video inputs/outputs."
+              },
+              {
+                "item_name": "Auto-Instrumentation",
+                "feature_name": "Weave Decorators",
+                "available": "yes",
+                "provision_method": "SDK decorators",
+                "notes": "One-line decorators (@weave.op) capture I/O; OTel integration available."
+              },
+              {
+                "item_name": "Metadata & Tags Filtering",
+                "feature_name": "Attributes/Settings",
+                "available": "yes",
+                "provision_method": "SDK & UI",
+                "notes": "Custom metadata logging and UI-based search/filtering."
+              },
+              {
+                "item_name": "Token Counting & Estimation",
+                "feature_name": "Token Metrics",
+                "available": "partial",
+                "provision_method": "SDK Integration",
+                "notes": "Token usage tracked as metrics; detailed per-tokenizer counting methodology not explicit."
+              },
+              {
+                "item_name": "OpenTelemetry Standard",
+                "feature_name": "OTel Endpoint",
+                "available": "yes",
+                "provision_method": "API Endpoint",
+                "notes": "Provides OpenTelemetry endpoint for recording traces."
+              }
+            ]
+          },
+          {
+            "category_name": "Agent & RAG Specifics",
+            "features": [
+              {
+                "item_name": "RAG Retrieval Visualizer",
+                "feature_name": "Evaluation Visualizer",
+                "available": "yes",
+                "provision_method": "Built-in UI",
+                "notes": "Visualizes retrieved contexts and relevance scores in evaluation workflows."
+              },
+              {
+                "item_name": "Tool/Function Call Rendering",
+                "feature_name": "Tool Tracing",
+                "available": "yes",
+                "provision_method": "Built-in UI",
+                "notes": "Parses and renders tool/function call inputs and return values."
+              },
+              {
+                "item_name": "Agent Execution Graph",
+                "feature_name": "Trace Tree",
+                "available": "yes",
+                "provision_method": "Built-in UI",
+                "notes": "Visualizes agentic workflows via hierarchical trace trees with loop/branch support."
+              },
+              {
+                "item_name": "Intermediate Step State",
+                "feature_name": "Intermediate Spans",
+                "available": "yes",
+                "provision_method": "SDK & UI",
+                "notes": "Captures and displays intermediate reasoning steps (Chain-of-Thought)."
+              },
+              {
+                "item_name": "Session/Thread Replay",
+                "feature_name": "Evaluation Playground",
+                "available": "partial",
+                "provision_method": "UI",
+                "notes": "Can view and convert traces to datasets for replay; full interactive session replay limited."
+              },
+              {
+                "item_name": "Failed Step Highlighting",
+                "feature_name": "Trace Status",
+                "available": "yes",
+                "provision_method": "Built-in UI",
+                "notes": "Visual indication of failed steps/errors within traces."
+              },
+              {
+                "item_name": "MCP Integration",
+                "feature_name": "MCP Tracing",
+                "available": "yes",
+                "provision_method": "SDK Integration",
+                "notes": "Traces Model Context Protocol client/server tool calls and resource access."
+              }
+            ]
+          },
+          {
+            "category_name": "Evaluation & Quality",
+            "features": [
+              {
+                "item_name": "LLM-as-a-Judge Wizard",
+                "feature_name": "Evaluation Builder",
+                "available": "yes",
+                "provision_method": "Built-in UI",
+                "notes": "GUI-based judge builder available without requiring code."
+              },
+              {
+                "item_name": "Custom Eval Scorers",
+                "feature_name": "Scorers",
+                "available": "yes",
+                "provision_method": "Python SDK",
+                "notes": "User-defined evaluation functions in Python."
+              },
+              {
+                "item_name": "Dataset Management & Curation",
+                "feature_name": "Weave Datasets",
+                "available": "yes",
+                "provision_method": "SDK & UI",
+                "notes": "Versioned dataset creation from traces or uploads."
+              },
+              {
+                "item_name": "Prompt Optimization / DSPy Support",
+                "feature_name": "N/A",
+                "available": "no",
+                "provision_method": "N/A",
+                "notes": "No native automated prompt optimization or DSPy support mentioned."
+              },
+              {
+                "item_name": "Regression Testing",
+                "feature_name": "Evaluations",
+                "available": "yes",
+                "provision_method": "Built-in UI",
+                "notes": "Comparison of evaluation results across model/prompt versions."
+              },
+              {
+                "item_name": "Comparison View (Side-by-side)",
+                "feature_name": "Evaluations Playground",
+                "available": "yes",
+                "provision_method": "Built-in UI",
+                "notes": "Side-by-side comparison with resizable bar/radar charts and full-screen visualization capabilities."
+              },
+              {
+                "item_name": "Annotation Queues",
+                "feature_name": "Annotations",
+                "available": "partial",
+                "provision_method": "UI",
+                "notes": "Human annotation available, but no built-in queue management for reviewer assignment."
+              },
+              {
+                "item_name": "Online Evaluation",
+                "feature_name": "Online Judges",
+                "available": "yes",
+                "provision_method": "Managed Service",
+                "notes": "Runs LLM judges on production traces with sampling and filtering."
+              }
+            ]
+          },
+          {
+            "category_name": "Guardrails & Safety",
+            "features": [
+              {
+                "item_name": "PII/Sensitive Data Masking",
+                "feature_name": "Sensitive Data Protection",
+                "available": "yes",
+                "provision_method": "Python SDK",
+                "notes": "Integrates Microsoft Presidio (Python SDK only) for automatic PII redaction and custom key masking."
+              },
+              {
+                "item_name": "Hallucination Detection",
+                "feature_name": "Hallucination Mitigation",
+                "available": "yes",
+                "provision_method": "Guardrails/Scorers",
+                "notes": "Built-in capability to detect and mitigate hallucinations."
+              },
+              {
+                "item_name": "Topic/Jailbreak Guardrails",
+                "feature_name": "Content Blocking",
+                "available": "yes",
+                "provision_method": "Guardrails",
+                "notes": "Blocks off-topic blocked content and toxicity."
+              },
+              {
+                "item_name": "Policy Management as Code",
+                "feature_name": "SDK Settings",
+                "available": "partial",
+                "provision_method": "SDK Configuration",
+                "notes": "Guardrails and redaction rules configured via code/SDK settings."
+              }
+            ]
+          },
+          {
+            "category_name": "Analytics & Dashboard",
+            "features": [
+              {
+                "item_name": "Cost Analysis & Attribution",
+                "feature_name": "Usage Metrics",
+                "available": "partial",
+                "provision_method": "Dashboard",
+                "notes": "Tracks usage attributes; full cost attribution details limited."
+              },
+              {
+                "item_name": "Token Usage Analytics",
+                "feature_name": "Token Usage",
+                "available": "yes",
+                "provision_method": "Dashboard",
+                "notes": "Visualizes input/output token counts and trends."
+              },
+              {
+                "item_name": "Latency Heatmap & P99",
+                "feature_name": "Latency Distribution",
+                "available": "partial",
+                "provision_method": "Dashboard",
+                "notes": "Latency percentiles and distribution charts available; specific heatmap not confirmed."
+              },
+              {
+                "item_name": "Error Rate Monitoring",
+                "feature_name": "Error Tracking",
+                "available": "yes",
+                "provision_method": "Dashboard",
+                "notes": "Monitors and alerts on trace error rates."
+              },
+              {
+                "item_name": "Embedding Space Visualization",
+                "feature_name": "N/A",
+                "available": "no",
+                "provision_method": "N/A",
+                "notes": "Not explicitly detailed for Weave traces."
+              },
+              {
+                "item_name": "Custom Metrics & Dashboard",
+                "feature_name": "Custom Panels",
+                "available": "yes",
+                "provision_method": "Built-in UI",
+                "notes": "Supports user-defined metrics and dashboard widgets."
+              }
+            ]
+          },
+          {
+            "category_name": "Development Lifecycle",
+            "features": [
+              {
+                "item_name": "Prompt Management (CMS)",
+                "feature_name": "Prompts",
+                "available": "yes",
+                "provision_method": "UI & SDK",
+                "notes": "Dedicated prompt creation, versioning, and management UI."
+              },
+              {
+                "item_name": "Playground & Sandbox",
+                "feature_name": "Prompt Playground",
+                "available": "yes",
+                "provision_method": "Built-in UI",
+                "notes": "Interactive environment supporting new models (GPT 5.2, Grok 4.1), prompt saving, and in-context LLM judge execution."
+              },
+              {
+                "item_name": "Experiment Tracking",
+                "feature_name": "W&B Experiments",
+                "available": "yes",
+                "provision_method": "Integrated Platform",
+                "notes": "Integrated with W&B Experiments; supports viewing Weave traces/evals alongside metrics during RL training."
+              },
+              {
+                "item_name": "Fine-tuning Integration",
+                "feature_name": "W&B Training",
+                "available": "yes",
+                "provision_method": "Integrated Platform",
+                "notes": "Data export and pipeline integration for fine-tuning jobs."
+              },
+              {
+                "item_name": "Version Control & Rollback",
+                "feature_name": "W&B Registry",
+                "available": "yes",
+                "provision_method": "Built-in UI",
+                "notes": "Versioning and rollback for prompts, models, and datasets."
+              }
+            ]
+          },
+          {
+            "category_name": "Integration & DX",
+            "features": [
+              {
+                "item_name": "SDK Support (Py/JS/Go)",
+                "feature_name": "Weave SDK",
+                "available": "partial",
+                "provision_method": "SDK",
+                "notes": "Official support for Python and TypeScript; Go not supported."
+              },
+              {
+                "item_name": "Gateway/Proxy Mode",
+                "feature_name": "N/A",
+                "available": "no",
+                "provision_method": "N/A",
+                "notes": "Functionality is SDK-based; no proxy/gateway mode available."
+              },
+              {
+                "item_name": "Popular Frameworks",
+                "feature_name": "High-level Integrations",
+                "available": "yes",
+                "provision_method": "SDK",
+                "notes": "Built-in support for LangChain and LlamaIndex."
+              },
+              {
+                "item_name": "API & Webhooks",
+                "feature_name": "Service API",
+                "available": "yes",
+                "provision_method": "REST API",
+                "notes": "API available for accessing traces and artifacts."
+              },
+              {
+                "item_name": "CI/CD Integration",
+                "feature_name": "W&B Automations",
+                "available": "yes",
+                "provision_method": "CLI/API",
+                "notes": "Workflows triggered by artifact updates for CI/CD pipelines."
+              }
+            ]
+          },
+          {
+            "category_name": "Enterprise & Infrastructure",
+            "features": [
+              {
+                "item_name": "Deployment Options",
+                "feature_name": "Managed/Self-Hosted",
+                "available": "yes",
+                "provision_method": "SaaS/Self-Managed",
+                "notes": "Multi-tenant SaaS, Dedicated SaaS, and Self-Managed (On-prem/VPC) options."
+              },
+              {
+                "item_name": "Open Source",
+                "feature_name": "Weave Open Source",
+                "available": "yes",
+                "provision_method": "GitHub",
+                "notes": "Core SDK and components are available on GitHub."
+              },
+              {
+                "item_name": "Data Sovereignty & Compliance",
+                "feature_name": "Compliance",
+                "available": "yes",
+                "provision_method": "Enterprise Platform",
+                "notes": "SOC 2 Type II, HIPAA, GDPR, and data residency/region selection."
+              },
+              {
+                "item_name": "RBAC & SSO",
+                "feature_name": "IAM",
+                "available": "yes",
+                "provision_method": "Admin UI",
+                "notes": "Role-based access control and SSO/SAML authentication."
+              },
+              {
+                "item_name": "Audit Logs",
+                "feature_name": "Audit Logs",
+                "available": "yes",
+                "provision_method": "API & UI",
+                "notes": "Tracks user and system activity; available via API and storage bucket sync with configurable PII exclusion."
+              },
+              {
+                "item_name": "Data Warehouse Export",
+                "feature_name": "Storage Connector",
+                "available": "yes",
+                "provision_method": "Connectors",
+                "notes": "Automated exports to S3, BigQuery, and other external storage."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "product_name": "Langfuse",
+      "changes": [
+        {
+          "item_name": "Auto-Instrumentation",
+          "field": "notes",
+          "before": "Native integrations for LangChain, LlamaIndex, OpenAI, etc.",
+          "after": "Native integrations for LangChain, LlamaIndex, OpenAI (supports GPT-5.2), etc."
+        },
+        {
+          "item_name": "Dataset Management & Curation",
+          "field": "notes",
+          "before": "Create datasets from traces; supports automatic item versioning and running experiments on historical dataset versions.",
+          "after": "Create datasets from traces (supports batch addition); supports automatic item versioning and running experiments on historical dataset versions."
+        }
+      ],
+      "updated_baseline": {
+        "product_name": "Langfuse",
+        "last_updated": "2026-02-26",
+        "categories": [
+          {
+            "category_name": "Core Tracing & Logging",
+            "features": [
+              {
+                "item_name": "Full Request/Response Tracing",
+                "feature_name": "Langfuse Traces",
+                "available": "yes",
+                "provision_method": "SDK/UI",
+                "notes": "Captures exact prompt, model response, tool calls, and metadata for every request."
+              },
+              {
+                "item_name": "Nested Span & Tree View",
+                "feature_name": "Observations (Spans & Events)",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Hierarchical visualization of traces, sessions, and observations."
+              },
+              {
+                "item_name": "Streaming Support",
+                "feature_name": "Trace Streaming",
+                "available": "partial",
+                "provision_method": "SDK",
+                "notes": "Captures streaming responses asynchronously; search evidence suggests partial real-time visualization support."
+              },
+              {
+                "item_name": "Multimodal Tracing",
+                "feature_name": "Multi-Modality",
+                "available": "yes",
+                "provision_method": "SDK/UI",
+                "notes": "Explicitly listed feature for tracing multi-modal inputs/outputs."
+              },
+              {
+                "item_name": "Auto-Instrumentation",
+                "feature_name": "Integrations",
+                "available": "yes",
+                "provision_method": "SDK",
+                "notes": "Native integrations for LangChain, LlamaIndex, OpenAI (supports GPT-5.2), etc."
+              },
+              {
+                "item_name": "Metadata & Tags Filtering",
+                "feature_name": "Tags & Metadata",
+                "available": "yes",
+                "provision_method": "SDK/UI",
+                "notes": "Supports tags/metadata; allows filtering traces using plain English queries (Natural Language Filtering)."
+              },
+              {
+                "item_name": "Token Counting & Estimation",
+                "feature_name": "Token & Cost Tracking",
+                "available": "yes",
+                "provision_method": "SDK/UI",
+                "notes": "Tracks cost, token usage, and billable units."
+              },
+              {
+                "item_name": "OpenTelemetry Standard",
+                "feature_name": "OpenTelemetry Integration",
+                "available": "yes",
+                "provision_method": "SDK/Import-Export",
+                "notes": "Supports OpenTelemetry standards for trace data."
+              }
+            ]
+          },
+          {
+            "category_name": "Agent & RAG Specifics",
+            "features": [
+              {
+                "item_name": "RAG Retrieval Visualizer",
+                "feature_name": "Retrieval Observations",
+                "available": "partial",
+                "provision_method": "UI",
+                "notes": "Captures retrieval steps within traces; specific retriever span type available."
+              },
+              {
+                "item_name": "Tool/Function Call Rendering",
+                "feature_name": "Tool Executions",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Captures tool calls; supports filtering observations by tool calls and adding tool usage analytics to dashboards."
+              },
+              {
+                "item_name": "Agent Execution Graph",
+                "feature_name": "Agent Graphs",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Listed as 'Agent Graphs' under Observability Features."
+              },
+              {
+                "item_name": "Intermediate Step State",
+                "feature_name": "Observations",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Captures intermediate steps as Spans or Events."
+              },
+              {
+                "item_name": "Session/Thread Replay",
+                "feature_name": "Sessions",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Groups traces into sessions for multi-turn application analysis."
+              },
+              {
+                "item_name": "Failed Step Highlighting",
+                "feature_name": "Troubleshooting & FAQ",
+                "available": "partial",
+                "provision_method": "UI",
+                "notes": "Visualizes errors and latency; specific 'highlighting' feature not explicitly named but error tracking is present."
+              },
+              {
+                "item_name": "MCP Integration",
+                "feature_name": "MCP Tracing",
+                "available": "yes",
+                "provision_method": "SDK",
+                "notes": "Explicit support for Model Context Protocol (MCP) tracing and MCP Server."
+              }
+            ]
+          },
+          {
+            "category_name": "Evaluation & Quality",
+            "features": [
+              {
+                "item_name": "LLM-as-a-Judge Wizard",
+                "feature_name": "LLM-as-a-Judge",
+                "available": "partial",
+                "provision_method": "UI",
+                "notes": "Supports LLM-as-a-Judge with precise observation-level scoring for production monitoring; configurable via UI."
+              },
+              {
+                "item_name": "Custom Eval Scorers",
+                "feature_name": "Scores",
+                "available": "yes",
+                "provision_method": "SDK/API/UI",
+                "notes": "Supports manual scores via UI and automated scores via API/SDK."
+              },
+              {
+                "item_name": "Dataset Management & Curation",
+                "feature_name": "Datasets",
+                "available": "yes",
+                "provision_method": "UI/SDK",
+                "notes": "Create datasets from traces (supports batch addition); supports automatic item versioning and running experiments on historical dataset versions."
+              },
+              {
+                "item_name": "Prompt Optimization / DSPy Support",
+                "feature_name": "Prompt Experiments",
+                "available": "partial",
+                "provision_method": "UI",
+                "notes": "Supports prompt experiments and testing; DSPy auto-optimization not explicitly listed."
+              },
+              {
+                "item_name": "Regression Testing",
+                "feature_name": "Experiments",
+                "available": "yes",
+                "provision_method": "UI/SDK",
+                "notes": "Helps catch regressions using systemetic baseline comparisons in experiment views."
+              },
+              {
+                "item_name": "Comparison View (Side-by-side)",
+                "feature_name": "Experiments",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Compare experiments side-by-side with baseline designation, human annotations, and advanced filtering."
+              },
+              {
+                "item_name": "Annotation Queues",
+                "feature_name": "Annotation Queues",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Manage annotations with support for inline comments on IO and capturing corrected outputs."
+              },
+              {
+                "item_name": "Online Evaluation",
+                "feature_name": "Live Evaluator",
+                "available": "yes",
+                "provision_method": "SDK/UI",
+                "notes": "Monitor live traces with automated evaluators."
+              }
+            ]
+          },
+          {
+            "category_name": "Guardrails & Safety",
+            "features": [
+              {
+                "item_name": "PII/Sensitive Data Masking",
+                "feature_name": "Masking",
+                "available": "yes",
+                "provision_method": "SDK/UI",
+                "notes": "Supported feature; example provided using LLM Guard with Langfuse tracing."
+              },
+              {
+                "item_name": "Hallucination Detection",
+                "feature_name": "N/A",
+                "available": "no",
+                "provision_method": "N/A",
+                "notes": "Rely on external libraries; Langfuse integrates results but does not provide the detector."
+              },
+              {
+                "item_name": "Topic/Jailbreak Guardrails",
+                "feature_name": "N/A",
+                "available": "no",
+                "provision_method": "N/A",
+                "notes": "Suggests using external libraries (LLM Guard, NeMo, etc.) and tracing the results."
+              },
+              {
+                "item_name": "Policy Management as Code",
+                "feature_name": "N/A",
+                "available": "no",
+                "provision_method": "N/A",
+                "notes": "Not explicitly supported."
+              }
+            ]
+          },
+          {
+            "category_name": "Analytics & Dashboard",
+            "features": [
+              {
+                "item_name": "Cost Analysis & Attribution",
+                "feature_name": "Token & Cost Tracking",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Track costs and billable units."
+              },
+              {
+                "item_name": "Token Usage Analytics",
+                "feature_name": "Token & Cost Tracking",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Detailed token usage statistics."
+              },
+              {
+                "item_name": "Latency Heatmap & P99",
+                "feature_name": "Metrics",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Track latency metrics; heatmap specifically not confirmed but distribution metrics available."
+              },
+              {
+                "item_name": "Error Rate Monitoring",
+                "feature_name": "Metrics",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Monitor error rates via platform metrics."
+              },
+              {
+                "item_name": "Embedding Space Visualization",
+                "feature_name": "N/A",
+                "available": "no",
+                "provision_method": "N/A",
+                "notes": "Not mentioned in documentation."
+              },
+              {
+                "item_name": "Custom Metrics & Dashboard",
+                "feature_name": "Custom Dashboards",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Create custom dashboards via UI; supports added tool usage widgets."
+              }
+            ]
+          },
+          {
+            "category_name": "Development Lifecycle",
+            "features": [
+              {
+                "item_name": "Prompt Management (CMS)",
+                "feature_name": "Prompt Management",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "CMS-like management with versioning; includes native MCP Server for agents to fetch/update prompts."
+              },
+              {
+                "item_name": "Playground & Sandbox",
+                "feature_name": "Playground",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Interactive playground for Prompt Management."
+              },
+              {
+                "item_name": "Experiment Tracking",
+                "feature_name": "Experiments",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Track and compare experiments on versioned datasets."
+              },
+              {
+                "item_name": "Fine-tuning Integration",
+                "feature_name": "N/A",
+                "available": "no",
+                "provision_method": "N/A",
+                "notes": "Not explicitly mentioned."
+              },
+              {
+                "item_name": "Version Control & Rollback",
+                "feature_name": "Version Control",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Version control for prompts."
+              }
+            ]
+          },
+          {
+            "category_name": "Integration & DX",
+            "features": [
+              {
+                "item_name": "SDK Support (Py/JS/Go)",
+                "feature_name": "SDKs",
+                "available": "yes",
+                "provision_method": "SDK",
+                "notes": "Official SDKs for Python, JS/TS, and Java."
+              },
+              {
+                "item_name": "Gateway/Proxy Mode",
+                "feature_name": "N/A",
+                "available": "no",
+                "provision_method": "N/A",
+                "notes": "Not mentioned as a standalone proxy service."
+              },
+              {
+                "item_name": "Popular Frameworks",
+                "feature_name": "Integrations",
+                "available": "yes",
+                "provision_method": "SDK",
+                "notes": "Integrates with LangChain, LlamaIndex, etc."
+              },
+              {
+                "item_name": "API & Webhooks",
+                "feature_name": "Webhooks / Public API",
+                "available": "yes",
+                "provision_method": "API/CLI",
+                "notes": "Webhooks, Public API (v2), and full CLI support for agents and power users available."
+              },
+              {
+                "item_name": "CI/CD Integration",
+                "feature_name": "GitHub Integration",
+                "available": "yes",
+                "provision_method": "Integration",
+                "notes": "GitHub integration and SDK support for experiments in CI/CD."
+              }
+            ]
+          },
+          {
+            "category_name": "Enterprise & Infrastructure",
+            "features": [
+              {
+                "item_name": "Deployment Options",
+                "feature_name": "Self Hosting / Cloud",
+                "available": "yes",
+                "provision_method": "Docker/SaaS",
+                "notes": "Available as SaaS or Self-Hosted."
+              },
+              {
+                "item_name": "Open Source",
+                "feature_name": "Open Source",
+                "available": "yes",
+                "provision_method": "GitHub",
+                "notes": "Core platform is open source."
+              },
+              {
+                "item_name": "Data Sovereignty & Compliance",
+                "feature_name": "Security & Compliance",
+                "available": "yes",
+                "provision_method": "Self-Host/SaaS",
+                "notes": "Self-hosting ensures sovereignty; Docs mention Security, Data Retention, and Deletion."
+              },
+              {
+                "item_name": "RBAC & SSO",
+                "feature_name": "Access Control (RBAC) & SSO",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Explicitly listed under Administration features."
+              },
+              {
+                "item_name": "Audit Logs",
+                "feature_name": "Audit Logs",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Explicitly listed under Security features."
+              },
+              {
+                "item_name": "Data Warehouse Export",
+                "feature_name": "Export",
+                "available": "yes",
+                "provision_method": "UI",
+                "notes": "Export to Blob Storage, PostHog, Mixpanel."
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "synthesis": {
+    "ai_comment": [
+      "W&B Weave strengthened its enterprise security posture by integrating Microsoft Presidio for Python-based PII redaction and expanding audit log capabilities, while Langfuse updated its OpenAI instrumentation to support GPT-5.2.",
+      "Weave continues to differentiate with a built-in evaluation visualizer and native hallucination detection guardrails, whereas Langfuse relies on external libraries for safety evaluations and advanced RAG quality metrics.",
+      "While Langfuse offers a comprehensive open-source solution, Weave leverages the broader Weights & Biases platform for superior experiment tracking and seamless fine-tuning integration."
+    ],
+    "categories": [
+      {
+        "category_name": "Core Tracing & Logging",
+        "features": [
+          {
+            "item_name": "Full Request/Response Tracing",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Captures complete inputs, outputs, and metadata via Python/TypeScript SDKs."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Captures exact prompt, model response, tool calls, and metadata for every request."
+              }
+            ]
+          },
+          {
+            "item_name": "Nested Span & Tree View",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Hierarchical visualization with continuous scrolling support for unlimited log lines."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Hierarchical visualization of traces, sessions, and observations (spans & events)."
+              }
+            ]
+          },
+          {
+            "item_name": "Streaming Support",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "none",
+                "note": "Real-time streaming response visualization not explicitly detailed in documentation."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "medium",
+                "note": "Captures streaming responses asynchronously; partial real-time visualization supported."
+              }
+            ]
+          },
+          {
+            "item_name": "Multimodal Tracing",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Supports tracing and rendering of text, images, audio, and video inputs/outputs."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Explicitly listed feature for tracing multi-modal inputs/outputs."
+              }
+            ]
+          },
+          {
+            "item_name": "Auto-Instrumentation",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "One-line decorators (@weave.op) capture I/O; OTel integration available."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Native integrations for LangChain, LlamaIndex, and OpenAI (supports GPT-5.2)."
+              }
+            ]
+          },
+          {
+            "item_name": "Metadata & Tags Filtering",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Custom metadata logging and UI-based search/filtering."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Supports tags/metadata and natural language filtering queries."
+              }
+            ]
+          },
+          {
+            "item_name": "Token Counting & Estimation",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "medium",
+                "note": "Token usage tracked as metrics; detailed per-tokenizer counting methodology not explicit."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Tracks cost, token usage, and billable units detailed per trace."
+              }
+            ]
+          },
+          {
+            "item_name": "OpenTelemetry Standard",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Provides OpenTelemetry endpoint for recording traces."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Supports OpenTelemetry standards for trace data export/import."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category_name": "Agent & RAG Specifics",
+        "features": [
+          {
+            "item_name": "RAG Retrieval Visualizer",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Visualizes retrieved contexts and relevance scores in evaluation workflows."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "medium",
+                "note": "Captures retrieval steps as spans; lacks dedicated visualizer for relevance scores."
+              }
+            ]
+          },
+          {
+            "item_name": "Tool/Function Call Rendering",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Parses and renders tool/function call inputs and return values."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Captures tool calls with filters and supports usage analytics."
+              }
+            ]
+          },
+          {
+            "item_name": "Agent Execution Graph",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Visualizes agentic workflows via hierarchical trace trees with loop/branch support."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Visualizes agent workflows via dedicated Agent Graphs."
+              }
+            ]
+          },
+          {
+            "item_name": "Intermediate Step State",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Captures and displays intermediate reasoning steps (Chain-of-Thought)."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Captures intermediate steps as Spans or Events."
+              }
+            ]
+          },
+          {
+            "item_name": "Session/Thread Replay",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "medium",
+                "note": "Can view traces; full interactive session replay limited to dataset conversion."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Groups traces into sessions for complete multi-turn application analysis."
+              }
+            ]
+          },
+          {
+            "item_name": "Failed Step Highlighting",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Visual indication of failed steps/errors within traces via Trace Status."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "medium",
+                "note": "Visualizes errors via metrics and trace details; automatic highlighting layout less explicit."
+              }
+            ]
+          },
+          {
+            "item_name": "MCP Integration",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Traces Model Context Protocol client/server tool calls and resource access."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Explicit support for Model Context Protocol (MCP) tracing and MCP Server."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category_name": "Evaluation & Quality",
+        "features": [
+          {
+            "item_name": "LLM-as-a-Judge Wizard",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "GUI-based judge builder available without requiring code."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "medium",
+                "note": "Supports configurable LLM-as-a-Judge evaluators via UI, but less wizard-driven."
+              }
+            ]
+          },
+          {
+            "item_name": "Custom Eval Scorers",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "User-defined evaluation functions in Python."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Supports manual scores via UI and automated scores via API/SDK."
+              }
+            ]
+          },
+          {
+            "item_name": "Dataset Management & Curation",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Versioned dataset creation from traces or uploads."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Create datasets from traces (supports batch addition) with automatic item versioning."
+              }
+            ]
+          },
+          {
+            "item_name": "Prompt Optimization / DSPy Support",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "none",
+                "note": "No native automated prompt optimization or DSPy support mentioned."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "none",
+                "note": "Supports prompt experiments but no automated optimization (DSPy) explicit."
+              }
+            ]
+          },
+          {
+            "item_name": "Regression Testing",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Comparison of evaluation results across model/prompt versions."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Helps catch regressions using systematic baseline comparisons in experiment views."
+              }
+            ]
+          },
+          {
+            "item_name": "Comparison View (Side-by-side)",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Side-by-side comparison with resizable bar/radar charts."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Compare experiments side-by-side with baseline designation and advanced filtering."
+              }
+            ]
+          },
+          {
+            "item_name": "Annotation Queues",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "medium",
+                "note": "Human annotation available, but no built-in queue management for reviewer assignment."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Manage annotations with support for inline comments and queues."
+              }
+            ]
+          },
+          {
+            "item_name": "Online Evaluation",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Runs LLM judges on production traces with sampling and filtering."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Monitor live traces with automated evaluators."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category_name": "Guardrails & Safety",
+        "features": [
+          {
+            "item_name": "PII/Sensitive Data Masking",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Integrates Microsoft Presidio (Python SDK only) for automatic PII redaction and custom key masking."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Supported feature via SDK integration (e.g., LLM Guard)."
+              }
+            ]
+          },
+          {
+            "item_name": "Hallucination Detection",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Built-in capability to detect and mitigate hallucinations."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "none",
+                "note": "Relies on external libraries; does not provide native detector."
+              }
+            ]
+          },
+          {
+            "item_name": "Topic/Jailbreak Guardrails",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Blocks off-topic blocked content and toxicity."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "none",
+                "note": "Suggests using external libraries (LLM Guard, etc.) and tracing results."
+              }
+            ]
+          },
+          {
+            "item_name": "Policy Management as Code",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "medium",
+                "note": "Guardrails and redaction rules configured via code/SDK settings."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "none",
+                "note": "Not explicitly supported as a managed feature."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category_name": "Analytics & Dashboard",
+        "features": [
+          {
+            "item_name": "Cost Analysis & Attribution",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "medium",
+                "note": "Tracks usage attributes; full cost attribution details limited."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Tracks costs and billable units."
+              }
+            ]
+          },
+          {
+            "item_name": "Token Usage Analytics",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Visualizes input/output token counts and trends."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Detailed token usage statistics."
+              }
+            ]
+          },
+          {
+            "item_name": "Latency Heatmap & P99",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "medium",
+                "note": "Latency percentiles and distribution charts available; heatmap not confirmed."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "medium",
+                "note": "Track latency metrics; heatmap specifically not confirmed but distribution metrics available."
+              }
+            ]
+          },
+          {
+            "item_name": "Error Rate Monitoring",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Monitors and alerts on trace error rates."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Monitor error rates via platform metrics."
+              }
+            ]
+          },
+          {
+            "item_name": "Embedding Space Visualization",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "none",
+                "note": "Not explicitly detailed for Weave traces."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "none",
+                "note": "Not mentioned in documentation."
+              }
+            ]
+          },
+          {
+            "item_name": "Custom Metrics & Dashboard",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Supports user-defined metrics and dashboard widgets."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Create custom dashboards via UI; supports added tool usage widgets."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category_name": "Development Lifecycle",
+        "features": [
+          {
+            "item_name": "Prompt Management (CMS)",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Dedicated prompt creation, versioning, and management UI."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "CMS-like management with versioning; includes native MCP Server."
+              }
+            ]
+          },
+          {
+            "item_name": "Playground & Sandbox",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Interactive environment supporting new models (GPT 5.2, Grok 4.1)."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Interactive playground for prompt management."
+              }
+            ]
+          },
+          {
+            "item_name": "Experiment Tracking",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Integrated with W&B Experiments; supports viewing evaluations alongside RL training."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Track and compare experiments on versioned datasets."
+              }
+            ]
+          },
+          {
+            "item_name": "Fine-tuning Integration",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Data export and pipeline integration for fine-tuning jobs via W&B."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "none",
+                "note": "Not explicitly mentioned."
+              }
+            ]
+          },
+          {
+            "item_name": "Version Control & Rollback",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Versioning and rollback for prompts, models, and datasets."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Version control for prompts."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category_name": "Integration & DX",
+        "features": [
+          {
+            "item_name": "SDK Support (Py/JS/Go)",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "medium",
+                "note": "Official support for Python and TypeScript; Go not supported."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Official SDKs for Python, JS/TS, and Java (no Go)."
+              }
+            ]
+          },
+          {
+            "item_name": "Gateway/Proxy Mode",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "none",
+                "note": "Functionality is SDK-based; no proxy/gateway mode available."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "none",
+                "note": "Not mentioned as a standalone proxy service."
+              }
+            ]
+          },
+          {
+            "item_name": "Popular Frameworks",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Built-in support for LangChain and LlamaIndex."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Integrates with LangChain, LlamaIndex, etc."
+              }
+            ]
+          },
+          {
+            "item_name": "API & Webhooks",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "API available for accessing traces and artifacts."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Webhooks, Public API (v2), and CLI support available."
+              }
+            ]
+          },
+          {
+            "item_name": "CI/CD Integration",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Workflows triggered by artifact updates for CI/CD pipelines via W&B Automations."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "GitHub integration and SDK support for experiments in CI/CD."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category_name": "Enterprise & Infrastructure",
+        "features": [
+          {
+            "item_name": "Deployment Options",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Multi-tenant SaaS, Dedicated SaaS, and Self-Managed options."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Available as SaaS or Self-Hosted (Docker)."
+              }
+            ]
+          },
+          {
+            "item_name": "Open Source",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Core SDK and components are available on GitHub."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Core platform is open source."
+              }
+            ]
+          },
+          {
+            "item_name": "Data Sovereignty & Compliance",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "SOC 2 Type II, HIPAA, GDPR, and data residency selection."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Self-hosting ensures sovereignty; SOC 2/GDPR adherence mentioned."
+              }
+            ]
+          },
+          {
+            "item_name": "RBAC & SSO",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Role-based access control and SSO/SAML authentication."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Access Control (RBAC) and SSO explicitly listed."
+              }
+            ]
+          },
+          {
+            "item_name": "Audit Logs",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Tracks activity via API and storage bucket sync with configurable PII exclusion."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Explicitly listed under Security features."
+              }
+            ]
+          },
+          {
+            "item_name": "Data Warehouse Export",
+            "ratings": [
+              {
+                "product_name": "W&B Weave",
+                "rating": "strong",
+                "note": "Automated connectors for S3, BigQuery, logic."
+              },
+              {
+                "product_name": "Langfuse",
+                "rating": "strong",
+                "note": "Export to Blob Storage, PostHog, Mixpanel."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,565 @@
+{
+  "product_name": "W&B Weave",
+  "last_updated": "2026-02-27",
+  "categories": [
+    {
+      "category_name": "Core Tracing & Logging",
+      "features": [
+        {
+          "item_name": "Full Request/Response Tracing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Native Tracing",
+              "provision_method": "SDK decorator",
+              "notes": "Complete capture of LLM inputs, outputs, code, and parameters via Weave SDK."
+            }
+          ]
+        },
+        {
+          "item_name": "Nested Span & Tree View",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Trace Tree Display",
+              "provision_method": "Built-in UI",
+              "notes": "Hierarchical parent-child visualization with trace tree enhancements for workflow visibility."
+            }
+          ]
+        },
+        {
+          "item_name": "Streaming Support",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Stream Tracing",
+              "provision_method": "SDK capabilities",
+              "notes": "SDK supports tracing completions, though explicit UI rendering behaviors for live token streaming are basic."
+            }
+          ]
+        },
+        {
+          "item_name": "Multimodal Tracing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Multimodal Logging",
+              "provision_method": "SDK / UI",
+              "notes": "Native tracing and UI rendering of non-text inputs/outputs including images, audio, and video."
+            }
+          ]
+        },
+        {
+          "item_name": "Auto-Instrumentation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "@weave.op() Decorator",
+              "provision_method": "SDK (Python)",
+              "notes": "Single decorator for automatic trace collection of LLM library requests (OpenAI, Anthropic, etc.)."
+            }
+          ]
+        },
+        {
+          "item_name": "Metadata & Tags Filtering",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Custom Metadata Logging",
+              "provision_method": "SDK / UI Dashboard",
+              "notes": "Tracks custom attributes alongside traces, with robust platform-wide search and filtering abilities."
+            }
+          ]
+        },
+        {
+          "item_name": "Token Counting & Estimation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Token & Cost Tracking",
+              "provision_method": "Built-in Automatic Logging",
+              "notes": "Accurate per-tokenizer prompt/output token counting and integrated cost estimation."
+            }
+          ]
+        },
+        {
+          "item_name": "OpenTelemetry Standard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "OTel Trace Endpoint",
+              "provision_method": "Service API Endpoint",
+              "notes": "Provides an OpenTelemetry-compatible endpoint allowing ingestion of standard OTel traces."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Agent & RAG Specifics",
+      "features": [
+        {
+          "item_name": "RAG Retrieval Visualizer",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Tool/Function Call Rendering",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Function Call Trace Views",
+              "provision_method": "Built-in UI",
+              "notes": "Parsed structural display of requested tool/function call parameters and returned execution values."
+            }
+          ]
+        },
+        {
+          "item_name": "Agent Execution Graph",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Deep Trace Viewer",
+              "provision_method": "Built-in UI",
+              "notes": "Provides execution visibility through multi-step nested tree views, though lacks a dedicated visual node-based DAG view for agents."
+            }
+          ]
+        },
+        {
+          "item_name": "Intermediate Step State",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Intermediate Reasoning Capture",
+              "provision_method": "SDK / UI Trace Viewer",
+              "notes": "Records step-by-step logic and Chain-of-Thought states in agent operations."
+            }
+          ]
+        },
+        {
+          "item_name": "Session/Thread Replay",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Failed Step Highlighting",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Error Tracking Node",
+              "provision_method": "Dashboard UI",
+              "notes": "Renders exceptions within the trace execution tree."
+            }
+          ]
+        },
+        {
+          "item_name": "MCP Integration",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Model Context Protocol Support",
+              "provision_method": "SDK Integration",
+              "notes": "Explicit tracing for MCP client/server interfaces including tool calls, prompt generation, and resource access."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Evaluation & Quality",
+      "features": [
+        {
+          "item_name": "LLM-as-a-Judge Wizard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "LLM Judge Builder",
+              "provision_method": "Built-in UI",
+              "notes": "GUI-driven workflow (added Dec 2024) for rapidly configuring and deploying LLM evaluators."
+            }
+          ]
+        },
+        {
+          "item_name": "Custom Eval Scorers",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Code-based Scoring Functions",
+              "provision_method": "Python SDK",
+              "notes": "Allows completely custom imperative evaluation functions defined in code (TypeScript support expected soon)."
+            }
+          ]
+        },
+        {
+          "item_name": "Dataset Management & Curation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Weave Datasets",
+              "provision_method": "Built-in UI / SDK",
+              "notes": "High-performance versioned dataset storage, generation, and test-case payload mapping for evaluation workflows."
+            }
+          ]
+        },
+        {
+          "item_name": "Prompt Optimization / DSPy Support",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Regression Testing",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Automated Drift Monitoring",
+              "provision_method": "Platform Alerting",
+              "notes": "Monitors output regressions and model accuracy shifts during automated offline execution streams."
+            }
+          ]
+        },
+        {
+          "item_name": "Comparison View (Side-by-side)",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Experiment Grid Views",
+              "provision_method": "Dashboard UI",
+              "notes": "Side-by-side juxtaposition of LLM configurations, prompt versions, and their corresponding evaluation output distributions."
+            },
+            {
+              "name": "Trace Comparison Summaries",
+              "provision_method": "Dashboard UI",
+              "notes": "Summarized trace comparison view condensing aggregated tool usage, scores, call counts, tokens, and costs across multiple traces into single columns."
+            }
+          ]
+        },
+        {
+          "item_name": "Annotation Queues",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Human Feedback Forms",
+              "provision_method": "Built-in UI",
+              "notes": "Provides customizable human annotation rating interfaces, but lacks specific workforce queue management mapping or reviewer task assignment systems."
+            }
+          ]
+        },
+        {
+          "item_name": "Online Evaluation",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Online Evaluators",
+              "provision_method": "Platform Infrastructure",
+              "notes": "Runs scheduled offline inferences or background LLM judges simultaneously on subsets (random sampling/filtering) of real-time production traffic."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Guardrails & Safety",
+      "features": [
+        {
+          "item_name": "PII/Sensitive Data Masking",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Sensitive Data Protection",
+              "provision_method": "Python SDK Configuration",
+              "notes": "Local SDK-level redaction using Microsoft Presidio (`redact_pii=True`) to completely mask emails, credit cards, or specified internal variable keys before transmission."
+            }
+          ]
+        },
+        {
+          "item_name": "Hallucination Detection",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Pre-built Scorers",
+              "provision_method": "Built-in Evaluators",
+              "notes": "Plug-and-play LLM scorers directly optimized for hallucination mitigation and factuality checks."
+            }
+          ]
+        },
+        {
+          "item_name": "Topic/Jailbreak Guardrails",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Off-topic & Toxicity Blocks",
+              "provision_method": "Platform Guardrails",
+              "notes": "Configurable safety checks intercepting jailbreak attempts, toxic content, and off-topic outputs."
+            }
+          ]
+        },
+        {
+          "item_name": "Policy Management as Code",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Programmatic Guardrules",
+              "provision_method": "Code-based SDK implementation",
+              "notes": "Direct definition of guardrails enforcing safety bounds within application architecture dynamically."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Analytics & Dashboard",
+      "features": [
+        {
+          "item_name": "Cost Analysis & Attribution",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Unified Cost Center",
+              "provision_method": "Dashboard Reports",
+              "notes": "Cumulative usage tracking automatically converting mapped inputs to organizational cost impacts across runs."
+            }
+          ]
+        },
+        {
+          "item_name": "Token Usage Analytics",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Token Dashboards",
+              "provision_method": "Dashboard Widgets",
+              "notes": "Historical metric visualization differentiating request vs. response tokens, caches, and overhead usage dimensions."
+            }
+          ]
+        },
+        {
+          "item_name": "Latency Heatmap & P99",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Basic Performance Charts",
+              "provision_method": "Dashboard Reports",
+              "notes": "Systematically logs latency alongside basic trendlines; distinct percentile heatmap analysis (P90/P99) behavior is manual via platform plots."
+            },
+            {
+              "name": "Trace Analytics Overview",
+              "provision_method": "Dashboard UI",
+              "notes": "Project overview dashboard displays latency percentiles (P50/P95/P99), request counts, and token usage, with clickable time buckets linking straight to related traces."
+            }
+          ]
+        },
+        {
+          "item_name": "Error Rate Monitoring",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Real-Time Observability",
+              "provision_method": "Dashboard Alerts",
+              "notes": "Visual identification and aggregation of faulting inferences dynamically streaming from systems."
+            }
+          ]
+        },
+        {
+          "item_name": "Embedding Space Visualization",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Custom Metrics & Dashboard",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "W&B Custom Visualization",
+              "provision_method": "SDK / UI configuration",
+              "notes": "Rich workspace capability to emit isolated performance counters or score results to customizable reporting views."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Development Lifecycle",
+      "features": [
+        {
+          "item_name": "Prompt Management (CMS)",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Weave Prompts Repository",
+              "provision_method": "Platform / Dashboard / SDK",
+              "notes": "First-class abstraction for versioning user instructions programmably synced with a visual management section."
+            }
+          ]
+        },
+        {
+          "item_name": "Playground & Sandbox",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Evaluations & Prompt Playground",
+              "provision_method": "Built-in UI",
+              "notes": "Integrated dashboard environments allowing interactive real-time adjustment of context, systems, or parameters during prompt creation."
+            }
+          ]
+        },
+        {
+          "item_name": "Experiment Tracking",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "W&B Experiments",
+              "provision_method": "Platform Core Feature",
+              "notes": "Extensive heritage capability grouping configuration branches systematically for historical benchmarking against metric thresholds."
+            }
+          ]
+        },
+        {
+          "item_name": "Fine-tuning Integration",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "W&B Models Sync",
+              "provision_method": "Platform API Hooking",
+              "notes": "Enables fluid trace data pipelining outward to internal Weights and Biases LLM tuning capabilities orchestrating production model adjustments."
+            }
+          ]
+        },
+        {
+          "item_name": "Version Control & Rollback",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Artifact Registry",
+              "provision_method": "Platform Registry UI/SDK",
+              "notes": "Robust lineage management using specific alias tracking (`@latest`, `@v1`) capable of referencing earlier prompt/model deployment points."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Integration & DX",
+      "features": [
+        {
+          "item_name": "SDK Support (Py/JS/Go)",
+          "available": "partial",
+          "sub_features": [
+            {
+              "name": "Native Application Libraries",
+              "provision_method": "Python & TypeScript Package",
+              "notes": "Comprehensive official implementation in Python and current active expansion in TypeScript. Go is not currently offered."
+            }
+          ]
+        },
+        {
+          "item_name": "Gateway/Proxy Mode",
+          "available": "no",
+          "sub_features": []
+        },
+        {
+          "item_name": "Popular Frameworks",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Ecosystem Integrations",
+              "provision_method": "Internal SDK Bindings",
+              "notes": "Direct instrumentation hooking into typical framework stacks out of box (e.g., LangChain, LlamaIndex, OpenAI standard libraries)."
+            }
+          ]
+        },
+        {
+          "item_name": "API & Webhooks",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "W&B Service Interfacing",
+              "provision_method": "REST/GraphQL API",
+              "notes": "Enterprise programmable data transmission points interacting deeply with platform system operations and external workflows."
+            }
+          ]
+        },
+        {
+          "item_name": "CI/CD Integration",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Automated Workflows",
+              "provision_method": "Platform Hooks / GitHub Action bindings",
+              "notes": "Can execute evaluations and gate conditions inside delivery paths via Registry-triggered updates or actions."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_name": "Enterprise & Infrastructure",
+      "features": [
+        {
+          "item_name": "Deployment Options",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "W&B Hosting Variants",
+              "provision_method": "Multi-tenant / Dedicated / VPC / On-Prem",
+              "notes": "Highly adaptable infrastructure footprint encompassing generic Multi-tenant cloud, managed sole instance Dedicated clusters (AWS/GCP/Azure), and Self-managed deployments."
+            }
+          ]
+        },
+        {
+          "item_name": "Open Source",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Weave Github Repo",
+              "provision_method": "Public Source Repository",
+              "notes": "Mainline Weave tracking libraries remain comprehensively open-source with extensive community backing."
+            }
+          ]
+        },
+        {
+          "item_name": "Data Sovereignty & Compliance",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Enterprise Security Program",
+              "provision_method": "Platform Assurance Certifications",
+              "notes": "Confirmed validation paths covering SOC 2 Type II, structured GDPR Data Processing, and rigid HIPAA 6-year retention guidelines via regional isolation controls."
+            }
+          ]
+        },
+        {
+          "item_name": "RBAC & SSO",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "W&B Identity Management",
+              "provision_method": "Platform Settings UI",
+              "notes": "Rich capability supporting hierarchical domain partitioning (Org/Team/Projs) via Custom or standard Admin/Member roles synchronized deeply using standard SSO/SAML brokers (Auth0)."
+            }
+          ]
+        },
+        {
+          "item_name": "Audit Logs",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "System Audit Schema",
+              "provision_method": "REST API / S3 Data Sync",
+              "notes": "Inflexible recording mechanisms exposing IP, actor, actions, reporting digests natively or through automated BYOB bucketing (with PII obfuscation tools)."
+            }
+          ]
+        },
+        {
+          "item_name": "Data Warehouse Export",
+          "available": "yes",
+          "sub_features": [
+            {
+              "name": "Secure Storage Linkages",
+              "provision_method": "Storage Connectors",
+              "notes": "Customer storage configurations capable of mirroring system exports safely outward toward Pandas, Snowflake, BigQuery, or Amazon Redshift."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
